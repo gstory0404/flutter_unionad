@@ -90,6 +90,8 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
             @MainThread
             override fun onTimeout() {
                 Log.e(TAG, "开屏广告加载超时")
+                var map = mutableMapOf("adType" to "aplashAd","aplashType" to "onAplashTimeout")
+                FlutterUnionadEventPlugin.sendContent(map)
             }
 
             @MainThread
@@ -117,20 +119,26 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
                 ad.setSplashInteractionListener(object : TTSplashAd.AdInteractionListener {
                     override fun onAdClicked(view: View, type: Int) {
                         Log.e(TAG, "onAdClicked开屏广告点击")
+                        var map = mutableMapOf("adType" to "aplashAd","aplashType" to "onAplashClick")
+                        FlutterUnionadEventPlugin.sendContent(map)
                     }
 
                     override fun onAdShow(view: View, type: Int) {
                         Log.e(TAG, "onAdShow开屏广告展示")
+                        var map = mutableMapOf("adType" to "aplashAd","aplashType" to "onAplashShow")
+                        FlutterUnionadEventPlugin.sendContent(map)
                     }
 
                     override fun onAdSkip() {
                         Log.e(TAG, "onAdSkip开屏广告跳过")
-                        var map = mutableMapOf("type" to "onAdSkip开屏广告跳过")
+                        var map = mutableMapOf("adType" to "aplashAd","aplashType" to "onAplashSkip")
                         FlutterUnionadEventPlugin.sendContent(map)
                     }
 
                     override fun onAdTimeOver() {
                         Log.e(TAG, "onAdTimeOver开屏广告倒计时结束")
+                        var map = mutableMapOf("adType" to "aplashAd","aplashType" to "onAplashFinish")
+                        FlutterUnionadEventPlugin.sendContent(map)
                     }
                 })
                 if (ad.interactionType == TTAdConstant.INTERACTION_TYPE_DOWNLOAD) {

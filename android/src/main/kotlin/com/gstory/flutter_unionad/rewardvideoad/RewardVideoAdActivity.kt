@@ -6,6 +6,7 @@ import androidx.annotation.Nullable
 import com.bytedance.sdk.openadsdk.*
 import com.bytedance.sdk.openadsdk.TTAdNative.RewardVideoAdListener
 import com.bytedance.sdk.openadsdk.TTRewardVideoAd.RewardAdInteractionListener
+import com.gstory.flutter_unionad.FlutterUnionadEventPlugin
 import com.gstory.flutter_unionad.R
 import com.gstory.flutter_unionad.TTAdManagerHolder
 import com.gstory.flutter_unionad.UIUtils
@@ -45,7 +46,7 @@ class RewardVideoAdActivity : FlutterActivity() {
         expressViewWidth = intent.getFloatExtra("expressViewWidth", 1080f)
         expressViewHeight = intent.getFloatExtra("expressViewHeight", 1920f)
         rewardName = intent.getStringExtra("rewardName")
-        rewardAmount = intent.getIntExtra("rewardAmount",0)
+        rewardAmount = intent.getIntExtra("rewardAmount", 0)
         userID = intent.getStringExtra("userID")
         orientation = intent.getIntExtra("orientation", 1)
         mediaExtra = intent.getStringExtra("mediaExtra")
@@ -55,7 +56,7 @@ class RewardVideoAdActivity : FlutterActivity() {
     }
 
     private fun loadRewardVideoAd() {
-        Log.e(TAG,"mIsExpress $mIsExpress " +
+        Log.e(TAG, "mIsExpress $mIsExpress " +
                 "\nmCodeId $mCodeId " +
                 "\nsupportDeepLink $supportDeepLink " +
                 "\nexpressViewWidth $expressViewWidth " +
@@ -71,7 +72,7 @@ class RewardVideoAdActivity : FlutterActivity() {
                     .setCodeId(mCodeId)
                     .setSupportDeepLink(supportDeepLink!!)
                     .setAdCount(1) //个性化模板广告需要设置期望个性化模板广告的大小,单位dp,激励视频场景，只要设置的值大于0即可
-                    .setExpressViewAcceptedSize(UIUtils.px2dip(this,expressViewWidth!!), UIUtils.px2dip(this,expressViewHeight!!))
+                    .setExpressViewAcceptedSize(UIUtils.px2dip(this, expressViewWidth!!), UIUtils.px2dip(this, expressViewHeight!!))
                     .setImageAcceptedSize(1080, 1920)
                     .setRewardName(rewardName) //奖励的名称
                     .setRewardAmount(rewardAmount!!) //奖励的数量
@@ -140,6 +141,8 @@ class RewardVideoAdActivity : FlutterActivity() {
 
                     override fun onRewardVerify(rewardVerify: Boolean, rewardAmount: Int, rewardName: String) {
                         Log.e(TAG, "verify: $rewardVerify amount:$rewardAmount name:$rewardName")
+                        var map = mutableMapOf("adType" to "rewardAd", "rewardVerify" to rewardVerify, "rewardAmount" to rewardAmount, "rewardName" to rewardName)
+                        FlutterUnionadEventPlugin.sendContent(map)
                     }
 
                     override fun onSkippedVideo() {

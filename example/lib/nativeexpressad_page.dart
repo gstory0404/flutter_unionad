@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_unionad/flutter_unionad.dart';
+import 'package:flutter_unionad/flutter_unionad.dart'as FlutterUnionad;
 
 /// 描述：个性化模板信息流广告
 /// @author guozi

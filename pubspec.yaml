@@ -1,8 +1,8 @@
 name: flutter_unionad
 description: A new flutter plugin project.
 version: 0.0.1
-author:
-homepage:
+author: guozi <gstory0404@gmail.com>
+homepage: https://github.com/gstory0404/flutter_unionad
 
 environment:
   sdk: ">=2.7.0 <3.0.0"

@@ -1,6 +1,7 @@
 package com.gstory.flutter_unionad
 
 import com.gstory.flutter_unionad.bannerexpressad.BannerExpressAdViewFactory
+import com.gstory.flutter_unionad.drawfeedexpressad.DrawFeedExpressAdViewFactory
 import com.gstory.flutter_unionad.interactionexpressad.InteractionExpressAdView
 import com.gstory.flutter_unionad.interactionexpressad.InteractionExpressAdViewFactory
 import com.gstory.flutter_unionad.nativeexpressad.NativeExpressAdFactory
@@ -29,5 +30,7 @@ object FlutterUnionadViewPlugin {
         platformViewRegistry.registerViewFactory("com.gstory.flutter_unionad/NativeExpressAdView", NativeExpressAdFactory(registrar.messenger(),registrar.activity()))
         //注册个性化模板插屏广告
         platformViewRegistry.registerViewFactory("com.gstory.flutter_unionad/InteractionExpressAdView", InteractionExpressAdViewFactory(registrar.messenger(),registrar.activity()))
+        //注册个性化模板draw视频广告
+        platformViewRegistry.registerViewFactory("com.gstory.flutter_unionad/DrawFeedExpressAdView", DrawFeedExpressAdViewFactory(registrar.messenger(),registrar.activity()))
     }
 }

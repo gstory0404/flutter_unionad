@@ -1,5 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_unionad/flutter_unionad.dart';
+import 'package:flutter_unionad/flutter_unionad.dart' as FlutterUnionad;
 
 /// 描述：开屏广告页
 /// @author guozi
@@ -12,13 +14,34 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  StreamSubscription _adViewStream;
+
   @override
   void initState() {
     super.initState();
     // 这里的 data 就是原生端发送过来的数据
-    FlutterUnionad.splashAdViewChannel.receiveBroadcastStream().listen((data) {
-      print("触发回调  $data");
-      Navigator.pop(context);
+    _adViewStream = FlutterUnionad.splashAdViewChannel
+        .receiveBroadcastStream()
+        .listen((data) {
+      if (data[FlutterUnionad.adType] == FlutterUnionad.aplashAd) {
+        if (data[FlutterUnionad.aplashType] == FlutterUnionad.onAplashTimeout) {
+          print("开屏广告超时  ${FlutterUnionad.onAplashTimeout}");
+        } else if (data[FlutterUnionad.aplashType] ==
+            FlutterUnionad.onAplashShow) {
+          print("开屏广告显示  ${FlutterUnionad.onAplashShow}");
+        } else if (data[FlutterUnionad.aplashType] ==
+            FlutterUnionad.onAplashClick) {
+          print("开屏广告点击  ${FlutterUnionad.onAplashClick}");
+        } else if (data[FlutterUnionad.aplashType] ==
+            FlutterUnionad.onAplashSkip) {
+          print("开屏广告跳过  ${FlutterUnionad.onAplashSkip}");
+          Navigator.pop(context);
+        } else if (data[FlutterUnionad.aplashType] ==
+            FlutterUnionad.onAplashFinish) {
+          print("开屏广告结束  ${FlutterUnionad.onAplashFinish}");
+          Navigator.pop(context);
+        }
+      }
     });
   }
 
@@ -41,14 +64,22 @@ class _SplashPageState extends State<SplashPage> {
             child: Container(
               alignment: Alignment.center,
               color: Colors.blue,
-              child: Text("FlutterUnionad example app",style: TextStyle(
-                fontSize: 18,
-                color: Colors.white
-              ),),
+              child: Text(
+                "FlutterUnionad example app",
+                style: TextStyle(fontSize: 18, color: Colors.white),
+              ),
             ),
           )
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    if (_adViewStream != null) {
+      _adViewStream.cancel();
+    }
   }
 }

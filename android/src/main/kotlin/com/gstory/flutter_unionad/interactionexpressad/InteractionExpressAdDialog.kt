@@ -170,10 +170,12 @@ class InteractionExpressAdDialog : Dialog {
                 Log.e(TAG, "点击 $value")
                 //用户选择不喜欢原因后，移除广告展示
                 mExpressContainer!!.removeAllViews()
+                dismiss()
             }
 
             override fun onCancel() {
                 Log.e(TAG, "点击取消")
+                dismiss()
             }
 
             override fun onRefuse() {
@@ -182,4 +184,10 @@ class InteractionExpressAdDialog : Dialog {
         })
     }
 
+    override fun onStop() {
+        super.onStop()
+        if(mTTAd != null){
+            mTTAd!!.destroy()
+        }
+    }
 }
