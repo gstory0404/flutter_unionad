@@ -7,8 +7,12 @@ import android.text.TextUtils
 import android.util.Log
 import androidx.annotation.NonNull
 import com.gstory.flutter_unionad.interactionexpressad.InteractionExpressAdDialog
+import com.gstory.flutter_unionad.nativeexpressad.NativeExpressAdFactory
 import com.gstory.flutter_unionad.rewardvideoad.RewardVideoAdActivity
+import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.plugins.FlutterPlugin
+import io.flutter.embedding.engine.plugins.activity.ActivityAware
+import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -18,30 +22,50 @@ import io.flutter.plugin.common.PluginRegistry.Registrar
 
 
 /** FlutterUnionadPlugin */
-public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler {
+public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
 
     private lateinit var channel: MethodChannel
     private var applicationContext: Context? = null
+    private var mActivity: Activity? = null
+    private var mFlutterPluginBinding: FlutterPlugin.FlutterPluginBinding?  = null
 
+    override fun onAttachedToActivity(binding: ActivityPluginBinding) {
+        mActivity = binding.activity
+        Log.e("FlutterUnionadPlugin->","onAttachedToActivity")
+        FlutterUnionadViewPlugin.registerWith(mFlutterPluginBinding!!,mActivity!!)
+    }
+
+    override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
+        mActivity = binding.activity
+        Log.e("FlutterUnionadPlugin->","onReattachedToActivityForConfigChanges")
+    }
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+        Log.e("FlutterUnionadPlugin->","onAttachedToEngine")
         channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), channelName)
-        channel.setMethodCallHandler(this);
+        channel.setMethodCallHandler(this)
         applicationContext = flutterPluginBinding.applicationContext
+        mFlutterPluginBinding = flutterPluginBinding
+//        FlutterUnionadViewPlugin.registerWith(flutterPluginBinding,mActivity!!)
     }
+
+    override fun onDetachedFromActivityForConfigChanges() {
+        mActivity = null
+        Log.e("FlutterUnionadPlugin->","onDetachedFromActivityForConfigChanges")
+    }
+
+    override fun onDetachedFromActivity() {
+        mActivity = null
+        Log.e("FlutterUnionadPlugin->","onDetachedFromActivity")
+    }
+
 
     companion object {
         private var channelName = "flutter_unionad"
-        private var mActivity :Activity? = null
-
         @JvmStatic
         fun registerWith(registrar: Registrar) {
             val channel = MethodChannel(registrar.messenger(), channelName)
             channel.setMethodCallHandler(FlutterUnionadPlugin())
-        }
-
-        fun setAcitivyt(activity :Activity){
-            mActivity = activity
         }
     }
 
@@ -135,7 +159,7 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler {
             val supportDeepLink = call.argument<Boolean>("supportDeepLink")
             var expressViewWidth = call.argument<Double>("expressViewWidth")
             var expressViewHeight = call.argument<Double>("expressViewHeight")
-            var dialog = InteractionExpressAdDialog(mActivity!!,R.style.FlutterUnionadDialog, mActivity!!,mCodeId, supportDeepLink, expressViewWidth!!, expressViewHeight!!)
+            var dialog = InteractionExpressAdDialog(mActivity!!, R.style.FlutterUnionadDialog, mActivity!!, mCodeId, supportDeepLink, expressViewWidth!!, expressViewHeight!!)
             if (dialog.isShowing) {
                 result.error("0", "插屏广告正在显示", null)
                 return

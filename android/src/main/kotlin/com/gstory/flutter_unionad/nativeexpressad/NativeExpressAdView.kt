@@ -40,7 +40,7 @@ class NativeExpressAdView(var context: Context,var activity: Activity, var messe
         var hight = params["expressViewHeight"] as Double
         expressViewWidth = width.toFloat()
         expressViewHeight = hight.toFloat()
-        mExpressContainer = FrameLayout(activity)
+        mExpressContainer = FrameLayout(context)
         val mTTAdManager = TTAdManagerHolder.get()
         mTTAdNative = mTTAdManager.createAdNative(context.applicationContext)
         loadNativeExpressAd()
