@@ -46,6 +46,7 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
         channel.setMethodCallHandler(this)
         applicationContext = flutterPluginBinding.applicationContext
         mFlutterPluginBinding = flutterPluginBinding
+        FlutterUnionadEventPlugin().onAttachedToEngine(flutterPluginBinding)
 //        FlutterUnionadViewPlugin.registerWith(flutterPluginBinding,mActivity!!)
     }
 
