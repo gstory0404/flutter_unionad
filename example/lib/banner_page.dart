@@ -31,6 +31,7 @@ class _BannerPageState extends State<BannerPage> {
             //banner广告
             Container(
               height: 200,
+              color: Colors.red,
               child: FlutterUnionad.bannerAdView(
                 mCodeId: "945410197",
                 supportDeepLink: true,
@@ -42,6 +43,7 @@ class _BannerPageState extends State<BannerPage> {
             ),
             Container(
               height: 200,
+              color: Colors.yellow,
               child: FlutterUnionad.bannerAdView(
                 mCodeId: "945410197",
                 supportDeepLink: true,
@@ -53,6 +55,7 @@ class _BannerPageState extends State<BannerPage> {
             ),
             Container(
               height: 200,
+              color: Colors.green,
               child: FlutterUnionad.bannerAdView(
                 mCodeId: "945410197",
                 supportDeepLink: true,

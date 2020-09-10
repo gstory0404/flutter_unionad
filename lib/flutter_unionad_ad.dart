@@ -10,8 +10,8 @@ import 'package:flutter_unionad/flutter_unionad_code.dart';
 /// @time   2020/3/11
 
 const MethodChannel _channel = const MethodChannel('flutter_unionad');
-const EventChannel splashAdViewChannel =
-    EventChannel("com.gstory.flutter_unionad/adsplashviewevent");
+const EventChannel adeventEvent =
+    EventChannel("com.gstory.flutter_unionad/adevent");
 
 ///sdk注册初始化
 Future<bool> register({
@@ -76,6 +76,19 @@ Widget bannerAdView(
       },
       creationParamsCodec: const StandardMessageCodec(),
     );
+  } else if (Platform.isIOS) {
+    return UiKitView(
+      viewType: "com.gstory.flutter_unionad/BannerExpressAdView",
+      creationParams: {
+        "mCodeId": mCodeId,
+        "supportDeepLink": supportDeepLink,
+        "expressViewWidth": expressViewWidth,
+        "expressViewHeight": expressViewHeight,
+        "expressAdNum": expressAdNum,
+        "expressTime": expressTime
+      },
+      creationParamsCodec: const StandardMessageCodec(),
+    );
   }
   return Container();
 }
@@ -125,7 +138,7 @@ Widget nativeExpressAdView(
 }
 
 ///个性化模板插屏广告
-Future<bool> interactionExpressAdView2({
+Future<bool> interactionExpressAd({
   @required String mCodeId,
   @required bool supportDeepLink,
   @required double expressViewWidth,
@@ -187,13 +200,13 @@ Future<bool> loadRewardVideoAd({
   });
 }
 
-
 ///draw视频广告
-Widget drawFeedExpressAdView(
-    {String mCodeId,
-      bool supportDeepLink,
-      double expressViewWidth,
-      double expressViewHeight,}) {
+Widget drawFeedExpressAdView({
+  String mCodeId,
+  bool supportDeepLink,
+  double expressViewWidth,
+  double expressViewHeight,
+}) {
   if (Platform.isAndroid) {
     return AndroidView(
       viewType: 'com.gstory.flutter_unionad/DrawFeedExpressAdView',

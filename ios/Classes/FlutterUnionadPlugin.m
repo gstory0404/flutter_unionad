@@ -13,3 +13,4 @@
   [SwiftFlutterUnionadPlugin registerWithRegistrar:registrar];
 }
 @end
+

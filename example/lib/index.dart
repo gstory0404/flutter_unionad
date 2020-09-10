@@ -27,15 +27,15 @@ class _IndexPageState extends State<IndexPage> {
     super.initState();
     _initRegister();
     // 这里的 data 就是原生端发送过来的数据
-    _adViewStream = FlutterUnionad.splashAdViewChannel
-        .receiveBroadcastStream()
-        .listen((data) {
-      if (data[FlutterUnionad.adType] == FlutterUnionad.rewardAd) {
-        print("激励广告结果----->  rewardVerify=${data[FlutterUnionad.rewardVerify]} "
-            "rewardName=${data[FlutterUnionad.rewardName]} "
-            "rewardAmount=${data[FlutterUnionad.rewardAmount]} ");
-      }
-    });
+   _adViewStream = FlutterUnionad.adeventEvent
+       .receiveBroadcastStream()
+       .listen((data) {
+     if (data[FlutterUnionad.adType] == FlutterUnionad.rewardAd) {
+       print("激励广告结果----->  rewardVerify=${data[FlutterUnionad.rewardVerify]} "
+           "rewardName=${data[FlutterUnionad.rewardName]} "
+           "rewardAmount=${data[FlutterUnionad.rewardAmount]} ");
+     }
+   });
   }
 
   void _initRegister() async {
@@ -145,20 +145,12 @@ class _IndexPageState extends State<IndexPage> {
               textColor: Colors.white,
               child: new Text('插屏广告'),
               onPressed: () async {
-                await FlutterUnionad.interactionExpressAdView2(
+                await FlutterUnionad.interactionExpressAd(
                   mCodeId: "945417892",
                   supportDeepLink: true,
                   expressViewWidth: 800,
                   expressViewHeight: 1200,
                 );
-//                //显示插屏广告
-//                showDialog(
-//                  context: context,
-//                  barrierDismissible: true,
-//                  builder: (context) {
-//                    return InterScreenDialog();
-//                  },
-//                );
               },
             ),
             //激励视频

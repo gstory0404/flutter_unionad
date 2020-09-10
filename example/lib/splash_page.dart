@@ -20,7 +20,7 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
     // 这里的 data 就是原生端发送过来的数据
-    _adViewStream = FlutterUnionad.splashAdViewChannel
+    _adViewStream = FlutterUnionad.adeventEvent
         .receiveBroadcastStream()
         .listen((data) {
       if (data[FlutterUnionad.adType] == FlutterUnionad.aplashAd) {
