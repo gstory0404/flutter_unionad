@@ -40,7 +40,8 @@ class _IndexPageState extends State<IndexPage> {
 
   void _initRegister() async {
     _init = await FlutterUnionad.register(
-        appId: "5098580",
+        androidAppId: "5098580",
+        iosAppId:  "5098580",
         useTextureView: true,
         appName: "unionad_test",
         allowShowNotify: true,

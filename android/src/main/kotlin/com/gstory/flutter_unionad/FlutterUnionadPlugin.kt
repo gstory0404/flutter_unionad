@@ -73,7 +73,7 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         //注册初始化
         if (call.method == "register") {
-            val appId = call.argument<String>("appId")
+            val appId = call.argument<String>("androidAppId")
             var useTextureView = call.argument<Boolean>("useTextureView")
             val appName = call.argument<String>("appName")
             var allowShowNotify = call.argument<Boolean>("allowShowNotify")

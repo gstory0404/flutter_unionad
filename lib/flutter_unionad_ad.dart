@@ -15,7 +15,8 @@ const EventChannel adeventEvent =
 
 ///sdk注册初始化
 Future<bool> register({
-  @required String appId,
+  @required String iosAppId,
+  @required String androidAppId,
   @required bool useTextureView,
   @required String appName,
   @required bool allowShowNotify,
@@ -25,7 +26,8 @@ Future<bool> register({
   List<int> directDownloadNetworkType,
 }) async {
   return await _channel.invokeMethod("register", {
-    "appId": appId,
+    "iosAppId": iosAppId,
+    "androidAppId": androidAppId,
     "useTextureView": useTextureView,
     "appName": appName,
     "allowShowNotify": allowShowNotify,
