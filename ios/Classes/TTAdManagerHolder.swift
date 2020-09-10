@@ -18,7 +18,7 @@ public class TTAdManagerHolder : NSObject, BURewardedVideoAdDelegate{
     private var rewardModel :BURewardedVideoModel?
     
     public func initTTSDK(params : NSDictionary){
-        let appId = params.value(forKey: "androidAppId") as? String
+        let appId = params.value(forKey: "iosAppId") as? String
         if(appId != nil){
            BUAdSDKManager.setAppID(appId)
         }
