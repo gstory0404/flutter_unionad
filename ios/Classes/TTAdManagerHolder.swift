@@ -30,7 +30,6 @@ public class TTAdManagerHolder : NSObject, BURewardedVideoAdDelegate{
             let rewardName = params.value(forKey: "rewardName") as? String
             let rewardAmount = params.value(forKey: "rewardAmount") as? Int
             let mediaExtra = params.value(forKey: "mediaExtra") as? String
-        print(params.value(forKey: "expressAdNum"))
             self.rewardModel = BURewardedVideoModel()
             self.rewardModel!.userId = userID
             if rewardName != nil {
@@ -75,6 +74,7 @@ extension TTAdManagerHolder: BUNativeExpressRewardedVideoAdDelegate {
     public func nativeExpressRewardedVideoAd(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd, didFailWithError error: Error?) {
 //            self.bURewardedVideoAd.didReceiveFail?(error)
         print("激励广告加载失败")
+        print(error)
         }
         
     public func nativeExpressRewardedVideoAdDidClickSkip(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
@@ -84,7 +84,7 @@ extension TTAdManagerHolder: BUNativeExpressRewardedVideoAdDelegate {
         
     public func nativeExpressRewardedVideoAdServerRewardDidFail(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
 //            self.bURewardedVideoAd.didReceiveFail?(NSError(domain: "verify_failed", code: -1, userInfo: nil))
-        print("激励广告失败")
+        print("激励广告失败",rewardedVideoAd)
         }
         
     public func nativeExpressRewardedVideoAdServerRewardDidSucceed(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd, verify: Bool) {
