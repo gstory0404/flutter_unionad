@@ -44,9 +44,6 @@ public class TTAdManagerHolder : NSObject, BURewardedVideoAdDelegate{
             self.bURewardedVideoAd = BUNativeExpressRewardedVideoAd(slotID: mCodeId!, rewardedVideoModel: self.rewardModel!)
             self.bURewardedVideoAd!.delegate = self
             self.bURewardedVideoAd!.loadData()
-        print(rewardAmount)
-        print(self.rewardModel!.rewardAmount)
-            print("激励广告开始----》")
         }
         
         private func getVC() -> UIViewController {
@@ -61,39 +58,33 @@ public class TTAdManagerHolder : NSObject, BURewardedVideoAdDelegate{
 extension TTAdManagerHolder: BUNativeExpressRewardedVideoAdDelegate {
     public func nativeExpressRewardedVideoAdDidLoad(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
          self.bURewardedVideoAd!.show(fromRootViewController: self.getVC())
-         print("激励广告加载成功")
+         LogUtil.logInstance.printLog(message: "激励广告加载成功")
         }
         
     public func nativeExpressRewardedVideoAdDidClose(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
-    //        self.success?(rewardedVideoAd, false)
-//            self.bURewardedVideoAd.didReceiveSuccess?(true)
-//            self.success?(rewardedVideoAd, self.verify)
-        print("激励广告关闭")
+        LogUtil.logInstance.printLog(message: "激励广告关闭")
         }
         
     public func nativeExpressRewardedVideoAd(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd, didFailWithError error: Error?) {
-//            self.bURewardedVideoAd.didReceiveFail?(error)
-        print("激励广告加载失败")
-        print(error)
+        LogUtil.logInstance.printLog(message: "激励广告加载失败")
+        LogUtil.logInstance.printLog(message: error)
         }
         
     public func nativeExpressRewardedVideoAdDidClickSkip(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
-//            self.bURewardedVideoAd.didReceiveFail?(NSError(domain: "skipped", code: -1, userInfo: nil))
-        print("激励广告跳过")
+        LogUtil.logInstance.printLog(message: "激励广告跳过")
         }
         
     public func nativeExpressRewardedVideoAdServerRewardDidFail(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
-//            self.bURewardedVideoAd.didReceiveFail?(NSError(domain: "verify_failed", code: -1, userInfo: nil))
-        print("激励广告失败",rewardedVideoAd)
+        LogUtil.logInstance.printLog(message: "激励广告失败")
         }
         
     public func nativeExpressRewardedVideoAdServerRewardDidSucceed(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd, verify: Bool) {
             /// handle in close
-        print("激励广告观看成功")
+        LogUtil.logInstance.printLog(message: "激励广告观看成功")
         }
         
     public func nativeExpressRewardedVideoAdDidPlayFinish(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd, didFailWithError error: Error?) {
-        print("激励广告完成")
+        LogUtil.logInstance.printLog(message: "激励广告完成")
         let map : NSDictionary = ["adType":"rewardAd",
                                   "rewardVerify":true,
                                   "rewardAmount":self.rewardModel!.rewardAmount,

@@ -98,7 +98,7 @@ class _IndexPageState extends State<IndexPage> {
                 await FlutterUnionad.requestPermissionIfNecessary();
               },
             ),
-            //开屏广告
+            //banner广告
             MaterialButton(
               color: Colors.blue,
               textColor: Colors.white,
@@ -164,8 +164,6 @@ class _IndexPageState extends State<IndexPage> {
                     mIsExpress: true,
                     mCodeId: "945418088",
                     supportDeepLink: true,
-//                    expressViewWidth: 1080,
-//                    expressViewHeight: 1920,
                     rewardName: "100金币",
                     rewardAmount: 100,
                     userID: "123",

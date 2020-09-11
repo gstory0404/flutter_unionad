@@ -21,11 +21,12 @@ public class SwiftFlutterUnionadPlugin: NSObject, FlutterPlugin {
     //注册初始化
     case "register":
         let param = call.arguments as! NSDictionary
+        LogUtil.logInstance.isShow(debug: param.value(forKey: "debug") as? Bool ?? false)
         TTAdManagerHolder.instace.initTTSDK(params: param)
         result(true)
     //获取sdk版本号
     case "getSDKVersion":
-        result("1.0.0")
+        result(BUAdSDKManager.sdkVersion)
         //加载激励广告
     case "loadRewardVideoAd":
         let param = call.arguments as! NSDictionary

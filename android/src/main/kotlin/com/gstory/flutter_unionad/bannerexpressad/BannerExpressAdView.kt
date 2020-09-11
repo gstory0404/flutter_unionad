@@ -76,7 +76,6 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
                 mTTAd = ads[0]
                 if(null != expressTime && expressTime > 30){
                     //轮播间隔
-                    Log.e(TAG,"轮播间隔$expressTime 秒")
                     mTTAd!!.setSlideIntervalTime(expressTime * 1000)
                 }
                 bindAdListener(mTTAd!!)

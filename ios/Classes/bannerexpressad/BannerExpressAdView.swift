@@ -23,15 +23,13 @@ public class BannerExpressAdView : NSObject,FlutterPlatformView{
     init(_ frame : CGRect,binaryMessenger: FlutterBinaryMessenger , id : Int64, params :Any?) {
         self.frame = frame
         self.container = UIView(frame: frame)
-//        if(params is NSDictionary){
-            let dict = params as! NSDictionary
-            self.mCodeId = dict.value(forKey: "mCodeId") as? String
-            self.supportDeepLink = dict.value(forKey: "supportDeepLink") as? Bool
-            self.expressViewWidth = dict.value(forKey: "expressViewWidth") as? Float
-            self.expressViewHeight = dict.value(forKey: "expressViewHeight") as? Float
-            self.expressAdNum = dict.value(forKey: "expressAdNum") as? Int64
-            self.expressTime = dict.value(forKey: "expressTime") as? Int64
-//        }
+        let dict = params as! NSDictionary
+        self.mCodeId = dict.value(forKey: "mCodeId") as? String
+        self.supportDeepLink = dict.value(forKey: "supportDeepLink") as? Bool
+        self.expressViewWidth = dict.value(forKey: "expressViewWidth") as? Float
+        self.expressViewHeight = dict.value(forKey: "expressViewHeight") as? Float
+        self.expressAdNum = dict.value(forKey: "expressAdNum") as? Int64
+        self.expressTime = dict.value(forKey: "expressTime") as? Int64
         super.init()
         self.loadBannerExpressAd()
     }
@@ -43,11 +41,9 @@ public class BannerExpressAdView : NSObject,FlutterPlatformView{
            var params = [String: Any?]()
            params["width"] = width
            params["height"] = height
-//           self.methodChannel.invokeMethod("update", arguments: params)
        }
     
     private func loadBannerExpressAd(){
-        print("到这里了")
         self.removeAllView()
 //        let viewWidth = self.expressViewWidth ?? 0
 //        let viewHeigh = self.expressViewHeight ?? 0
@@ -62,7 +58,7 @@ public class BannerExpressAdView : NSObject,FlutterPlatformView{
         
         bannerAdView.delegate = self
         bannerAdView.loadAdData()
-//        print("初始化view。" + self.mCodeId)
+        LogUtil.logInstance.printLog(message: "开始初始化")
     }
     
     private func removeAllView(){
