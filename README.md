@@ -17,6 +17,10 @@
 ```Dart
 flutter_unionad: ^0.0.3
 ```
+引用插件
+```Dart
+import 'package:flutter_unionad/flutter_unionad.dart' as FlutterUnionad;
+```
 #### 2、Android
 aar文件已集成进插件中无需额外配置，只需要在android目录中AndroidManifest.xml配置
 ```Java
