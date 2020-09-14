@@ -1,7 +1,7 @@
 # 穿山甲广告 flutter版本
 
 <p>
-<a href="https://github.com/tongyangsheng/flutter_reader"><img src=https://img.shields.io/badge/flutter_unionad-v0.0.1-success></a>
+<a href="https://github.com/tongyangsheng/flutter_reader"><img src=https://img.shields.io/badge/flutter_unionad-v0.0.3-success></a>
 </p>
 
 ![image](https://github.com/gstory0404/flutter_unionad/blob/master/image/demo.gif)
@@ -15,7 +15,7 @@
 ## 集成步骤
 #### 1、pubspec.yaml
 ```Dart
-flutter_unionad: ^0.0.1
+flutter_unionad: ^0.0.3
 ```
 #### 2、Android
 aar文件已集成进插件中无需额外配置，只需要在android目录中AndroidManifest.xml配置
@@ -189,6 +189,7 @@ Center(
 | 版本  | 说明  | 
 | :------------ |:---------------:| 
 |  0.0.1      | 增加Android各广告的使用，新增ios激励广告 |
+|  0.0.3      | 优化广告逻辑 |
 
 ## 说明
  目前项目中只用到了激励视频，所以该插件只完善了激励视频相关的操作；
