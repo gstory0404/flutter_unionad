@@ -160,6 +160,19 @@ FlutterUnionad.loadRewardVideoAd(
                     orientation: FlutterUnionad.VideoVERTICAL,
                     mediaExtra: null);
 ```
+监听激励视频状态
+
+```Dart
+ StreamSubscription _adViewStream = FlutterUnionad.adeventEvent
+       .receiveBroadcastStream()
+       .listen((data) {
+     if (data[FlutterUnionad.adType] == FlutterUnionad.rewardAd) {
+       print("激励广告结果----->  rewardVerify=${data[FlutterUnionad.rewardVerify]} "
+           "rewardName=${data[FlutterUnionad.rewardName]} "
+           "rewardAmount=${data[FlutterUnionad.rewardAmount]} ");
+     }
+   });
+```
 #### 9、draw视频广告
 ```Dart
 Center(
@@ -181,5 +194,5 @@ Center(
  目前项目中只用到了激励视频，所以该插件只完善了激励视频相关的操作；
  android部分均已完善各个性化广告的使用，ios部分只做了激励视频，
  接下来有空会陆续完善插件。<br/>
- 如果有什么建议可以联系我的邮箱 gstory0404@163.com
+ 如果有什么建议可以联系我的邮箱 gstory0404@gmail.com
  
