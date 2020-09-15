@@ -30,47 +30,49 @@ class _BannerPageState extends State<BannerPage> {
           children: [
             //banner广告
             Container(
-              height: 200,
+              height: 90,
+              color: Colors.red,
               child: FlutterUnionad.bannerAdView(
                 mCodeId: "945410197",
                 supportDeepLink: true,
                 expressAdNum: 3,
                 expressTime: 30,
-                expressViewWidth: 1080,
-                expressViewHeight: 400,
+                expressViewWidth: 600,
+                expressViewHeight: 90,
               ),
             ),
             Container(
               height: 200,
+              color: Colors.yellow,
               child: FlutterUnionad.bannerAdView(
-                mCodeId: "945410197",
+                mCodeId: "945481613",
                 supportDeepLink: true,
                 expressAdNum: 3,
                 expressTime: 30,
-                expressViewWidth: 1080,
-                expressViewHeight: 400,
+                expressViewWidth: 600,
+                expressViewHeight: 200,
               ),
             ),
             Container(
-              height: 200,
+              height: 150,
               child: FlutterUnionad.bannerAdView(
                 mCodeId: "945410197",
                 supportDeepLink: true,
                 expressAdNum: 3,
                 expressTime: 30,
-                expressViewWidth: 1080,
-                expressViewHeight: 400,
+                expressViewWidth: 500,
+                expressViewHeight: 150,
               ),
             ),
             Container(
-              height: 200,
+              height: 180,
               child: FlutterUnionad.bannerAdView(
                 mCodeId: "945410197",
                 supportDeepLink: true,
                 expressAdNum: 3,
                 expressTime: 30,
-                expressViewWidth: 1080,
-                expressViewHeight: 400,
+                expressViewWidth: 600,
+                expressViewHeight: 180,
               ),
             ),
             Container(

@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_unionad/flutter_unionad_code.dart';
+import 'package:flutter/foundation.dart';
+
 
 /// 描述：
 /// @author guozi
@@ -28,12 +30,12 @@ Future<bool> register({
   return await _channel.invokeMethod("register", {
     "iosAppId": iosAppId,
     "androidAppId": androidAppId,
-    "useTextureView": useTextureView,
-    "appName": appName,
-    "allowShowNotify": allowShowNotify,
-    "allowShowPageWhenScreenLock": allowShowPageWhenScreenLock,
-    "debug": debug,
-    "supportMultiProcess": supportMultiProcess,
+    "useTextureView": useTextureView == null ? false : useTextureView,
+    "appName": appName == null ? "" : appName,
+    "allowShowNotify": allowShowNotify == null ? false : allowShowNotify,
+    "allowShowPageWhenScreenLock": allowShowPageWhenScreenLock == null ? false : allowShowPageWhenScreenLock,
+    "debug": debug == null ? false : debug,
+    "supportMultiProcess": supportMultiProcess == null ? false : supportMultiProcess,
     "directDownloadNetworkType": directDownloadNetworkType != null ||
             directDownloadNetworkType.length > 0
         ? directDownloadNetworkType
@@ -65,20 +67,20 @@ Widget bannerAdView(
     int expressTime,
     double expressViewWidth,
     double expressViewHeight}) {
-  if (Platform.isAndroid) {
+  if (defaultTargetPlatform == TargetPlatform.android) {
     return AndroidView(
       viewType: 'com.gstory.flutter_unionad/BannerExpressAdView',
       creationParams: {
         "mCodeId": mCodeId,
-        "supportDeepLink": supportDeepLink,
+        "supportDeepLink": supportDeepLink == null ? true : supportDeepLink,
         "expressViewWidth": expressViewWidth,
         "expressViewHeight": expressViewHeight,
-        "expressAdNum": expressAdNum,
-        "expressTime": expressTime
+        "expressAdNum": expressAdNum == null ? 1 : expressAdNum,
+        "expressTime": expressTime == null ? 0 : expressTime
       },
       creationParamsCodec: const StandardMessageCodec(),
     );
-  } else if (Platform.isIOS) {
+  } else if (defaultTargetPlatform == TargetPlatform.iOS) {
     return UiKitView(
       viewType: "com.gstory.flutter_unionad/BannerExpressAdView",
       creationParams: {
@@ -102,7 +104,7 @@ Widget splashAdView(
     double expressViewWidth,
     double expressViewHeight,
     bool mIsExpress}) {
-  if (Platform.isAndroid) {
+  if (defaultTargetPlatform == TargetPlatform.android) {
     return AndroidView(
       viewType: 'com.gstory.flutter_unionad/SplashAdView',
       creationParams: {
@@ -114,6 +116,8 @@ Widget splashAdView(
       },
       creationParamsCodec: const StandardMessageCodec(),
     );
+  } else if (defaultTargetPlatform == TargetPlatform.iOS) {
+    return Container();
   }
   return Container();
 }
@@ -124,7 +128,7 @@ Widget nativeExpressAdView(
     bool supportDeepLink,
     double expressViewWidth,
     double expressViewHeight}) {
-  if (Platform.isAndroid) {
+  if (defaultTargetPlatform == TargetPlatform.android) {
     return AndroidView(
       viewType: 'com.gstory.flutter_unionad/NativeExpressAdView',
       creationParams: {
@@ -135,6 +139,8 @@ Widget nativeExpressAdView(
       },
       creationParamsCodec: const StandardMessageCodec(),
     );
+  } else if (defaultTargetPlatform == TargetPlatform.iOS) {
+    return Container();
   }
   return Container();
 }
@@ -160,7 +166,7 @@ Widget interactionExpressAdView(
     bool supportDeepLink,
     double expressViewWidth,
     double expressViewHeight}) {
-  if (Platform.isAndroid) {
+  if (defaultTargetPlatform == TargetPlatform.android) {
     return AndroidView(
       viewType: 'com.gstory.flutter_unionad/InteractionExpressAdView',
       creationParams: {
@@ -171,6 +177,8 @@ Widget interactionExpressAdView(
       },
       creationParamsCodec: const StandardMessageCodec(),
     );
+  } else if (defaultTargetPlatform == TargetPlatform.iOS) {
+    return Container();
   }
   return Container();
 }
@@ -209,7 +217,7 @@ Widget drawFeedExpressAdView({
   double expressViewWidth,
   double expressViewHeight,
 }) {
-  if (Platform.isAndroid) {
+  if (defaultTargetPlatform == TargetPlatform.android) {
     return AndroidView(
       viewType: 'com.gstory.flutter_unionad/DrawFeedExpressAdView',
       creationParams: {
@@ -220,6 +228,8 @@ Widget drawFeedExpressAdView({
       },
       creationParamsCodec: const StandardMessageCodec(),
     );
+  } else if (defaultTargetPlatform == TargetPlatform.iOS) {
+    return Container();
   }
   return Container();
 }

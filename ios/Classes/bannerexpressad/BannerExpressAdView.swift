@@ -11,7 +11,7 @@ import Flutter
 
 public class BannerExpressAdView : NSObject,FlutterPlatformView{
     private let container : UIView
-    let frame: CGRect;
+    var frame: CGRect;
     //广告需要的参数
     let mCodeId :String?
     var supportDeepLink :Bool? = true
@@ -37,7 +37,7 @@ public class BannerExpressAdView : NSObject,FlutterPlatformView{
         return self.container
     }
     
-    private func refreshUI(width: CGFloat, height: CGFloat) {
+    private func refreshBanner(width: CGFloat, height: CGFloat) {
            var params = [String: Any?]()
            params["width"] = width
            params["height"] = height
@@ -45,33 +45,20 @@ public class BannerExpressAdView : NSObject,FlutterPlatformView{
     
     private func loadBannerExpressAd(){
         self.removeAllView()
-//        let viewWidth = self.expressViewWidth ?? 0
-//        let viewHeigh = self.expressViewHeight ?? 0
-        let size = CGSize(width: 500, height: 200)
-        print("mCodeId=" + self.mCodeId!)
-        print("SupportDeepLink=" + self.mCodeId!)
-        print("mCodeId=" + String(self.supportDeepLink!))
-        let bannerAdView = BUNativeExpressBannerView(slotID: self.mCodeId!, rootViewController: getVC(), adSize: size, isSupportDeepLink: self.supportDeepLink!)
-//        bannerAdView.frame = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeight)
-//        bannerAdView.center = CGPoint(x: viewWidth / 2, y: viewHeight / 2)
+        let viewWidth:CGFloat = CGFloat(self.expressViewWidth ?? 200)
+        let viewHeigh:CGFloat = CGFloat(self.expressViewHeight ?? 100)
+        let size = CGSize(width: viewWidth, height: viewHeigh)
+        self.frame.size = size
+        let bannerAdView = BUNativeExpressBannerView(slotID: self.mCodeId!, rootViewController: MyUtils.getVC(), adSize: size, isSupportDeepLink: self.supportDeepLink!)
         self.container.addSubview(bannerAdView)
-        
         bannerAdView.delegate = self
         bannerAdView.loadAdData()
         LogUtil.logInstance.printLog(message: "开始初始化")
     }
     
     private func removeAllView(){
-        self.container.subviews.forEach { $0.removeFromSuperview() }
-        
+        self.container.removeFromSuperview()
     }
-    
-    private func getVC() -> UIViewController {
-            let viewController = UIApplication.shared.windows.filter { (w) -> Bool in
-                w.isHidden == false
-            }.first?.rootViewController
-            return viewController!
-        }
     
     private func disposeView() {
         self.removeAllView()
@@ -81,7 +68,7 @@ public class BannerExpressAdView : NSObject,FlutterPlatformView{
 extension BannerExpressAdView: BUNativeExpressBannerViewDelegate {
     public func nativeExpressBannerAdViewDidLoad(_ bannerAdView: BUNativeExpressBannerView) {
         let frame = bannerAdView.frame
-        self.refreshUI(width: frame.width, height: frame.height)
+        self.refreshBanner(width: frame.width, height: frame.height)
     }
 
     public func nativeExpressBannerAdViewRenderFail(_ bannerAdView: BUNativeExpressBannerView, error: Error?) {
@@ -89,11 +76,13 @@ extension BannerExpressAdView: BUNativeExpressBannerViewDelegate {
     }
 
     public func nativeExpressBannerAdView(_ bannerAdView: BUNativeExpressBannerView, didLoadFailWithError error: Error?) {
-//        invoke(code: err?.code ?? -1, message: error?.localizedDescription)
         self.disposeView()
     }
 
     public func nativeExpressBannerAdView(_ bannerAdView: BUNativeExpressBannerView, dislikeWithReason filterwords: [BUDislikeWords]?) {
+        LogUtil.logInstance.printLog(message:"点击了不感兴趣")
         self.disposeView()
     }
+    
+    
 }

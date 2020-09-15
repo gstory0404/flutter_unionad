@@ -45,19 +45,12 @@ public class TTAdManagerHolder : NSObject, BURewardedVideoAdDelegate{
             self.bURewardedVideoAd!.delegate = self
             self.bURewardedVideoAd!.loadData()
         }
-        
-        private func getVC() -> UIViewController {
-                   let viewController = UIApplication.shared.windows.filter { (w) -> Bool in
-                       w.isHidden == false
-                   }.first?.rootViewController
-                   return viewController!
-               }
     
 }
 
 extension TTAdManagerHolder: BUNativeExpressRewardedVideoAdDelegate {
     public func nativeExpressRewardedVideoAdDidLoad(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
-         self.bURewardedVideoAd!.show(fromRootViewController: self.getVC())
+         self.bURewardedVideoAd!.show(fromRootViewController: MyUtils.getVC())
          LogUtil.logInstance.printLog(message: "激励广告加载成功")
         }
         
