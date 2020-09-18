@@ -1,7 +1,7 @@
 # 穿山甲广告 flutter版本
 
 <p>
-<a href="https://github.com/gstory0404/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v0.0.3-success></a>
+<a href="https://github.com/gstory0404/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v0.0.4-success></a>
 </p>
 
 ![image](https://github.com/gstory0404/flutter_unionad/blob/master/image/demo.gif)
@@ -15,7 +15,7 @@
 ## 集成步骤
 #### 1、pubspec.yaml
 ```Dart
-flutter_unionad: ^0.0.3
+flutter_unionad: ^0.0.4
 ```
 引用插件
 ```Dart
@@ -123,7 +123,7 @@ Container(
 ```
  Container(
               height: 300,
-              child: FlutterUnionad.nativeExpressAdView(
+              child: FlutterUnionad.nativeAdView(
                 mCodeId: "945417699",
                 supportDeepLink: true,
                 expressViewWidth: 800,
@@ -135,7 +135,7 @@ Container(
 #### 7、插屏广告
 返回原生view
 ```Dart
-FlutterUnionad.interactionExpressAdView(
+FlutterUnionad.interactionAdView(
                   mCodeId: "945417892",
                   supportDeepLink: true,
                   expressViewWidth: 800,
@@ -180,7 +180,7 @@ FlutterUnionad.loadRewardVideoAd(
 #### 9、draw视频广告
 ```Dart
 Center(
-              child: FlutterUnionad.drawFeedExpressAdView(
+              child: FlutterUnionad.drawFeedAdView(
                   mCodeId: "945426252",
                   supportDeepLink: true,
                   expressViewWidth: 1080,
@@ -189,11 +189,47 @@ Center(
           },
 ```
 
+### 10、全屏视频广告
+```Dart
+ FlutterUnionad.fullScreenVideoAd(
+                  mCodeId: "945491318",
+                  supportDeepLink: true,
+                  orientation: FlutterUnionad.VideoVERTICAL);
+              }
+```
+结果监听
+```Dart
+FlutterUnionad.adeventEvent
+       .receiveBroadcastStream()
+       .listen((data) {
+     if(data[FlutterUnionad.adType] == FlutterUnionad.fullVideoAd){
+        switch(data[FlutterUnionad.fullVideoType]){
+          case FlutterUnionad.onAdShow:
+            print("全屏广告显示");
+            break;
+          case FlutterUnionad.onAdVideoBarClick:
+            print("全屏广告返回");
+            break;
+          case FlutterUnionad.onAdClose:
+            print("全屏广告关闭");
+            break;
+          case FlutterUnionad.onVideoComplete:
+            print("全屏广告继续");
+            break;
+          case FlutterUnionad.onSkippedVideo:
+            print("全屏广告跳过");
+            break;
+        }
+     }
+   });
+```
+
 ## 历史版本
 | 版本  | 说明  | 
 | :------------ |:---------------:| 
 |  0.0.1      | 增加Android各广告的使用，新增ios激励广告 |
 |  0.0.3      | 优化广告逻辑 |
+|  0.0.4      | 1、优化广告逻辑 2、新增android全屏视频广告|
 
 ## 说明
  目前项目中只用到了激励视频，所以该插件只完善了激励视频相关的操作；
