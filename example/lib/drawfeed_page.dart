@@ -27,7 +27,7 @@ class _DrawFeedPageState extends State<DrawFeedPage> {
         childrenDelegate: SliverChildBuilderDelegate(
           (context, index) {
             return Center(
-              child: FlutterUnionad.drawFeedExpressAdView(
+              child: FlutterUnionad.drawFeedAdView(
                   mCodeId: "945426252",
                   supportDeepLink: true,
                   expressViewWidth: 1080,

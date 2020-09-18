@@ -6,14 +6,12 @@ import android.content.Intent
 import android.text.TextUtils
 import android.util.Log
 import androidx.annotation.NonNull
-import com.gstory.flutter_unionad.interactionexpressad.InteractionExpressAdDialog
-import com.gstory.flutter_unionad.nativeexpressad.NativeExpressAdFactory
-import com.gstory.flutter_unionad.rewardvideoad.RewardVideoAdActivity
-import io.flutter.embedding.android.FlutterActivity
+import com.gstory.flutter_unionad.fullscreenvideoAd.FullScreenVideoExpressAd
+import com.gstory.flutter_unionad.interactionad.InteractionExpressAd
+import com.gstory.flutter_unionad.rewardvideoad.RewardVideoAd
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
-import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
@@ -129,19 +127,20 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
             var expressViewWidth = width.toFloat()
             var expressViewHeight = height.toFloat()
             var intent = Intent()
-            intent.putExtra("mIsExpress", mIsExpress)
-            intent.putExtra("mCodeId", mCodeId)
-            intent.putExtra("supportDeepLink", supportDeepLink)
-            intent.putExtra("expressViewWidth", expressViewWidth)
-            intent.putExtra("expressViewHeight", expressViewHeight)
-            intent.putExtra("rewardName", rewardName)
-            intent.putExtra("rewardAmount", rewardAmount)
-            intent.putExtra("userID", userID)
-            intent.putExtra("orientation", orientation)
-            intent.putExtra("mediaExtra", mediaExtra)
-            intent.setClass(applicationContext!!, RewardVideoAdActivity().javaClass)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            applicationContext!!.startActivity(intent)
+//            intent.putExtra("mIsExpress", mIsExpress)
+//            intent.putExtra("mCodeId", mCodeId)
+//            intent.putExtra("supportDeepLink", supportDeepLink)
+//            intent.putExtra("expressViewWidth", expressViewWidth)
+//            intent.putExtra("expressViewHeight", expressViewHeight)
+//            intent.putExtra("rewardName", rewardName)
+//            intent.putExtra("rewardAmount", rewardAmount)
+//            intent.putExtra("userID", userID)
+//            intent.putExtra("orientation", orientation)
+//            intent.putExtra("mediaExtra", mediaExtra)
+//            intent.setClass(applicationContext!!, RewardVideoAd().javaClass)
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            applicationContext!!.startActivity(intent)
+            RewardVideoAd.init(mActivity!!, mActivity!!, call.arguments as Map<String?, Any?>)
             //请求权限
         } else if (call.method == "requestPermissionIfNecessary") {
             val mTTAdManager = TTAdManagerHolder.get()
@@ -155,17 +154,18 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
                 result.success(viersion)
             }
             //插屏广告
-        } else if (call.method == "interactionExpressAd") {
+        } else if (call.method == "interactionAd") {
             val mCodeId = call.argument<String>("mCodeId")
             val supportDeepLink = call.argument<Boolean>("supportDeepLink")
             var expressViewWidth = call.argument<Double>("expressViewWidth")
             var expressViewHeight = call.argument<Double>("expressViewHeight")
-            var dialog = InteractionExpressAdDialog(mActivity!!, R.style.FlutterUnionadDialog, mActivity!!, mCodeId, supportDeepLink, expressViewWidth!!, expressViewHeight!!)
-            if (dialog.isShowing) {
-                result.error("0", "插屏广告正在显示", null)
-                return
-            }
-            dialog.show()
+            InteractionExpressAd.init(mActivity!!,mActivity!!, mCodeId, supportDeepLink, expressViewWidth!!, expressViewHeight!!)
+            result.success(true)
+        } else if(call.method == "fullScreenVideoAd"){
+            val mCodeId = call.argument<String>("mCodeId")
+            val supportDeepLink = call.argument<Boolean>("supportDeepLink")
+            val orientation = call.argument<Int>("orientation")
+            FullScreenVideoExpressAd.init(mActivity!!, mActivity!!, mCodeId, supportDeepLink, orientation!!)
             result.success(true)
         }
     }

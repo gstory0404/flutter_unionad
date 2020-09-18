@@ -30,10 +30,29 @@ class _IndexPageState extends State<IndexPage> {
    _adViewStream = FlutterUnionad.adeventEvent
        .receiveBroadcastStream()
        .listen((data) {
+         print("广告结果 ${data[FlutterUnionad.adType]}");
      if (data[FlutterUnionad.adType] == FlutterUnionad.rewardAd) {
        print("激励广告结果----->  rewardVerify=${data[FlutterUnionad.rewardVerify]} "
            "rewardName=${data[FlutterUnionad.rewardName]} "
            "rewardAmount=${data[FlutterUnionad.rewardAmount]} ");
+     }else if(data[FlutterUnionad.adType] == FlutterUnionad.fullVideoAd){
+        switch(data[FlutterUnionad.fullVideoType]){
+          case FlutterUnionad.onAdShow:
+            print("全屏广告显示");
+            break;
+          case FlutterUnionad.onAdVideoBarClick:
+            print("全屏广告返回");
+            break;
+          case FlutterUnionad.onAdClose:
+            print("全屏广告关闭");
+            break;
+          case FlutterUnionad.onVideoComplete:
+            print("全屏广告继续");
+            break;
+          case FlutterUnionad.onSkippedVideo:
+            print("全屏广告跳过");
+            break;
+        }
      }
    });
   }
@@ -146,11 +165,11 @@ class _IndexPageState extends State<IndexPage> {
               textColor: Colors.white,
               child: new Text('插屏广告'),
               onPressed: () async {
-                await FlutterUnionad.interactionExpressAd(
+                await FlutterUnionad.interactionAd(
                   mCodeId: "945417892",
                   supportDeepLink: true,
-                  expressViewWidth: 800,
-                  expressViewHeight: 1200,
+                  expressViewWidth: 300,
+                  expressViewHeight: 450,
                 );
               },
             ),
@@ -171,7 +190,7 @@ class _IndexPageState extends State<IndexPage> {
                     mediaExtra: null);
               },
             ),
-            //个性化模板信息流广告
+            //个性化模板draw广告
             MaterialButton(
               color: Colors.blue,
               textColor: Colors.white,
@@ -183,6 +202,18 @@ class _IndexPageState extends State<IndexPage> {
                     builder: (context) => new DrawFeedPage(),
                   ),
                 );
+              },
+            ),
+            //个性化全屏广告
+            MaterialButton(
+              color: Colors.blue,
+              textColor: Colors.white,
+              child: new Text('全屏广告'),
+              onPressed: () {
+              FlutterUnionad.fullScreenVideoAd(
+                  mCodeId: "945491318",
+                  supportDeepLink: true,
+                  orientation: FlutterUnionad.VideoVERTICAL);
               },
             ),
           ],

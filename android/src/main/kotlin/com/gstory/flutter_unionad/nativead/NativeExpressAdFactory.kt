@@ -1,10 +1,8 @@
-package com.gstory.flutter_unionad.nativeexpressad
+package com.gstory.flutter_unionad.nativead
 
 import android.app.Activity
 import android.content.Context
-import android.util.Log
 import io.flutter.plugin.common.BinaryMessenger
-import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.StandardMessageCodec
 import io.flutter.plugin.platform.PlatformView
 import io.flutter.plugin.platform.PlatformViewFactory

@@ -1,32 +1,21 @@
-package com.gstory.flutter_unionad.interactionexpressad
+package com.gstory.flutter_unionad.interactionad
 
 import android.app.Activity
-import android.app.Dialog
 import android.content.Context
-import android.os.Bundle
 import android.util.Log
-import android.view.ActionMode
-import android.view.Gravity
 import android.view.View
-import android.view.WindowManager
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.TextView
 import com.bytedance.sdk.openadsdk.*
-import com.gstory.flutter_unionad.R
 import com.gstory.flutter_unionad.TTAdManagerHolder
-import com.gstory.flutter_unionad.UIUtils
 
 /**
  * @Description:
  * @Author: gstory0404@gmail
- * @CreateDate: 2020/8/21 15:48
+ * @CreateDate: 2020/9/18 17:43
  */
-class InteractionExpressAdDialog : Dialog {
-    private var TAG = "InteractionExpressAdDialog"
-    var mContext: Context
-    var mActivity: Activity
-    private var mExpressContainer: FrameLayout? = null
+object InteractionExpressAd {
+    private var TAG = "InteractionExpressAd"
+    var mContext: Context? = null
+    var mActivity: Activity? = null
     lateinit var mTTAdNative: TTAdNative
     private var mTTAd: TTNativeExpressAd? = null
 
@@ -36,32 +25,13 @@ class InteractionExpressAdDialog : Dialog {
     private var expressViewWidth: Float = 0f
     private var expressViewHeight: Float = 0f
 
-
-    constructor(context: Context, themeResId: Int, mActivity: Activity, mCodeId: String?, supportDeepLink: Boolean?, expressViewWidth: Double, expressViewHeight: Double) : super(context, themeResId) {
+    fun init(context: Context, mActivity: Activity, mCodeId: String?, supportDeepLink: Boolean?, expressViewWidth: Double, expressViewHeight: Double){
         this.mContext = context
         this.mActivity = mActivity
         this.mCodeId = mCodeId
         this.supportDeepLink = supportDeepLink
         this.expressViewWidth = expressViewWidth.toFloat()
         this.expressViewHeight = expressViewHeight.toFloat()
-    }
-
-
-    override fun onStart() {
-        super.onStart()
-        window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
-
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        var dialogWindow = window
-        dialogWindow.setGravity(Gravity.CENTER)
-        setContentView(R.layout.dialog_interactionexpressad)
-        mExpressContainer = findViewById(R.id.native_insert_ad_img)
         val mTTAdManager = TTAdManagerHolder.get()
         mTTAdNative = mTTAdManager.createAdNative(context.applicationContext)
         loadInteractionExpressAd()
@@ -73,14 +43,13 @@ class InteractionExpressAdDialog : Dialog {
                 .setCodeId(mCodeId) //广告位id
                 .setSupportDeepLink(supportDeepLink!!)
                 .setAdCount(1) //请求广告数量为1到3条
-                .setExpressViewAcceptedSize(UIUtils.px2dip(context, expressViewWidth), UIUtils.px2dip(context, expressViewHeight))//期望个性化模板广告view的size,单位dp
+                .setExpressViewAcceptedSize(expressViewWidth, expressViewHeight)//期望个性化模板广告view的size,单位dp
                 .setImageAcceptedSize(640, 320) //这个参数设置即可，不影响个性化模板广告的size
                 .build()
         //加载广告
         mTTAdNative.loadInteractionExpressAd(adSlot, object : TTAdNative.NativeExpressAdListener {
             override fun onError(code: Int, message: String) {
                 Log.e(TAG, "load error : $code, $message")
-                mExpressContainer!!.removeAllViews()
             }
 
             override fun onNativeExpressAdLoad(ads: List<TTNativeExpressAd>) {
@@ -117,11 +86,7 @@ class InteractionExpressAdDialog : Dialog {
                 //返回view的宽高 单位 dp
                 Log.e(TAG, "渲染成功")
                 //在渲染成功回调时展示广告，提升体验
-                mExpressContainer!!.removeAllViews()
-//                val mExpressContainerParams: FrameLayout.LayoutParams = FrameLayout.LayoutParams(UIUtils.dip2px(context, width).toInt(), UIUtils.dip2px(context, height).toInt())
-//                mExpressContainerParams.gravity = Gravity.CENTER
-//                mExpressContainer!!.layoutParams = mExpressContainerParams
-                mExpressContainer!!.addView(view)
+                mTTAd!!.showInteractionExpressAd(mActivity)
             }
         })
         //dislike设置
@@ -169,13 +134,10 @@ class InteractionExpressAdDialog : Dialog {
             override fun onSelected(position: Int, value: String) {
                 Log.e(TAG, "点击 $value")
                 //用户选择不喜欢原因后，移除广告展示
-                mExpressContainer!!.removeAllViews()
-                dismiss()
             }
 
             override fun onCancel() {
                 Log.e(TAG, "点击取消")
-                dismiss()
             }
 
             override fun onRefuse() {
@@ -184,10 +146,4 @@ class InteractionExpressAdDialog : Dialog {
         })
     }
 
-    override fun onStop() {
-        super.onStop()
-        if(mTTAd != null){
-            mTTAd!!.destroy()
-        }
-    }
 }

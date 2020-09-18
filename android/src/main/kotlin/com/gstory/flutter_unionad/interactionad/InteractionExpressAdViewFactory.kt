@@ -1,4 +1,4 @@
-package com.gstory.flutter_unionad.interactionexpressad
+package com.gstory.flutter_unionad.interactionad
 
 import android.app.Activity
 import android.content.Context

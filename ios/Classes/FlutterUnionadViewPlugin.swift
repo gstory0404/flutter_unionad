@@ -14,7 +14,7 @@ class FlutterUnionadViewPlugin{
         print(viewRegistrar.messenger())
        //banner广告
         let bannerExpressAdViewFactory = BannerExpressAdViewFactory(messenger: viewRegistrar.messenger())
-        viewRegistrar.register(bannerExpressAdViewFactory, withId: "com.gstory.flutter_unionad/BannerExpressAdView")
+        viewRegistrar.register(bannerExpressAdViewFactory, withId: "com.gstory.flutter_unionad/BannerAdView")
     }
 }
 

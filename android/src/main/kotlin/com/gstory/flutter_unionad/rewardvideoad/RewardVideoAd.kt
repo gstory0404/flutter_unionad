@@ -1,5 +1,7 @@
 package com.gstory.flutter_unionad.rewardvideoad
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.annotation.Nullable
@@ -10,7 +12,6 @@ import com.gstory.flutter_unionad.FlutterUnionadEventPlugin
 import com.gstory.flutter_unionad.R
 import com.gstory.flutter_unionad.TTAdManagerHolder
 import com.gstory.flutter_unionad.UIUtils
-import io.flutter.app.FlutterActivity
 
 
 /**
@@ -18,8 +19,12 @@ import io.flutter.app.FlutterActivity
  * @Author: gstory0404@gmail
  * @CreateDate: 2020/8/20 18:46
  */
-class RewardVideoAdActivity : FlutterActivity() {
+object RewardVideoAd{
     private val TAG = "RewardVideoAdActivity"
+
+    var mContext: Context? = null
+    var mActivity: Activity? = null
+
     lateinit var mTTAdNative: TTAdNative
     private var mttRewardVideoAd: TTRewardVideoAd? = null
     private var mIsLoaded = false //视频是否加载完成
@@ -36,22 +41,39 @@ class RewardVideoAdActivity : FlutterActivity() {
     private var orientation: Int? = TTAdConstant.VERTICAL
     private var mediaExtra: String? = null
 
-
-    override fun onCreate(@Nullable savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_rewardvideoad)
-        mIsExpress = intent.getBooleanExtra("mIsExpress", true)
-        mCodeId = intent.getStringExtra("mCodeId")
-        supportDeepLink = intent.getBooleanExtra("supportDeepLink", true)
-        expressViewWidth = intent.getFloatExtra("expressViewWidth", 1080f)
-        expressViewHeight = intent.getFloatExtra("expressViewHeight", 1920f)
-        rewardName = intent.getStringExtra("rewardName")
-        rewardAmount = intent.getIntExtra("rewardAmount", 0)
-        userID = intent.getStringExtra("userID")
-        orientation = intent.getIntExtra("orientation", 1)
-        mediaExtra = intent.getStringExtra("mediaExtra")
+    fun init(context: Context, mActivity: Activity, params: Map<String?, Any?>){
+        Log.e(TAG,"到这里了")
+        Log.e(TAG, params.toString())
+        this.mContext = context
+        this.mActivity = mActivity
+        this.mIsExpress = params["mIsExpress"] as Boolean
+        this.mCodeId = params["mCodeId"] as String
+        this.supportDeepLink = params["supportDeepLink"] as Boolean
+        if (params["expressViewWidth"] == null) {
+            this.expressViewWidth = UIUtils.dip2px(context!!, UIUtils.getScreenWidthDp(context!!))
+        }else{
+            this.expressViewWidth = params["expressViewWidth"] as Float
+        }
+        if (params["expressViewHeight"] == null) {
+            this.expressViewHeight = UIUtils.getRealHeight(context!!).toFloat()
+        }else{
+            this.expressViewHeight = params["expressViewHeight"] as Float
+        }
+        this.rewardName = params["rewardName"] as String
+        this.rewardAmount = params["rewardAmount"] as Int
+        this.userID = params["userID"] as String
+        if (params["orientation"]  == null) {
+            orientation = 0
+        }else{
+            this.orientation = params["orientation"] as Int
+        }
+        if (params["mediaExtra"]  == null) {
+            this.mediaExtra = ""
+        }else{
+            this.mediaExtra = params["mediaExtra"] as String
+        }
         val mTTAdManager = TTAdManagerHolder.get()
-        mTTAdNative = mTTAdManager.createAdNative(this.applicationContext)
+        mTTAdNative = mTTAdManager.createAdNative(context)
         loadRewardVideoAd()
     }
 
@@ -72,7 +94,7 @@ class RewardVideoAdActivity : FlutterActivity() {
                     .setCodeId(mCodeId)
                     .setSupportDeepLink(supportDeepLink!!)
                     .setAdCount(1) //个性化模板广告需要设置期望个性化模板广告的大小,单位dp,激励视频场景，只要设置的值大于0即可
-                    .setExpressViewAcceptedSize(UIUtils.px2dip(this, expressViewWidth!!), UIUtils.px2dip(this, expressViewHeight!!))
+                    .setExpressViewAcceptedSize(UIUtils.px2dip(mContext!!, expressViewWidth!!), UIUtils.px2dip(mContext!!, expressViewHeight!!))
                     .setImageAcceptedSize(1080, 1920)
                     .setRewardName(rewardName) //奖励的名称
                     .setRewardAmount(rewardAmount!!) //奖励的数量
@@ -99,14 +121,13 @@ class RewardVideoAdActivity : FlutterActivity() {
         mTTAdNative.loadRewardVideoAd(adSlot, object : RewardVideoAdListener {
             override fun onError(code: Int, message: String) {
                 Log.e(TAG, "视频加载失败$code $message")
-                this@RewardVideoAdActivity.finish()
             }
 
             //视频广告加载后的视频文件资源缓存到本地的回调
             override fun onRewardVideoCached() {
                 Log.e(TAG, "rewardVideoAd video cached")
                 mIsLoaded = true
-                mttRewardVideoAd!!.showRewardVideoAd(this@RewardVideoAdActivity, TTAdConstant.RitScenes.CUSTOMIZE_SCENES, "scenes_test")
+                mttRewardVideoAd!!.showRewardVideoAd(mActivity, TTAdConstant.RitScenes.CUSTOMIZE_SCENES, "scenes_test")
                 mttRewardVideoAd = null
             }
 
@@ -127,12 +148,10 @@ class RewardVideoAdActivity : FlutterActivity() {
 
                     override fun onAdClose() {
                         Log.e(TAG, "rewardVideoAd close")
-                        this@RewardVideoAdActivity.finish()
                     }
 
                     override fun onVideoError() {
                         Log.e(TAG, "rewardVideoAd onVideoError")
-                        this@RewardVideoAdActivity.finish()
                     }
 
                     override fun onVideoComplete() {

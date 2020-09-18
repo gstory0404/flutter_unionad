@@ -11,7 +11,9 @@ const int NETWORK_STATE_WIFI = 4;
 const int NETWORK_STATE_4G = 5;
 
 ///激励视频方向
+//竖屏
 const int VideoVERTICAL = 1;
+//横屏
 const int VideoHORIZONTAL = 2;
 
 ///数据类型
@@ -20,15 +22,41 @@ const String adType = "adType";
 const String aplashAd = "aplashAd";
 //激励广告
 const String rewardAd = "rewardAd";
+//全屏视频广告
+const String fullVideoAd = "fullVideoAd";
 
 ///开屏广告
 const String aplashType = "aplashType";
+//加载超时
 const String onAplashTimeout = "onAplashTimeout";
+//广告点击
 const String onAplashClick = "onAplashClick";
+//广告显示
 const String onAplashShow = "onAplashShow";
+//跳过广告
 const String onAplashSkip = "onAplashSkip";
+//广告结束
 const String onAplashFinish = "onAplashFinish";
+
+
 ///激励广告相关
+//是否观看成功
 const String rewardVerify = "rewardVerify";
+//奖励数量
 const String rewardAmount = "rewardAmount";
+//奖励名称
 const String rewardName = "rewardName";
+
+
+///全屏视频广告广告
+const String fullVideoType = "fullVideoType";
+//广告显示
+const String onAdShow = "onAdShow";
+//广告返回
+const String onAdVideoBarClick = "onAdVideoBarClick";
+//广告关闭
+const String onAdClose = "onAdClose";
+//广告继续
+const String onVideoComplete = "onVideoComplete";
+//跳过广告
+const String onSkippedVideo = "onSkippedVideo";

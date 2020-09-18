@@ -30,7 +30,7 @@ class _nativeExpressAdPageState extends State<NativeExpressAdPage> {
             //个性化模板信息流广告
             Container(
               height: 300,
-              child: FlutterUnionad.nativeExpressAdView(
+              child: FlutterUnionad.nativeAdView(
                 mCodeId: "945417699",
                 supportDeepLink: true,
                 expressViewWidth: 800,
@@ -39,7 +39,7 @@ class _nativeExpressAdPageState extends State<NativeExpressAdPage> {
             ), //个性化模板信息流广告
             Container(
               height: 300,
-              child: FlutterUnionad.nativeExpressAdView(
+              child: FlutterUnionad.nativeAdView(
                 mCodeId: "945417487",
                 supportDeepLink: true,
                 expressViewWidth: 800,
@@ -48,7 +48,7 @@ class _nativeExpressAdPageState extends State<NativeExpressAdPage> {
             ),//个性化模板信息流广告
             Container(
               height: 300,
-              child: FlutterUnionad.nativeExpressAdView(
+              child: FlutterUnionad.nativeAdView(
                 mCodeId: "945407034",
                 supportDeepLink: true,
                 expressViewWidth: 800,
@@ -57,7 +57,7 @@ class _nativeExpressAdPageState extends State<NativeExpressAdPage> {
             ),//个性化模板信息流广告
             Container(
               height: 300,
-              child: FlutterUnionad.nativeExpressAdView(
+              child: FlutterUnionad.nativeAdView(
                 mCodeId: "945417487",
                 supportDeepLink: true,
                 expressViewWidth: 800,
@@ -66,7 +66,7 @@ class _nativeExpressAdPageState extends State<NativeExpressAdPage> {
             ),//个性化模板信息流广告
             Container(
               height: 300,
-              child: FlutterUnionad.nativeExpressAdView(
+              child: FlutterUnionad.nativeAdView(
                 mCodeId: "945417487",
                 supportDeepLink: true,
                 expressViewWidth: 800,
@@ -75,7 +75,7 @@ class _nativeExpressAdPageState extends State<NativeExpressAdPage> {
             ),//个性化模板信息流广告
             Container(
               height: 300,
-              child: FlutterUnionad.nativeExpressAdView(
+              child: FlutterUnionad.nativeAdView(
                 mCodeId: "945417487",
                 supportDeepLink: true,
                 expressViewWidth: 800,
@@ -84,7 +84,7 @@ class _nativeExpressAdPageState extends State<NativeExpressAdPage> {
             ),//个性化模板信息流广告
             Container(
               height: 300,
-              child: FlutterUnionad.nativeExpressAdView(
+              child: FlutterUnionad.nativeAdView(
                 mCodeId: "945417487",
                 supportDeepLink: true,
                 expressViewWidth: 800,

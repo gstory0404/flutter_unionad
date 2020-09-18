@@ -33,7 +33,7 @@
             android:authorities="${applicationId}.TTMultiProvider"
             android:exported="false" />
         <activity
-            android:name=".rewardvideoad.RewardVideoAdActivity"
+            android:name=".rewardvideoad.RewardVideoAd"
             android:theme="@android:style/Theme.Black.NoTitleBar"/>
     </application>
 </manifest>
