@@ -4,8 +4,12 @@
 
 ## 0.0.2
 
-* TODO: Describe initial release.
+* TODO: New IOS incentive advertising
 
 ## 0.0.3
 
-* TODO: Describe initial release.
+* TODO: Optimize IOS incentive advertising
+
+## 0.0.4
+
+* TODO:优化广告逻辑，添加Android全屏视频广告

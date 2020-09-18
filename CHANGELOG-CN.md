@@ -4,8 +4,12 @@
 
 ## 0.0.2
 
-* TODO: New IOS incentive advertising
+* TODO: 新增ios激励广告
 
 ## 0.0.3
 
-* TODO: Optimize IOS incentive advertising
+* TODO: 优化ios激励广告
+
+## 0.0.4
+
+* TODO:Optimize advertising logic, add Android full screen video advertising
