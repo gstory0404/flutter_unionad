@@ -1,7 +1,7 @@
 # 穿山甲广告 flutter版本
 
 <p>
-<a href="https://github.com/gstory0404/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v0.0.3-success></a>
+<a href="https://github.com/gstory0404/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v0.0.4-success></a>
 </p>
 
 ![image](https://github.com/gstory0404/flutter_unionad/blob/master/image/demo.gif)
@@ -15,7 +15,7 @@
 ## 集成步骤
 #### 1、pubspec.yaml
 ```Dart
-flutter_unionad: ^0.0.3
+flutter_unionad: ^0.0.4
 ```
 引用插件
 ```Dart
