@@ -144,7 +144,7 @@ FlutterUnionad.interactionAdView(
 ```
 直接弹窗
 ```Dart
-FlutterUnionad.interactionExpressAd(
+FlutterUnionad.interactionAd(
                   mCodeId: "945417892",
                   supportDeepLink: true,
                   expressViewWidth: 800,
@@ -233,7 +233,7 @@ FlutterUnionad.adeventEvent
 
 ## 说明
  目前项目中只用到了激励视频，所以该插件只完善了激励视频相关的操作；
- android部分均已完善各个性化广告的使用，ios部分只做了激励视频，
+ android部分均已完善各个性化广告的使用，ios部分只做了激励视频、banner视频
  接下来有空会陆续完善插件。<br/>
  如果有什么建议可以联系我的邮箱 gstory0404@gmail.com
  
