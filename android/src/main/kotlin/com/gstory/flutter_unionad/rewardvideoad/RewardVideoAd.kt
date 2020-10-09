@@ -52,12 +52,12 @@ object RewardVideoAd{
         if (params["expressViewWidth"] == null) {
             this.expressViewWidth = UIUtils.dip2px(context!!, UIUtils.getScreenWidthDp(context!!))
         }else{
-            this.expressViewWidth = params["expressViewWidth"] as Float
+            this.expressViewWidth = (params["expressViewWidth"] as Double).toFloat()
         }
         if (params["expressViewHeight"] == null) {
             this.expressViewHeight = UIUtils.getRealHeight(context!!).toFloat()
         }else{
-            this.expressViewHeight = params["expressViewHeight"] as Float
+            this.expressViewHeight = (params["expressViewHeight"] as Double).toFloat()
         }
         this.rewardName = params["rewardName"] as String
         this.rewardAmount = params["rewardAmount"] as Int
