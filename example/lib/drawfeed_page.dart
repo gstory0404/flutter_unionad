@@ -30,8 +30,8 @@ class _DrawFeedPageState extends State<DrawFeedPage> {
               child: FlutterUnionad.drawFeedAdView(
                   mCodeId: "945426252",
                   supportDeepLink: true,
-                  expressViewWidth: 1080,
-                  expressViewHeight: 1920),
+                  expressViewWidth: 750,
+                  expressViewHeight: 1200),
             );
           },
           childCount: 10,
