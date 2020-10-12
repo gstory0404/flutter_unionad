@@ -149,7 +149,7 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
         } else if (call.method == "getSDKVersion") {
             var viersion = TTAdManagerHolder.get().sdkVersion
             if (TextUtils.isEmpty(viersion)) {
-                result.error("0", "获取失败", null);
+                result.error("0", "获取失败", null)
             } else {
                 result.success(viersion)
             }

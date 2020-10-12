@@ -2,7 +2,7 @@
 //  MyUtils.swift
 //  flutter_unionad
 //
-//  Created by 9Y on 2020/9/15.
+//  Created by gstory0404@gmail on 2020/9/15.
 //
 
 import Foundation
@@ -14,5 +14,11 @@ class MyUtils{
             }.first?.rootViewController
             return viewController!
         }
+    
+    //获取屏幕尺寸
+    static func getScreenSize() -> CGRect {
+        let screenBounds:CGRect = UIScreen.main.bounds
+        return screenBounds
+    }
 }
 

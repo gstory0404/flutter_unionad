@@ -40,6 +40,10 @@ class _SplashPageState extends State<SplashPage> {
             FlutterUnionad.onAplashFinish) {
           print("开屏广告结束  ${FlutterUnionad.onAplashFinish}");
           Navigator.pop(context);
+        } else if(data[FlutterUnionad.aplashType] ==
+            FlutterUnionad.onAplashError){
+          print("开屏广告结束  ${FlutterUnionad.message}");
+          Navigator.pop(context);
         }
       }
     });
@@ -51,7 +55,7 @@ class _SplashPageState extends State<SplashPage> {
       child: Column(
         children: [
           Container(
-            height: 700,
+            height: 600,
             child: FlutterUnionad.splashAdView(
                 mCodeId: "887367774",
                 supportDeepLink: true,
@@ -66,7 +70,7 @@ class _SplashPageState extends State<SplashPage> {
               color: Colors.blue,
               child: Text(
                 "FlutterUnionad example app",
-                style: TextStyle(fontSize: 18, color: Colors.white),
+                style: TextStyle(fontSize: 14, color: Colors.white),
               ),
             ),
           )

@@ -1,14 +1,14 @@
 //
-//  BannerExpressAdViewFactory.swift
+//  DrawFeedAdViewFactory.swift
 //  flutter_unionad
 //
-//  Created by 9Y on 2020/9/4.
+//  Created by gstory0404@gmail on 2020/9/27.
 //
 
 import Foundation
 import Flutter
 
-public class BannerExpressAdViewFactory: NSObject,FlutterPlatformViewFactory {
+public class DrawFeedAdViewFactory: NSObject,FlutterPlatformViewFactory {
     private var messenger: FlutterBinaryMessenger
 
     init(messenger: NSObjectProtocol & FlutterBinaryMessenger) {
@@ -18,7 +18,7 @@ public class BannerExpressAdViewFactory: NSObject,FlutterPlatformViewFactory {
     
     public func create(withFrame frame: CGRect, viewIdentifier viewId: Int64, arguments args: Any?) -> FlutterPlatformView {
         print(args!)
-        return BannerExpressAdView(frame,  binaryMessenger: self.messenger,id: viewId, params:args)
+        return DrawFeedAdView(frame,  binaryMessenger: self.messenger,id: viewId, params:args)
     }
     
     public func createArgsCodec() -> FlutterMessageCodec & NSObjectProtocol {

@@ -37,7 +37,9 @@ const String onAplashShow = "onAplashShow";
 const String onAplashSkip = "onAplashSkip";
 //广告结束
 const String onAplashFinish = "onAplashFinish";
-
+//加载失败
+const String onAplashError = "onAplashError";
+const String message = "message";
 
 ///激励广告相关
 //是否观看成功

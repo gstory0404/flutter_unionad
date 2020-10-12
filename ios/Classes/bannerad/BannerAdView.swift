@@ -1,22 +1,21 @@
-//
+//banner广告
 //  BannerExpressAdView.swift
 //  flutter_unionad
 // 个性化模板Banner广告
-//  Created by 9Y on 2020/9/4.
+//  Created by gstory0404@gmail on 2020/9/4.
 //
-
 import Foundation
 import BUAdSDK
-import Flutter
 
-public class BannerExpressAdView : NSObject,FlutterPlatformView{
-    private let container : UIView
+public class BannerAdView : NSObject,FlutterPlatformView{
+    private var container : UIView
     var frame: CGRect;
     //广告需要的参数
     let mCodeId :String?
     var supportDeepLink :Bool? = true
     let expressViewWidth : Float?
     let expressViewHeight :Float?
+    var mIsExpress :Bool? = true
     let expressAdNum :Int64?
     let expressTime : Int64?
     
@@ -25,6 +24,7 @@ public class BannerExpressAdView : NSObject,FlutterPlatformView{
         self.container = UIView(frame: frame)
         let dict = params as! NSDictionary
         self.mCodeId = dict.value(forKey: "mCodeId") as? String
+        self.mIsExpress = dict.value(forKey: "mIsExpress") as? Bool
         self.supportDeepLink = dict.value(forKey: "supportDeepLink") as? Bool
         self.expressViewWidth = dict.value(forKey: "expressViewWidth") as? Float
         self.expressViewHeight = dict.value(forKey: "expressViewHeight") as? Float
@@ -37,21 +37,14 @@ public class BannerExpressAdView : NSObject,FlutterPlatformView{
         return self.container
     }
     
-    private func refreshBanner(width: CGFloat, height: CGFloat) {
-           var params = [String: Any?]()
-           params["width"] = width
-           params["height"] = height
-       }
-    
     private func loadBannerExpressAd(){
         self.removeAllView()
         let viewWidth:CGFloat = CGFloat(self.expressViewWidth ?? 200)
         let viewHeigh:CGFloat = CGFloat(self.expressViewHeight ?? 100)
         let size = CGSize(width: viewWidth, height: viewHeigh)
-        self.frame.size = size
-        let bannerAdView = BUNativeExpressBannerView(slotID: self.mCodeId!, rootViewController: MyUtils.getVC(), adSize: size, isSupportDeepLink: self.supportDeepLink!)
-        self.container.addSubview(bannerAdView)
+        let bannerAdView = BUNativeExpressBannerView.init(slotID: self.mCodeId!, rootViewController: MyUtils.getVC(), adSize: size, isSupportDeepLink: self.supportDeepLink!)
         bannerAdView.delegate = self
+        self.container = bannerAdView
         bannerAdView.loadAdData()
         LogUtil.logInstance.printLog(message: "开始初始化")
     }
@@ -65,10 +58,9 @@ public class BannerExpressAdView : NSObject,FlutterPlatformView{
     }
 }
 
-extension BannerExpressAdView: BUNativeExpressBannerViewDelegate {
+extension BannerAdView: BUNativeExpressBannerViewDelegate {
     public func nativeExpressBannerAdViewDidLoad(_ bannerAdView: BUNativeExpressBannerView) {
-        let frame = bannerAdView.frame
-        self.refreshBanner(width: frame.width, height: frame.height)
+        
     }
 
     public func nativeExpressBannerAdViewRenderFail(_ bannerAdView: BUNativeExpressBannerView, error: Error?) {
@@ -84,5 +76,12 @@ extension BannerExpressAdView: BUNativeExpressBannerViewDelegate {
         self.disposeView()
     }
     
+    public func nativeExpressBannerAdViewRenderSuccess(_ bannerAdView: BUNativeExpressBannerView) {
+        LogUtil.logInstance.printLog(message: "banner渲染成功")
+    }
     
+    public func nativeExpressBannerAdViewDidClick(_ bannerAdView: BUNativeExpressBannerView) {
+        LogUtil.logInstance.printLog(message: "banner点击了")
+    }
 }
+

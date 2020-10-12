@@ -66,6 +66,7 @@ object InteractionExpressAd {
     //绑定广告行为
     private fun bindAdListener(ad: TTNativeExpressAd) {
         ad.setExpressInteractionListener(object : TTNativeExpressAd.AdInteractionListener {
+
             override fun onAdDismiss() {
                 Log.e(TAG, "广告关闭")
             }

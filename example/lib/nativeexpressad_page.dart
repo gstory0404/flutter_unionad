@@ -7,10 +7,10 @@ import 'package:flutter_unionad/flutter_unionad.dart'as FlutterUnionad;
 /// @time   2020/3/11
 class NativeExpressAdPage extends StatefulWidget {
   @override
-  _nativeExpressAdPageState createState() => _nativeExpressAdPageState();
+  _NativeExpressAdPageState createState() => _NativeExpressAdPageState();
 }
 
-class _nativeExpressAdPageState extends State<NativeExpressAdPage> {
+class _NativeExpressAdPageState extends State<NativeExpressAdPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,68 +29,33 @@ class _nativeExpressAdPageState extends State<NativeExpressAdPage> {
           children: [
             //个性化模板信息流广告
             Container(
-              height: 300,
+              height: 284,
+              color: Colors.yellow,
               child: FlutterUnionad.nativeAdView(
                 mCodeId: "945417699",
                 supportDeepLink: true,
-                expressViewWidth: 800,
-                expressViewHeight: 600,
+                expressViewWidth: 375,
+                expressViewHeight: 284,
               ),
             ), //个性化模板信息流广告
             Container(
-              height: 300,
+              height: 284,
               child: FlutterUnionad.nativeAdView(
                 mCodeId: "945417487",
                 supportDeepLink: true,
-                expressViewWidth: 800,
-                expressViewHeight: 600,
+                expressViewWidth: 375,
+                expressViewHeight: 284,
               ),
             ),//个性化模板信息流广告
             Container(
-              height: 300,
+              height: 480,
               child: FlutterUnionad.nativeAdView(
                 mCodeId: "945407034",
                 supportDeepLink: true,
-                expressViewWidth: 800,
-                expressViewHeight: 600,
+                expressViewWidth: 270,
+                expressViewHeight: 480,
               ),
             ),//个性化模板信息流广告
-            Container(
-              height: 300,
-              child: FlutterUnionad.nativeAdView(
-                mCodeId: "945417487",
-                supportDeepLink: true,
-                expressViewWidth: 800,
-                expressViewHeight: 600,
-              ),
-            ),//个性化模板信息流广告
-            Container(
-              height: 300,
-              child: FlutterUnionad.nativeAdView(
-                mCodeId: "945417487",
-                supportDeepLink: true,
-                expressViewWidth: 800,
-                expressViewHeight: 600,
-              ),
-            ),//个性化模板信息流广告
-            Container(
-              height: 300,
-              child: FlutterUnionad.nativeAdView(
-                mCodeId: "945417487",
-                supportDeepLink: true,
-                expressViewWidth: 800,
-                expressViewHeight: 600,
-              ),
-            ),//个性化模板信息流广告
-            Container(
-              height: 300,
-              child: FlutterUnionad.nativeAdView(
-                mCodeId: "945417487",
-                supportDeepLink: true,
-                expressViewWidth: 800,
-                expressViewHeight: 600,
-              ),
-            ),
           ],
         ),
       ),

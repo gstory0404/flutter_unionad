@@ -18,7 +18,6 @@ object FullScreenVideoExpressAd {
     var mContext: Context? = null
     var mActivity: Activity? = null
     lateinit var mTTAdNative: TTAdNative
-    private var mTTAd: TTNativeExpressAd? = null
     private var mttFullVideoAd : TTFullScreenVideoAd? = null
 
     //广告所需参数
