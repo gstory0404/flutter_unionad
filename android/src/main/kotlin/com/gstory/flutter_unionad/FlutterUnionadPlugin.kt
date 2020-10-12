@@ -104,43 +104,6 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
                     result.success(true)
                 }
             }
-        } else if (call.method == "loadRewardVideoAd") {
-            val mIsExpress = call.argument<Boolean>("mIsExpress")
-            val mCodeId = call.argument<String>("mCodeId")
-            val supportDeepLink = call.argument<Boolean>("supportDeepLink")
-            var width = call.argument<Double>("expressViewWidth")
-            var height = call.argument<Double>("expressViewHeight")
-            val rewardName = call.argument<String>("rewardName")
-            val rewardAmount = call.argument<Int>("rewardAmount")
-            val userID = call.argument<String>("userID")
-            var orientation = call.argument<Int>("orientation")
-            val mediaExtra = call.argument<String>("mediaExtra")
-            if (orientation == null) {
-                orientation = 0
-            }
-            if (width == null) {
-                width = UIUtils.dip2px(applicationContext!!, UIUtils.getScreenWidthDp(applicationContext!!)).toDouble()
-            }
-            if (height == null) {
-                height = UIUtils.getRealHeight(applicationContext!!).toFloat().toDouble()
-            }
-            var expressViewWidth = width.toFloat()
-            var expressViewHeight = height.toFloat()
-            var intent = Intent()
-//            intent.putExtra("mIsExpress", mIsExpress)
-//            intent.putExtra("mCodeId", mCodeId)
-//            intent.putExtra("supportDeepLink", supportDeepLink)
-//            intent.putExtra("expressViewWidth", expressViewWidth)
-//            intent.putExtra("expressViewHeight", expressViewHeight)
-//            intent.putExtra("rewardName", rewardName)
-//            intent.putExtra("rewardAmount", rewardAmount)
-//            intent.putExtra("userID", userID)
-//            intent.putExtra("orientation", orientation)
-//            intent.putExtra("mediaExtra", mediaExtra)
-//            intent.setClass(applicationContext!!, RewardVideoAd().javaClass)
-//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            applicationContext!!.startActivity(intent)
-            RewardVideoAd.init(mActivity!!, mActivity!!, call.arguments as Map<String?, Any?>)
             //请求权限
         } else if (call.method == "requestPermissionIfNecessary") {
             val mTTAdManager = TTAdManagerHolder.get()
@@ -153,6 +116,9 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
             } else {
                 result.success(viersion)
             }
+            //激励视频广告
+        } else if (call.method == "loadRewardVideoAd") {
+            RewardVideoAd.init(mActivity!!, mActivity!!, call.arguments as Map<String?, Any?>)
             //插屏广告
         } else if (call.method == "interactionAd") {
             val mCodeId = call.argument<String>("mCodeId")
@@ -161,6 +127,7 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
             var expressViewHeight = call.argument<Double>("expressViewHeight")
             InteractionExpressAd.init(mActivity!!,mActivity!!, mCodeId, supportDeepLink, expressViewWidth!!, expressViewHeight!!)
             result.success(true)
+            //全屏广告
         } else if(call.method == "fullScreenVideoAd"){
             val mCodeId = call.argument<String>("mCodeId")
             val supportDeepLink = call.argument<Boolean>("supportDeepLink")

@@ -1,7 +1,7 @@
 # 穿山甲广告 flutter版本
 
 <p>
-<a href="https://github.com/gstory0404/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v0.0.4-success></a>
+<a href="https://github.com/gstory0404/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v0.0.5-success></a>
 </p>
 
 ![image](https://github.com/gstory0404/flutter_unionad/blob/master/image/demo.gif)
@@ -15,9 +15,9 @@
 ## 集成步骤
 #### 1、pubspec.yaml
 ```Dart
-flutter_unionad: ^0.0.4
+flutter_unionad: ^0.0.5
 ```
-引用插件
+引入
 ```Dart
 import 'package:flutter_unionad/flutter_unionad.dart' as FlutterUnionad;
 ```
@@ -224,16 +224,8 @@ FlutterUnionad.adeventEvent
    });
 ```
 
-## 历史版本
-| 版本  | 说明  | 
-| :------------ |:---------------:| 
-|  0.0.1      | 增加Android各广告的使用，新增ios激励广告 |
-|  0.0.3      | 优化广告逻辑 |
-|  0.0.4      | 1、优化广告逻辑 2、新增android全屏视频广告|
-
 ## 说明
- 目前项目中只用到了激励视频，所以该插件只完善了激励视频相关的操作；
- android部分均已完善各个性化广告的使用，ios部分只做了激励视频、banner视频
- 接下来有空会陆续完善插件。<br/>
- 如果有什么建议可以联系我的邮箱 gstory0404@gmail.com
+ 如果有什么建议可以联系我
+ Email:gstory0404@gmail.com
+ QQ:156496037
  

@@ -12,4 +12,8 @@
 
 ## 0.0.4
 
-* TODO:优化广告逻辑，添加Android全屏视频广告
+* TODO:Optimize advertising logic and add Android full screen video advertising
+
+## 0.0.5
+
+* TODO:1. Improve the remaining IOS ads; 2. Upgrade IOS SDK to 3.2.6.2; 3. Add IDFA access request for ios14 permission adaptation

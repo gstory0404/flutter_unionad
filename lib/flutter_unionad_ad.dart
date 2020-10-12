@@ -181,8 +181,8 @@ Future<bool> interactionAd({
     "mIsExpress": mIsExpress == null ? false : mIsExpress,
     "mCodeId": mCodeId,
     "supportDeepLink": supportDeepLink == null ? true : supportDeepLink,
-    "expressViewWidth": expressViewWidth == null ? 200 : expressViewWidth,
-    "expressViewHeight": expressViewHeight == null ? 300 : expressViewHeight,
+    "expressViewWidth": expressViewWidth == null ? 200.0 : expressViewWidth,
+    "expressViewHeight": expressViewHeight == null ? 300.0 : expressViewHeight,
   });
 }
 
@@ -200,8 +200,8 @@ Widget interactionAdView(
         "mIsExpress": mIsExpress == null ? false : mIsExpress,
         "mCodeId": mCodeId,
         "supportDeepLink": supportDeepLink == null ? true : supportDeepLink,
-        "expressViewWidth": expressViewWidth == null ? 0 : expressViewWidth,
-        "expressViewHeight": expressViewHeight == null ? 0 : expressViewHeight,
+        "expressViewWidth": expressViewWidth == null ? 200.0 : expressViewWidth,
+        "expressViewHeight": expressViewHeight == null ? 300.0 : expressViewHeight,
       },
       creationParamsCodec: const StandardMessageCodec(),
     );
@@ -216,8 +216,6 @@ Future<bool> loadRewardVideoAd({
   bool mIsExpress,
   @required String mCodeId,
   bool supportDeepLink,
-  double expressViewWidth,
-  double expressViewHeight,
   @required String rewardName,
   @required int rewardAmount,
   @required String userID,
@@ -228,8 +226,6 @@ Future<bool> loadRewardVideoAd({
     "mIsExpress": mIsExpress == null ? false : mIsExpress,
     "mCodeId": mCodeId,
     "supportDeepLink": supportDeepLink == null ? true : supportDeepLink,
-    "expressViewWidth": expressViewWidth == null ? 0 : expressViewWidth,
-    "expressViewHeight": expressViewHeight == null ? 0 : expressViewHeight,
     "rewardName": rewardName == null ? "" : rewardName,
     "rewardAmount": rewardAmount == null ? 0 : rewardAmount,
     "userID": userID == null ? "" : userID,
@@ -253,8 +249,8 @@ Widget drawFeedAdView({
         "mIsExpress": mIsExpress == null ? false : mIsExpress,
         "mCodeId": mCodeId,
         "supportDeepLink": supportDeepLink == null ? true : supportDeepLink,
-        "expressViewWidth": expressViewWidth == null ? 0 : expressViewWidth,
-        "expressViewHeight": expressViewHeight == null ? 0 : expressViewHeight,
+        "expressViewWidth": expressViewWidth == null ? 720.0 : expressViewWidth,
+        "expressViewHeight": expressViewHeight == null ? 1080.0 : expressViewHeight,
       },
       creationParamsCodec: const StandardMessageCodec(),
     );
@@ -265,8 +261,8 @@ Widget drawFeedAdView({
         "mIsExpress": mIsExpress == null ? false : mIsExpress,
         "mCodeId": mCodeId,
         "supportDeepLink": supportDeepLink == null ? true : supportDeepLink,
-        "expressViewWidth": expressViewWidth == null ? 0 : expressViewWidth,
-        "expressViewHeight": expressViewHeight == null ? 0 : expressViewHeight,
+        "expressViewWidth": expressViewWidth == null ? 750.0 : expressViewWidth,
+        "expressViewHeight": expressViewHeight == null ? 1334.0 : expressViewHeight,
       },
       creationParamsCodec: const StandardMessageCodec(),
     );

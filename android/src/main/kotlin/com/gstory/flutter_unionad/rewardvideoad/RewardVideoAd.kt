@@ -2,14 +2,11 @@ package com.gstory.flutter_unionad.rewardvideoad
 
 import android.app.Activity
 import android.content.Context
-import android.os.Bundle
 import android.util.Log
-import androidx.annotation.Nullable
 import com.bytedance.sdk.openadsdk.*
 import com.bytedance.sdk.openadsdk.TTAdNative.RewardVideoAdListener
 import com.bytedance.sdk.openadsdk.TTRewardVideoAd.RewardAdInteractionListener
 import com.gstory.flutter_unionad.FlutterUnionadEventPlugin
-import com.gstory.flutter_unionad.R
 import com.gstory.flutter_unionad.TTAdManagerHolder
 import com.gstory.flutter_unionad.UIUtils
 
@@ -19,7 +16,7 @@ import com.gstory.flutter_unionad.UIUtils
  * @Author: gstory0404@gmail
  * @CreateDate: 2020/8/20 18:46
  */
-object RewardVideoAd{
+object RewardVideoAd {
     private val TAG = "RewardVideoAdActivity"
 
     var mContext: Context? = null
@@ -41,35 +38,27 @@ object RewardVideoAd{
     private var orientation: Int? = TTAdConstant.VERTICAL
     private var mediaExtra: String? = null
 
-    fun init(context: Context, mActivity: Activity, params: Map<String?, Any?>){
-        Log.e(TAG,"到这里了")
+    fun init(context: Context, mActivity: Activity, params: Map<String?, Any?>) {
+        Log.e(TAG, "到这里了")
         Log.e(TAG, params.toString())
         this.mContext = context
         this.mActivity = mActivity
         this.mIsExpress = params["mIsExpress"] as Boolean
         this.mCodeId = params["mCodeId"] as String
         this.supportDeepLink = params["supportDeepLink"] as Boolean
-        if (params["expressViewWidth"] == null) {
-            this.expressViewWidth = UIUtils.dip2px(context!!, UIUtils.getScreenWidthDp(context!!))
-        }else{
-            this.expressViewWidth = params["expressViewWidth"] as Float
-        }
-        if (params["expressViewHeight"] == null) {
-            this.expressViewHeight = UIUtils.getRealHeight(context!!).toFloat()
-        }else{
-            this.expressViewHeight = params["expressViewHeight"] as Float
-        }
+        this.expressViewWidth = UIUtils.dip2px(context, UIUtils.getScreenWidthDp(context))
+        this.expressViewHeight = UIUtils.getRealHeight(context).toFloat()
         this.rewardName = params["rewardName"] as String
         this.rewardAmount = params["rewardAmount"] as Int
         this.userID = params["userID"] as String
-        if (params["orientation"]  == null) {
+        if (params["orientation"] == null) {
             orientation = 0
-        }else{
+        } else {
             this.orientation = params["orientation"] as Int
         }
-        if (params["mediaExtra"]  == null) {
+        if (params["mediaExtra"] == null) {
             this.mediaExtra = ""
-        }else{
+        } else {
             this.mediaExtra = params["mediaExtra"] as String
         }
         val mTTAdManager = TTAdManagerHolder.get()
@@ -137,7 +126,7 @@ object RewardVideoAd{
                 mIsLoaded = false
                 mttRewardVideoAd = ad
                 //mttRewardVideoAd.setShowDownLoadBar(false);
-                mttRewardVideoAd!!.setRewardAdInteractionListener(object : RewardAdInteractionListener {
+                mttRewardVideoAd?.setRewardAdInteractionListener(object : RewardAdInteractionListener {
                     override fun onAdShow() {
                         Log.e(TAG, "rewardVideoAd show")
                     }
@@ -158,9 +147,9 @@ object RewardVideoAd{
                         Log.e(TAG, "rewardVideoAd complete")
                     }
 
-                    override fun onRewardVerify(rewardVerify: Boolean, rewardAmount: Int, rewardName: String) {
-                        Log.e(TAG, "verify: $rewardVerify amount:$rewardAmount name:$rewardName")
-                        var map = mutableMapOf("adType" to "rewardAd", "rewardVerify" to rewardVerify, "rewardAmount" to rewardAmount, "rewardName" to rewardName)
+                    override fun onRewardVerify(p0: Boolean, p1: Int, p2: String?, p3: Int, p4: String?) {
+                        Log.e(TAG, "verify: $p0 amount:$p1 name:$p2 p3:$p3 p4:$p4")
+                        var map: MutableMap<String, Any?> = mutableMapOf("adType" to "rewardAd", "rewardVerify" to p0, "rewardAmount" to p1, "rewardName" to p2)
                         FlutterUnionadEventPlugin.sendContent(map)
                     }
 

@@ -19,7 +19,7 @@ class FlutterUnionadEventPlugin : FlutterPlugin, EventChannel.StreamHandler {
 
         private var context: Context? = null
 
-        fun sendContent(content:Map<String,Any>) {
+        fun sendContent(content: MutableMap<String, Any?>) {
             eventSink?.success(content);
         }
     }

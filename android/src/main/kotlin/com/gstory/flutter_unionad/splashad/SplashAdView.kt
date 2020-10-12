@@ -1,6 +1,5 @@
 package com.gstory.flutter_unionad.splashad
 
-import android.app.Activity
 import android.content.Context
 import android.util.Log
 import android.view.View
@@ -46,7 +45,7 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
             expressViewWidth = width.toString().toFloat()
         }
         if (hight == null) {
-            expressViewHeight = UIUtils.px2dip(context,UIUtils.getRealHeight(context).toFloat())
+            expressViewHeight = UIUtils.px2dip(context, UIUtils.getRealHeight(context).toFloat())
         } else {
             expressViewHeight = hight.toString().toFloat()
         }
@@ -89,7 +88,7 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
             @MainThread
             override fun onTimeout() {
                 Log.e(TAG, "开屏广告加载超时")
-                var map = mutableMapOf("adType" to "aplashAd","aplashType" to "onAplashTimeout")
+                var map: MutableMap<String, Any?> = mutableMapOf("adType" to "aplashAd", "aplashType" to "onAplashTimeout")
                 FlutterUnionadEventPlugin.sendContent(map)
             }
 
@@ -118,25 +117,25 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
                 ad.setSplashInteractionListener(object : TTSplashAd.AdInteractionListener {
                     override fun onAdClicked(view: View, type: Int) {
                         Log.e(TAG, "onAdClicked开屏广告点击")
-                        var map = mutableMapOf("adType" to "aplashAd","aplashType" to "onAplashClick")
+                        var map: MutableMap<String, Any?> = mutableMapOf("adType" to "aplashAd", "aplashType" to "onAplashClick")
                         FlutterUnionadEventPlugin.sendContent(map)
                     }
 
                     override fun onAdShow(view: View, type: Int) {
                         Log.e(TAG, "onAdShow开屏广告展示")
-                        var map = mutableMapOf("adType" to "aplashAd","aplashType" to "onAplashShow")
+                        var map: MutableMap<String, Any?> = mutableMapOf("adType" to "aplashAd", "aplashType" to "onAplashShow")
                         FlutterUnionadEventPlugin.sendContent(map)
                     }
 
                     override fun onAdSkip() {
                         Log.e(TAG, "onAdSkip开屏广告跳过")
-                        var map = mutableMapOf("adType" to "aplashAd","aplashType" to "onAplashSkip")
+                        var map: MutableMap<String, Any?> = mutableMapOf("adType" to "aplashAd", "aplashType" to "onAplashSkip")
                         FlutterUnionadEventPlugin.sendContent(map)
                     }
 
                     override fun onAdTimeOver() {
                         Log.e(TAG, "onAdTimeOver开屏广告倒计时结束")
-                        var map = mutableMapOf("adType" to "aplashAd","aplashType" to "onAplashFinish")
+                        var map: MutableMap<String, Any?> = mutableMapOf("adType" to "aplashAd", "aplashType" to "onAplashFinish")
                         FlutterUnionadEventPlugin.sendContent(map)
                     }
                 })
