@@ -27,7 +27,7 @@ aar文件已集成进插件中无需额外配置，只需要在android目录中A
   <application
         tools:replace="android:label">
 ```
-SDK版本 3.2.0.3
+SDK版本 3.3.0.0
 
 #### 3、IOS
 SDK已配置插件中，其余根据SDK文档配置，因为使用PlatformView，在Info.plist加入
@@ -35,7 +35,7 @@ SDK已配置插件中，其余根据SDK文档配置，因为使用PlatformView�
  <key>io.flutter.embedded_views_preview</key>
     <true/>
 ```
-SDK版本 3.2.0.1
+SDK版本 3.2.6.2
 
 ## 使用
 
