@@ -16,4 +16,4 @@
 
 ## 0.0.5
 
-* TODO:1、完善剩余ios广告； 2、升级ios sdk为3.2.6.2； 3、ios14权限适配 新增IDFA获取请求
+* TODO:1、完善剩余ios广告； 2、升级ios sdk为3.2.6.2； 3、ios14权限适配 新增IDFA获取请求 4、andorid sdk升级为3.3.0.0

@@ -16,4 +16,4 @@
 
 ## 0.0.5
 
-* TODO:1. Improve the remaining IOS ads; 2. Upgrade IOS SDK to 3.2.6.2; 3. Add IDFA access request for ios14 permission adaptation
+* TODO:1. Improve the remaining IOS ads; 2. Upgrade IOS SDK to 3.2.6.2; 3. Add IDFA access request for ios14 permission adaptation 4. Android SDK upgraded to 3.3.0.0flutter packages pub publish --server=https://pub.dartlang.org
