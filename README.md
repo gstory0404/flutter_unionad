@@ -225,7 +225,8 @@ FlutterUnionad.adeventEvent
 ```
 
 ## 说明
- 如果有什么建议可以联系我
+ 1、所有view尺寸均传dp。
+ 2、如果有什么建议可以联系我
  <br/>Email:gstory0404@gmail.com
  <br/>QQ:156496037
  
