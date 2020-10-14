@@ -29,15 +29,13 @@ Future<bool> register({
   return await _channel.invokeMethod("register", {
     "iosAppId": iosAppId,
     "androidAppId": androidAppId,
-    "useTextureView": useTextureView == null ? false : useTextureView,
-    "appName": appName == null ? "" : appName,
-    "allowShowNotify": allowShowNotify == null ? false : allowShowNotify,
-    "allowShowPageWhenScreenLock": allowShowPageWhenScreenLock == null
-        ? false
-        : allowShowPageWhenScreenLock,
-    "debug": debug == null ? false : debug,
+    "useTextureView": useTextureView ?? false,
+    "appName": appName ?? null,
+    "allowShowNotify": allowShowNotify ?? null,
+    "allowShowPageWhenScreenLock": allowShowPageWhenScreenLock ?? false,
+    "debug": debug ?? false,
     "supportMultiProcess":
-        supportMultiProcess == null ? false : supportMultiProcess,
+        supportMultiProcess ?? false,
     "directDownloadNetworkType": directDownloadNetworkType != null ||
             directDownloadNetworkType.length > 0
         ? directDownloadNetworkType
@@ -74,13 +72,13 @@ Widget bannerAdView(
     return AndroidView(
       viewType: 'com.gstory.flutter_unionad/BannerAdView',
       creationParams: {
-        "mIsExpress": mIsExpress == null ? false : mIsExpress,
+        "mIsExpress": mIsExpress ?? false,
         "mCodeId": mCodeId,
-        "supportDeepLink": supportDeepLink == null ? true : supportDeepLink,
-        "expressViewWidth": expressViewWidth == null ? 0 : expressViewWidth,
-        "expressViewHeight": expressViewHeight == null ? 0 : expressViewHeight,
-        "expressAdNum": expressAdNum == null ? 1 : expressAdNum,
-        "expressTime": expressTime == null ? 0 : expressTime
+        "supportDeepLink": supportDeepLink ?? true,
+        "expressViewWidth": expressViewWidth ?? 400,
+        "expressViewHeight": expressViewHeight ?? 200,
+        "expressAdNum": expressAdNum ?? 1,
+        "expressTime": expressTime ?? 0
       },
       creationParamsCodec: const StandardMessageCodec(),
     );
@@ -88,13 +86,13 @@ Widget bannerAdView(
     return UiKitView(
       viewType: "com.gstory.flutter_unionad/BannerAdView",
       creationParams: {
-        "mIsExpress": mIsExpress == null ? false : mIsExpress,
+        "mIsExpress": mIsExpress ?? false,
         "mCodeId": mCodeId,
-        "supportDeepLink": supportDeepLink == null ? true : supportDeepLink,
-        "expressViewWidth": expressViewWidth == null ? 0 : expressViewWidth,
-        "expressViewHeight": expressViewHeight == null ? 0 : expressViewHeight,
-        "expressAdNum": expressAdNum == null ? 1 : expressAdNum,
-        "expressTime": expressTime == null ? 0 : expressTime
+        "supportDeepLink": supportDeepLink ?? true,
+        "expressViewWidth": expressViewWidth ?? 400,
+        "expressViewHeight": expressViewHeight ?? 200,
+        "expressAdNum": expressAdNum ?? 1,
+        "expressTime": expressTime ?? 0
       },
       creationParamsCodec: const StandardMessageCodec(),
     );
@@ -113,11 +111,11 @@ Widget splashAdView(
     return AndroidView(
       viewType: 'com.gstory.flutter_unionad/SplashAdView',
       creationParams: {
-        "mIsExpress": mIsExpress == null ? false : mIsExpress,
+        "mIsExpress": mIsExpress ?? false,
         "mCodeId": mCodeId,
-        "supportDeepLink": supportDeepLink == null ? true : supportDeepLink,
-        "expressViewWidth": expressViewWidth == null ? 0 : expressViewWidth,
-        "expressViewHeight": expressViewHeight == null ? 0 : expressViewHeight,
+        "supportDeepLink": supportDeepLink ?? true,
+        "expressViewWidth": expressViewWidth ?? 720,
+        "expressViewHeight": expressViewHeight ?? 1080,
       },
       creationParamsCodec: const StandardMessageCodec(),
     );
@@ -125,11 +123,11 @@ Widget splashAdView(
     return UiKitView(
       viewType: "com.gstory.flutter_unionad/SplashAdView",
       creationParams: {
-        "mIsExpress": mIsExpress == null ? false : mIsExpress,
+        "mIsExpress": mIsExpress ?? false,
         "mCodeId": mCodeId,
-        "supportDeepLink": supportDeepLink == null ? true : supportDeepLink,
-        "expressViewWidth": expressViewWidth == null ? 0 : expressViewWidth,
-        "expressViewHeight": expressViewHeight == null ? 0 : expressViewHeight,
+        "supportDeepLink": supportDeepLink ?? true,
+        "expressViewWidth": expressViewWidth ?? 750,
+        "expressViewHeight": expressViewHeight ?? 1334,
       },
       creationParamsCodec: const StandardMessageCodec(),
     );
@@ -148,9 +146,9 @@ Widget nativeAdView(
       viewType: 'com.gstory.flutter_unionad/NativeAdView',
       creationParams: {
         "mCodeId": mCodeId,
-        "supportDeepLink": supportDeepLink == null ? true : supportDeepLink,
-        "expressViewWidth": expressViewWidth == null ? 200 : expressViewWidth,
-        "expressViewHeight": expressViewHeight == null ? 100 : expressViewHeight,
+        "supportDeepLink": supportDeepLink ?? true,
+        "expressViewWidth": expressViewWidth ?? 200,
+        "expressViewHeight": expressViewHeight ?? 100,
       },
       creationParamsCodec: const StandardMessageCodec(),
     );
@@ -159,9 +157,9 @@ Widget nativeAdView(
       viewType: "com.gstory.flutter_unionad/NativeAdView",
       creationParams: {
         "mCodeId": mCodeId,
-        "supportDeepLink": supportDeepLink == null ? true : supportDeepLink,
-        "expressViewWidth": expressViewWidth == null ? 200 : expressViewWidth,
-        "expressViewHeight": expressViewHeight == null ? 100 : expressViewHeight,
+        "supportDeepLink": supportDeepLink ?? true,
+        "expressViewWidth": expressViewWidth ?? 200,
+        "expressViewHeight": expressViewHeight ?? 100,
       },
       creationParamsCodec: const StandardMessageCodec(),
     );
@@ -178,11 +176,11 @@ Future<bool> interactionAd({
   double expressViewHeight,
 }) async {
   return await _channel.invokeMethod("interactionAd", {
-    "mIsExpress": mIsExpress == null ? false : mIsExpress,
+    "mIsExpress": mIsExpress ?? false,
     "mCodeId": mCodeId,
-    "supportDeepLink": supportDeepLink == null ? true : supportDeepLink,
-    "expressViewWidth": expressViewWidth == null ? 200.0 : expressViewWidth,
-    "expressViewHeight": expressViewHeight == null ? 300.0 : expressViewHeight,
+    "supportDeepLink": supportDeepLink ?? true,
+    "expressViewWidth": expressViewWidth ?? 200,
+    "expressViewHeight": expressViewHeight ?? 300,
   });
 }
 
@@ -197,11 +195,11 @@ Widget interactionAdView(
     return AndroidView(
       viewType: 'com.gstory.flutter_unionad/InteractionAdView',
       creationParams: {
-        "mIsExpress": mIsExpress == null ? false : mIsExpress,
+        "mIsExpress": mIsExpress ?? false,
         "mCodeId": mCodeId,
-        "supportDeepLink": supportDeepLink == null ? true : supportDeepLink,
-        "expressViewWidth": expressViewWidth == null ? 200.0 : expressViewWidth,
-        "expressViewHeight": expressViewHeight == null ? 300.0 : expressViewHeight,
+        "supportDeepLink": supportDeepLink ?? true,
+        "expressViewWidth": expressViewWidth ?? 300,
+        "expressViewHeight": expressViewHeight ?? 400,
       },
       creationParamsCodec: const StandardMessageCodec(),
     );
@@ -216,6 +214,8 @@ Future<bool> loadRewardVideoAd({
   bool mIsExpress,
   @required String mCodeId,
   bool supportDeepLink,
+  double expressViewWidth,
+  double expressViewHeight,
   @required String rewardName,
   @required int rewardAmount,
   @required String userID,
@@ -225,12 +225,14 @@ Future<bool> loadRewardVideoAd({
   return await _channel.invokeMethod("loadRewardVideoAd", {
     "mIsExpress": mIsExpress == null ? false : mIsExpress,
     "mCodeId": mCodeId,
-    "supportDeepLink": supportDeepLink == null ? true : supportDeepLink,
-    "rewardName": rewardName == null ? "" : rewardName,
-    "rewardAmount": rewardAmount == null ? 0 : rewardAmount,
-    "userID": userID == null ? "" : userID,
-    "orientation": orientation == null ? 0 : orientation,
-    "mediaExtra": mediaExtra == null ? "" : mediaExtra
+    "supportDeepLink": supportDeepLink ?? true,
+    "expressViewWidth": expressViewWidth ?? 750,
+    "expressViewHeight": expressViewHeight ??  1080,
+    "rewardName": rewardName ?? "",
+    "rewardAmount": rewardAmount ?? 0,
+    "userID": userID ?? "",
+    "orientation": orientation ?? 0,
+    "mediaExtra": mediaExtra ?? ""
   });
 }
 
@@ -246,11 +248,11 @@ Widget drawFeedAdView({
     return AndroidView(
       viewType: 'com.gstory.flutter_unionad/DrawFeedAdView',
       creationParams: {
-        "mIsExpress": mIsExpress == null ? false : mIsExpress,
+        "mIsExpress": mIsExpress ?? false,
         "mCodeId": mCodeId,
-        "supportDeepLink": supportDeepLink == null ? true : supportDeepLink,
-        "expressViewWidth": expressViewWidth == null ? 720.0 : expressViewWidth,
-        "expressViewHeight": expressViewHeight == null ? 1080.0 : expressViewHeight,
+        "supportDeepLink": supportDeepLink ?? true,
+        "expressViewWidth": expressViewWidth ?? 720,
+        "expressViewHeight": expressViewHeight ?? 1080,
       },
       creationParamsCodec: const StandardMessageCodec(),
     );
@@ -258,11 +260,11 @@ Widget drawFeedAdView({
     return UiKitView(
       viewType: "com.gstory.flutter_unionad/DrawFeedAdView",
       creationParams: {
-        "mIsExpress": mIsExpress == null ? false : mIsExpress,
+        "mIsExpress": mIsExpress ?? false,
         "mCodeId": mCodeId,
-        "supportDeepLink": supportDeepLink == null ? true : supportDeepLink,
-        "expressViewWidth": expressViewWidth == null ? 750.0 : expressViewWidth,
-        "expressViewHeight": expressViewHeight == null ? 1334.0 : expressViewHeight,
+        "supportDeepLink": supportDeepLink ?? true,
+        "expressViewWidth": expressViewWidth ?? 750,
+        "expressViewHeight": expressViewHeight ?? 1334,
       },
       creationParamsCodec: const StandardMessageCodec(),
     );
@@ -277,9 +279,9 @@ Future<bool> fullScreenVideoAd(
     bool supportDeepLink,
     int orientation}) async {
   return await _channel.invokeMethod("fullScreenVideoAd", {
-    "mIsExpress": mIsExpress == null ? false : mIsExpress,
+    "mIsExpress": mIsExpress ?? false,
     "mCodeId": mCodeId,
-    "supportDeepLink": supportDeepLink == null ? true : supportDeepLink,
-    "orientation": orientation == null ? VideoVERTICAL : orientation,
+    "supportDeepLink": supportDeepLink ?? true,
+    "orientation": orientation ?? VideoVERTICAL,
   });
 }
