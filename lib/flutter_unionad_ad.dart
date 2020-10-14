@@ -9,10 +9,9 @@ import 'package:flutter/foundation.dart';
 /// @author guozi
 /// @e-mail gstory0404@gmail.com
 /// @time   2020/3/11
-
 const MethodChannel _channel = const MethodChannel('flutter_unionad');
 const EventChannel adeventEvent =
-    EventChannel("com.gstory.flutter_unionad/adevent");
+EventChannel("com.gstory.flutter_unionad/adevent");
 
 ///sdk注册初始化
 Future<bool> register({
@@ -35,17 +34,17 @@ Future<bool> register({
     "allowShowPageWhenScreenLock": allowShowPageWhenScreenLock ?? false,
     "debug": debug ?? false,
     "supportMultiProcess":
-        supportMultiProcess ?? false,
+    supportMultiProcess ?? false,
     "directDownloadNetworkType": directDownloadNetworkType != null ||
-            directDownloadNetworkType.length > 0
+        directDownloadNetworkType.length > 0
         ? directDownloadNetworkType
         : [
-            NETWORK_STATE_MOBILE,
-            NETWORK_STATE_2G,
-            NETWORK_STATE_3G,
-            NETWORK_STATE_4G,
-            NETWORK_STATE_WIFI
-          ]
+      NETWORK_STATE_MOBILE,
+      NETWORK_STATE_2G,
+      NETWORK_STATE_3G,
+      NETWORK_STATE_4G,
+      NETWORK_STATE_WIFI
+    ]
   });
 }
 
@@ -62,12 +61,12 @@ Future<String> getSDKVersion() async {
 ///banner广告
 Widget bannerAdView(
     {bool mIsExpress,
-    @required String mCodeId,
-    bool supportDeepLink,
-    int expressAdNum,
-    int expressTime,
-    double expressViewWidth,
-    double expressViewHeight}) {
+      @required String mCodeId,
+      bool supportDeepLink,
+      int expressAdNum,
+      int expressTime,
+      double expressViewWidth,
+      double expressViewHeight}) {
   if (defaultTargetPlatform == TargetPlatform.android) {
     return AndroidView(
       viewType: 'com.gstory.flutter_unionad/BannerAdView',
@@ -103,10 +102,10 @@ Widget bannerAdView(
 ///开屏广告
 Widget splashAdView(
     {bool mIsExpress,
-    @required String mCodeId,
-    bool supportDeepLink,
-    double expressViewWidth,
-    double expressViewHeight}) {
+      @required String mCodeId,
+      bool supportDeepLink,
+      double expressViewWidth,
+      double expressViewHeight}) {
   if (defaultTargetPlatform == TargetPlatform.android) {
     return AndroidView(
       viewType: 'com.gstory.flutter_unionad/SplashAdView',
@@ -188,9 +187,9 @@ Future<bool> interactionAd({
 Widget interactionAdView(
     {bool mIsExpress,
       @required String mCodeId,
-    bool supportDeepLink,
-    double expressViewWidth,
-    double expressViewHeight}) {
+      bool supportDeepLink,
+      double expressViewWidth,
+      double expressViewHeight}) {
   if (defaultTargetPlatform == TargetPlatform.android) {
     return AndroidView(
       viewType: 'com.gstory.flutter_unionad/InteractionAdView',
@@ -275,9 +274,9 @@ Widget drawFeedAdView({
 ///个性化模板全屏广告
 Future<bool> fullScreenVideoAd(
     { bool mIsExpress,
-    @required String mCodeId,
-    bool supportDeepLink,
-    int orientation}) async {
+      @required String mCodeId,
+      bool supportDeepLink,
+      int orientation}) async {
   return await _channel.invokeMethod("fullScreenVideoAd", {
     "mIsExpress": mIsExpress ?? false,
     "mCodeId": mCodeId,

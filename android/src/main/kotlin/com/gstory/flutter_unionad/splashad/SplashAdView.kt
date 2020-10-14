@@ -37,17 +37,17 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
     init {
         mCodeId = params["mCodeId"] as String?
         supportDeepLink = params["supportDeepLink"] as Boolean?
-        var width = params["expressViewWidth"]
-        var hight = params["expressViewHeight"]
-        if (width == null) {
+        var width = params["expressViewWidth"] as Double
+        var hight = params["expressViewHeight"] as Double
+        if (width == 0.0) {
             expressViewWidth = UIUtils.getScreenWidthDp(context)
         } else {
-            expressViewWidth = width.toString().toFloat()
+            expressViewWidth = width.toFloat()
         }
-        if (hight == null) {
+        if (hight == 0.0) {
             expressViewHeight = UIUtils.px2dip(context, UIUtils.getRealHeight(context).toFloat())
         } else {
-            expressViewHeight = hight.toString().toFloat()
+            expressViewHeight = hight.toFloat()
         }
         mIsExpress = params["mIsExpress"] as Boolean
         mExpressContainer = FrameLayout(context)

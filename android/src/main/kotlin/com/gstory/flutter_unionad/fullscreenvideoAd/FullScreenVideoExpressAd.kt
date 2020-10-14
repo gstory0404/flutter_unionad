@@ -40,7 +40,7 @@ object FullScreenVideoExpressAd {
     private fun loadFullScreenVideoAd() {
         Log.e(TAG, "广告位id  $mCodeId")
         var width = UIUtils.dip2px(mContext!!, UIUtils.getScreenWidthDp(mContext!!)).toFloat()
-        var height = UIUtils.getRealHeight(mContext!!).toFloat().toFloat()
+        var height =UIUtils.dip2px(mContext!!, UIUtils.getRealHeight(mContext!!).toFloat()).toFloat()
         //设置广告参数
         val adSlot = AdSlot.Builder()
                 .setCodeId(mCodeId) //广告位id
