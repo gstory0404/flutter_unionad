@@ -47,7 +47,7 @@ object RewardVideoAd {
         this.mCodeId = params["mCodeId"] as String
         this.supportDeepLink = params["supportDeepLink"] as Boolean
         this.expressViewWidth = UIUtils.dip2px(context, UIUtils.getScreenWidthDp(context))
-        this.expressViewHeight = UIUtils.getRealHeight(context).toFloat()
+        this.expressViewHeight = UIUtils.dip2px(context, UIUtils.getRealHeight(context).toFloat())
         this.rewardName = params["rewardName"] as String
         this.rewardAmount = params["rewardAmount"] as Int
         this.userID = params["userID"] as String

@@ -57,7 +57,7 @@ internal class DrawFeedExpressAdView(var context: Context, var activity: Activit
                 .setCodeId(mCodeId) //广告位id
                 .setSupportDeepLink(supportDeepLink!!)
                 .setAdCount(1) //请求广告数量为1到3条
-                .setExpressViewAcceptedSize(UIUtils.px2dip(activity, expressViewWidth), UIUtils.px2dip(activity, expressViewHeight)) //期望模板广告view的size,单位dp
+                .setExpressViewAcceptedSize(expressViewWidth,expressViewHeight) //期望模板广告view的size,单位dp
                 .setImageAcceptedSize(640, 320)//这个参数设置即可，不影响个性化模板广告的size
                 .build()
         mTTAdNative.loadExpressDrawFeedAd(adSlot, object : NativeExpressAdListener {
