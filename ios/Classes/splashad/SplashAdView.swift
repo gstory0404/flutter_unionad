@@ -15,8 +15,8 @@ public class SplashAdView : NSObject,FlutterPlatformView{
     //广告需要的参数
     let mCodeId :String?
     var supportDeepLink :Bool? = true
-    let expressViewWidth : CGFloat?
-    let expressViewHeight :CGFloat?
+    let expressViewWidth : Float?
+    let expressViewHeight :Float?
     var mIsExpress :Bool? = true
     
     init(_ frame : CGRect,binaryMessenger: FlutterBinaryMessenger , id : Int64, params :Any?) {
@@ -26,8 +26,8 @@ public class SplashAdView : NSObject,FlutterPlatformView{
         self.mCodeId = dict.value(forKey: "mCodeId") as? String
         self.mIsExpress = dict.value(forKey: "mIsExpress") as? Bool
         self.supportDeepLink = dict.value(forKey: "supportDeepLink") as? Bool
-        self.expressViewWidth = dict.value(forKey: "expressViewWidth") as? CGFloat
-        self.expressViewHeight = dict.value(forKey: "expressViewHeight") as? CGFloat
+        self.expressViewWidth = Float(dict.value(forKey: "expressViewWidth") as! Double)
+        self.expressViewHeight = Float(dict.value(forKey: "expressViewHeight") as! Double)
         super.init()
         self.loadSplash()
     }
@@ -49,7 +49,7 @@ public class SplashAdView : NSObject,FlutterPlatformView{
             if(self.expressViewWidth == 0 || self.expressViewHeight == 0){
                 size = CGSize(width: MyUtils.getScreenSize().width, height: MyUtils.getScreenSize().height)
             }else{
-                size = CGSize(width: self.expressViewWidth!, height: self.expressViewHeight!)
+                size = CGSize(width: CGFloat(self.expressViewWidth!), height: CGFloat(self.expressViewHeight!))
             }
             self.frame.size = size
             let splashView = BUNativeExpressSplashView(slotID: self.mCodeId!,adSize:size, rootViewController:MyUtils.getVC())

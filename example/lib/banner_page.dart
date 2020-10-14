@@ -30,15 +30,15 @@ class _BannerPageState extends State<BannerPage> {
           children: [
             //banner广告
             Container(
-              height: 90,
+              height: 120.5,
               color: Colors.red,
               child: FlutterUnionad.bannerAdView(
                 mCodeId: "945410197",
                 supportDeepLink: true,
                 expressAdNum: 3,
                 expressTime: 30,
-                expressViewWidth: 600,
-                expressViewHeight: 90,
+                expressViewWidth: 600.5,
+                expressViewHeight: 120.5,
               ),
             ),
             Container(

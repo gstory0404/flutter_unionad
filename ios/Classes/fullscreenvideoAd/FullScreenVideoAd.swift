@@ -18,8 +18,8 @@ public class FullscreenVideoAd : NSObject{
     public func showFullscreenVideoAd(params : NSDictionary){
         let mIsExpress = params.value(forKey: "mIsExpress") as? Bool
         let mCodeId = params.value(forKey: "mCodeId") as? String
-        let supportDeepLink = params.value(forKey: "supportDeepLink") as? Bool
-        let orientation = params.value(forKey: "orientation") as? Int64
+//        let supportDeepLink = params.value(forKey: "supportDeepLink") as? Bool
+//        let orientation = params.value(forKey: "orientation") as? Int64
         if(!mIsExpress!){
             LogUtil.logInstance.printLog(message: "开始加载全屏广告3")
             self.bUNativeExpressFullscreenVideoAd = BUNativeExpressFullscreenVideoAd.init(slotID: mCodeId!)

@@ -6,6 +6,7 @@
 //
 import Foundation
 import BUAdSDK
+import Flutter
 
 public class BannerAdView : NSObject,FlutterPlatformView{
     private var container : UIView
@@ -26,8 +27,8 @@ public class BannerAdView : NSObject,FlutterPlatformView{
         self.mCodeId = dict.value(forKey: "mCodeId") as? String
         self.mIsExpress = dict.value(forKey: "mIsExpress") as? Bool
         self.supportDeepLink = dict.value(forKey: "supportDeepLink") as? Bool
-        self.expressViewWidth = dict.value(forKey: "expressViewWidth") as? Float
-        self.expressViewHeight = dict.value(forKey: "expressViewHeight") as? Float
+        self.expressViewWidth = Float(dict.value(forKey: "expressViewWidth") as! Double)
+        self.expressViewHeight = Float(dict.value(forKey: "expressViewHeight") as! Double)
         self.expressAdNum = dict.value(forKey: "expressAdNum") as? Int64
         self.expressTime = dict.value(forKey: "expressTime") as? Int64
         super.init()
@@ -39,8 +40,8 @@ public class BannerAdView : NSObject,FlutterPlatformView{
     
     private func loadBannerExpressAd(){
         self.removeAllView()
-        let viewWidth:CGFloat = CGFloat(self.expressViewWidth ?? 200)
-        let viewHeigh:CGFloat = CGFloat(self.expressViewHeight ?? 100)
+        let viewWidth:CGFloat = CGFloat(self.expressViewWidth!)
+        let viewHeigh:CGFloat = CGFloat(self.expressViewHeight!)
         let size = CGSize(width: viewWidth, height: viewHeigh)
         let bannerAdView = BUNativeExpressBannerView.init(slotID: self.mCodeId!, rootViewController: MyUtils.getVC(), adSize: size, isSupportDeepLink: self.supportDeepLink!)
         bannerAdView.delegate = self

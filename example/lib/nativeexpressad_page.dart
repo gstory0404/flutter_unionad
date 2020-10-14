@@ -43,8 +43,8 @@ class _NativeExpressAdPageState extends State<NativeExpressAdPage> {
               child: FlutterUnionad.nativeAdView(
                 mCodeId: "945417487",
                 supportDeepLink: true,
-                expressViewWidth: 375,
-                expressViewHeight: 284,
+                expressViewWidth: 375.5,
+                expressViewHeight: 284.5,
               ),
             ),//个性化模板信息流广告
             Container(

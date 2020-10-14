@@ -17,8 +17,8 @@ class InteractionAd : NSObject{
     
     public func showInteractionAd(params : NSDictionary){
         let mCodeId = params.value(forKey: "mCodeId") as? String
-        let expressViewWidth = params.value(forKey: "expressViewWidth") as? Int64
-        let expressViewHeight = params.value(forKey: "expressViewHeight") as? Int64
+        let expressViewWidth = params.value(forKey: "expressViewWidth") as? Double
+        let expressViewHeight = params.value(forKey: "expressViewHeight") as? Double
         var size = CGSize.init()
         if(expressViewWidth == 0 || expressViewHeight == 0){
             size.width = MyUtils.getScreenSize().width / 2
