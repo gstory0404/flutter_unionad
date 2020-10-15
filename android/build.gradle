@@ -54,4 +54,5 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation(name: 'open_ad_sdk', ext: 'aar')
+    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
 }

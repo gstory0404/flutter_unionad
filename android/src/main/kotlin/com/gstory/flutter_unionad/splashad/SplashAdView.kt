@@ -139,34 +139,34 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
                         FlutterUnionadEventPlugin.sendContent(map)
                     }
                 })
-                if (ad.interactionType == TTAdConstant.INTERACTION_TYPE_DOWNLOAD) {
-                    ad.setDownloadListener(object : TTAppDownloadListener {
-                        var hasShow = false
-                        override fun onIdle() {}
-                        override fun onDownloadActive(totalBytes: Long, currBytes: Long, fileName: String, appName: String) {
-                            if (!hasShow) {
-                                Log.e(TAG, "下载中...")
-                                hasShow = true
-                            }
-                        }
-
-                        override fun onDownloadPaused(totalBytes: Long, currBytes: Long, fileName: String, appName: String) {
-                            Log.e(TAG, "下载暂停...")
-                        }
-
-                        override fun onDownloadFailed(totalBytes: Long, currBytes: Long, fileName: String, appName: String) {
-                            Log.e(TAG, "下载失败...")
-                        }
-
-                        override fun onDownloadFinished(totalBytes: Long, fileName: String, appName: String) {
-                            Log.e(TAG, "下载完成...")
-                        }
-
-                        override fun onInstalled(fileName: String, appName: String) {
-                            Log.e(TAG, "安装完成...")
-                        }
-                    })
-                }
+//                if (ad.interactionType == TTAdConstant.INTERACTION_TYPE_DOWNLOAD) {
+//                    ad.setDownloadListener(object : TTAppDownloadListener {
+//                        var hasShow = false
+//                        override fun onIdle() {}
+//                        override fun onDownloadActive(totalBytes: Long, currBytes: Long, fileName: String, appName: String) {
+//                            if (!hasShow) {
+//                                Log.e(TAG, "下载中...")
+//                                hasShow = true
+//                            }
+//                        }
+//
+//                        override fun onDownloadPaused(totalBytes: Long, currBytes: Long, fileName: String, appName: String) {
+//                            Log.e(TAG, "下载暂停...")
+//                        }
+//
+//                        override fun onDownloadFailed(totalBytes: Long, currBytes: Long, fileName: String, appName: String) {
+//                            Log.e(TAG, "下载失败...")
+//                        }
+//
+//                        override fun onDownloadFinished(totalBytes: Long, fileName: String, appName: String) {
+//                            Log.e(TAG, "下载完成...")
+//                        }
+//
+//                        override fun onInstalled(fileName: String, appName: String) {
+//                            Log.e(TAG, "安装完成...")
+//                        }
+//                    })
+//                }
             }
         }, AD_TIME_OUT)
     }

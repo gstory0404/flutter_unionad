@@ -168,8 +168,8 @@ class _IndexPageState extends State<IndexPage> {
                 await FlutterUnionad.interactionAd(
                   mCodeId: "945417892",
                   supportDeepLink: true,
-                  expressViewWidth: 100.0,
-                  expressViewHeight: 350.0,
+                  expressViewWidth: 300.0,
+                  expressViewHeight: 450.0,
                 );
               },
             ),

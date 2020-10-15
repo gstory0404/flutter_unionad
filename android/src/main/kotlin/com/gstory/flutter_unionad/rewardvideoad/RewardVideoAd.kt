@@ -157,14 +157,14 @@ object RewardVideoAd {
                         Log.e(TAG, "rewardVideoAd onSkippedVideo")
                     }
                 })
-                mttRewardVideoAd!!.setDownloadListener(object : TTAppDownloadListener {
-                    override fun onIdle() {}
-                    override fun onDownloadActive(totalBytes: Long, currBytes: Long, fileName: String, appName: String) {}
-                    override fun onDownloadPaused(totalBytes: Long, currBytes: Long, fileName: String, appName: String) {}
-                    override fun onDownloadFailed(totalBytes: Long, currBytes: Long, fileName: String, appName: String) {}
-                    override fun onDownloadFinished(totalBytes: Long, fileName: String, appName: String) {}
-                    override fun onInstalled(fileName: String, appName: String) {}
-                })
+//                mttRewardVideoAd!!.setDownloadListener(object : TTAppDownloadListener {
+//                    override fun onIdle() {}
+//                    override fun onDownloadActive(totalBytes: Long, currBytes: Long, fileName: String, appName: String) {}
+//                    override fun onDownloadPaused(totalBytes: Long, currBytes: Long, fileName: String, appName: String) {}
+//                    override fun onDownloadFailed(totalBytes: Long, currBytes: Long, fileName: String, appName: String) {}
+//                    override fun onDownloadFinished(totalBytes: Long, fileName: String, appName: String) {}
+//                    override fun onInstalled(fileName: String, appName: String) {}
+//                })
             }
         })
     }

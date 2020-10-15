@@ -118,38 +118,38 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
         })
         //dislike设置
         bindDislike(ad, false)
-        if (ad.interactionType != TTAdConstant.INTERACTION_TYPE_DOWNLOAD) {
-            return
-        }
-        ad.setDownloadListener(object : TTAppDownloadListener {
-            override fun onIdle() {
-                Log.e(TAG, "点击开始下载")
-            }
-
-            override fun onDownloadActive(totalBytes: Long, currBytes: Long, fileName: String, appName: String) {
-                Log.e(TAG, "下载中，点击暂停")
-//                if (!mHasShowDownloadActive) {
-//                    mHasShowDownloadActive = true
-//                    TToast.show(this@BannerExpressActivity, "下载中，点击暂停", Toast.LENGTH_LONG)
-//                }
-            }
-
-            override fun onDownloadPaused(totalBytes: Long, currBytes: Long, fileName: String, appName: String) {
-                Log.e(TAG, "下载暂停，点击继续")
-            }
-
-            override fun onDownloadFailed(totalBytes: Long, currBytes: Long, fileName: String, appName: String) {
-                Log.e(TAG, "下载失败，点击重新下载")
-            }
-
-            override fun onInstalled(fileName: String, appName: String) {
-                Log.e(TAG, "安装完成，点击图片打开")
-            }
-
-            override fun onDownloadFinished(totalBytes: Long, fileName: String, appName: String) {
-                Log.e(TAG, "点击安装")
-            }
-        })
+//        if (ad.interactionType != TTAdConstant.INTERACTION_TYPE_DOWNLOAD) {
+//            return
+//        }
+//        ad.setDownloadListener(object : TTAppDownloadListener {
+//            override fun onIdle() {
+//                Log.e(TAG, "点击开始下载")
+//            }
+//
+//            override fun onDownloadActive(totalBytes: Long, currBytes: Long, fileName: String, appName: String) {
+//                Log.e(TAG, "下载中，点击暂停")
+////                if (!mHasShowDownloadActive) {
+////                    mHasShowDownloadActive = true
+////                    TToast.show(this@BannerExpressActivity, "下载中，点击暂停", Toast.LENGTH_LONG)
+////                }
+//            }
+//
+//            override fun onDownloadPaused(totalBytes: Long, currBytes: Long, fileName: String, appName: String) {
+//                Log.e(TAG, "下载暂停，点击继续")
+//            }
+//
+//            override fun onDownloadFailed(totalBytes: Long, currBytes: Long, fileName: String, appName: String) {
+//                Log.e(TAG, "下载失败，点击重新下载")
+//            }
+//
+//            override fun onInstalled(fileName: String, appName: String) {
+//                Log.e(TAG, "安装完成，点击图片打开")
+//            }
+//
+//            override fun onDownloadFinished(totalBytes: Long, fileName: String, appName: String) {
+//                Log.e(TAG, "点击安装")
+//            }
+//        })
     }
 
     /**
