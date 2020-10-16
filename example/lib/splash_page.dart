@@ -14,76 +14,53 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  StreamSubscription _adViewStream;
 
   @override
   void initState() {
     super.initState();
-    // 这里的 data 就是原生端发送过来的数据
-    _adViewStream = FlutterUnionad.adeventEvent
-        .receiveBroadcastStream()
-        .listen((data) {
-      if (data[FlutterUnionad.adType] == FlutterUnionad.aplashAd) {
-        if (data[FlutterUnionad.aplashType] == FlutterUnionad.onAplashTimeout) {
-          print("开屏广告超时  ${FlutterUnionad.onAplashTimeout}");
-        } else if (data[FlutterUnionad.aplashType] ==
-            FlutterUnionad.onAplashShow) {
-          print("开屏广告显示  ${FlutterUnionad.onAplashShow}");
-        } else if (data[FlutterUnionad.aplashType] ==
-            FlutterUnionad.onAplashClick) {
-          print("开屏广告点击  ${FlutterUnionad.onAplashClick}");
-        } else if (data[FlutterUnionad.aplashType] ==
-            FlutterUnionad.onAplashSkip) {
-          print("开屏广告跳过  ${FlutterUnionad.onAplashSkip}");
-          Navigator.pop(context);
-        } else if (data[FlutterUnionad.aplashType] ==
-            FlutterUnionad.onAplashFinish) {
-          print("开屏广告结束  ${FlutterUnionad.onAplashFinish}");
-          Navigator.pop(context);
-        } else if(data[FlutterUnionad.aplashType] ==
-            FlutterUnionad.onAplashError){
-          print("开屏广告结束  ${FlutterUnionad.message}");
-          Navigator.pop(context);
-        }
-      }
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column(
-        children: [
-          Container(
-            height: 600,
-            child: FlutterUnionad.splashAdView(
-                mCodeId: "887367774",
-                supportDeepLink: true,
-                mIsExpress: false,
-                expressViewWidth: 540,
-                expressViewHeight: 800),
-          ),
-          Expanded(
-            flex: 1,
-            child: Container(
-              alignment: Alignment.center,
-              color: Colors.blue,
-              child: Text(
-                "FlutterUnionad example app",
-                style: TextStyle(fontSize: 14, color: Colors.white),
-              ),
-            ),
-          )
-        ],
+      child: FlutterUnionad.splashAdView(
+        androidCodeId: "887367774", //android 开屏广告广告id 必填
+        iosCodeId: "887367774", //ios 开屏广告广告id 必填
+        supportDeepLink: true, //是否支持 DeepLink 选填
+        expressViewWidth: 750, // 期望view 宽度 dp 必填
+        expressViewHeight: 1334, //期望view高度 dp 必填
+        callBack: (FlutterUnionad.FlutterUnionadState state) { //广告事件回调 选填
+          //广告事件回调 选填
+          //type onShow广告成功显示  onFail广告加载失败 onAplashClick开屏广告点击 onAplashSkip开屏广告跳过
+          //  onAplashFinish开屏广告倒计时结束 onAplashTimeout开屏广告加载超时
+          //params 详细说明
+          print("到这里 ${state.tojson()}");
+          switch (state.type) {
+            case FlutterUnionad.onShow:
+              print(state.tojson());
+              break;
+            case FlutterUnionad.onFail:
+              print(state.tojson());
+              Navigator.pop(context);
+              break;
+            case FlutterUnionad.onAplashClick:
+              print(state.tojson());
+              break;
+            case FlutterUnionad.onAplashSkip:
+              print(state.tojson());
+              Navigator.pop(context);
+              break;
+            case FlutterUnionad.onAplashFinish:
+              print(state.tojson());
+              Navigator.pop(context);
+              break;
+            case FlutterUnionad.onAplashTimeout:
+              print(state.tojson());
+              Navigator.pop(context);
+              break;
+          }
+        },
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    if (_adViewStream != null) {
-      _adViewStream.cancel();
-    }
   }
 }

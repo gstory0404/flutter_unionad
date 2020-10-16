@@ -72,35 +72,20 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
         //注册初始化
         if (call.method == "register") {
             val appId = call.argument<String>("androidAppId")
-            var useTextureView = call.argument<Boolean>("useTextureView")
+            val useTextureView = call.argument<Boolean>("useTextureView")
             val appName = call.argument<String>("appName")
             var allowShowNotify = call.argument<Boolean>("allowShowNotify")
             var allowShowPageWhenScreenLock = call.argument<Boolean>("allowShowPageWhenScreenLock")
             var debug = call.argument<Boolean>("debug")
             var supportMultiProcess = call.argument<Boolean>("supportMultiProcess")
             val directDownloadNetworkType = call.argument<List<Int>>("directDownloadNetworkType")!!
-            if (useTextureView == null) {
-                useTextureView = false
-            }
-            if (allowShowNotify == null) {
-                allowShowNotify = true
-            }
-            if (allowShowPageWhenScreenLock == null) {
-                allowShowPageWhenScreenLock = true
-            }
-            if (debug == null) {
-                debug = true
-            }
-            if (supportMultiProcess == null) {
-                supportMultiProcess = false
-            }
             if (appId == null || appId.trim { it <= ' ' }.isEmpty()) {
                 result.error("500", "appId can't be null", null)
             } else {
                 if (appName == null || appName.trim { it <= ' ' }.isEmpty()) {
                     result.error("600", "appName can't be null", null)
                 } else {
-                    TTAdManagerHolder.init(applicationContext!!, appId, useTextureView, appName, allowShowNotify, allowShowPageWhenScreenLock, debug, supportMultiProcess, directDownloadNetworkType)
+                    TTAdManagerHolder.init(applicationContext!!, appId, useTextureView!!, appName, allowShowNotify!!, allowShowPageWhenScreenLock!!, debug!!, supportMultiProcess!!, directDownloadNetworkType)
                     result.success(true)
                 }
             }
@@ -121,7 +106,7 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
             RewardVideoAd.init(mActivity!!, mActivity!!, call.arguments as Map<String?, Any?>)
             //插屏广告
         } else if (call.method == "interactionAd") {
-            val mCodeId = call.argument<String>("mCodeId")
+            val mCodeId = call.argument<String>("androidCodeId")
             val supportDeepLink = call.argument<Boolean>("supportDeepLink")
             var expressViewWidth = call.argument<Double>("expressViewWidth")
             var expressViewHeight = call.argument<Double>("expressViewHeight")
@@ -129,7 +114,7 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
             result.success(true)
             //全屏广告
         } else if(call.method == "fullScreenVideoAd"){
-            val mCodeId = call.argument<String>("mCodeId")
+            val mCodeId = call.argument<String>("androidCodeId")
             val supportDeepLink = call.argument<Boolean>("supportDeepLink")
             val orientation = call.argument<Int>("orientation")
             FullScreenVideoExpressAd.init(mActivity!!, mActivity!!, mCodeId, supportDeepLink, orientation!!)

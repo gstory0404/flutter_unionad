@@ -10,7 +10,6 @@ import io.flutter.plugin.common.EventChannel
  * @CreateDate: 2020/8/19 18:52
  */
 class FlutterUnionadEventPlugin : FlutterPlugin, EventChannel.StreamHandler {
-    private var channelName = "com.gstory.flutter_unionad/adevent";
 
     companion object {
         private var eventChannel: EventChannel? = null
@@ -33,7 +32,7 @@ class FlutterUnionadEventPlugin : FlutterPlugin, EventChannel.StreamHandler {
     }
 
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
-        eventChannel = EventChannel(binding.binaryMessenger, channelName)
+        eventChannel = EventChannel(binding.binaryMessenger, FlutterunionadViewConfig.adevent)
         eventChannel!!.setStreamHandler(this)
         context = binding.applicationContext
     }

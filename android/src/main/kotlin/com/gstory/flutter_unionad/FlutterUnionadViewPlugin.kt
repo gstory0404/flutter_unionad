@@ -16,14 +16,14 @@ import io.flutter.embedding.engine.plugins.FlutterPlugin
 object FlutterUnionadViewPlugin {
     fun registerWith(binding: FlutterPlugin.FlutterPluginBinding,activity :Activity) {
         //注册开屏广告
-        binding.platformViewRegistry.registerViewFactory("com.gstory.flutter_unionad/SplashAdView", SplashAdViewFactory(binding.binaryMessenger))
+        binding.platformViewRegistry.registerViewFactory(FlutterunionadViewConfig.splashAdView, SplashAdViewFactory(binding.binaryMessenger))
         //注册banner广告
-        binding.platformViewRegistry.registerViewFactory("com.gstory.flutter_unionad/BannerAdView", BannerExpressAdViewFactory(binding.binaryMessenger,activity))
+        binding.platformViewRegistry.registerViewFactory(FlutterunionadViewConfig.bannerAdView, BannerExpressAdViewFactory(binding.binaryMessenger,activity))
         //注册个性化模板信息流广告
-        binding.platformViewRegistry.registerViewFactory("com.gstory.flutter_unionad/NativeAdView", NativeExpressAdFactory(binding.binaryMessenger,activity))
+        binding.platformViewRegistry.registerViewFactory(FlutterunionadViewConfig.nativeAdView, NativeExpressAdFactory(binding.binaryMessenger,activity))
         //注册个性化模板插屏广告
-        binding.platformViewRegistry.registerViewFactory("com.gstory.flutter_unionad/InteractionAdView", InteractionExpressAdViewFactory(binding.binaryMessenger,activity))
+        binding.platformViewRegistry.registerViewFactory(FlutterunionadViewConfig.interactionAdVie, InteractionExpressAdViewFactory(binding.binaryMessenger,activity))
         //注册个性化模板draw视频广告
-        binding.platformViewRegistry.registerViewFactory("com.gstory.flutter_unionad/DrawFeedAdView", DrawFeedExpressAdViewFactory(binding.binaryMessenger,activity))
+        binding.platformViewRegistry.registerViewFactory(FlutterunionadViewConfig.drawFeedAdView, DrawFeedExpressAdViewFactory(binding.binaryMessenger,activity))
     }
 }

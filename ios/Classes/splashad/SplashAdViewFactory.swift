@@ -16,7 +16,6 @@ public class SplashAdViewFactory: NSObject,FlutterPlatformViewFactory {
     }
     
     public func create(withFrame frame: CGRect, viewIdentifier viewId: Int64, arguments args: Any?) -> FlutterPlatformView {
-        print(args!)
         return SplashAdView(frame,  binaryMessenger: self.messenger,id: viewId, params:args)
     }
     

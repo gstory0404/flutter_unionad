@@ -16,7 +16,7 @@ class InteractionAd : NSObject{
     private var bUNativeExpressInterstitialAd : BUNativeExpressInterstitialAd?
     
     public func showInteractionAd(params : NSDictionary){
-        let mCodeId = params.value(forKey: "mCodeId") as? String
+        let mCodeId = params.value(forKey: "iosCodeId") as? String
         let expressViewWidth = params.value(forKey: "expressViewWidth") as? Double
         let expressViewHeight = params.value(forKey: "expressViewHeight") as? Double
         var size = CGSize.init()

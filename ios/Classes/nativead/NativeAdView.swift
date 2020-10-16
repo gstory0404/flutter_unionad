@@ -7,10 +7,12 @@
 
 import Foundation
 import BUAdSDK
+import Flutter
 
 public class NativeAdView : NSObject,FlutterPlatformView{
     private let container : UIView
     private var nativeExpressAdManager : BUNativeExpressAdManager
+    private var channel : FlutterMethodChannel?
     var frame: CGRect;
     //广告需要的参数
     let mCodeId :String?
@@ -26,7 +28,7 @@ public class NativeAdView : NSObject,FlutterPlatformView{
         self.frame = frame
         self.container = UIView(frame: frame)
         let dict = params as! NSDictionary
-        self.mCodeId = dict.value(forKey: "mCodeId") as? String
+        self.mCodeId = dict.value(forKey: "iosCodeId") as? String
         self.mIsExpress = dict.value(forKey: "mIsExpress") as? Bool
         self.supportDeepLink = dict.value(forKey: "supportDeepLink") as? Bool
         self.expressViewWidth = Float(dict.value(forKey: "expressViewWidth") as! Double)
@@ -35,6 +37,7 @@ public class NativeAdView : NSObject,FlutterPlatformView{
         self.expressTime = dict.value(forKey: "expressTime") as? Int64
         self.nativeExpressAdManager = BUNativeExpressAdManager()
         super.init()
+        self.channel = FlutterMethodChannel.init(name: FlutterUnionadConfig.view.nativeAdView + "_" + String(id), binaryMessenger: binaryMessenger)
         self.loadNativeExpressAd()
         LogUtil.logInstance.printLog(message: id)
     }
@@ -80,6 +83,7 @@ extension NativeAdView : BUNativeExpressAdViewDelegate{
             view.rootViewController = MyUtils.getVC()
             view.render()
             self.container.addSubview(view)
+            self.channel?.invokeMethod("onShow", arguments: "")
         }
     }
     
@@ -87,6 +91,7 @@ extension NativeAdView : BUNativeExpressAdViewDelegate{
     public func nativeExpressAdFail(toLoad nativeExpressAd: BUNativeExpressAdManager, error: Error?) {
         LogUtil.logInstance.printLog(message: "nativeExpressAdFail")
         LogUtil.logInstance.printLog(message: error)
+        self.channel?.invokeMethod("onFail", arguments: String(error.debugDescription))
     }
     //渲染成功
     public func nativeExpressAdViewRenderSuccess(_ nativeExpressAdView: BUNativeExpressAdView) {
@@ -96,6 +101,7 @@ extension NativeAdView : BUNativeExpressAdViewDelegate{
     public func nativeExpressAdView(_ nativeExpressAdView: BUNativeExpressAdView, dislikeWithReason filterWords: [BUDislikeWords]) {
         self.disposeView()
         LogUtil.logInstance.printLog(message: "nativeExpressAdView")
+        self.channel?.invokeMethod("onDislike", arguments: filterWords[0].name)
     }
     
     public func nativeExpressAdView(_ nativeExpressAdView: BUNativeExpressAdView, stateDidChanged playerState: BUPlayerPlayState) {
@@ -118,12 +124,11 @@ extension NativeAdView : BUNativeExpressAdViewDelegate{
         LogUtil.logInstance.printLog(message: "nativeExpressAdViewRenderFail")
         LogUtil.logInstance.printLog(message: error)
         self.disposeView()
+        self.channel?.invokeMethod("onFail", arguments: String(error.debugDescription))
     }
     
     public func nativeExpressAdViewPlayerDidPlayFinish(_ nativeExpressAdView: BUNativeExpressAdView, error: Error) {
         LogUtil.logInstance.printLog(message: "nativeExpressAdViewPlayerDidPlayFinish")
-        LogUtil.logInstance.printLog(message: error)
-        self.disposeView()
     }
     
     public func nativeExpressAdViewDidCloseOtherController(_ nativeExpressAdView: BUNativeExpressAdView, interactionType: BUInteractionType) {

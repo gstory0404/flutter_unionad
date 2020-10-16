@@ -17,7 +17,6 @@ public class DrawFeedAdViewFactory: NSObject,FlutterPlatformViewFactory {
     }
     
     public func create(withFrame frame: CGRect, viewIdentifier viewId: Int64, arguments args: Any?) -> FlutterPlatformView {
-        print(args!)
         return DrawFeedAdView(frame,  binaryMessenger: self.messenger,id: viewId, params:args)
     }
     

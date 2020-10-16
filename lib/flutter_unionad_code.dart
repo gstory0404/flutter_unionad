@@ -18,28 +18,21 @@ const int VideoHORIZONTAL = 2;
 
 ///数据类型
 const String adType = "adType";
-//开屏广告
-const String aplashAd = "aplashAd";
 //激励广告
 const String rewardAd = "rewardAd";
 //全屏视频广告
 const String fullVideoAd = "fullVideoAd";
 
 ///开屏广告
-const String aplashType = "aplashType";
 //加载超时
 const String onAplashTimeout = "onAplashTimeout";
 //广告点击
 const String onAplashClick = "onAplashClick";
-//广告显示
-const String onAplashShow = "onAplashShow";
 //跳过广告
 const String onAplashSkip = "onAplashSkip";
 //广告结束
 const String onAplashFinish = "onAplashFinish";
-//加载失败
-const String onAplashError = "onAplashError";
-const String message = "message";
+
 
 ///激励广告相关
 //是否观看成功
@@ -62,3 +55,11 @@ const String onAdClose = "onAdClose";
 const String onVideoComplete = "onVideoComplete";
 //跳过广告
 const String onSkippedVideo = "onSkippedVideo";
+
+///广告加载状态 view使用
+//显示view
+const String onShow = "onShow";
+//加载失败
+const String onFail = "onFail";
+//不感兴趣
+const String onDislike = "onDislike";

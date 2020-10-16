@@ -10,7 +10,9 @@ import com.bytedance.sdk.openadsdk.TTAdNative.SplashAdListener
 import com.gstory.flutter_unionad.TTAdManagerHolder
 import com.gstory.flutter_unionad.UIUtils
 import com.gstory.flutter_unionad.FlutterUnionadEventPlugin
+import com.gstory.flutter_unionad.FlutterunionadViewConfig
 import io.flutter.plugin.common.BinaryMessenger
+import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.platform.PlatformView
 
 
@@ -34,8 +36,10 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
     //开屏广告加载超时时间,建议大于3000,这里为了冷启动第一次加载到广告并且展示,示例设置了3000ms
     private val AD_TIME_OUT = 3000
 
+    private var channel : MethodChannel?
+
     init {
-        mCodeId = params["mCodeId"] as String?
+        mCodeId = params["androidCodeId"] as String?
         supportDeepLink = params["supportDeepLink"] as Boolean?
         var width = params["expressViewWidth"] as Double
         var hight = params["expressViewHeight"] as Double
@@ -53,6 +57,7 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
         mExpressContainer = FrameLayout(context)
         val mTTAdManager = TTAdManagerHolder.get()
         mTTAdNative = mTTAdManager.createAdNative(context.applicationContext)
+        channel = MethodChannel(messenger, FlutterunionadViewConfig.splashAdView+"_"+id)
         loadSplashAd()
     }
 
@@ -83,19 +88,20 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
             @MainThread
             override fun onError(code: Int, message: String) {
                 Log.e(TAG, message)
+                channel?.invokeMethod("onFail",message)
             }
 
             @MainThread
             override fun onTimeout() {
                 Log.e(TAG, "开屏广告加载超时")
-                var map: MutableMap<String, Any?> = mutableMapOf("adType" to "aplashAd", "aplashType" to "onAplashTimeout")
-                FlutterUnionadEventPlugin.sendContent(map)
+                channel?.invokeMethod("onAplashTimeout","")
             }
 
             @MainThread
             override fun onSplashAdLoad(ad: TTSplashAd) {
                 Log.e(TAG, "开屏广告请求成功")
                 if (ad == null) {
+                    channel?.invokeMethod("onFail","拉去广告失败")
                     return
                 }
                 //获取SplashView
@@ -117,26 +123,22 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
                 ad.setSplashInteractionListener(object : TTSplashAd.AdInteractionListener {
                     override fun onAdClicked(view: View, type: Int) {
                         Log.e(TAG, "onAdClicked开屏广告点击")
-                        var map: MutableMap<String, Any?> = mutableMapOf("adType" to "aplashAd", "aplashType" to "onAplashClick")
-                        FlutterUnionadEventPlugin.sendContent(map)
+                        channel?.invokeMethod("onAplashClick","开屏广告点击")
                     }
 
                     override fun onAdShow(view: View, type: Int) {
                         Log.e(TAG, "onAdShow开屏广告展示")
-                        var map: MutableMap<String, Any?> = mutableMapOf("adType" to "aplashAd", "aplashType" to "onAplashShow")
-                        FlutterUnionadEventPlugin.sendContent(map)
+                        channel?.invokeMethod("onShow","开屏广告展示")
                     }
 
                     override fun onAdSkip() {
                         Log.e(TAG, "onAdSkip开屏广告跳过")
-                        var map: MutableMap<String, Any?> = mutableMapOf("adType" to "aplashAd", "aplashType" to "onAplashSkip")
-                        FlutterUnionadEventPlugin.sendContent(map)
+                        channel?.invokeMethod("onAplashSkip","开屏广告跳过")
                     }
 
                     override fun onAdTimeOver() {
                         Log.e(TAG, "onAdTimeOver开屏广告倒计时结束")
-                        var map: MutableMap<String, Any?> = mutableMapOf("adType" to "aplashAd", "aplashType" to "onAplashFinish")
-                        FlutterUnionadEventPlugin.sendContent(map)
+                        channel?.invokeMethod("onAplashFinish","开屏广告倒计时结束")
                     }
                 })
 //                if (ad.interactionType == TTAdConstant.INTERACTION_TYPE_DOWNLOAD) {

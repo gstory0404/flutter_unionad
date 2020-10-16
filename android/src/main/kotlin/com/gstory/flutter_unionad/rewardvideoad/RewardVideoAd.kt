@@ -39,12 +39,10 @@ object RewardVideoAd {
     private var mediaExtra: String? = null
 
     fun init(context: Context, mActivity: Activity, params: Map<String?, Any?>) {
-        Log.e(TAG, "到这里了")
-        Log.e(TAG, params.toString())
         this.mContext = context
         this.mActivity = mActivity
         this.mIsExpress = params["mIsExpress"] as Boolean
-        this.mCodeId = params["mCodeId"] as String
+        this.mCodeId = params["androidCodeId"] as String
         this.supportDeepLink = params["supportDeepLink"] as Boolean
         this.expressViewWidth = UIUtils.dip2px(context, UIUtils.getScreenWidthDp(context))
         this.expressViewHeight = UIUtils.dip2px(context, UIUtils.getRealHeight(context).toFloat())

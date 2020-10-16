@@ -12,6 +12,7 @@ import Flutter
 public class SplashAdView : NSObject,FlutterPlatformView{
     private let container : UIView
     var frame: CGRect;
+    private var channel : FlutterMethodChannel?
     //广告需要的参数
     let mCodeId :String?
     var supportDeepLink :Bool? = true
@@ -23,12 +24,13 @@ public class SplashAdView : NSObject,FlutterPlatformView{
         self.frame = frame
         self.container = UIView(frame: frame)
         let dict = params as! NSDictionary
-        self.mCodeId = dict.value(forKey: "mCodeId") as? String
+        self.mCodeId = dict.value(forKey: "iosCodeId") as? String
         self.mIsExpress = dict.value(forKey: "mIsExpress") as? Bool
         self.supportDeepLink = dict.value(forKey: "supportDeepLink") as? Bool
         self.expressViewWidth = Float(dict.value(forKey: "expressViewWidth") as! Double)
         self.expressViewHeight = Float(dict.value(forKey: "expressViewHeight") as! Double)
         super.init()
+        self.channel = FlutterMethodChannel.init(name: FlutterUnionadConfig.view.splashAdView + "_" + String(id), binaryMessenger: binaryMessenger)
         self.loadSplash()
     }
     
@@ -84,28 +86,21 @@ extension SplashAdView : BUSplashAdDelegate{
     }
     
     public func splashAdDidClick(_ splashAd: BUSplashAdView) {
-        let map : NSDictionary = ["adType":"aplashAd",
-                                  "aplashType":"onAplashClick"]
-        SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
+        self.channel?.invokeMethod("onAplashClick", arguments: "开屏广告点击")
     }
     
     public func splashAdDidClickSkip(_ splashAd: BUSplashAdView) {
-        let map : NSDictionary = ["adType":"aplashAd",
-                                  "aplashType":"onAplashSkip"]
-        SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
-        self.disposeView()
+        self.channel?.invokeMethod("onAplashSkip", arguments: "开屏广告跳过")
     }
     
     public func splashAdCountdown(toZero splashAd: BUSplashAdView) {
-        let map : NSDictionary = ["adType":"aplashAd",
-                                  "aplashType":"onAplashFinish"]
-        SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
-        self.disposeView()
+        self.channel?.invokeMethod("onAplashFinish", arguments: "开屏广告倒计时结束")
     }
     
     
     public func splashAd(_ splashAd: BUSplashAdView, didFailWithError error: Error?) {
         self.disposeView()
+        self.channel?.invokeMethod("onFail", arguments:String(error.debugDescription))
     }
 }
 
@@ -117,22 +112,21 @@ extension SplashAdView : BUNativeExpressSplashViewDelegate{
     public func nativeExpressSplashView(_ splashAdView: BUNativeExpressSplashView, didFailWithError error: Error?) {
         LogUtil.logInstance.printLog(message: "加载失败")
         LogUtil.logInstance.printLog(message: error)
-        let map : NSDictionary = ["adType":"aplashAd",
-                                  "aplashType":"onAplashError",
-                                  "message":error!]
-        SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
         splashAdView.remove()
         self.disposeView()
+        self.channel?.invokeMethod("onFail", arguments:String(error.debugDescription))
     }
 
     public func nativeExpressSplashViewRenderSuccess(_ splashAdView: BUNativeExpressSplashView) {
         LogUtil.logInstance.printLog(message: "加载成功")
+        self.channel?.invokeMethod("onShow", arguments: "")
     }
 
     public func nativeExpressSplashViewRenderFail(_ splashAdView: BUNativeExpressSplashView, error: Error?) {
         LogUtil.logInstance.printLog(message: "渲染失败")
         splashAdView.remove()
         self.disposeView()
+        self.channel?.invokeMethod("onFail", arguments:String(error.debugDescription))
     }
 
     public func nativeExpressSplashViewWillVisible(_ splashAdView: BUNativeExpressSplashView) {
@@ -159,8 +153,6 @@ extension SplashAdView : BUNativeExpressSplashViewDelegate{
 
     public func nativeExpressSplashViewFinishPlayDidPlayFinish(_ splashView: BUNativeExpressSplashView, didFailWithError error: Error) {
         LogUtil.logInstance.printLog(message: "加载完毕")
-        splashView.remove()
-        self.disposeView()
     }
 
     public func nativeExpressSplashViewDidCloseOtherController(_ splashView: BUNativeExpressSplashView, interactionType: BUInteractionType) {

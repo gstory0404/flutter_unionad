@@ -14,7 +14,7 @@ public class FlutterUnionadEnentPlugin : NSObject, FlutterStreamHandler{
     
     init(_ registrar: FlutterPluginRegistrar){
         super.init()
-        let eventChannel = FlutterEventChannel.init(name: "com.gstory.flutter_unionad/adevent", binaryMessenger:registrar.messenger())
+        let eventChannel = FlutterEventChannel.init(name: FlutterUnionadConfig.event.adevent, binaryMessenger:registrar.messenger())
         eventChannel.setStreamHandler((self as FlutterStreamHandler & NSObjectProtocol))
     }
     

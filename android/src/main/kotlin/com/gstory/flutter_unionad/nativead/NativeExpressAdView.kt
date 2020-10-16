@@ -9,9 +9,11 @@ import com.bytedance.sdk.openadsdk.*
 import com.bytedance.sdk.openadsdk.TTAdDislike.DislikeInteractionCallback
 import com.bytedance.sdk.openadsdk.TTAdNative.NativeExpressAdListener
 import com.bytedance.sdk.openadsdk.TTNativeExpressAd.ExpressAdInteractionListener
+import com.gstory.flutter_unionad.FlutterunionadViewConfig
 import com.gstory.flutter_unionad.TTAdManagerHolder
 import com.gstory.flutter_unionad.UIUtils
 import io.flutter.plugin.common.BinaryMessenger
+import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.platform.PlatformView
 
 
@@ -32,8 +34,10 @@ class NativeExpressAdView(var context: Context,var activity: Activity, var messe
     var expressViewHeight: Float
     var mHasShowDownloadActive :Boolean? = false
 
+    private var channel : MethodChannel?
+
     init {
-        mCodeId = params["mCodeId"] as String?
+        mCodeId = params["androidCodeId"] as String?
         supportDeepLink = params["supportDeepLink"] as Boolean?
         var width = params["expressViewWidth"] as Double
         var hight = params["expressViewHeight"] as Double
@@ -42,6 +46,7 @@ class NativeExpressAdView(var context: Context,var activity: Activity, var messe
         mExpressContainer = FrameLayout(context)
         val mTTAdManager = TTAdManagerHolder.get()
         mTTAdNative = mTTAdManager.createAdNative(context.applicationContext)
+        channel = MethodChannel(messenger, FlutterunionadViewConfig.nativeAdView+"_"+id)
         loadNativeExpressAd()
     }
 
@@ -65,6 +70,7 @@ class NativeExpressAdView(var context: Context,var activity: Activity, var messe
             override fun onError(code: Int, message: String) {
                 Log.e(TAG, "信息流广告拉去失败 $code   $message")
                 mExpressContainer!!.removeAllViews()
+                channel?.invokeMethod("onFail",message)
             }
 
             override fun onNativeExpressAdLoad(ads: List<TTNativeExpressAd>) {
@@ -91,6 +97,7 @@ class NativeExpressAdView(var context: Context,var activity: Activity, var messe
 
             override fun onRenderFail(view: View, msg: String, code: Int) {
                 Log.e(TAG, "ExpressView render fail:" + System.currentTimeMillis())
+                channel?.invokeMethod("onFail",msg)
             }
 
             override fun onRenderSuccess(view: View, width: Float, height: Float) {
@@ -102,6 +109,7 @@ class NativeExpressAdView(var context: Context,var activity: Activity, var messe
 //                mExpressContainerParams.gravity = Gravity.CENTER
 //                mExpressContainer!!.layoutParams = mExpressContainerParams
                 mExpressContainer!!.addView(view)
+                channel?.invokeMethod("onShow","")
             }
         })
         //dislike设置
@@ -154,6 +162,7 @@ class NativeExpressAdView(var context: Context,var activity: Activity, var messe
                 Log.e(TAG, "点击 $value")
                 //用户选择不喜欢原因后，移除广告展示
                 mExpressContainer!!.removeAllViews()
+                channel?.invokeMethod("onDislike",value)
             }
 
             override fun onCancel() {

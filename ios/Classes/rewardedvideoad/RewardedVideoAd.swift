@@ -19,7 +19,7 @@ public class RewardedVideoAd : NSObject{
     
     public func showRewardedVideoAd(params : NSDictionary) {
         LogUtil.logInstance.printLog(message: params)
-        let mCodeId = params.value(forKey: "mCodeId") as? String
+        let mCodeId = params.value(forKey: "iosCodeId") as? String
         let userID = params.value(forKey: "userID") as? String
         let rewardName = params.value(forKey: "rewardName") as? String
         let rewardAmount = params.value(forKey: "rewardAmount") as? Int

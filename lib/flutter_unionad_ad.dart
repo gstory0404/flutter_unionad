@@ -2,8 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_unionad/bannerad/BannerAdView.dart';
+import 'package:flutter_unionad/drawfeedad/DrawFeedAdView.dart';
 import 'package:flutter_unionad/flutter_unionad_code.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_unionad/nativead/NativeAdView.dart';
+import 'package:flutter_unionad/splashad/SplashAdView.dart';
 
 /// 描述：字节跳动 穿山甲广告flutter版
 /// @author guozi
@@ -11,7 +15,7 @@ import 'package:flutter/foundation.dart';
 /// @time   2020/3/11
 const MethodChannel _channel = const MethodChannel('flutter_unionad');
 const EventChannel adeventEvent =
-EventChannel("com.gstory.flutter_unionad/adevent");
+    EventChannel("com.gstory.flutter_unionad/adevent");
 
 ///sdk注册初始化
 Future<bool> register({
@@ -29,22 +33,21 @@ Future<bool> register({
     "iosAppId": iosAppId,
     "androidAppId": androidAppId,
     "useTextureView": useTextureView ?? false,
-    "appName": appName ?? null,
-    "allowShowNotify": allowShowNotify ?? null,
+    "appName": appName ?? "",
+    "allowShowNotify": allowShowNotify ?? true,
     "allowShowPageWhenScreenLock": allowShowPageWhenScreenLock ?? false,
     "debug": debug ?? false,
-    "supportMultiProcess":
-    supportMultiProcess ?? false,
+    "supportMultiProcess": supportMultiProcess ?? false,
     "directDownloadNetworkType": directDownloadNetworkType != null ||
-        directDownloadNetworkType.length > 0
+            directDownloadNetworkType.length > 0
         ? directDownloadNetworkType
         : [
-      NETWORK_STATE_MOBILE,
-      NETWORK_STATE_2G,
-      NETWORK_STATE_3G,
-      NETWORK_STATE_4G,
-      NETWORK_STATE_WIFI
-    ]
+            NETWORK_STATE_MOBILE,
+            NETWORK_STATE_2G,
+            NETWORK_STATE_3G,
+            NETWORK_STATE_4G,
+            NETWORK_STATE_WIFI
+          ]
   });
 }
 
@@ -61,122 +64,80 @@ Future<String> getSDKVersion() async {
 ///banner广告
 Widget bannerAdView(
     {bool mIsExpress,
-      @required String mCodeId,
-      bool supportDeepLink,
-      int expressAdNum,
-      int expressTime,
-      double expressViewWidth,
-      double expressViewHeight}) {
-  if (defaultTargetPlatform == TargetPlatform.android) {
-    return AndroidView(
-      viewType: 'com.gstory.flutter_unionad/BannerAdView',
-      creationParams: {
-        "mIsExpress": mIsExpress ?? false,
-        "mCodeId": mCodeId,
-        "supportDeepLink": supportDeepLink ?? true,
-        "expressViewWidth": expressViewWidth ?? 400,
-        "expressViewHeight": expressViewHeight ?? 200,
-        "expressAdNum": expressAdNum ?? 1,
-        "expressTime": expressTime ?? 0
-      },
-      creationParamsCodec: const StandardMessageCodec(),
-    );
-  } else if (defaultTargetPlatform == TargetPlatform.iOS) {
-    return UiKitView(
-      viewType: "com.gstory.flutter_unionad/BannerAdView",
-      creationParams: {
-        "mIsExpress": mIsExpress ?? false,
-        "mCodeId": mCodeId,
-        "supportDeepLink": supportDeepLink ?? true,
-        "expressViewWidth": expressViewWidth ?? 400,
-        "expressViewHeight": expressViewHeight ?? 200,
-        "expressAdNum": expressAdNum ?? 1,
-        "expressTime": expressTime ?? 0
-      },
-      creationParamsCodec: const StandardMessageCodec(),
-    );
-  }
-  return Container();
+    @required String androidCodeId,
+    @required String iosCodeId,
+    bool supportDeepLink,
+    int expressAdNum,
+    int expressTime,
+    double expressViewWidth,
+    double expressViewHeight,
+    callBack}) {
+  return BannerAdView(
+    mIsExpress: mIsExpress ?? false,
+    androidCodeId: androidCodeId,
+    iosCodeId: iosCodeId,
+    supportDeepLink: supportDeepLink ?? true,
+    expressViewWidth: expressViewWidth ?? 400,
+    expressViewHeight: expressViewHeight ?? 200,
+    expressAdNum: expressAdNum ?? 1,
+    expressTime: expressTime ?? 0,
+    callBack: callBack,
+  );
 }
 
 ///开屏广告
 Widget splashAdView(
     {bool mIsExpress,
-      @required String mCodeId,
-      bool supportDeepLink,
-      double expressViewWidth,
-      double expressViewHeight}) {
-  if (defaultTargetPlatform == TargetPlatform.android) {
-    return AndroidView(
-      viewType: 'com.gstory.flutter_unionad/SplashAdView',
-      creationParams: {
-        "mIsExpress": mIsExpress ?? false,
-        "mCodeId": mCodeId,
-        "supportDeepLink": supportDeepLink ?? true,
-        "expressViewWidth": expressViewWidth ?? 720,
-        "expressViewHeight": expressViewHeight ?? 1080,
-      },
-      creationParamsCodec: const StandardMessageCodec(),
-    );
-  } else if (defaultTargetPlatform == TargetPlatform.iOS) {
-    return UiKitView(
-      viewType: "com.gstory.flutter_unionad/SplashAdView",
-      creationParams: {
-        "mIsExpress": mIsExpress ?? false,
-        "mCodeId": mCodeId,
-        "supportDeepLink": supportDeepLink ?? true,
-        "expressViewWidth": expressViewWidth ?? 750,
-        "expressViewHeight": expressViewHeight ?? 1334,
-      },
-      creationParamsCodec: const StandardMessageCodec(),
-    );
-  }
-  return Container();
+    @required String androidCodeId,
+    @required String iosCodeId,
+    bool supportDeepLink,
+    double expressViewWidth,
+    double expressViewHeight,
+    callBack}) {
+  return SplashAdView(
+    mIsExpress: mIsExpress ?? false,
+    androidCodeId: androidCodeId,
+    iosCodeId: iosCodeId,
+    supportDeepLink: supportDeepLink ?? true,
+    expressViewWidth: expressViewWidth ?? 400,
+    expressViewHeight: expressViewHeight ?? 200,
+    callBack: callBack,
+  );
 }
 
 ///信息流广告
 Widget nativeAdView(
-    {@required String mCodeId,
-      bool supportDeepLink,
-      @required double expressViewWidth,
-      @required double expressViewHeight}) {
-  if (defaultTargetPlatform == TargetPlatform.android) {
-    return AndroidView(
-      viewType: 'com.gstory.flutter_unionad/NativeAdView',
-      creationParams: {
-        "mCodeId": mCodeId,
-        "supportDeepLink": supportDeepLink ?? true,
-        "expressViewWidth": expressViewWidth ?? 200,
-        "expressViewHeight": expressViewHeight ?? 100,
-      },
-      creationParamsCodec: const StandardMessageCodec(),
-    );
-  } else if (defaultTargetPlatform == TargetPlatform.iOS) {
-    return UiKitView(
-      viewType: "com.gstory.flutter_unionad/NativeAdView",
-      creationParams: {
-        "mCodeId": mCodeId,
-        "supportDeepLink": supportDeepLink ?? true,
-        "expressViewWidth": expressViewWidth ?? 200,
-        "expressViewHeight": expressViewHeight ?? 100,
-      },
-      creationParamsCodec: const StandardMessageCodec(),
-    );
-  }
-  return Container();
+    {String mIsExpress,
+    @required String androidCodeId,
+    @required String iosCodeId,
+    bool supportDeepLink,
+    @required double expressViewWidth,
+    @required double expressViewHeight,
+    callBack}) {
+  return NativeAdView(
+    mIsExpress: mIsExpress ?? false,
+    androidCodeId: androidCodeId,
+    iosCodeId: iosCodeId,
+    supportDeepLink: supportDeepLink ?? true,
+    expressViewWidth: expressViewWidth ?? 200,
+    expressViewHeight: expressViewHeight ?? 100,
+    callBack: callBack,
+  );
 }
 
 ///插屏广告
 Future<bool> interactionAd({
   bool mIsExpress,
-  @required String mCodeId,
+  @required String androidCodeId,
+  @required String iosCodeId,
   bool supportDeepLink,
   double expressViewWidth,
   double expressViewHeight,
 }) async {
   return await _channel.invokeMethod("interactionAd", {
     "mIsExpress": mIsExpress ?? false,
-    "mCodeId": mCodeId,
+    "androidCodeId": androidCodeId,
+    "iosCodeId": iosCodeId,
     "supportDeepLink": supportDeepLink ?? true,
     "expressViewWidth": expressViewWidth ?? 200,
     "expressViewHeight": expressViewHeight ?? 300,
@@ -186,16 +147,17 @@ Future<bool> interactionAd({
 ///个性化模板插屏广告
 Widget interactionAdView(
     {bool mIsExpress,
-      @required String mCodeId,
-      bool supportDeepLink,
-      double expressViewWidth,
-      double expressViewHeight}) {
+    @required String androidCodeId,
+    @required String iosCodeId,
+    bool supportDeepLink,
+    double expressViewWidth,
+    double expressViewHeight}) {
   if (defaultTargetPlatform == TargetPlatform.android) {
     return AndroidView(
       viewType: 'com.gstory.flutter_unionad/InteractionAdView',
       creationParams: {
         "mIsExpress": mIsExpress ?? false,
-        "mCodeId": mCodeId,
+        "androidCodeId": androidCodeId,
         "supportDeepLink": supportDeepLink ?? true,
         "expressViewWidth": expressViewWidth ?? 300,
         "expressViewHeight": expressViewHeight ?? 400,
@@ -211,7 +173,8 @@ Widget interactionAdView(
 ///激励视频广告
 Future<bool> loadRewardVideoAd({
   bool mIsExpress,
-  @required String mCodeId,
+  @required String androidCodeId,
+  @required String iosCodeId,
   bool supportDeepLink,
   double expressViewWidth,
   double expressViewHeight,
@@ -223,10 +186,11 @@ Future<bool> loadRewardVideoAd({
 }) async {
   return await _channel.invokeMethod("loadRewardVideoAd", {
     "mIsExpress": mIsExpress == null ? false : mIsExpress,
-    "mCodeId": mCodeId,
+    "androidCodeId": androidCodeId,
+    "iosCodeId": iosCodeId,
     "supportDeepLink": supportDeepLink ?? true,
     "expressViewWidth": expressViewWidth ?? 750,
-    "expressViewHeight": expressViewHeight ??  1080,
+    "expressViewHeight": expressViewHeight ?? 1080,
     "rewardName": rewardName ?? "",
     "rewardAmount": rewardAmount ?? 0,
     "userID": userID ?? "",
@@ -238,48 +202,35 @@ Future<bool> loadRewardVideoAd({
 ///draw视频广告
 Widget drawFeedAdView({
   bool mIsExpress,
-  @required String mCodeId,
+  @required String androidCodeId,
+  @required String iosCodeId,
   bool supportDeepLink,
   double expressViewWidth,
   double expressViewHeight,
+  callBack,
 }) {
-  if (defaultTargetPlatform == TargetPlatform.android) {
-    return AndroidView(
-      viewType: 'com.gstory.flutter_unionad/DrawFeedAdView',
-      creationParams: {
-        "mIsExpress": mIsExpress ?? false,
-        "mCodeId": mCodeId,
-        "supportDeepLink": supportDeepLink ?? true,
-        "expressViewWidth": expressViewWidth ?? 720,
-        "expressViewHeight": expressViewHeight ?? 1080,
-      },
-      creationParamsCodec: const StandardMessageCodec(),
-    );
-  } else if (defaultTargetPlatform == TargetPlatform.iOS) {
-    return UiKitView(
-      viewType: "com.gstory.flutter_unionad/DrawFeedAdView",
-      creationParams: {
-        "mIsExpress": mIsExpress ?? false,
-        "mCodeId": mCodeId,
-        "supportDeepLink": supportDeepLink ?? true,
-        "expressViewWidth": expressViewWidth ?? 750,
-        "expressViewHeight": expressViewHeight ?? 1334,
-      },
-      creationParamsCodec: const StandardMessageCodec(),
-    );
-  }
-  return Container();
+  return DrawFeedAdView(
+    mIsExpress: mIsExpress ?? false,
+    androidCodeId: androidCodeId,
+    iosCodeId: iosCodeId,
+    supportDeepLink: supportDeepLink ?? true,
+    expressViewWidth: expressViewWidth ?? 720,
+    expressViewHeight: expressViewHeight ?? 1080,
+    callBack: callBack,
+  );
 }
 
 ///个性化模板全屏广告
 Future<bool> fullScreenVideoAd(
-    { bool mIsExpress,
-      @required String mCodeId,
-      bool supportDeepLink,
-      int orientation}) async {
+    {bool mIsExpress,
+    @required String androidCodeId,
+    @required String iosCodeId,
+    bool supportDeepLink,
+    int orientation}) async {
   return await _channel.invokeMethod("fullScreenVideoAd", {
     "mIsExpress": mIsExpress ?? false,
-    "mCodeId": mCodeId,
+    "androidCodeId": androidCodeId,
+    "iosCodeId": iosCodeId,
     "supportDeepLink": supportDeepLink ?? true,
     "orientation": orientation ?? VideoVERTICAL,
   });

@@ -59,20 +59,20 @@ class _IndexPageState extends State<IndexPage> {
 
   void _initRegister() async {
     _init = await FlutterUnionad.register(
-        androidAppId: "5098580",
-        iosAppId:  "5098580",
-        useTextureView: true,
-        appName: "unionad_test",
-        allowShowNotify: true,
-        allowShowPageWhenScreenLock: true,
-        debug: true,
-        supportMultiProcess: true,
+        androidAppId: "5098580", //穿山甲广告 Android appid 必填
+        iosAppId:  "5098580", //穿山甲广告 ios appid 必填
+        useTextureView: true, //使用TextureView控件播放视频,默认为SurfaceView,当有SurfaceView冲突的场景，可以使用TextureView 选填
+        appName: "unionad_test", //appname 必填
+        allowShowNotify: true, //是否允许sdk展示通知栏提示 选填
+        allowShowPageWhenScreenLock: true, //是否在锁屏场景支持展示广告落地页 选填
+        debug: true, //测试阶段打开，可以通过日志排查问题，上线时去除该调用 选太难
+        supportMultiProcess: true, //是否支持多进程，true支持 选填
         directDownloadNetworkType: [
           FlutterUnionad.NETWORK_STATE_2G,
           FlutterUnionad.NETWORK_STATE_3G,
           FlutterUnionad.NETWORK_STATE_4G,
           FlutterUnionad.NETWORK_STATE_WIFI
-        ]);
+        ]); //允许直接下载的网络状态集合 选填
     _version = await FlutterUnionad.getSDKVersion();
     setState(() {});
   }
@@ -166,10 +166,11 @@ class _IndexPageState extends State<IndexPage> {
               child: new Text('插屏广告'),
               onPressed: () async {
                 await FlutterUnionad.interactionAd(
-                  mCodeId: "945417892",
-                  supportDeepLink: true,
-                  expressViewWidth: 300.0,
-                  expressViewHeight: 450.0,
+                  androidCodeId: "945417892",//andrrid 插屏广告id 必填
+                  iosCodeId: "945417892",//ios 插屏广告id 必填
+                  supportDeepLink: true, //是否支持 DeepLink 选填
+                  expressViewWidth: 300.0, // 期望view 宽度 dp 必填
+                  expressViewHeight: 450.0, //期望view高度 dp 必填
                 );
               },
             ),
@@ -180,14 +181,16 @@ class _IndexPageState extends State<IndexPage> {
               child: new Text('激励视频'),
               onPressed: () {
                 FlutterUnionad.loadRewardVideoAd(
-                    mIsExpress: true,
-                    mCodeId: "945418088",
-                    supportDeepLink: true,
-                    rewardName: "100金币",
-                    rewardAmount: 100,
-                    userID: "123",
-                    orientation: FlutterUnionad.VideoVERTICAL,
-                    mediaExtra: null);
+                    mIsExpress: true, //是否个性化 选填
+                    androidCodeId: "945418088", //Android 激励视频广告id  必填
+                    iosCodeId: "945418088", //ios 激励视频广告id  必填
+                    supportDeepLink: true, //是否支持 DeepLink 选填
+                    rewardName: "100金币", //奖励名称 选填
+                    rewardAmount: 100, //奖励数量 选填
+                    userID: "123",  //  用户id 选填
+                    orientation: FlutterUnionad.VideoVERTICAL, //视屏方向 选填
+                    mediaExtra: null, //扩展参数 选填
+                );
               },
             ),
             //个性化模板draw广告
@@ -211,9 +214,11 @@ class _IndexPageState extends State<IndexPage> {
               child: new Text('全屏广告'),
               onPressed: () {
               FlutterUnionad.fullScreenVideoAd(
-                  mCodeId: "945491318",
-                  supportDeepLink: true,
-                  orientation: FlutterUnionad.VideoVERTICAL);
+                  androidCodeId: "945491318", //android 全屏广告id 必填
+                  iosCodeId: "945491318",//ios 全屏广告id 必填
+                  supportDeepLink: true,  //是否支持 DeepLink 选填
+                  orientation: FlutterUnionad.VideoVERTICAL,//视屏方向 选填
+              );
               },
             ),
           ],

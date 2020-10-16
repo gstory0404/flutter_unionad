@@ -17,7 +17,7 @@ public class FullscreenVideoAd : NSObject{
     
     public func showFullscreenVideoAd(params : NSDictionary){
         let mIsExpress = params.value(forKey: "mIsExpress") as? Bool
-        let mCodeId = params.value(forKey: "mCodeId") as? String
+        let mCodeId = params.value(forKey: "iosCodeId") as? String
 //        let supportDeepLink = params.value(forKey: "supportDeepLink") as? Bool
 //        let orientation = params.value(forKey: "orientation") as? Int64
         if(!mIsExpress!){

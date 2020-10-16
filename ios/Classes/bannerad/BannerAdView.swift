@@ -11,6 +11,7 @@ import Flutter
 public class BannerAdView : NSObject,FlutterPlatformView{
     private var container : UIView
     var frame: CGRect;
+    private var channel : FlutterMethodChannel?
     //广告需要的参数
     let mCodeId :String?
     var supportDeepLink :Bool? = true
@@ -24,7 +25,7 @@ public class BannerAdView : NSObject,FlutterPlatformView{
         self.frame = frame
         self.container = UIView(frame: frame)
         let dict = params as! NSDictionary
-        self.mCodeId = dict.value(forKey: "mCodeId") as? String
+        self.mCodeId = dict.value(forKey: "iosCodeId") as? String
         self.mIsExpress = dict.value(forKey: "mIsExpress") as? Bool
         self.supportDeepLink = dict.value(forKey: "supportDeepLink") as? Bool
         self.expressViewWidth = Float(dict.value(forKey: "expressViewWidth") as! Double)
@@ -32,6 +33,7 @@ public class BannerAdView : NSObject,FlutterPlatformView{
         self.expressAdNum = dict.value(forKey: "expressAdNum") as? Int64
         self.expressTime = dict.value(forKey: "expressTime") as? Int64
         super.init()
+        self.channel = FlutterMethodChannel.init(name: FlutterUnionadConfig.view.bannerAdView + "_" + String(id), binaryMessenger: binaryMessenger)
         self.loadBannerExpressAd()
     }
     public func view() -> UIView {
@@ -66,15 +68,20 @@ extension BannerAdView: BUNativeExpressBannerViewDelegate {
 
     public func nativeExpressBannerAdViewRenderFail(_ bannerAdView: BUNativeExpressBannerView, error: Error?) {
         self.disposeView()
+        LogUtil.logInstance.printLog(message:error)
+//        self.channel?.invokeMethod("onFail", arguments: error)
     }
 
     public func nativeExpressBannerAdView(_ bannerAdView: BUNativeExpressBannerView, didLoadFailWithError error: Error?) {
         self.disposeView()
+        LogUtil.logInstance.printLog(message:String(error.debugDescription))
+        self.channel?.invokeMethod("onFail", arguments: String(error.debugDescription))
     }
 
     public func nativeExpressBannerAdView(_ bannerAdView: BUNativeExpressBannerView, dislikeWithReason filterwords: [BUDislikeWords]?) {
         LogUtil.logInstance.printLog(message:"点击了不感兴趣")
         self.disposeView()
+        self.channel?.invokeMethod("onDislike", arguments: filterwords?[0].name)
     }
     
     public func nativeExpressBannerAdViewRenderSuccess(_ bannerAdView: BUNativeExpressBannerView) {

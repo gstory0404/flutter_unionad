@@ -32,7 +32,7 @@ class InteractionExpressAdView(var context: Context, var activity: Activity, mes
     var mHasShowDownloadActive :Boolean? = false
 
     init {
-        mCodeId = params["mCodeId"] as String?
+        mCodeId = params["androidCodeId"] as String?
         supportDeepLink = params["supportDeepLink"] as Boolean?
         var width = params["expressViewWidth"] as Double
         var hight = params["expressViewHeight"] as Double

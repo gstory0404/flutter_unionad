@@ -16,7 +16,6 @@ public class BannerAdViewFactory: NSObject,FlutterPlatformViewFactory {
     }
     
     public func create(withFrame frame: CGRect, viewIdentifier viewId: Int64, arguments args: Any?) -> FlutterPlatformView {
-        print(args!)
         return BannerAdView(frame,  binaryMessenger: self.messenger,id: viewId, params:args)
     }
     

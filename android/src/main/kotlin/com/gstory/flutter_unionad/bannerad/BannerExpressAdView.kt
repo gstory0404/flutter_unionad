@@ -8,9 +8,11 @@ import android.widget.FrameLayout
 import com.bytedance.sdk.openadsdk.*
 import com.bytedance.sdk.openadsdk.TTAdNative.NativeExpressAdListener
 import com.bytedance.sdk.openadsdk.TTNativeExpressAd.ExpressAdInteractionListener
+import com.gstory.flutter_unionad.FlutterunionadViewConfig
 import com.gstory.flutter_unionad.TTAdManagerHolder.get
 import com.gstory.flutter_unionad.UIUtils
 import io.flutter.plugin.common.BinaryMessenger
+import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.platform.PlatformView
 
 
@@ -35,9 +37,11 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
 
     private var startTime: Long = 0
 
+    private var channel : MethodChannel?
+
 
     init {
-        mCodeId = params["mCodeId"] as String?
+        mCodeId = params["androidCodeId"] as String?
         supportDeepLink = params["supportDeepLink"] as Boolean?
         var width = params["expressViewWidth"] as Double
         var hight = params["expressViewHeight"] as Double
@@ -48,6 +52,7 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
         mExpressContainer = FrameLayout(activity)
         val mTTAdManager = get()
         mTTAdNative = mTTAdManager.createAdNative(context.applicationContext)
+        channel = MethodChannel(messenger,FlutterunionadViewConfig.bannerAdView+"_"+id)
         loadBannerExpressAd()
     }
 
@@ -66,6 +71,7 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
         mTTAdNative.loadBannerExpressAd(adSlot, object : NativeExpressAdListener {
             override fun onError(code: Int, message: String) {
                 mExpressContainer!!.removeAllViews()
+                channel?.invokeMethod("onFail",message)
             }
 
             override fun onNativeExpressAdLoad(ads: List<TTNativeExpressAd>) {
@@ -88,15 +94,16 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
     private fun bindAdListener(ad: TTNativeExpressAd) {
         ad.setExpressInteractionListener(object : ExpressAdInteractionListener {
             override fun onAdClicked(view: View, type: Int) {
-                Log.e(TAG, "广告关闭")
+                Log.e(TAG, "广告点击")
             }
 
             override fun onAdShow(view: View, type: Int) {
-                Log.e(TAG, "广告被点击")
+                Log.e(TAG, "广告显示")
             }
 
             override fun onRenderFail(view: View, msg: String, code: Int) {
                 Log.e(TAG, "render fail: $code   $msg")
+                channel?.invokeMethod("onFail",msg)
             }
 
             override fun onRenderSuccess(view: View, width: Float, height: Float) {
@@ -114,6 +121,7 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
 //                val mExpressContainerParams: FrameLayout.LayoutParams = FrameLayout.LayoutParams(UIUtils.dip2px(activity, width).toInt(), UIUtils.dip2px(activity, height).toInt())
 //                mExpressContainer!!.layoutParams = mExpressContainerParams
                 mExpressContainer!!.addView(view)
+                channel?.invokeMethod("onShow","")
             }
         })
         //dislike设置
@@ -164,6 +172,7 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
                 Log.e(TAG, "点击 $value")
                 //用户选择不喜欢原因后，移除广告展示
                 mExpressContainer!!.removeAllViews()
+                channel?.invokeMethod("onDislike",value)
             }
 
             override fun onCancel() {

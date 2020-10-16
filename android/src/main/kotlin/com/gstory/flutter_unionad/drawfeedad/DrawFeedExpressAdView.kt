@@ -9,9 +9,11 @@ import com.bytedance.sdk.openadsdk.*
 import com.bytedance.sdk.openadsdk.TTAdNative.NativeExpressAdListener
 import com.bytedance.sdk.openadsdk.TTNativeExpressAd.ExpressAdInteractionListener
 import com.bytedance.sdk.openadsdk.TTNativeExpressAd.ExpressVideoAdListener
+import com.gstory.flutter_unionad.FlutterunionadViewConfig
 import com.gstory.flutter_unionad.TTAdManagerHolder.get
 import com.gstory.flutter_unionad.UIUtils
 import io.flutter.plugin.common.BinaryMessenger
+import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.platform.PlatformView
 
 
@@ -34,9 +36,11 @@ internal class DrawFeedExpressAdView(var context: Context, var activity: Activit
 
     private var startTime: Long = 0
 
+    private var channel : MethodChannel?
+
 
     init {
-        mCodeId = params["mCodeId"] as String?
+        mCodeId = params["androidCodeId"] as String?
         supportDeepLink = params["supportDeepLink"] as Boolean?
         var width = params["expressViewWidth"] as Double
         var hight = params["expressViewHeight"] as Double
@@ -46,6 +50,7 @@ internal class DrawFeedExpressAdView(var context: Context, var activity: Activit
         val mTTAdManager = get()
         mTTAdNative = mTTAdManager.createAdNative(context.applicationContext)
         loadBannerExpressAd()
+        channel = MethodChannel(messenger, FlutterunionadViewConfig.drawFeedAdView+"_"+id)
     }
 
     override fun getView(): View {
@@ -63,6 +68,7 @@ internal class DrawFeedExpressAdView(var context: Context, var activity: Activit
         mTTAdNative.loadExpressDrawFeedAd(adSlot, object : NativeExpressAdListener {
             override fun onError(code: Int, message: String) {
                 Log.e(TAG, "load error : $code, $message")
+                channel?.invokeMethod("onFail",message);
             }
 
             override fun onNativeExpressAdLoad(ads: List<TTNativeExpressAd?>?) {
@@ -104,11 +110,13 @@ internal class DrawFeedExpressAdView(var context: Context, var activity: Activit
                         }
 
                         override fun onAdShow(view: View, type: Int) {
-                            Log.e(TAG, "广告被点击")
+                            Log.e(TAG, "广告显示")
+                            channel?.invokeMethod("onShow","");
                         }
 
                         override fun onRenderFail(view: View, msg: String, code: Int) {
                             Log.e(TAG, "render fail: $code   $msg")
+                            channel?.invokeMethod("onFail",msg)
                         }
 
                         override fun onRenderSuccess(view: View, width: Float, height: Float) {

@@ -10,20 +10,18 @@ import Flutter
 
 class FlutterUnionadViewPlugin{
     static func register(viewRegistrar : FlutterPluginRegistrar){
-        print("初始化view")
-        print(viewRegistrar.messenger())
        //banner广告
         let bannerAdViewFactory = BannerAdViewFactory(messenger: viewRegistrar.messenger())
-        viewRegistrar.register(bannerAdViewFactory, withId: "com.gstory.flutter_unionad/BannerAdView")
+        viewRegistrar.register(bannerAdViewFactory, withId: FlutterUnionadConfig.view.bannerAdView)
         //spalsh广告
         let splashAdViewFactory = SplashAdViewFactory(messenger: viewRegistrar.messenger())
-        viewRegistrar.register(splashAdViewFactory, withId: "com.gstory.flutter_unionad/SplashAdView")
+        viewRegistrar.register(splashAdViewFactory, withId: FlutterUnionadConfig.view.splashAdView)
         //draw广告
         let drawfeedAdViewFactory = DrawFeedAdViewFactory(messenger: viewRegistrar.messenger())
-        viewRegistrar.register(drawfeedAdViewFactory, withId: "com.gstory.flutter_unionad/DrawFeedAdView")
+        viewRegistrar.register(drawfeedAdViewFactory, withId: FlutterUnionadConfig.view.drawFeedAdView)
         //信息流广告
         let nativeAdviewFactory = NativeAdViewFactory(messenger: viewRegistrar.messenger())
-        viewRegistrar.register(nativeAdviewFactory, withId: "com.gstory.flutter_unionad/NativeAdView")
+        viewRegistrar.register(nativeAdviewFactory, withId: FlutterUnionadConfig.view.nativeAdView)
     }
 }
 
