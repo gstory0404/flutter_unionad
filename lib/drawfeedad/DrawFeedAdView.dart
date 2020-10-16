@@ -15,13 +15,13 @@ class DrawFeedAdView extends StatefulWidget {
 
   const DrawFeedAdView(
       {Key key,
-        this.mIsExpress,
-        this.androidCodeId,
-        this.iosCodeId,
-        this.supportDeepLink,
-        this.expressViewWidth,
-        this.expressViewHeight,
-        this.callBack})
+      this.mIsExpress,
+      this.androidCodeId,
+      this.iosCodeId,
+      this.supportDeepLink,
+      this.expressViewWidth,
+      this.expressViewHeight,
+      this.callBack})
       : super(key: key);
 
   @override
@@ -95,7 +95,7 @@ class _DrawFeedAdViewState extends State<DrawFeedAdView> {
   //监听原生view传值
   Future<dynamic> _platformCallHandler(MethodCall call) async {
     switch (call.method) {
-    //显示广告
+      //显示广告
       case onShow:
         if (widget.callBack != null) {
           widget.callBack(FlutterUnionadState(call.method, call.arguments));

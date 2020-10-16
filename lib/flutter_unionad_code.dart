@@ -33,7 +33,6 @@ const String onAplashSkip = "onAplashSkip";
 //广告结束
 const String onAplashFinish = "onAplashFinish";
 
-
 ///激励广告相关
 //是否观看成功
 const String rewardVerify = "rewardVerify";
@@ -41,7 +40,6 @@ const String rewardVerify = "rewardVerify";
 const String rewardAmount = "rewardAmount";
 //奖励名称
 const String rewardName = "rewardName";
-
 
 ///全屏视频广告广告
 const String fullVideoType = "fullVideoType";
