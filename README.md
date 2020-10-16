@@ -15,7 +15,7 @@
 ## 集成步骤
 #### 1、pubspec.yaml
 ```Dart
-flutter_unionad: ^0.0.6
+flutter_unionad: ^0.0.7
 ```
 引入
 ```Dart

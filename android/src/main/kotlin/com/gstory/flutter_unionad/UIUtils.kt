@@ -106,7 +106,7 @@ object UIUtils {
      */
     fun hasNotchScreen(activity: Activity): Boolean {
         return if (getInt("ro.miui.notch", activity) == 1 || hasNotchAtHuawei(activity) || hasNotchAtOPPO(activity)
-                || hasNotchAtVivo(activity) || isAndroidPHasNotch(activity)) { //TODO 各种品牌
+                || hasNotchAtVivo(activity) || isAndroidPHasNotch(activity)) {
             true
         } else false
     }
