@@ -1,7 +1,7 @@
 # 字节跳动穿山甲广告 Flutter版本
 
 <p>
-<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v0.0.6-success></a>
+<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v0.0.7-success></a>
 </p>
 
 ![image](https://github.com/gstory0404/flutter_unionad/blob/master/image/demo.gif)
@@ -48,7 +48,7 @@ await FlutterUnionad.register(
         appName: "unionad_test", //appname 必填
         allowShowNotify: true, //是否允许sdk展示通知栏提示 选填
         allowShowPageWhenScreenLock: true, //是否在锁屏场景支持展示广告落地页 选填
-        debug: true, //测试阶段打开，可以通过日志排查问题，上线时去除该调用 选太难
+        debug: true, //测试阶段打开，可以通过日志排查问题，上线时改为false 选填
         supportMultiProcess: true, //是否支持多进程，true支持 选填
         directDownloadNetworkType: [
           FlutterUnionad.NETWORK_STATE_2G,
