@@ -36,7 +36,7 @@ Future<bool> register({
     "allowShowPageWhenScreenLock": allowShowPageWhenScreenLock ?? false,
     "debug": debug ?? false,
     "supportMultiProcess": supportMultiProcess ?? false,
-    "directDownloadNetworkType": directDownloadNetworkType != null ||
+    "directDownloadNetworkType": directDownloadNetworkType != null &&
             directDownloadNetworkType.length > 0
         ? directDownloadNetworkType
         : [
