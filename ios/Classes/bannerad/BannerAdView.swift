@@ -45,7 +45,7 @@ public class BannerAdView : NSObject,FlutterPlatformView{
         let viewWidth:CGFloat = CGFloat(self.expressViewWidth!)
         let viewHeigh:CGFloat = CGFloat(self.expressViewHeight!)
         let size = CGSize(width: viewWidth, height: viewHeigh)
-        let bannerAdView = BUNativeExpressBannerView.init(slotID: self.mCodeId!, rootViewController: MyUtils.getVC(), adSize: size, isSupportDeepLink: self.supportDeepLink!)
+        let bannerAdView = BUNativeExpressBannerView.init(slotID: self.mCodeId!, rootViewController: MyUtils.getVC(), adSize: size, isSupportDeepLink: self.supportDeepLink!, interval: Int(self.expressTime!))
         bannerAdView.delegate = self
         self.container = bannerAdView
         bannerAdView.loadAdData()
