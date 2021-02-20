@@ -277,5 +277,5 @@ FlutterUnionad.adeventEvent
 ## 联系方式
 * Email: gstory0404@gmail.com
 
-* QQ群: 649574038
+* QQ群: <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=4j2_yF1-pMl58y16zvLCFFT2HEmLf6vQ&jump_from=webapi"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="649574038" title="flutter交流"></a>
  
