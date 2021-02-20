@@ -25,3 +25,6 @@
 ## 0.0.7
 
 * TODO:1、完善广告逻辑 2、新增原生广告view回调 3、分别输入广告 Android ios id
+
+## 0.0.8
+* TODO: 1、新增ios版本广告轮播时间； 2、升级Android sdk为3.4.5.0； 3、升级ios sdk为3.4.2.3； 4、新增iso14 ATT授权

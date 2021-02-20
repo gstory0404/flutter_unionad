@@ -25,3 +25,7 @@
 ## 0.0.7
 
 * TODO:1. Improve the advertising logic 2. Add the native advertising view callback 3. Input the ads Android IOS ID respectively
+
+## 0.0.8
+
+* TODO: fix bug
