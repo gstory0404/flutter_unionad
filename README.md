@@ -1,7 +1,7 @@
 # 字节跳动穿山甲广告 Flutter版本
 
 <p>
-<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v0.0.7-success></a>
+<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v0.0.8-success></a>
 </p>
 
 ![image](https://github.com/gstory0404/flutter_unionad/blob/master/image/demo.gif)
@@ -15,7 +15,7 @@
 ## 集成步骤
 #### 1、pubspec.yaml
 ```Dart
-flutter_unionad: ^0.0.7
+flutter_unionad: ^0.0.8
 ```
 引入
 ```Dart
@@ -27,7 +27,7 @@ aar文件已集成进插件中无需额外配置，只需要在android目录中A
   <application
         tools:replace="android:label">
 ```
-SDK版本 3.3.0.0
+SDK版本 3.4.5.0
 
 #### 3、IOS
 SDK已配置插件中，其余根据SDK文档配置，因为使用PlatformView，在Info.plist加入
@@ -35,7 +35,7 @@ SDK已配置插件中，其余根据SDK文档配置，因为使用PlatformView�
  <key>io.flutter.embedded_views_preview</key>
     <true/>
 ```
-SDK版本 3.2.6.2
+SDK版本 3.4.2.3
 
 ## 使用
 
@@ -64,8 +64,25 @@ await FlutterUnionad.getSDKVersion();
 
 #### 3、请求权限
 ```Dart
-await FlutterUnionad.requestPermissionIfNecessary();
+switch(await FlutterUnionad.requestPermissionIfNecessary()){
+                  //未确定
+                  case FlutterUnionad.notDetermined:
+                    break;
+                    //限制
+                  case FlutterUnionad.restricted:
+                    break;
+                  //拒绝
+                  case FlutterUnionad.denied:
+                    break;
+                  //同意
+                  case FlutterUnionad.authorized:
+                    break;
+                }
 ```
+Android获取定位、照片权限，只返回成功
+
+IOS 版本14及以上获取ATT权限，根据返回结果具体操作业务逻辑
+
 #### 4、开屏广告
 ```Dart
 FlutterUnionad.splashAdView(
