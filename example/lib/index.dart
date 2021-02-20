@@ -114,7 +114,20 @@ class _IndexPageState extends State<IndexPage> {
               textColor: Colors.white,
               child: new Text('请求权限'),
               onPressed: () async {
-                await FlutterUnionad.requestPermissionIfNecessary();
+                switch(await FlutterUnionad.requestPermissionIfNecessary()){
+                  //未确定
+                  case FlutterUnionad.notDetermined:
+                    break;
+                    //限制
+                  case FlutterUnionad.restricted:
+                    break;
+                  //拒绝
+                  case FlutterUnionad.denied:
+                    break;
+                  //同意
+                  case FlutterUnionad.authorized:
+                    break;
+                }
               },
             ),
             //banner广告

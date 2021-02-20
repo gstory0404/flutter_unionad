@@ -31,30 +31,32 @@ public class SwiftFlutterUnionadPlugin: NSObject, FlutterPlugin {
     case "getSDKVersion":
         result(BUAdSDKManager.sdkVersion)
         break
-    //获取权限 ios14以上才有
+    //获取权限AAT ios14以上才有
     case "requestPermissionIfNecessary":
         if #available(iOS 14, *) {
             ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
-                switch (status) {
-                    //统一
-                    case ATTrackingManager.AuthorizationStatus.authorized:
-                        result(true)
-                        break
-                //拒绝
-                    case ATTrackingManager.AuthorizationStatus.denied:
-                        result(false)
-                        break
-                        //用户未做选择或未弹窗
-                    case ATTrackingManager.AuthorizationStatus.notDetermined:
-                        result(false)
-                        break
-                    default:
-                        result(false)
-                        break
-                }
+                LogUtil.logInstance.printLog(message: status.rawValue)
+                result(status.rawValue)
+//                switch (status) {
+//                    //同意授权
+//                    case ATTrackingManager.AuthorizationStatus.authorized:
+//                        result(true)
+//                        break
+//                    //拒绝
+//                    case ATTrackingManager.AuthorizationStatus.denied:
+//                        result(false)
+//                        break
+//                        //用户未做选择或未弹窗
+//                    case ATTrackingManager.AuthorizationStatus.notDetermined:
+//                        result(false)
+//                        break
+//                    default:
+//                        result(false)
+//                        break
+//                }
             })
         } else {
-            result(true)
+            result(3)
         }
         //加载激励广告
     case "loadRewardVideoAd":

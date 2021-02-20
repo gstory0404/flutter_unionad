@@ -61,3 +61,14 @@ const String onShow = "onShow";
 const String onFail = "onFail";
 //不感兴趣
 const String onDislike = "onDislike";
+
+///权限请求结果
+//未确定
+const int notDetermined = 0;
+//限制
+const int restricted = 1;
+//拒绝
+const int denied = 2;
+//同意
+const int authorized = 3;
+

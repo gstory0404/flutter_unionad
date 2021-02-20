@@ -93,6 +93,7 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
         } else if (call.method == "requestPermissionIfNecessary") {
             val mTTAdManager = TTAdManagerHolder.get()
             mTTAdManager.requestPermissionIfNecessary(applicationContext)
+            result.success(3)
             //获取sdk版本号
         } else if (call.method == "getSDKVersion") {
             var viersion = TTAdManagerHolder.get().sdkVersion

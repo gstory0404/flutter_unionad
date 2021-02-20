@@ -50,7 +50,7 @@ Future<bool> register({
 }
 
 ///请求权限
-Future<bool> requestPermissionIfNecessary() async {
+Future<int> requestPermissionIfNecessary() async {
   return await _channel.invokeMethod("requestPermissionIfNecessary");
 }
 
