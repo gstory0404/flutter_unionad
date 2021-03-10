@@ -172,6 +172,10 @@ class NativeExpressAdView(var context: Context,var activity: Activity, var messe
             override fun onRefuse() {
 
             }
+
+            override fun onShow() {
+                
+            }
         })
     }
 

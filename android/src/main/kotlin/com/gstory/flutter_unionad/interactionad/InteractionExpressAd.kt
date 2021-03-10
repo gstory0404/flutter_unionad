@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.View
 import com.bytedance.sdk.openadsdk.*
 import com.gstory.flutter_unionad.TTAdManagerHolder
-import com.gstory.flutter_unionad.UIUtils
 
 /**
  * @Description:
@@ -133,6 +132,7 @@ object InteractionExpressAd {
     private fun bindDislike(ad: TTNativeExpressAd, customStyle: Boolean) {
         //使用默认个性化模板中默认dislike弹出样式
         ad.setDislikeCallback(mActivity, object : TTAdDislike.DislikeInteractionCallback {
+
             override fun onSelected(position: Int, value: String) {
                 Log.e(TAG, "点击 $value")
                 //用户选择不喜欢原因后，移除广告展示
@@ -144,6 +144,10 @@ object InteractionExpressAd {
 
             override fun onRefuse() {
 
+            }
+
+            override fun onShow() {
+                
             }
         })
     }

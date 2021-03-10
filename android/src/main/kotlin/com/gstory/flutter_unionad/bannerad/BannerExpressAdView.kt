@@ -182,6 +182,10 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
             override fun onRefuse() {
 
             }
+
+            override fun onShow() {
+                
+            }
         })
     }
 
