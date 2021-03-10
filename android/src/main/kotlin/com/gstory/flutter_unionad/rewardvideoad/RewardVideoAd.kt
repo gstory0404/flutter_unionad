@@ -2,13 +2,18 @@ package com.gstory.flutter_unionad.rewardvideoad
 
 import android.app.Activity
 import android.content.Context
+import android.os.Looper
 import android.util.Log
-import com.bytedance.sdk.openadsdk.*
+import com.bytedance.sdk.openadsdk.AdSlot
+import com.bytedance.sdk.openadsdk.TTAdConstant
+import com.bytedance.sdk.openadsdk.TTAdNative
 import com.bytedance.sdk.openadsdk.TTAdNative.RewardVideoAdListener
+import com.bytedance.sdk.openadsdk.TTRewardVideoAd
 import com.bytedance.sdk.openadsdk.TTRewardVideoAd.RewardAdInteractionListener
 import com.gstory.flutter_unionad.FlutterUnionadEventPlugin
 import com.gstory.flutter_unionad.TTAdManagerHolder
 import com.gstory.flutter_unionad.UIUtils
+import java.util.*
 
 
 /**
@@ -17,7 +22,7 @@ import com.gstory.flutter_unionad.UIUtils
  * @CreateDate: 2020/8/20 18:46
  */
 object RewardVideoAd {
-    private val TAG = "RewardVideoAdActivity"
+    private val TAG = "RewardVideoAd"
 
     var mContext: Context? = null
     var mActivity: Activity? = null
@@ -60,7 +65,7 @@ object RewardVideoAd {
             this.mediaExtra = params["mediaExtra"] as String
         }
         val mTTAdManager = TTAdManagerHolder.get()
-        mTTAdNative = mTTAdManager.createAdNative(context)
+        mTTAdNative = mTTAdManager.createAdNative(mContext)
         loadRewardVideoAd()
     }
 
@@ -105,6 +110,7 @@ object RewardVideoAd {
                     .setMediaExtra(mediaExtra) //用户透传的信息，可不传
                     .build()
         }
+
         mTTAdNative.loadRewardVideoAd(adSlot, object : RewardVideoAdListener {
             override fun onError(code: Int, message: String) {
                 Log.e(TAG, "视频加载失败$code $message")
@@ -114,7 +120,7 @@ object RewardVideoAd {
             override fun onRewardVideoCached() {
                 Log.e(TAG, "rewardVideoAd video cached")
                 mIsLoaded = true
-                mttRewardVideoAd!!.showRewardVideoAd(mActivity, TTAdConstant.RitScenes.CUSTOMIZE_SCENES, "scenes_test")
+                mttRewardVideoAd?.showRewardVideoAd(mActivity, TTAdConstant.RitScenes.CUSTOMIZE_SCENES, "scenes_test")
                 mttRewardVideoAd = null
             }
 
