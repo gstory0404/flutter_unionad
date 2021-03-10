@@ -12,6 +12,16 @@
 * [Android](https://partner.oceanengine.com/union/media/union/download/detail?id=4&osType=android)
 * [IOS](https://partner.oceanengine.com/union/media/union/download/detail?id=16&osType=ios)
 
+## 本地环境
+```
+[✓] Flutter (Channel stable, 2.0.1, on macOS 11.1 20C69 darwin-x64, locale zh-Hans-CN)
+[✓] Android toolchain - develop for Android devices (Android SDK version 30.0.2)
+[✓] Xcode - develop for iOS and macOS
+[✓] Chrome - develop for the web
+[✓] Android Studio (version 4.1)
+[✓] Connected device (2 available)
+```
+
 ## 集成步骤
 #### 1、pubspec.yaml
 ```Dart
