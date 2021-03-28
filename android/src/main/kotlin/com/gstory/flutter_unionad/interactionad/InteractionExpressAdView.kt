@@ -30,12 +30,14 @@ class InteractionExpressAdView(var context: Context, var activity: Activity, mes
     var expressViewWidth: Float
     var expressViewHeight: Float
     var mHasShowDownloadActive :Boolean? = false
+    var expressNum : Integer = Integer(1)
 
     init {
         mCodeId = params["androidCodeId"] as String?
         supportDeepLink = params["supportDeepLink"] as Boolean?
         var width = params["expressViewWidth"] as Double
         var hight = params["expressViewHeight"] as Double
+        expressNum = params["expressNum"] as Integer
         Log.e("banner参数","${params["bannerViewWidth"]} ===== ${params["bannersViewHeight"]}")
         expressViewWidth = width.toFloat()
         expressViewHeight = hight.toFloat()
@@ -54,7 +56,7 @@ class InteractionExpressAdView(var context: Context, var activity: Activity, mes
         val adSlot = AdSlot.Builder()
                 .setCodeId(mCodeId) //广告位id
                 .setSupportDeepLink(supportDeepLink!!)
-                .setAdCount(1) //请求广告数量为1到3条
+                .setAdCount(expressNum.toInt()) //请求广告数量为1到3条
                 .setExpressViewAcceptedSize(expressViewWidth, expressViewHeight)//期望个性化模板广告view的size,单位dp
                 .setImageAcceptedSize(640, 320) //这个参数设置即可，不影响个性化模板广告的size
                 .build()
@@ -69,7 +71,9 @@ class InteractionExpressAdView(var context: Context, var activity: Activity, mes
                 if (ads == null || ads.size == 0) {
                     return
                 }
-                mTTAd = ads[0]
+                //随机获取一条广告显示
+                mTTAd = ads[(0..ads.size - 1).random()]
+                Log.e("插屏广告拉去到的数量",ads.size.toString())
                 bindAdListener(mTTAd!!)
                 mTTAd!!.render() //调用render开始渲染广告
             }

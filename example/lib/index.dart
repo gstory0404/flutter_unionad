@@ -184,6 +184,7 @@ class _IndexPageState extends State<IndexPage> {
                   supportDeepLink: true, //是否支持 DeepLink 选填
                   expressViewWidth: 300.0, // 期望view 宽度 dp 必填
                   expressViewHeight: 450.0, //期望view高度 dp 必填
+                  expressNum: 3,////请求广告数量为1到3条 必填
                 );
               },
             ),

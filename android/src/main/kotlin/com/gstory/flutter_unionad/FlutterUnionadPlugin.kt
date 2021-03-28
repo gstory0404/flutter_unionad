@@ -111,7 +111,8 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
             val supportDeepLink = call.argument<Boolean>("supportDeepLink")
             var expressViewWidth = call.argument<Double>("expressViewWidth")
             var expressViewHeight = call.argument<Double>("expressViewHeight")
-            InteractionExpressAd.init(mActivity!!,mActivity!!, mCodeId, supportDeepLink, expressViewWidth!!, expressViewHeight!!)
+            var expressNum = call.argument<Integer>("expressNum")
+            InteractionExpressAd.init(mActivity!!,mActivity!!, mCodeId, supportDeepLink, expressViewWidth!!, expressViewHeight!!,expressNum!!)
             result.success(true)
             //全屏广告
         } else if(call.method == "fullScreenVideoAd"){
