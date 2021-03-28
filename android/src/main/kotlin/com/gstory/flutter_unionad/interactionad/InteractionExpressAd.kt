@@ -24,14 +24,16 @@ object InteractionExpressAd {
     private var supportDeepLink: Boolean? = true
     private var expressViewWidth: Float = 0f
     private var expressViewHeight: Float = 0f
+    private var expressNum: Integer = Integer(1)
 
-    fun init(context: Context, mActivity: Activity, mCodeId: String?, supportDeepLink: Boolean?, expressViewWidth: Double, expressViewHeight: Double){
+    fun init(context: Context, mActivity: Activity, mCodeId: String?, supportDeepLink: Boolean?, expressViewWidth: Double, expressViewHeight: Double,expressNum: Integer) {
         this.mContext = context
         this.mActivity = mActivity
         this.mCodeId = mCodeId
         this.supportDeepLink = supportDeepLink
         this.expressViewWidth = expressViewWidth.toFloat()
         this.expressViewHeight = expressViewHeight.toFloat()
+        this.expressNum = expressNum
         val mTTAdManager = TTAdManagerHolder.get()
         mTTAdNative = mTTAdManager.createAdNative(context.applicationContext)
         loadInteractionExpressAd()
@@ -42,7 +44,7 @@ object InteractionExpressAd {
         val adSlot = AdSlot.Builder()
                 .setCodeId(mCodeId) //广告位id
                 .setSupportDeepLink(supportDeepLink!!)
-                .setAdCount(1) //请求广告数量为1到3条
+                .setAdCount(expressNum.toInt()) //请求广告数量为1到3条
                 .setExpressViewAcceptedSize(expressViewWidth, expressViewHeight)//期望个性化模板广告view的size,单位dp
                 .setImageAcceptedSize(640, 320) //这个参数设置即可，不影响个性化模板广告的size
                 .build()
@@ -56,7 +58,8 @@ object InteractionExpressAd {
                 if (ads == null || ads.size == 0) {
                     return
                 }
-                mTTAd = ads[0]
+                mTTAd = ads[(0..ads.size - 1).random()]
+                Log.e("插屏广告拉去到的数量",ads.size.toString())
                 bindAdListener(mTTAd!!)
                 mTTAd!!.render() //调用render开始渲染广告
             }
@@ -92,7 +95,7 @@ object InteractionExpressAd {
         })
         //dislike设置
         bindDislike(ad, false)
-        Log.e(TAG,"广告类型${ad.interactionType}   ${TTAdConstant.INTERACTION_TYPE_DOWNLOAD}")
+        Log.e(TAG, "广告类型${ad.interactionType}   ${TTAdConstant.INTERACTION_TYPE_DOWNLOAD}")
         if (ad.interactionType != TTAdConstant.INTERACTION_TYPE_DOWNLOAD) {
             return
         }
@@ -147,7 +150,7 @@ object InteractionExpressAd {
             }
 
             override fun onShow() {
-                
+
             }
         })
     }

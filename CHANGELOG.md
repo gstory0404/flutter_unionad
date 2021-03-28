@@ -33,3 +33,8 @@
 ## 0.0.9
 
 * TODO: fix bug
+
+
+## 0.1.0
+
+* TODO: fix bug

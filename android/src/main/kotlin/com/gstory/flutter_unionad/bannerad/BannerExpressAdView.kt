@@ -32,8 +32,8 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
     var supportDeepLink: Boolean? = true
     var expressViewWidth: Float
     var expressViewHeight: Float
-    var expressAdNum: Int
-    var expressTime : Int
+    var expressAdNum: Integer
+    var expressTime : Integer
 
     private var startTime: Long = 0
 
@@ -41,15 +41,17 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
 
 
     init {
+        Log.e("banner广告数量",params["expressAdNum"].toString())
         mCodeId = params["androidCodeId"] as String?
         supportDeepLink = params["supportDeepLink"] as Boolean?
         var width = params["expressViewWidth"] as Double
         var hight = params["expressViewHeight"] as Double
-        expressAdNum = params["expressAdNum"] as Int
-        expressTime = params["expressTime"] as Int
+        expressAdNum = params["expressAdNum"] as Integer
+        expressTime = params["expressTime"] as Integer
         expressViewWidth = width.toFloat()
         expressViewHeight = hight.toFloat()
         mExpressContainer = FrameLayout(activity)
+        Log.e("banner广告数量===>",expressAdNum.toString())
         val mTTAdManager = get()
         mTTAdNative = mTTAdManager.createAdNative(context.applicationContext)
         channel = MethodChannel(messenger,FlutterunionadViewConfig.bannerAdView+"_"+id)
@@ -64,7 +66,7 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
         val adSlot = AdSlot.Builder()
                 .setCodeId(mCodeId) //广告位id
                 .setSupportDeepLink(supportDeepLink!!)
-                .setAdCount(expressAdNum) //请求广告数量为1到3条
+                .setAdCount(expressAdNum.toInt()) //请求广告数量为1到3条
                 .setExpressViewAcceptedSize(expressViewWidth, expressViewHeight) //期望模板广告view的size,单位dp
                 .setImageAcceptedSize(640, 320)//这个参数设置即可，不影响个性化模板广告的size
                 .build()
@@ -78,10 +80,11 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
                 if (ads == null || ads.size == 0) {
                     return
                 }
-                mTTAd = ads[0]
+                Log.e("banner拉去到广告数量",ads.size.toString())
+                mTTAd = ads[(0..ads.size - 1).random()]
                 if(null != expressTime && expressTime > 30){
                     //轮播间隔
-                    mTTAd!!.setSlideIntervalTime(expressTime * 1000)
+                    mTTAd!!.setSlideIntervalTime(expressTime.toInt() * 1000)
                 }
                 bindAdListener(mTTAd!!)
                 startTime = System.currentTimeMillis()

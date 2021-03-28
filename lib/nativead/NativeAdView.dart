@@ -10,17 +10,18 @@ class NativeAdView extends StatefulWidget {
   final bool supportDeepLink;
   final double expressViewWidth;
   final double expressViewHeight;
+  final int expressNum;
   final callBack;
 
-  const NativeAdView(
-      {Key key,
-      this.mIsExpress,
-      this.androidCodeId,
-      this.iosCodeId,
-      this.supportDeepLink,
-      this.expressViewWidth,
-      this.expressViewHeight,
-      this.callBack})
+  const NativeAdView({Key key,
+    this.mIsExpress,
+    this.androidCodeId,
+    this.iosCodeId,
+    this.supportDeepLink,
+    this.expressViewWidth,
+    this.expressViewHeight,
+    this.expressNum,
+    this.callBack})
       : super(key: key);
 
   @override
@@ -58,6 +59,7 @@ class _NativeAdViewState extends State<NativeAdView> {
             "supportDeepLink": widget.supportDeepLink,
             "expressViewWidth": widget.expressViewWidth,
             "expressViewHeight": widget.expressViewHeight,
+            "expressNum":widget.expressNum,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),
@@ -75,6 +77,7 @@ class _NativeAdViewState extends State<NativeAdView> {
             "supportDeepLink": widget.supportDeepLink,
             "expressViewWidth": widget.expressViewWidth,
             "expressViewHeight": widget.expressViewHeight,
+            "expressNum":widget.expressNum,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),
@@ -94,13 +97,13 @@ class _NativeAdViewState extends State<NativeAdView> {
   //监听原生view传值
   Future<dynamic> _platformCallHandler(MethodCall call) async {
     switch (call.method) {
-      //显示广告
+    //显示广告
       case onShow:
         if (widget.callBack != null) {
           widget.callBack(FlutterUnionadState(call.method, call.arguments));
         }
         break;
-      //广告加载失败
+    //广告加载失败
       case onFail:
         if (mounted) {
           setState(() {
@@ -111,7 +114,7 @@ class _NativeAdViewState extends State<NativeAdView> {
           widget.callBack(FlutterUnionadState(call.method, call.arguments));
         }
         break;
-      //广告不感兴趣
+    //广告不感兴趣
       case onDislike:
         if (mounted) {
           setState(() {

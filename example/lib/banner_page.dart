@@ -33,8 +33,8 @@ class _BannerPageState extends State<BannerPage> {
                 androidCodeId: "945410197", //andrrid banner广告id 必填
                 iosCodeId: "945410197", //ios banner广告id 必填
                 supportDeepLink: true, //是否支持 DeepLink 选填
-                expressAdNum: 3, //一次请求广告数量 大于1小于3 选填
-                expressTime: 30, //轮播间隔事件 秒  选填
+                expressAdNum: 3, //一次请求广告数量 大于1小于3 必填
+                expressTime: 30, //轮播间隔事件 30-120秒  选填
                 expressViewWidth: 600.5, // 期望view 宽度 dp 必填
                 expressViewHeight: 120.5, //期望view高度 dp 必填
                 callBack: (FlutterUnionad.FlutterUnionadState state) { //广告事件回调 选填
@@ -57,7 +57,7 @@ class _BannerPageState extends State<BannerPage> {
                 iosCodeId: "945481613",
                 supportDeepLink: true,
                 expressAdNum: 3,
-                expressTime: 30,
+                expressTime: 40,
                 expressViewWidth: 600,
                 expressViewHeight: 200,
             ),
@@ -75,7 +75,7 @@ class _BannerPageState extends State<BannerPage> {
               iosCodeId: "945410197",
               supportDeepLink: true,
               expressAdNum: 3,
-              expressTime: 30,
+              expressTime: 50,
               expressViewWidth: 600,
               expressViewHeight: 180,
             ),
