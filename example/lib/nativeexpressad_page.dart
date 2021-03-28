@@ -34,7 +34,7 @@ class _NativeExpressAdPageState extends State<NativeExpressAdPage> {
               supportDeepLink: true, //是否支持 DeepLink 选填
               expressViewWidth: 600.5, // 期望view 宽度 dp 必填
               expressViewHeight: 120.5, //期望view高度 dp 必填
-              expressNum: 2, //请求广告数量为1到3条
+              expressNum: 2, //一次请求广告数量 大于1小于3 必填
               callBack: (FlutterUnionad.FlutterUnionadState state) { //广告事件回调 选填
                 //广告事件回调 选填
                 //type onShow广告成功显示 onDislike不感兴趣 onFail广告加载失败
