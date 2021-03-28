@@ -65,7 +65,7 @@ Widget bannerAdView(
     @required String androidCodeId,
     @required String iosCodeId,
     bool supportDeepLink,
-    int expressAdNum,
+    @required int expressAdNum,
     int expressTime,
     double expressViewWidth,
     double expressViewHeight,
@@ -78,7 +78,7 @@ Widget bannerAdView(
     expressViewWidth: expressViewWidth ?? 400,
     expressViewHeight: expressViewHeight ?? 200,
     expressAdNum: expressAdNum ?? 1,
-    expressTime: expressTime ?? 0,
+    expressTime: expressTime ?? 30,
     callBack: callBack,
   );
 }
@@ -111,6 +111,7 @@ Widget nativeAdView(
     bool supportDeepLink,
     @required double expressViewWidth,
     @required double expressViewHeight,
+    @required int expressNum,
     callBack}) {
   return NativeAdView(
     mIsExpress: mIsExpress ?? false,
@@ -119,6 +120,7 @@ Widget nativeAdView(
     supportDeepLink: supportDeepLink ?? true,
     expressViewWidth: expressViewWidth ?? 200,
     expressViewHeight: expressViewHeight ?? 100,
+    expressNum: expressNum ?? 1,
     callBack: callBack,
   );
 }
@@ -131,6 +133,7 @@ Future<bool> interactionAd({
   bool supportDeepLink,
   double expressViewWidth,
   double expressViewHeight,
+  @required int expressNum,
 }) async {
   return await _channel.invokeMethod("interactionAd", {
     "mIsExpress": mIsExpress ?? false,
@@ -139,6 +142,7 @@ Future<bool> interactionAd({
     "supportDeepLink": supportDeepLink ?? true,
     "expressViewWidth": expressViewWidth ?? 200,
     "expressViewHeight": expressViewHeight ?? 300,
+    "expressNum": expressNum ?? 1,
   });
 }
 
@@ -149,7 +153,8 @@ Widget interactionAdView(
     @required String iosCodeId,
     bool supportDeepLink,
     double expressViewWidth,
-    double expressViewHeight}) {
+    double expressViewHeight,
+    @required int expressNum}) {
   if (defaultTargetPlatform == TargetPlatform.android) {
     return AndroidView(
       viewType: 'com.gstory.flutter_unionad/InteractionAdView',
@@ -159,6 +164,7 @@ Widget interactionAdView(
         "supportDeepLink": supportDeepLink ?? true,
         "expressViewWidth": expressViewWidth ?? 300,
         "expressViewHeight": expressViewHeight ?? 400,
+        "expressNum": expressNum ?? 1,
       },
       creationParamsCodec: const StandardMessageCodec(),
     );

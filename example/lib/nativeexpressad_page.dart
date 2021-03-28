@@ -34,6 +34,7 @@ class _NativeExpressAdPageState extends State<NativeExpressAdPage> {
               supportDeepLink: true, //是否支持 DeepLink 选填
               expressViewWidth: 600.5, // 期望view 宽度 dp 必填
               expressViewHeight: 120.5, //期望view高度 dp 必填
+              expressNum: 2, //请求广告数量为1到3条
               callBack: (FlutterUnionad.FlutterUnionadState state) { //广告事件回调 选填
                 //广告事件回调 选填
                 //type onShow广告成功显示 onDislike不感兴趣 onFail广告加载失败
@@ -57,6 +58,7 @@ class _NativeExpressAdPageState extends State<NativeExpressAdPage> {
               supportDeepLink: true,
               expressViewWidth: 375.5,
               expressViewHeight: 284.5,
+              expressNum: 3,
               callBack: (FlutterUnionad.FlutterUnionadState state) {
                 //广告事件回调 选填
                 //type onShow广告成功显示 onDislike不感兴趣 onFail广告加载失败
@@ -81,6 +83,7 @@ class _NativeExpressAdPageState extends State<NativeExpressAdPage> {
               supportDeepLink: true,
               expressViewWidth: 270,
               expressViewHeight: 480,
+              expressNum: 3,
               callBack: (FlutterUnionad.FlutterUnionadState state) {
                 //广告事件回调 选填
                 //type onShow广告成功显示 onDislike不感兴趣 onFail广告加载失败
@@ -99,6 +102,31 @@ class _NativeExpressAdPageState extends State<NativeExpressAdPage> {
                 }
               },
             ), //个性化模板信息流广告
+            FlutterUnionad.nativeAdView(
+              androidCodeId: "945407034",
+              iosCodeId: "945407034",
+              supportDeepLink: true,
+              expressViewWidth: 270,
+              expressViewHeight: 480,
+              expressNum: 3,
+              callBack: (FlutterUnionad.FlutterUnionadState state) {
+                //广告事件回调 选填
+                //type onShow广告成功显示 onDislike不感兴趣 onFail广告加载失败
+                //params 详细说明
+                print("到这里 ${state.tojson()}");
+                switch (state.type) {
+                  case FlutterUnionad.onShow:
+                    print(state.tojson());
+                    break;
+                  case FlutterUnionad.onFail:
+                    print(state.tojson());
+                    break;
+                  case FlutterUnionad.onDislike:
+                    print(state.tojson());
+                    break;
+                }
+              },
+            ),
           ],
         ),
       ),
