@@ -1,7 +1,7 @@
 # 字节跳动穿山甲广告 Flutter版本
 
 <p>
-<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v0.0.9-success></a>
+<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v0.1.0-success></a>
 </p>
 
 ![image](https://github.com/gstory0404/flutter_unionad/blob/master/image/demo.gif)
@@ -14,7 +14,7 @@
 
 ## 本地环境
 ```
-[✓] Flutter (Channel stable, 2.0.1, on macOS 11.1 20C69 darwin-x64, locale zh-Hans-CN)
+[✓] Flutter (Channel stable, 2.0.3, on macOS 11.2.3 20D91 darwin-x64, locale zh-Hans-CN)
 [✓] Android toolchain - develop for Android devices (Android SDK version 30.0.2)
 [✓] Xcode - develop for iOS and macOS
 [✓] Chrome - develop for the web
@@ -25,7 +25,7 @@
 ## 集成步骤
 #### 1、pubspec.yaml
 ```Dart
-flutter_unionad: ^0.0.9
+flutter_unionad: ^0.1.0
 ```
 引入
 ```Dart
@@ -37,7 +37,7 @@ aar文件已集成进插件中无需额外配置，只需要在android目录中A
   <application
         tools:replace="android:label">
 ```
-SDK版本 3.5.0.2
+SDK版本 3.5.0.4
 
 #### 3、IOS
 SDK已配置插件中，其余根据SDK文档配置，因为使用PlatformView，在Info.plist加入
@@ -45,7 +45,7 @@ SDK已配置插件中，其余根据SDK文档配置，因为使用PlatformView�
  <key>io.flutter.embedded_views_preview</key>
     <true/>
 ```
-SDK版本 3.4.2.8
+SDK版本 3.4.4.3
 
 ## 使用
 
@@ -169,6 +169,7 @@ FlutterUnionad.nativeAdView(
               supportDeepLink: true, //是否支持 DeepLink 选填
               expressViewWidth: 600.5, // 期望view 宽度 dp 必填
               expressViewHeight: 120.5, //期望view高度 dp 必填
+              expressNum: 2, //一次请求广告数量 大于1小于3 必填
               callBack: (FlutterUnionad.FlutterUnionadState state) { //广告事件回调 选填
                 //广告事件回调 选填
                 //type onShow广告成功显示 onDislike不感兴趣 onFail广告加载失败
@@ -196,6 +197,7 @@ await FlutterUnionad.interactionAd(
                   supportDeepLink: true, //是否支持 DeepLink 选填
                   expressViewWidth: 300.0, // 期望view 宽度 dp 必填
                   expressViewHeight: 450.0, //期望view高度 dp 必填
+                  expressNum: 2, //一次请求广告数量 大于1小于3 必填
                 );
 ```
 #### 8、激励视频
