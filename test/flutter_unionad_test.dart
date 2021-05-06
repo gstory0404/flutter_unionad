@@ -1,6 +1,5 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_unionad/flutter_unionad.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('flutter_unionad');

@@ -1,31 +1,33 @@
 # 字节跳动穿山甲广告 Flutter版本
 
 <p>
-<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v0.1.0-success></a>
+<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v0.1.1-success></a>
 </p>
 
 ![image](https://github.com/gstory0404/flutter_unionad/blob/master/image/demo.gif)
 
 ## 简介
-  flutter_unioad是一款集成了穿山甲Android和iOSSDK的Flutter插件,方便直接调用穿山甲SDK方法开发
+  flutter_unioad是一款集成了穿山甲Android和iOSSDK的Flutter插件,方便直接调用穿山甲SDK方法开发，0.1.1开始已支持null safety
+  
 ## 官方文档
 * [Android](https://partner.oceanengine.com/union/media/union/download/detail?id=4&osType=android)
 * [IOS](https://partner.oceanengine.com/union/media/union/download/detail?id=16&osType=ios)
 
 ## 本地环境
 ```
-[✓] Flutter (Channel stable, 2.0.3, on macOS 11.2.3 20D91 darwin-x64, locale zh-Hans-CN)
+[✓] Flutter (Channel stable, 2.0.6, on macOS 11.2.3 20D91 darwin-x64, locale zh-Hans-CN)
 [✓] Android toolchain - develop for Android devices (Android SDK version 30.0.2)
 [✓] Xcode - develop for iOS and macOS
 [✓] Chrome - develop for the web
 [✓] Android Studio (version 4.1)
-[✓] Connected device (2 available)
+[✓] VS Code (version 1.55.2)
+[✓] Connected device (3 available)
 ```
 
 ## 集成步骤
 #### 1、pubspec.yaml
 ```Dart
-flutter_unionad: ^0.1.0
+flutter_unionad: ^0.1.1
 ```
 引入
 ```Dart
@@ -37,7 +39,7 @@ aar文件已集成进插件中无需额外配置，只需要在android目录中A
   <application
         tools:replace="android:label">
 ```
-SDK版本 3.5.0.4
+SDK版本 3.6.1.1
 
 #### 3、IOS
 SDK已配置插件中，其余根据SDK文档配置，因为使用PlatformView，在Info.plist加入
@@ -45,7 +47,7 @@ SDK已配置插件中，其余根据SDK文档配置，因为使用PlatformView�
  <key>io.flutter.embedded_views_preview</key>
     <true/>
 ```
-SDK版本 3.4.4.3
+SDK版本 3.6.1.1
 
 ## 使用
 
@@ -90,6 +92,13 @@ switch(await FlutterUnionad.requestPermissionIfNecessary()){
                 }
 ```
 Android获取定位、照片权限，只返回成功
+Android相关权限为非必须权限，如果审核被拒可以在android目录下AndroidManifest.xml文件中参考以下申明，在打包时移除权限
+```java
+<uses-permission
+        android:name="android.permission.READ_PHONE_STATE"
+        tools:node="remove" />
+
+```
 
 IOS 版本14及以上获取ATT权限，根据返回结果具体操作业务逻辑
 

@@ -36,3 +36,8 @@
 * TODO:1、升级ios sdk为3.4.4.3
        2、升级Android sdk3.5.0.4
        3、新增优化信息流 banner 插屏广告拉取多个随机加载一条
+       
+## 0.1.1
+* TODO:1、升级ios sdk为3.6.1.1
+       2、升级Android sdk3.6.1.1
+       3、新增null safety支持
