@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_unionad/flutter_unionad.dart' as FlutterUnionad;

@@ -135,9 +135,9 @@ object InteractionExpressAd {
     private fun bindDislike(ad: TTNativeExpressAd, customStyle: Boolean) {
         //使用默认个性化模板中默认dislike弹出样式
         ad.setDislikeCallback(mActivity, object : TTAdDislike.DislikeInteractionCallback {
-
-            override fun onSelected(position: Int, value: String) {
-                Log.e(TAG, "点击 $value")
+            
+            override fun onSelected(p0: Int, p1: String?, p2: Boolean) {
+                Log.e(TAG, "点击 $p1")
                 //用户选择不喜欢原因后，移除广告展示
             }
 
@@ -145,13 +145,10 @@ object InteractionExpressAd {
                 Log.e(TAG, "点击取消")
             }
 
-            override fun onRefuse() {
-
-            }
-
             override fun onShow() {
 
             }
+
         })
     }
 

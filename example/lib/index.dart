@@ -18,9 +18,9 @@ class IndexPage extends StatefulWidget {
 }
 
 class _IndexPageState extends State<IndexPage> {
-  bool _init;
-  String _version;
-  StreamSubscription _adViewStream;
+  bool? _init;
+  String? _version;
+  StreamSubscription? _adViewStream;
 
   @override
   void initState() {
@@ -101,7 +101,7 @@ class _IndexPageState extends State<IndexPage> {
             Container(
               alignment: Alignment.center,
               height: 50,
-              child: Text("穿山甲初始化>>>>>> ${_init ? "成功" : "失败"}"),
+              child: Text("穿山甲初始化>>>>>> ${_init == null ? "成功" : "失败"}"),
             ),
             Container(
               alignment: Alignment.center,
@@ -245,7 +245,7 @@ class _IndexPageState extends State<IndexPage> {
   void dispose() {
     super.dispose();
     if (_adViewStream != null) {
-      _adViewStream.cancel();
+      _adViewStream?.cancel();
     }
   }
 }

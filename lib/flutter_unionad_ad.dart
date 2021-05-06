@@ -17,21 +17,21 @@ const EventChannel adeventEvent =
 
 ///sdk注册初始化
 Future<bool> register({
-  @required String iosAppId,
-  @required String androidAppId,
-  bool useTextureView,
-  String appName,
-  bool allowShowNotify,
-  bool allowShowPageWhenScreenLock,
-  bool debug,
-  bool supportMultiProcess,
-  List<int> directDownloadNetworkType,
+  required String iosAppId,
+  required String androidAppId,
+  bool? useTextureView,
+  required String appName,
+  bool? allowShowNotify,
+  bool? allowShowPageWhenScreenLock,
+  bool? debug,
+  bool? supportMultiProcess,
+  List<int>? directDownloadNetworkType,
 }) async {
   return await _channel.invokeMethod("register", {
     "iosAppId": iosAppId,
     "androidAppId": androidAppId,
     "useTextureView": useTextureView ?? false,
-    "appName": appName ?? "",
+    "appName": appName,
     "allowShowNotify": allowShowNotify ?? true,
     "allowShowPageWhenScreenLock": allowShowPageWhenScreenLock ?? false,
     "debug": debug ?? false,
@@ -61,14 +61,14 @@ Future<String> getSDKVersion() async {
 
 ///banner广告
 Widget bannerAdView(
-    {bool mIsExpress,
-    @required String androidCodeId,
-    @required String iosCodeId,
-    bool supportDeepLink,
-    @required int expressAdNum,
-    int expressTime,
-    double expressViewWidth,
-    double expressViewHeight,
+    {bool? mIsExpress,
+    required String androidCodeId,
+    required String iosCodeId,
+    bool? supportDeepLink,
+    required int expressAdNum,
+    int? expressTime,
+    double? expressViewWidth,
+    double? expressViewHeight,
     callBack}) {
   return BannerAdView(
     mIsExpress: mIsExpress ?? false,
@@ -77,7 +77,7 @@ Widget bannerAdView(
     supportDeepLink: supportDeepLink ?? true,
     expressViewWidth: expressViewWidth ?? 400,
     expressViewHeight: expressViewHeight ?? 200,
-    expressAdNum: expressAdNum ?? 1,
+    expressAdNum: expressAdNum,
     expressTime: expressTime ?? 30,
     callBack: callBack,
   );
@@ -85,76 +85,76 @@ Widget bannerAdView(
 
 ///开屏广告
 Widget splashAdView(
-    {bool mIsExpress,
-    @required String androidCodeId,
-    @required String iosCodeId,
-    bool supportDeepLink,
-    double expressViewWidth,
-    double expressViewHeight,
+    {bool? mIsExpress,
+    required String androidCodeId,
+    required String iosCodeId,
+    bool? supportDeepLink,
+    required double expressViewWidth,
+    required double expressViewHeight,
     callBack}) {
   return SplashAdView(
     mIsExpress: mIsExpress ?? false,
     androidCodeId: androidCodeId,
     iosCodeId: iosCodeId,
     supportDeepLink: supportDeepLink ?? true,
-    expressViewWidth: expressViewWidth ?? 400,
-    expressViewHeight: expressViewHeight ?? 200,
+    expressViewWidth: expressViewWidth,
+    expressViewHeight: expressViewHeight,
     callBack: callBack,
   );
 }
 
 ///信息流广告
 Widget nativeAdView(
-    {String mIsExpress,
-    @required String androidCodeId,
-    @required String iosCodeId,
-    bool supportDeepLink,
-    @required double expressViewWidth,
-    @required double expressViewHeight,
-    @required int expressNum,
+    {bool? mIsExpress,
+    required String androidCodeId,
+    required String iosCodeId,
+    bool? supportDeepLink,
+    required double expressViewWidth,
+    required double expressViewHeight,
+    required int expressNum,
     callBack}) {
   return NativeAdView(
     mIsExpress: mIsExpress ?? false,
     androidCodeId: androidCodeId,
     iosCodeId: iosCodeId,
     supportDeepLink: supportDeepLink ?? true,
-    expressViewWidth: expressViewWidth ?? 200,
-    expressViewHeight: expressViewHeight ?? 100,
-    expressNum: expressNum ?? 1,
+    expressViewWidth: expressViewWidth,
+    expressViewHeight: expressViewHeight,
+    expressNum: expressNum,
     callBack: callBack,
   );
 }
 
 ///插屏广告
 Future<bool> interactionAd({
-  bool mIsExpress,
-  @required String androidCodeId,
-  @required String iosCodeId,
-  bool supportDeepLink,
-  double expressViewWidth,
-  double expressViewHeight,
-  @required int expressNum,
+  bool? mIsExpress,
+  required String androidCodeId,
+  required String iosCodeId,
+  bool? supportDeepLink,
+  required double expressViewWidth,
+  required double expressViewHeight,
+  required int expressNum,
 }) async {
   return await _channel.invokeMethod("interactionAd", {
     "mIsExpress": mIsExpress ?? false,
     "androidCodeId": androidCodeId,
     "iosCodeId": iosCodeId,
     "supportDeepLink": supportDeepLink ?? true,
-    "expressViewWidth": expressViewWidth ?? 200,
-    "expressViewHeight": expressViewHeight ?? 300,
-    "expressNum": expressNum ?? 1,
+    "expressViewWidth": expressViewWidth,
+    "expressViewHeight": expressViewHeight,
+    "expressNum": expressNum,
   });
 }
 
 ///个性化模板插屏广告
 Widget interactionAdView(
-    {bool mIsExpress,
-    @required String androidCodeId,
-    @required String iosCodeId,
-    bool supportDeepLink,
-    double expressViewWidth,
-    double expressViewHeight,
-    @required int expressNum}) {
+    {bool? mIsExpress,
+    required String androidCodeId,
+    required String iosCodeId,
+    bool? supportDeepLink,
+    required double expressViewWidth,
+    required double expressViewHeight,
+    required int expressNum}) {
   if (defaultTargetPlatform == TargetPlatform.android) {
     return AndroidView(
       viewType: 'com.gstory.flutter_unionad/InteractionAdView',
@@ -162,9 +162,9 @@ Widget interactionAdView(
         "mIsExpress": mIsExpress ?? false,
         "androidCodeId": androidCodeId,
         "supportDeepLink": supportDeepLink ?? true,
-        "expressViewWidth": expressViewWidth ?? 300,
-        "expressViewHeight": expressViewHeight ?? 400,
-        "expressNum": expressNum ?? 1,
+        "expressViewWidth": expressViewWidth,
+        "expressViewHeight": expressViewHeight,
+        "expressNum": expressNum,
       },
       creationParamsCodec: const StandardMessageCodec(),
     );
@@ -176,28 +176,28 @@ Widget interactionAdView(
 
 ///激励视频广告
 Future<bool> loadRewardVideoAd({
-  bool mIsExpress,
-  @required String androidCodeId,
-  @required String iosCodeId,
-  bool supportDeepLink,
-  double expressViewWidth,
-  double expressViewHeight,
-  @required String rewardName,
-  @required int rewardAmount,
-  @required String userID,
-  int orientation,
-  @required String mediaExtra,
+  bool? mIsExpress,
+  required String androidCodeId,
+  required String iosCodeId,
+  bool? supportDeepLink,
+  double? expressViewWidth,
+  double? expressViewHeight,
+  required String rewardName,
+  required int rewardAmount,
+  required String userID,
+  int? orientation,
+  String? mediaExtra,
 }) async {
   return await _channel.invokeMethod("loadRewardVideoAd", {
-    "mIsExpress": mIsExpress == null ? false : mIsExpress,
+    "mIsExpress": mIsExpress ?? false,
     "androidCodeId": androidCodeId,
     "iosCodeId": iosCodeId,
     "supportDeepLink": supportDeepLink ?? true,
     "expressViewWidth": expressViewWidth ?? 750,
     "expressViewHeight": expressViewHeight ?? 1080,
-    "rewardName": rewardName ?? "",
-    "rewardAmount": rewardAmount ?? 0,
-    "userID": userID ?? "",
+    "rewardName": rewardName,
+    "rewardAmount": rewardAmount,
+    "userID": userID,
     "orientation": orientation ?? 0,
     "mediaExtra": mediaExtra ?? ""
   });
@@ -205,12 +205,12 @@ Future<bool> loadRewardVideoAd({
 
 ///draw视频广告
 Widget drawFeedAdView({
-  bool mIsExpress,
-  @required String androidCodeId,
-  @required String iosCodeId,
-  bool supportDeepLink,
-  double expressViewWidth,
-  double expressViewHeight,
+  bool? mIsExpress,
+  required String androidCodeId,
+  required String iosCodeId,
+  bool? supportDeepLink,
+  required double expressViewWidth,
+  required double expressViewHeight,
   callBack,
 }) {
   return DrawFeedAdView(
@@ -218,19 +218,19 @@ Widget drawFeedAdView({
     androidCodeId: androidCodeId,
     iosCodeId: iosCodeId,
     supportDeepLink: supportDeepLink ?? true,
-    expressViewWidth: expressViewWidth ?? 720,
-    expressViewHeight: expressViewHeight ?? 1080,
+    expressViewWidth: expressViewWidth,
+    expressViewHeight: expressViewHeight,
     callBack: callBack,
   );
 }
 
 ///个性化模板全屏广告
 Future<bool> fullScreenVideoAd(
-    {bool mIsExpress,
-    @required String androidCodeId,
-    @required String iosCodeId,
-    bool supportDeepLink,
-    int orientation}) async {
+    {bool? mIsExpress,
+    required String androidCodeId,
+    required String iosCodeId,
+    bool? supportDeepLink,
+    int? orientation}) async {
   return await _channel.invokeMethod("fullScreenVideoAd", {
     "mIsExpress": mIsExpress ?? false,
     "androidCodeId": androidCodeId,

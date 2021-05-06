@@ -162,24 +162,22 @@ class NativeExpressAdView(var context: Context,var activity: Activity, var messe
     private fun bindDislike(ad: TTNativeExpressAd, customStyle: Boolean) {
         //使用默认个性化模板中默认dislike弹出样式
         ad.setDislikeCallback(activity, object : DislikeInteractionCallback {
-            override fun onSelected(position: Int, value: String) {
-                Log.e(TAG, "点击 $value")
+
+            override fun onSelected(p0: Int, p1: String?, p2: Boolean) {
+                Log.e(TAG, "点击 $p1")
                 //用户选择不喜欢原因后，移除广告展示
                 mExpressContainer!!.removeAllViews()
-                channel?.invokeMethod("onDislike",value)
+                channel?.invokeMethod("onDislike",p1)
             }
 
             override fun onCancel() {
                 Log.e(TAG, "点击取消")
             }
 
-            override fun onRefuse() {
-
-            }
-
             override fun onShow() {
                 
             }
+            
         })
     }
 

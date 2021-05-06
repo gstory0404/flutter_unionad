@@ -18,7 +18,7 @@ import io.flutter.plugin.platform.PlatformView
 
 /**
  * @Description: 个性化模板Banner广告
- * @Author: gstory0404@gmail
+ * @Author: gstory0404@gmailh
  * @CreateDate: 2020/8/7 10:31
  */
 internal class BannerExpressAdView(var context: Context, var activity: Activity, messenger: BinaryMessenger?, id: Int, params: Map<String?, Any?>) : PlatformView {
@@ -171,19 +171,16 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
     private fun bindDislike(ad: TTNativeExpressAd, customStyle: Boolean) {
         //使用默认个性化模板中默认dislike弹出样式
         ad.setDislikeCallback(activity, object : TTAdDislike.DislikeInteractionCallback {
-            override fun onSelected(position: Int, value: String) {
-                Log.e(TAG, "点击 $value")
+
+            override fun onSelected(p0: Int, p1: String?, p2: Boolean) {
+                Log.e(TAG, "点击 $p1")
                 //用户选择不喜欢原因后，移除广告展示
                 mExpressContainer!!.removeAllViews()
-                channel?.invokeMethod("onDislike",value)
+                channel?.invokeMethod("onDislike",p1)
             }
 
             override fun onCancel() {
                 Log.e(TAG, "点击取消")
-            }
-
-            override fun onRefuse() {
-
             }
 
             override fun onShow() {

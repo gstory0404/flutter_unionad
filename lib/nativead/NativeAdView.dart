@@ -13,14 +13,14 @@ class NativeAdView extends StatefulWidget {
   final int expressNum;
   final callBack;
 
-  const NativeAdView({Key key,
-    this.mIsExpress,
-    this.androidCodeId,
-    this.iosCodeId,
-    this.supportDeepLink,
-    this.expressViewWidth,
-    this.expressViewHeight,
-    this.expressNum,
+  const NativeAdView({Key? key,
+    required this.mIsExpress,
+    required this.androidCodeId,
+    required this.iosCodeId,
+    required this.supportDeepLink,
+    required this.expressViewWidth,
+    required this.expressViewHeight,
+    required this.expressNum,
     this.callBack})
       : super(key: key);
 
@@ -31,7 +31,7 @@ class NativeAdView extends StatefulWidget {
 class _NativeAdViewState extends State<NativeAdView> {
   String _viewType = "com.gstory.flutter_unionad/NativeAdView";
 
-  MethodChannel _channel;
+  MethodChannel? _channel;
 
   //广告是否显示
   bool _isShowAd = true;
@@ -91,7 +91,7 @@ class _NativeAdViewState extends State<NativeAdView> {
   //注册cannel
   void _registerChannel(int id) {
     _channel = MethodChannel("${_viewType}_$id");
-    _channel.setMethodCallHandler(_platformCallHandler);
+    _channel?.setMethodCallHandler(_platformCallHandler);
   }
 
   //监听原生view传值

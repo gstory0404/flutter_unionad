@@ -14,13 +14,13 @@ class DrawFeedAdView extends StatefulWidget {
   final callBack;
 
   const DrawFeedAdView(
-      {Key key,
-      this.mIsExpress,
-      this.androidCodeId,
-      this.iosCodeId,
-      this.supportDeepLink,
-      this.expressViewWidth,
-      this.expressViewHeight,
+      {Key? key,
+      required this.mIsExpress,
+      required this.androidCodeId,
+      required this.iosCodeId,
+      required this.supportDeepLink,
+      required this.expressViewWidth,
+      required this.expressViewHeight,
       this.callBack})
       : super(key: key);
 
@@ -31,7 +31,7 @@ class DrawFeedAdView extends StatefulWidget {
 class _DrawFeedAdViewState extends State<DrawFeedAdView> {
   String _viewType = "com.gstory.flutter_unionad/DrawFeedAdView";
 
-  MethodChannel _channel;
+  MethodChannel? _channel;
 
   //广告是否显示
   bool _isShowAd = true;
@@ -89,7 +89,7 @@ class _DrawFeedAdViewState extends State<DrawFeedAdView> {
   //注册cannel
   void _registerChannel(int id) {
     _channel = MethodChannel("${_viewType}_$id");
-    _channel.setMethodCallHandler(_platformCallHandler);
+    _channel?.setMethodCallHandler(_platformCallHandler);
   }
 
   //监听原生view传值

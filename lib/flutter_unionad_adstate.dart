@@ -1,22 +1,27 @@
 import 'dart:core';
 
-import 'dart:core';
-
 class FlutterUnionadState {
-  String type;
-  dynamic params;
+  String? _type;
+  String? _params;
 
-  FlutterUnionadState(this.type, this.params);
+  String? get type => _type;
 
-  FlutterUnionadState.fromJson(Map<String, dynamic> json) {
-    type = json['type'];
-    params = json['params'];
+  String? get params => _params;
+
+  FlutterUnionadState(String? type, String? params) {
+    _type = type;
+    _params = params;
+  }
+
+  FlutterUnionadState.fromjson(dynamic json) {
+    _type = json["type"];
+    _params = json["params"];
   }
 
   Map<String, dynamic> tojson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data["type"] = type;
-    data["params"] = params;
-    return data;
+    var map = <String, dynamic>{};
+    map["type"] = _type;
+    map["params"] = _params;
+    return map;
   }
 }

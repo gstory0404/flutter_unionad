@@ -13,13 +13,13 @@ class SplashAdView extends StatefulWidget {
   final callBack;
 
   const SplashAdView(
-      {Key key,
-      this.mIsExpress,
-      this.androidCodeId,
-      this.iosCodeId,
-      this.supportDeepLink,
-      this.expressViewWidth,
-      this.expressViewHeight,
+      {Key? key,
+      required this.mIsExpress,
+      required this.androidCodeId,
+      required this.iosCodeId,
+      required this.supportDeepLink,
+      required this.expressViewWidth,
+      required this.expressViewHeight,
       this.callBack})
       : super(key: key);
 
@@ -30,7 +30,7 @@ class SplashAdView extends StatefulWidget {
 class _SplashAdViewState extends State<SplashAdView> {
   String _viewType = "com.gstory.flutter_unionad/SplashAdView";
 
-  MethodChannel _channel;
+  MethodChannel? _channel;
 
   //广告是否显示
   bool _isShowAd = true;
@@ -88,7 +88,7 @@ class _SplashAdViewState extends State<SplashAdView> {
   //注册cannel
   void _registerChannel(int id) {
     _channel = MethodChannel("${_viewType}_$id");
-    _channel.setMethodCallHandler(_platformCallHandler);
+    _channel?.setMethodCallHandler(_platformCallHandler);
   }
 
   //监听原生view传值
