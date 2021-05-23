@@ -43,3 +43,7 @@
 ## 0.1.1
 
 * TODO: fix bug
+
+## 0.1.2
+
+* TODO: fix bug
