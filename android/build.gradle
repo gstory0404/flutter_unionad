@@ -21,6 +21,9 @@ rootProject.allprojects {
         flatDir {
             dirs project(':flutter_unionad').file('libs')
         }
+        maven {
+            url 'https://artifact.bytedance.com/repository/pangle'
+        }
     }
 }
 
@@ -45,14 +48,14 @@ android {
 }
 
 repositories {
-    flatDir {
-        dirs 'libs'
-    }
+//    flatDir {
+//        dirs 'libs'
+//    }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation(name: 'open_ad_sdk', ext: 'aar')
     implementation 'com.squareup.okhttp3:okhttp:3.12.1'
+    implementation 'com.pangle.cn:ads-sdk:3.6.1.4'
 }

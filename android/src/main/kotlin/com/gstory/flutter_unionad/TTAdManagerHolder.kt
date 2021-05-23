@@ -45,7 +45,7 @@ object TTAdManagerHolder {
                 .allowShowNotify(allowShowNotify) //是否允许sdk展示通知栏提示
                 .allowShowPageWhenScreenLock(allowShowPageWhenScreenLock) //是否在锁屏场景支持展示广告落地页
                 .debug(debug) //测试阶段打开，可以通过日志排查问题，上线时去除该调用
-                .directDownloadNetworkType(1) //允许直接下载的网络状态集合
+                .directDownloadNetworkType() //允许直接下载的网络状态集合
                 .supportMultiProcess(supportMultiProcess) //是否支持多进程
                 .needClearTaskReset() //.httpStack(new MyOkStack3())//自定义网络库，demo中给出了okhttp3版本的样例，其余请自行开发或者咨询工作人员。
                 .build()

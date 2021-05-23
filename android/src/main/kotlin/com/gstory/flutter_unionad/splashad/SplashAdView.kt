@@ -73,7 +73,7 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
             AdSlot.Builder()
                     .setCodeId(mCodeId)
                     .setSupportDeepLink(supportDeepLink!!)
-                    .setImageAcceptedSize(1080, 1920) //模板广告需要设置期望个性化模板广告的大小,单位dp,代码位是否属于个性化模板广告，请在穿山甲平台查看
+//                    .setImageAcceptedSize(1080, 1920) //模板广告需要设置期望个性化模板广告的大小,单位dp,代码位是否属于个性化模板广告，请在穿山甲平台查看
                     .setExpressViewAcceptedSize(expressViewWidth, expressViewHeight)
                     .build()
         } else {

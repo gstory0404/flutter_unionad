@@ -48,8 +48,8 @@ class _SplashAdViewState extends State<SplashAdView> {
     }
     if (defaultTargetPlatform == TargetPlatform.android) {
       return Container(
-        width: widget.expressViewWidth,
-        height: widget.expressViewHeight,
+        width: widget.mIsExpress ? widget.expressViewWidth : MediaQuery.of(context).size.width,
+        height: widget.mIsExpress ? widget.expressViewHeight : MediaQuery.of(context).size.height,
         child: AndroidView(
           viewType: _viewType,
           creationParams: {
@@ -65,8 +65,8 @@ class _SplashAdViewState extends State<SplashAdView> {
       );
     } else if (defaultTargetPlatform == TargetPlatform.iOS) {
       return Container(
-        width: widget.expressViewWidth,
-        height: widget.expressViewHeight,
+        width: widget.mIsExpress ? widget.expressViewWidth : MediaQuery.of(context).size.width,
+        height: widget.mIsExpress ? widget.expressViewHeight : MediaQuery.of(context).size.height,
         child: UiKitView(
           viewType: _viewType,
           creationParams: {

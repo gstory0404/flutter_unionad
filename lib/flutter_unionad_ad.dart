@@ -89,16 +89,16 @@ Widget splashAdView(
     required String androidCodeId,
     required String iosCodeId,
     bool? supportDeepLink,
-    required double expressViewWidth,
-    required double expressViewHeight,
+    double? expressViewWidth,
+    double? expressViewHeight,
     callBack}) {
   return SplashAdView(
     mIsExpress: mIsExpress ?? false,
     androidCodeId: androidCodeId,
     iosCodeId: iosCodeId,
     supportDeepLink: supportDeepLink ?? true,
-    expressViewWidth: expressViewWidth,
-    expressViewHeight: expressViewHeight,
+    expressViewWidth: expressViewWidth ?? 0.0,
+    expressViewHeight: expressViewHeight ?? 0.0,
     callBack: callBack,
   );
 }

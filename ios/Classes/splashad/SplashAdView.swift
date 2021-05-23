@@ -59,6 +59,7 @@ public class SplashAdView : NSObject,FlutterPlatformView{
             splashView.delegate = self
             splashView.loadAdData()
             LogUtil.logInstance.printLog(message: "BUNativeExpressSplashView开始初始化")
+            LogUtil.logInstance.printLog(message: self.expressViewHeight!)
         }else{
             self.frame.size = CGSize(width: MyUtils.getScreenSize().width, height: MyUtils.getScreenSize().height)
             let splashView = BUSplashAdView(slotID: self.mCodeId!, frame: MyUtils.getScreenSize())
@@ -95,6 +96,7 @@ extension SplashAdView : BUSplashAdDelegate{
     
     public func splashAdCountdown(toZero splashAd: BUSplashAdView) {
         self.channel?.invokeMethod("onAplashFinish", arguments: "开屏广告倒计时结束")
+        self.disposeView()
     }
     
     
@@ -135,14 +137,18 @@ extension SplashAdView : BUNativeExpressSplashViewDelegate{
 
     public func nativeExpressSplashViewDidClick(_ splashAdView: BUNativeExpressSplashView) {
         LogUtil.logInstance.printLog(message: "广告点击")
+        self.channel?.invokeMethod("onAplashClick", arguments: "开屏广告点击")
     }
 
     public func nativeExpressSplashViewDidClickSkip(_ splashAdView: BUNativeExpressSplashView) {
         LogUtil.logInstance.printLog(message: "点击跳过")
+        self.channel?.invokeMethod("onAplashSkip", arguments: "开屏广告跳过")
     }
 
     public func nativeExpressSplashViewCountdown(toZero splashAdView: BUNativeExpressSplashView) {
         LogUtil.logInstance.printLog(message: "倒计时结束")
+        splashAdView.remove()
+        self.channel?.invokeMethod("onAplashFinish", arguments: "开屏广告倒计时结束")
     }
 
     public func nativeExpressSplashViewDidClose(_ splashAdView: BUNativeExpressSplashView) {
