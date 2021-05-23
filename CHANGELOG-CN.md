@@ -41,3 +41,8 @@
 * TODO:1、升级ios sdk为3.6.1.1
        2、升级Android sdk3.6.1.1
        3、新增null safety支持
+       
+## 0.1.2
+* TODO:1、升级ios sdk为3.6.1.4
+       2、升级Android sdk3.6.1.3
+       3、修复开屏广告个性化使尺寸异常bug
