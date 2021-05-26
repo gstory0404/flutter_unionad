@@ -78,18 +78,22 @@ internal class DrawFeedExpressAdView(var context: Context, var activity: Activit
                 for (ad in ads) {
                     ad!!.setVideoAdListener(object : ExpressVideoAdListener {
                         override fun onVideoAdPaused() {
+                            channel?.invokeMethod("onVideoPause","");
                         }
 
                         override fun onProgressUpdate(p0: Long, p1: Long) {
                         }
 
                         override fun onVideoAdComplete() {
+                            channel?.invokeMethod("onVideoStop","");
                         }
 
                         override fun onVideoAdStartPlay() {
+                            channel?.invokeMethod("onVideoPlay","");
                         }
 
                         override fun onVideoError(p0: Int, p1: Int) {
+                            channel?.invokeMethod("onFail","$p0,$p1");
                         }
 
                         override fun onVideoAdContinuePlay() {
@@ -106,7 +110,8 @@ internal class DrawFeedExpressAdView(var context: Context, var activity: Activit
                     ad!!.setCanInterruptVideoPlay(true)
                     ad!!.setExpressInteractionListener(object : ExpressAdInteractionListener{
                         override fun onAdClicked(view: View, type: Int) {
-                            Log.e(TAG, "广告关闭")
+                            Log.e(TAG, "广告点击")
+                            channel?.invokeMethod("onClick","");
                         }
 
                         override fun onAdShow(view: View, type: Int) {

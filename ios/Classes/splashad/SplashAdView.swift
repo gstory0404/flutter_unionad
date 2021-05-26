@@ -84,18 +84,19 @@ extension SplashAdView : BUSplashAdDelegate{
     public func splashAdDidLoad(_ splashAdView: BUSplashAdView) {
         LogUtil.logInstance.printLog(message: "加载完成")
         self.refreshView(width: frame.width, height: frame.height)
+        self.channel?.invokeMethod("onShow", arguments: "开屏广告点击")
     }
     
     public func splashAdDidClick(_ splashAd: BUSplashAdView) {
-        self.channel?.invokeMethod("onAplashClick", arguments: "开屏广告点击")
+        self.channel?.invokeMethod("onClick", arguments: "开屏广告点击")
     }
     
     public func splashAdDidClickSkip(_ splashAd: BUSplashAdView) {
-        self.channel?.invokeMethod("onAplashSkip", arguments: "开屏广告跳过")
+        self.channel?.invokeMethod("onSkip", arguments: "开屏广告跳过")
     }
     
     public func splashAdCountdown(toZero splashAd: BUSplashAdView) {
-        self.channel?.invokeMethod("onAplashFinish", arguments: "开屏广告倒计时结束")
+        self.channel?.invokeMethod("onFinish", arguments: "开屏广告倒计时结束")
         self.disposeView()
     }
     
@@ -137,18 +138,18 @@ extension SplashAdView : BUNativeExpressSplashViewDelegate{
 
     public func nativeExpressSplashViewDidClick(_ splashAdView: BUNativeExpressSplashView) {
         LogUtil.logInstance.printLog(message: "广告点击")
-        self.channel?.invokeMethod("onAplashClick", arguments: "开屏广告点击")
+        self.channel?.invokeMethod("onClick", arguments: "开屏广告点击")
     }
 
     public func nativeExpressSplashViewDidClickSkip(_ splashAdView: BUNativeExpressSplashView) {
         LogUtil.logInstance.printLog(message: "点击跳过")
-        self.channel?.invokeMethod("onAplashSkip", arguments: "开屏广告跳过")
+        self.channel?.invokeMethod("onSkip", arguments: "开屏广告跳过")
     }
 
     public func nativeExpressSplashViewCountdown(toZero splashAdView: BUNativeExpressSplashView) {
         LogUtil.logInstance.printLog(message: "倒计时结束")
         splashAdView.remove()
-        self.channel?.invokeMethod("onAplashFinish", arguments: "开屏广告倒计时结束")
+        self.channel?.invokeMethod("onFinish", arguments: "开屏广告倒计时结束")
     }
 
     public func nativeExpressSplashViewDidClose(_ splashAdView: BUNativeExpressSplashView) {

@@ -34,38 +34,29 @@ class _SplashPageState extends State<SplashPage> {
           expressViewWidth: 750,
           //期望view高度 dp 选填 mIsExpress=true必填
           expressViewHeight: 800,
-          callBack: (FlutterUnionad.FlutterUnionadState state) {
-            //广告事件回调 选填
-            //广告事件回调 选填
-            //type onShow广告成功显示  onFail广告加载失败 onAplashClick开屏广告点击 onAplashSkip开屏广告跳过
-            //  onAplashFinish开屏广告倒计时结束 onAplashTimeout开屏广告加载超时
-            //params 详细说明
-            print("到这里 ${state.tojson()}");
-            switch (state.type) {
-              case FlutterUnionad.onShow:
-                print(state.tojson());
-                break;
-              case FlutterUnionad.onFail:
-                print(state.tojson());
-                Navigator.pop(context);
-                break;
-              case FlutterUnionad.onAplashClick:
-                print(state.tojson());
-                break;
-              case FlutterUnionad.onAplashSkip:
-                print(state.tojson());
-                Navigator.pop(context);
-                break;
-              case FlutterUnionad.onAplashFinish:
-                print(state.tojson());
-                Navigator.pop(context);
-                break;
-              case FlutterUnionad.onAplashTimeout:
-                print(state.tojson());
-                Navigator.pop(context);
-                break;
-            }
-          },
+          callBack: FlutterUnionad.SplashAdCallBack(
+            onShow: () {
+              print("开屏广告显示");
+            },
+            onClick: () {
+              print("开屏广告点击");
+              Navigator.pop(context);
+            },
+            onFail: (error) {
+              print("开屏广告失败 $error");
+            },
+            onFinish: () {
+              print("开屏广告倒计时结束");
+              Navigator.pop(context);
+            },
+            onSkip: () {
+              print("开屏广告跳过");
+              Navigator.pop(context);
+            },
+            onTimeOut: () {
+              print("开屏广告超时");
+            },
+          ),
         ),
         Expanded(
           child: Container(

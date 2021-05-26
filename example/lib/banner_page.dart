@@ -14,6 +14,7 @@ class BannerPage extends StatefulWidget {
 class _BannerPageState extends State<BannerPage> {
   @override
   Widget build(BuildContext context) {
+    print("banner广告");
     return Scaffold(
       appBar: AppBar(
         brightness: Brightness.dark,
@@ -30,45 +31,55 @@ class _BannerPageState extends State<BannerPage> {
           children: [
             //banner广告
             FlutterUnionad.bannerAdView(
-                androidCodeId: "945410197", //andrrid banner广告id 必填
-                iosCodeId: "945410197", //ios banner广告id 必填
-                supportDeepLink: true, //是否支持 DeepLink 选填
-                expressAdNum: 3, //一次请求广告数量 大于1小于3 必填
-                expressTime: 30, //轮播间隔事件 30-120秒  选填
-                expressViewWidth: 600.5, // 期望view 宽度 dp 必填
-                expressViewHeight: 120.5, //期望view高度 dp 必填
-                callBack: (FlutterUnionad.FlutterUnionadState state) { //广告事件回调 选填
-                  //type onShow广告成功显示 onDislike不感兴趣 onFail广告加载失败
-                  //params 详细说明
-                  switch (state.type) {
-                    case FlutterUnionad.onShow:
-                      print(state.tojson());
-                      break;
-                    case FlutterUnionad.onFail:
-                      print(state.tojson());
-                      break;
-                    case FlutterUnionad.onDislike:
-                      print(state.tojson());
-                      break;
-                  }
-                }),
-            FlutterUnionad.bannerAdView(
-                androidCodeId: "945481613",
-                iosCodeId: "945481613",
-                supportDeepLink: true,
-                expressAdNum: 3,
-                expressTime: 40,
-                expressViewWidth: 600,
-                expressViewHeight: 200,
+              //andrrid banner广告id 必填
+              androidCodeId: "945410197",
+              //ios banner广告id 必填
+              iosCodeId: "945410197",
+              //是否使用个性化模版
+              mIsExpress: true,
+              //是否支持 DeepLink 选填
+              supportDeepLink: true,
+              //一次请求广告数量 大于1小于3 必填
+              expressAdNum: 3,
+              //轮播间隔事件 30-120秒  选填
+              expressTime: 30,
+              // 期望view 宽度 dp 必填
+              expressViewWidth: 600.5,
+              //期望view高度 dp 必填
+              expressViewHeight: 120.5,
+              //广告事件回调 选填
+              callBack: FlutterUnionad.BannerAdCallBack(
+                onShow: () {
+                  print("banner广告加载完成");
+                },
+                onDislike: (message){
+                  print("banner不感兴趣 $message");
+                },
+                onFail: (error){
+                  print("banner广告加载失败 $error");
+                },
+                onClick: (){
+                  print("banner广告点击");
+                }
+              ),
             ),
             FlutterUnionad.bannerAdView(
-                androidCodeId: "945410197",
-                iosCodeId: "945410197",
-                supportDeepLink: true,
-                expressAdNum: 3,
-                expressTime: 30,
-                expressViewWidth: 500,
-                expressViewHeight: 150,
+              androidCodeId: "945481613",
+              iosCodeId: "945481613",
+              supportDeepLink: true,
+              expressAdNum: 3,
+              expressTime: 40,
+              expressViewWidth: 600,
+              expressViewHeight: 200,
+            ),
+            FlutterUnionad.bannerAdView(
+              androidCodeId: "945410197",
+              iosCodeId: "945410197",
+              supportDeepLink: true,
+              expressAdNum: 3,
+              expressTime: 30,
+              expressViewWidth: 500,
+              expressViewHeight: 150,
             ),
             FlutterUnionad.bannerAdView(
               androidCodeId: "945410197",

@@ -67,29 +67,35 @@ extension BannerAdView: BUNativeExpressBannerViewDelegate {
     }
 
     public func nativeExpressBannerAdViewRenderFail(_ bannerAdView: BUNativeExpressBannerView, error: Error?) {
-        self.disposeView()
         LogUtil.logInstance.printLog(message:error)
-//        self.channel?.invokeMethod("onFail", arguments: error)
+        self.channel?.invokeMethod("onFail", arguments: String(error.debugDescription))
+        self.disposeView()
     }
 
     public func nativeExpressBannerAdView(_ bannerAdView: BUNativeExpressBannerView, didLoadFailWithError error: Error?) {
-        self.disposeView()
         LogUtil.logInstance.printLog(message:String(error.debugDescription))
         self.channel?.invokeMethod("onFail", arguments: String(error.debugDescription))
+        self.disposeView()
     }
 
     public func nativeExpressBannerAdView(_ bannerAdView: BUNativeExpressBannerView, dislikeWithReason filterwords: [BUDislikeWords]?) {
         LogUtil.logInstance.printLog(message:"点击了不感兴趣")
-        self.disposeView()
         self.channel?.invokeMethod("onDislike", arguments: filterwords?[0].name)
+        self.disposeView()
     }
     
     public func nativeExpressBannerAdViewRenderSuccess(_ bannerAdView: BUNativeExpressBannerView) {
         LogUtil.logInstance.printLog(message: "banner渲染成功")
+        self.channel?.invokeMethod("onShow", arguments: "")
     }
     
     public func nativeExpressBannerAdViewDidClick(_ bannerAdView: BUNativeExpressBannerView) {
         LogUtil.logInstance.printLog(message: "banner点击了")
+        self.channel?.invokeMethod("onClick", arguments: "")
+    }
+    
+    public func nativeExpressBannerAdViewDidRemoved(_ bannerAdView: BUNativeExpressBannerView) {
+        LogUtil.logInstance.printLog(message: "banner移除了")
     }
 }
 

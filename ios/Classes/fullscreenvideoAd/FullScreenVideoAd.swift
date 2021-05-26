@@ -37,9 +37,15 @@ public class FullscreenVideoAd : NSObject{
 extension FullscreenVideoAd : BUFullscreenVideoAdDelegate{
     public func fullscreenVideoAdDidClick(_ fullscreenVideoAd: BUFullscreenVideoAd) {
         LogUtil.logInstance.printLog(message: "fullscreenVideoAdDidClick")
+        let map : NSDictionary = ["adType":"fullVideoAd",
+                                  "onAdMethod":"onClick"]
+        SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
     }
     public func fullscreenVideoAdDidVisible(_ fullscreenVideoAd: BUFullscreenVideoAd) {
         LogUtil.logInstance.printLog(message: "开始显示广告")
+        let map : NSDictionary = ["adType":"fullVideoAd",
+                                  "onAdMethod":"onShow"]
+        SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
     }
     
     public func fullscreenVideoAdVideoDataDidLoad(_ fullscreenVideoAd: BUFullscreenVideoAd) {
@@ -48,9 +54,16 @@ extension FullscreenVideoAd : BUFullscreenVideoAdDelegate{
     }
     public func fullscreenVideoAd(_ fullscreenVideoAd: BUFullscreenVideoAd, didFailWithError error: Error?) {
         LogUtil.logInstance.printLog(message: error)
+        let map : NSDictionary = ["adType":"fullVideoAd",
+                                  "onAdMethod":"onFail",
+                                  "error":String(error.debugDescription)]
+        SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
     }
     public func fullscreenVideoAdDidClose(_ fullscreenVideoAd: BUFullscreenVideoAd) {
         LogUtil.logInstance.printLog(message: "fullscreenVideoAdDidClose")
+        let map : NSDictionary = ["adType":"fullVideoAd",
+                                  "onAdMethod":"onClose"]
+        SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
     }
     
     public func fullscreenVideoAdWillClose(_ fullscreenVideoAd: BUFullscreenVideoAd) {
@@ -62,6 +75,9 @@ extension FullscreenVideoAd : BUFullscreenVideoAdDelegate{
     
     public func fullscreenVideoAdDidClickSkip(_ fullscreenVideoAd: BUFullscreenVideoAd) {
         LogUtil.logInstance.printLog(message: "fullscreenVideoAdDidClickSkip")
+        let map : NSDictionary = ["adType":"fullVideoAd",
+                                  "onAdMethod":"onSkip"]
+        SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
     }
     
     public func fullscreenVideoMaterialMetaAdDidLoad(_ fullscreenVideoAd: BUFullscreenVideoAd) {
@@ -70,6 +86,9 @@ extension FullscreenVideoAd : BUFullscreenVideoAdDelegate{
     
     public func fullscreenVideoAdDidPlayFinish(_ fullscreenVideoAd: BUFullscreenVideoAd, didFailWithError error: Error?) {
         LogUtil.logInstance.printLog(message: error)
+        let map : NSDictionary = ["adType":"fullVideoAd",
+                                  "onAdMethod":"onFinish"]
+        SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
     }
     
     public func fullscreenVideoAdCallback(_ fullscreenVideoAd: BUFullscreenVideoAd, with fullscreenVideoAdType: BUFullScreenVideoAdType) {
@@ -78,6 +97,7 @@ extension FullscreenVideoAd : BUFullscreenVideoAdDelegate{
 }
 
 extension FullscreenVideoAd : BUNativeExpressFullscreenVideoAdDelegate{
+    
     //渲染成功
     public func nativeExpressFullscreenVideoAdViewRenderSuccess(_ rewardedVideoAd: BUNativeExpressFullscreenVideoAd) {
         LogUtil.logInstance.printLog(message: "nativeExpressFullscreenVideoAdViewRenderSuccess")
@@ -86,6 +106,10 @@ extension FullscreenVideoAd : BUNativeExpressFullscreenVideoAdDelegate{
     //渲染失败
     public func nativeExpressFullscreenVideoAdViewRenderFail(_ rewardedVideoAd: BUNativeExpressFullscreenVideoAd, error: Error?) {
         LogUtil.logInstance.printLog(message: error)
+        let map : NSDictionary = ["adType":"fullVideoAd",
+                                  "onAdMethod":"onFail",
+                                  "error":String(error.debugDescription)]
+        SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
     }
     
     //此方法用于获取nativeExpressFullScreenVideo广告的类型
@@ -96,13 +120,16 @@ extension FullscreenVideoAd : BUNativeExpressFullscreenVideoAdDelegate{
     //视频被点击
     public func nativeExpressFullscreenVideoAdDidClick(_ fullscreenVideoAd: BUNativeExpressFullscreenVideoAd) {
         LogUtil.logInstance.printLog(message: "nativeExpressFullscreenVideoAdDidClick")
+        let map : NSDictionary = ["adType":"fullVideoAd",
+                                  "onAdMethod":"onClick"]
+        SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
     }
     
     //视频关闭
     public func nativeExpressFullscreenVideoAdDidClose(_ fullscreenVideoAd: BUNativeExpressFullscreenVideoAd) {
         LogUtil.logInstance.printLog(message: "nativeExpressFullscreenVideoAdDidClose")
         let map : NSDictionary = ["adType":"fullVideoAd",
-                                  "fullVideoType":"onAdClose"]
+                                  "onAdMethod":"onClose"]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
     }
 
@@ -110,7 +137,7 @@ extension FullscreenVideoAd : BUNativeExpressFullscreenVideoAdDelegate{
     public func nativeExpressFullscreenVideoAdDidVisible(_ fullscreenVideoAd: BUNativeExpressFullscreenVideoAd) {
         LogUtil.logInstance.printLog(message: "nativeExpressFullscreenVideoAdDidVisible")
         let map : NSDictionary = ["adType":"fullVideoAd",
-                                  "fullVideoType":"onAdShow"]
+                                  "onAdMethod":"onShow"]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
     }
     
@@ -118,7 +145,7 @@ extension FullscreenVideoAd : BUNativeExpressFullscreenVideoAdDelegate{
     public func nativeExpressFullscreenVideoAdDidClickSkip(_ fullscreenVideoAd: BUNativeExpressFullscreenVideoAd) {
         LogUtil.logInstance.printLog(message: "nativeExpressFullscreenVideoAdDidClickSkip")
         let map : NSDictionary = ["adType":"fullVideoAd",
-                                  "fullVideoType":"onSkippedVideo"]
+                                  "onAdMethod":"onSkip"]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
     }
     
@@ -137,7 +164,7 @@ extension FullscreenVideoAd : BUNativeExpressFullscreenVideoAdDelegate{
     public func nativeExpressFullscreenVideoAdDidPlayFinish(_ fullscreenVideoAd: BUNativeExpressFullscreenVideoAd, didFailWithError error: Error?) {
         LogUtil.logInstance.printLog(message: "nativeExpressFullscreenVideoAdDidPlayFinish")
         let map : NSDictionary = ["adType":"fullVideoAd",
-                                  "fullVideoType":"onVideoComplete"]
+                                  "onAdMethod":"onFinish"]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
     }
 }

@@ -31,7 +31,7 @@ public class DrawFeedAdView : NSObject,FlutterPlatformView{
         self.expressViewHeight = Float(dict.value(forKey: "expressViewHeight") as! Double)
         nativeExpressAdManager = BUNativeExpressAdManager()
         super.init()
-        self.channel = FlutterMethodChannel.init(name: FlutterUnionadConfig.view.nativeAdView + "_" + String(id), binaryMessenger: binaryMessenger)
+        self.channel = FlutterMethodChannel.init(name: FlutterUnionadConfig.view.drawFeedAdView + "_" + String(id), binaryMessenger: binaryMessenger)
         self.loadDrawAd()
     }
     public func view() -> UIView {
@@ -104,6 +104,20 @@ extension DrawFeedAdView : BUNativeExpressAdViewDelegate{
     
     public func nativeExpressAdView(_ nativeExpressAdView: BUNativeExpressAdView, stateDidChanged playerState: BUPlayerPlayState) {
         LogUtil.logInstance.printLog(message: "nativeExpressAdView")
+        switch playerState {
+        case BUPlayerPlayState.statePlaying:
+            self.channel?.invokeMethod("onVideoPlay", arguments: "")
+            break
+        case BUPlayerPlayState.statePause:
+            self.channel?.invokeMethod("onVideoPause", arguments: "")
+            break
+        case BUPlayerPlayState.stateStopped:
+            self.channel?.invokeMethod("onVideoStop", arguments: "")
+            break
+        default:
+            break
+        }
+    
     }
     
     public func nativeExpressAdViewWillShow(_ nativeExpressAdView: BUNativeExpressAdView) {
@@ -112,6 +126,7 @@ extension DrawFeedAdView : BUNativeExpressAdViewDelegate{
     
     public func nativeExpressAdViewDidClick(_ nativeExpressAdView: BUNativeExpressAdView) {
         LogUtil.logInstance.printLog(message: "nativeExpressAdViewDidClick")
+        self.channel?.invokeMethod("onClick", arguments: nil)
     }
     
     public func nativeExpressAdViewWillPresentScreen(_ nativeExpressAdView: BUNativeExpressAdView) {
@@ -120,13 +135,8 @@ extension DrawFeedAdView : BUNativeExpressAdViewDelegate{
     
     public func nativeExpressAdViewRenderFail(_ nativeExpressAdView: BUNativeExpressAdView, error: Error?) {
         LogUtil.logInstance.printLog(message: "nativeExpressAdViewRenderFail")
-        LogUtil.logInstance.printLog(message: error)
+        LogUtil.logInstance.printLog(message: error.debugDescription)
         self.channel?.invokeMethod("onFail", arguments: String(error.debugDescription))
-    }
-    
-    public func nativeExpressAdViewPlayerDidPlayFinish(_ nativeExpressAdView: BUNativeExpressAdView, error: Error) {
-        LogUtil.logInstance.printLog(message: "nativeExpressAdViewPlayerDidPlayFinish")
-        LogUtil.logInstance.printLog(message: error)
     }
     
     public func nativeExpressAdViewDidCloseOtherController(_ nativeExpressAdView: BUNativeExpressAdView, interactionType: BUInteractionType) {

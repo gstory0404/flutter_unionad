@@ -114,6 +114,7 @@ extension NativeAdView : BUNativeExpressAdViewDelegate{
     
     public func nativeExpressAdViewDidClick(_ nativeExpressAdView: BUNativeExpressAdView) {
         LogUtil.logInstance.printLog(message: "nativeExpressAdViewDidClick")
+        self.channel?.invokeMethod("onClick", arguments: nil)
     }
     
     public func nativeExpressAdViewWillPresentScreen(_ nativeExpressAdView: BUNativeExpressAdView) {
@@ -134,5 +135,6 @@ extension NativeAdView : BUNativeExpressAdViewDelegate{
     public func nativeExpressAdViewDidCloseOtherController(_ nativeExpressAdView: BUNativeExpressAdView, interactionType: BUInteractionType) {
         LogUtil.logInstance.printLog(message: "nativeExpressAdViewDidCloseOtherController")
     }
+    
     
 }

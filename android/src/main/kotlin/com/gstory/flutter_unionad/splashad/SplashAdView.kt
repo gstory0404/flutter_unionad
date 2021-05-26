@@ -94,7 +94,7 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
             @MainThread
             override fun onTimeout() {
                 Log.e(TAG, "开屏广告加载超时")
-                channel?.invokeMethod("onAplashTimeout","")
+                channel?.invokeMethod("onTimeOut","")
             }
 
             @MainThread
@@ -124,6 +124,7 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
                     override fun onAdClicked(view: View, type: Int) {
                         Log.e(TAG, "onAdClicked开屏广告点击")
                         channel?.invokeMethod("onAplashClick","开屏广告点击")
+                        channel?.invokeMethod("onClick","")
                     }
 
                     override fun onAdShow(view: View, type: Int) {
@@ -133,12 +134,12 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
 
                     override fun onAdSkip() {
                         Log.e(TAG, "onAdSkip开屏广告跳过")
-                        channel?.invokeMethod("onAplashSkip","开屏广告跳过")
+                        channel?.invokeMethod("onSkip","开屏广告跳过")
                     }
 
                     override fun onAdTimeOver() {
                         Log.e(TAG, "onAdTimeOver开屏广告倒计时结束")
-                        channel?.invokeMethod("onAplashFinish","开屏广告倒计时结束")
+                        channel?.invokeMethod("onFinish","开屏广告倒计时结束")
                     }
                 })
 //                if (ad.interactionType == TTAdConstant.INTERACTION_TYPE_DOWNLOAD) {

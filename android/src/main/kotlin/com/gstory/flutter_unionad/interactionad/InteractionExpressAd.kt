@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.Log
 import android.view.View
 import com.bytedance.sdk.openadsdk.*
+import com.gstory.flutter_unionad.FlutterUnionadEventPlugin
 import com.gstory.flutter_unionad.TTAdManagerHolder
 
 /**
@@ -72,18 +73,26 @@ object InteractionExpressAd {
 
             override fun onAdDismiss() {
                 Log.e(TAG, "广告关闭")
+                var map: MutableMap<String, Any?> = mutableMapOf("adType" to "interactionAd","onAdMethod" to "onClose")
+                FlutterUnionadEventPlugin.sendContent(map)
             }
 
             override fun onAdClicked(view: View, type: Int) {
                 Log.e(TAG, "广告被点击")
+                var map: MutableMap<String, Any?> = mutableMapOf("adType" to "interactionAd","onAdMethod" to "onClick")
+                FlutterUnionadEventPlugin.sendContent(map)
             }
 
             override fun onAdShow(view: View, type: Int) {
                 Log.e(TAG, "广告展示")
+                var map: MutableMap<String, Any?> = mutableMapOf("adType" to "interactionAd","onAdMethod" to "onShow")
+                FlutterUnionadEventPlugin.sendContent(map)
             }
 
             override fun onRenderFail(view: View, msg: String, code: Int) {
                 Log.e(TAG, "render fail: $code   $msg")
+                var map: MutableMap<String, Any?> = mutableMapOf("adType" to "interactionAd","onAdMethod" to "onFail", "error" to "$code , $msg")
+                FlutterUnionadEventPlugin.sendContent(map)
             }
 
             override fun onRenderSuccess(view: View, width: Float, height: Float) {
@@ -100,31 +109,31 @@ object InteractionExpressAd {
             return
         }
         //可选，下载监听设置
-        ad.setDownloadListener(object : TTAppDownloadListener {
-            override fun onIdle() {
-                Log.e(TAG, "点击开始下载")
-            }
-
-            override fun onDownloadActive(totalBytes: Long, currBytes: Long, fileName: String, appName: String) {
-                Log.e(TAG, "下载中，点击暂停")
-            }
-
-            override fun onDownloadPaused(totalBytes: Long, currBytes: Long, fileName: String, appName: String) {
-                Log.e(TAG, "下载暂停，点击继续")
-            }
-
-            override fun onDownloadFailed(totalBytes: Long, currBytes: Long, fileName: String, appName: String) {
-                Log.e(TAG, "下载失败，点击重新下载")
-            }
-
-            override fun onInstalled(fileName: String, appName: String) {
-                Log.e(TAG, "安装完成，点击图片打开")
-            }
-
-            override fun onDownloadFinished(totalBytes: Long, fileName: String, appName: String) {
-                Log.e(TAG, "点击安装")
-            }
-        })
+//        ad.setDownloadListener(object : TTAppDownloadListener {
+//            override fun onIdle() {
+//                Log.e(TAG, "点击开始下载")
+//            }
+//
+//            override fun onDownloadActive(totalBytes: Long, currBytes: Long, fileName: String, appName: String) {
+//                Log.e(TAG, "下载中，点击暂停")
+//            }
+//
+//            override fun onDownloadPaused(totalBytes: Long, currBytes: Long, fileName: String, appName: String) {
+//                Log.e(TAG, "下载暂停，点击继续")
+//            }
+//
+//            override fun onDownloadFailed(totalBytes: Long, currBytes: Long, fileName: String, appName: String) {
+//                Log.e(TAG, "下载失败，点击重新下载")
+//            }
+//
+//            override fun onInstalled(fileName: String, appName: String) {
+//                Log.e(TAG, "安装完成，点击图片打开")
+//            }
+//
+//            override fun onDownloadFinished(totalBytes: Long, fileName: String, appName: String) {
+//                Log.e(TAG, "点击安装")
+//            }
+//        })
     }
 
     /**
@@ -139,6 +148,8 @@ object InteractionExpressAd {
             override fun onSelected(p0: Int, p1: String?, p2: Boolean) {
                 Log.e(TAG, "点击 $p1")
                 //用户选择不喜欢原因后，移除广告展示
+                var map: MutableMap<String, Any?> = mutableMapOf("adType" to "interactionAd","onDislike" to "onShow","message" to p1)
+                FlutterUnionadEventPlugin.sendContent(map)
             }
 
             override fun onCancel() {

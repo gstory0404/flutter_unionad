@@ -10,7 +10,7 @@ class SplashAdView extends StatefulWidget {
   final bool supportDeepLink;
   final double expressViewWidth;
   final double expressViewHeight;
-  final callBack;
+  final SplashAdCallBack? callBack;
 
   const SplashAdView(
       {Key? key,
@@ -95,49 +95,49 @@ class _SplashAdViewState extends State<SplashAdView> {
   Future<dynamic> _platformCallHandler(MethodCall call) async {
     switch (call.method) {
       //显示广告
-      case onShow:
+      case OnAdMethod.onShow:
         if (widget.callBack != null) {
-          widget.callBack(FlutterUnionadState(call.method, call.arguments));
+          widget.callBack?.onShow!();
         }
         break;
       //广告加载失败
-      case onFail:
+      case OnAdMethod.onFail:
         if (mounted) {
           setState(() {
             _isShowAd = false;
           });
         }
         if (widget.callBack != null) {
-          widget.callBack(FlutterUnionadState(call.method, call.arguments));
+          widget.callBack?.onFail!(call.arguments);
         }
         break;
       //开屏广告点击
-      case onAplashClick:
+      case OnAdMethod.onClick:
         if (widget.callBack != null) {
-          widget.callBack(FlutterUnionadState(call.method, call.arguments));
+          widget.callBack?.onClick!();
         }
         break;
       //开屏广告跳过
-      case onAplashSkip:
+      case OnAdMethod.onSkip:
         if (widget.callBack != null) {
-          widget.callBack(FlutterUnionadState(call.method, call.arguments));
+          widget.callBack?.onSkip!();
         }
         break;
       //开屏广告倒计时结束
-      case onAplashFinish:
+      case OnAdMethod.onFinish:
         if (widget.callBack != null) {
-          widget.callBack(FlutterUnionadState(call.method, call.arguments));
+          widget.callBack?.onFinish!();
         }
         break;
       //开屏广告加载超时
-      case onAplashTimeout:
+      case OnAdMethod.onTimeOut:
         if (mounted) {
           setState(() {
             _isShowAd = false;
           });
         }
         if (widget.callBack != null) {
-          widget.callBack(FlutterUnionadState(call.method, call.arguments));
+          widget.callBack?.onTimeOut!();
         }
         break;
     }

@@ -52,6 +52,8 @@ object FullScreenVideoExpressAd {
         mTTAdNative.loadFullScreenVideoAd(adSlot, object : TTAdNative.FullScreenVideoAdListener {
             override fun onError(code: Int, message: String) {
                 Log.e(TAG, "fullScreenVideoAd加载失败  $code === > $message")
+                var map: MutableMap<String, Any?> = mutableMapOf("adType" to "fullVideoAd","onAdMethod" to "onFail", "error" to "$code , $message")
+                FlutterUnionadEventPlugin.sendContent(map)
             }
 
             override fun onFullScreenVideoAdLoad(ad: TTFullScreenVideoAd) {
@@ -60,31 +62,31 @@ object FullScreenVideoExpressAd {
                 mttFullVideoAd!!.setFullScreenVideoAdInteractionListener(object : TTFullScreenVideoAd.FullScreenVideoAdInteractionListener {
                     override fun onAdShow() {
                         Log.e(TAG, "fullScreenVideoAd show")
-                        var map: MutableMap<String, Any?> = mutableMapOf("adType" to "fullVideoAd", "fullVideoType" to "onAdShow")
+                        var map: MutableMap<String, Any?> = mutableMapOf("adType" to "fullVideoAd", "onAdMethod" to "onShow")
                         FlutterUnionadEventPlugin.sendContent(map)
                     }
 
                     override fun onAdVideoBarClick() {
                         Log.e(TAG, "fullScreenVideoAd click")
-                        var map: MutableMap<String, Any?> = mutableMapOf("adType" to "fullVideoAd", "fullVideoType" to "onAdVideoBarClick")
+                        var map: MutableMap<String, Any?> = mutableMapOf("adType" to "fullVideoAd", "onAdMethod" to "onClick")
                         FlutterUnionadEventPlugin.sendContent(map)
                     }
 
                     override fun onAdClose() {
                         Log.e(TAG, "fullScreenVideoAd close")
-                        var map: MutableMap<String, Any?> = mutableMapOf("adType" to "fullVideoAd", "fullVideoType" to "onAdClose")
+                        var map: MutableMap<String, Any?> = mutableMapOf("adType" to "fullVideoAd", "onAdMethod" to "onClose")
                         FlutterUnionadEventPlugin.sendContent(map)
                     }
 
                     override fun onVideoComplete() {
                         Log.e(TAG, "fullScreenVideoAd complete")
-                        var map: MutableMap<String, Any?> = mutableMapOf("adType" to "fullVideoAd", "fullVideoType" to "onVideoComplete")
+                        var map: MutableMap<String, Any?> = mutableMapOf("adType" to "fullVideoAd", "onAdMethod" to "onFinish")
                         FlutterUnionadEventPlugin.sendContent(map)
                     }
 
                     override fun onSkippedVideo() {
                         Log.e(TAG, "fullScreenVideoAd skipped")
-                        var map: MutableMap<String, Any?> = mutableMapOf("adType" to "fullVideoAd", "fullVideoType" to "onSkippedVideo")
+                        var map: MutableMap<String, Any?> = mutableMapOf("adType" to "fullVideoAd", "onAdMethod" to "onSkip")
                         FlutterUnionadEventPlugin.sendContent(map)
                     }
                 })

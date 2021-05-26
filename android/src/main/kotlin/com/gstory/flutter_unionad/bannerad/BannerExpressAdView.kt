@@ -98,6 +98,7 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
         ad.setExpressInteractionListener(object : ExpressAdInteractionListener {
             override fun onAdClicked(view: View, type: Int) {
                 Log.e(TAG, "广告点击")
+                channel?.invokeMethod("onClick","")
             }
 
             override fun onAdShow(view: View, type: Int) {
@@ -126,6 +127,8 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
                 mExpressContainer!!.addView(view)
                 channel?.invokeMethod("onShow","")
             }
+
+
         })
         //dislike设置
         bindDislike(ad, false)

@@ -93,6 +93,7 @@ class NativeExpressAdView(var context: Context,var activity: Activity, var messe
         ad.setExpressInteractionListener(object : ExpressAdInteractionListener {
             override fun onAdClicked(view: View, type: Int) {
                 Log.e(TAG, "广告被点击")
+                channel?.invokeMethod("onClick",null)
             }
 
             override fun onAdShow(view: View, type: Int) {
