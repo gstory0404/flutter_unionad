@@ -26,7 +26,7 @@ class _IndexPageState extends State<IndexPage> {
   void initState() {
     super.initState();
     _initRegister();
-    FlutterUnionad.FlutterUnionadStream.initAdStream(
+    _adViewStream = FlutterUnionad.FlutterUnionadStream.initAdStream(
       fullVideoAdCallBack: FlutterUnionad.FullVideoAdCallBack(
         onShow: () {
           print("全屏广告显示");
@@ -310,6 +310,5 @@ class _IndexPageState extends State<IndexPage> {
     if (_adViewStream != null) {
       _adViewStream?.cancel();
     }
-    FlutterUnionad.FlutterUnionadStream.deleteAdStream();
   }
 }

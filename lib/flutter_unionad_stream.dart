@@ -10,27 +10,13 @@ import 'flutter_unionad_code.dart';
 /// @Description: dart类作用描述
 
 class FlutterUnionadStream {
-  static late StreamSubscription _adStream;
 
-  // factory FlutterUnionadStream() =>_initInstance();
-  //
-  // static FlutterUnionadStream? _instance;
-  //
-  // FlutterUnionadStream._() {
-  //   _fullVideAdStream = adEventEvent.receiveBroadcastStream().listen((event) { });
-  // }
-  //
-  // static FlutterUnionadStream _initInstance() {
-  //   if (_instance == null) {
-  //     _instance = FlutterUnionadStream._();
-  //   }
-  //   return _instance!;
-  // }
 
-  static void initAdStream({FullVideoAdCallBack? fullVideoAdCallBack,
+  ///注册stream监听原生返回的状态信息
+  static StreamSubscription initAdStream({FullVideoAdCallBack? fullVideoAdCallBack,
     InteractionAdCallBack? interactionAdCallBack,
     RewardAdCallBack? rewardAdCallBack}) {
-    _adStream = adEventEvent.receiveBroadcastStream().listen((data) {
+    StreamSubscription _adStream = adEventEvent.receiveBroadcastStream().listen((data) {
       switch (data[AdType.adType]){
         ///全屏广告
         case AdType.fullVideoAd:
@@ -99,9 +85,10 @@ class FlutterUnionadStream {
           }
       }
     });
+    return _adStream;
   }
 
-  static void deleteAdStream() {
-    _adStream.cancel();
+  static void deleteAdStream(StreamSubscription stream) {
+    stream.cancel();
   }
 }
