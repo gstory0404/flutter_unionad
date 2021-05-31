@@ -236,91 +236,151 @@ await FlutterUnionad.interactionAd(
                   expressNum: 2, //一次请求广告数量 大于1小于3 必填
                 );
 ```
+插屏广告结果回调
+```Dart
+FlutterUnionad.FlutterUnionadStream.initAdStream(
+      //插屏广告回调
+      interactionAdCallBack: FlutterUnionad.InteractionAdCallBack(
+        onShow: (){
+          print("插屏广告展示");
+        },
+        onClose: (){
+          print("插屏广告关闭");
+        },
+        onFail: (error){
+          print("插屏广告失败 $error");
+        },
+        onClick: (){
+          print("插屏广告点击");
+        },
+        onDislike: (message){
+          print("插屏广告不喜欢  $message");
+        }
+      ),
+    );
+```
+
 
 #### 8、激励视频
 ```Dart
 FlutterUnionad.loadRewardVideoAd(
-                    mIsExpress: true, //是否个性化 选填
-                    androidCodeId: "945418088", //Android 激励视频广告id  必填
-                    iosCodeId: "945418088", //ios 激励视频广告id  必填
-                    supportDeepLink: true, //是否支持 DeepLink 选填
-                    rewardName: "100金币", //奖励名称 选填
-                    rewardAmount: 100, //奖励数量 选填
-                    userID: "123",  //  用户id 选填
-                    orientation: FlutterUnionad.VideoVERTICAL, //视屏方向 选填
-                    mediaExtra: null, //扩展参数 选填
+                  mIsExpress: true,
+                  //是否个性化 选填
+                  androidCodeId: "945418088",
+                  //Android 激励视频广告id  必填
+                  iosCodeId: "945418088",
+                  //ios 激励视频广告id  必填
+                  supportDeepLink: true,
+                  //是否支持 DeepLink 选填
+                  rewardName: "100金币",
+                  //奖励名称 选填
+                  rewardAmount: 100,
+                  //奖励数量 选填
+                  userID: "123",
+                  //  用户id 选填
+                  orientation: FlutterUnionad.AdOrientation.VERTICAL,
+                  //视屏方向 选填
+                  mediaExtra: null, //扩展参数 选填
                 );
 ```
-监听激励视频状态
+监听激励视频结果
 
 ```Dart
- StreamSubscription _adViewStream = FlutterUnionad.adeventEvent
-       .receiveBroadcastStream()
-       .listen((data) {
-     if (data[FlutterUnionad.adType] == FlutterUnionad.rewardAd) {
-       print("激励广告结果----->  rewardVerify=${data[FlutterUnionad.rewardVerify]} "
-           "rewardName=${data[FlutterUnionad.rewardName]} "
-           "rewardAmount=${data[FlutterUnionad.rewardAmount]} ");
-     }
-   });
+ FlutterUnionad.FlutterUnionadStream.initAdStream(
+      //激励广告
+      rewardAdCallBack: FlutterUnionad.RewardAdCallBack(
+        onShow: (){
+          print("激励广告显示");
+        },
+        onClick: (){
+          print("激励广告点击");
+        },
+        onFail: (error){
+          print("激励广告失败 $error");
+        },
+        onClose: (){
+          print("激励广告关闭");
+        },
+        onSkip: (){
+          print("激励广告跳过");
+        },
+        onVerify: (rewardVerify,rewardAmount,rewardName){
+          print("激励广告奖励  $rewardVerify   $rewardAmount  $rewardName");
+        },
+      ),
+    );
 ```
 #### 9、draw视频广告
 ```Dart
 FlutterUnionad.drawFeedAdView(
-                androidCodeId: "945426252", // Android draw视屏广告id 必填
-                iosCodeId: "945426252", //ios draw视屏广告id 必填
-                supportDeepLink: true, //是否支持 DeepLink 选填
-                expressViewWidth: 600.5, // 期望view 宽度 dp 必填
-                expressViewHeight: 800.5, //期望view高度 dp 必填
-                callBack: (FlutterUnionad.FlutterUnionadState state) { //广告事件回调 选填
-                  //type onShow显示广告 onFail广告加载失败
-                  //params 详细说明
-                  switch (state.type) {
-                    case FlutterUnionad.onShow:
-                      print(state.tojson());
-                      break;
-                    case FlutterUnionad.onFail:
-                      print(state.tojson());
-                      break;
-                  }
-                },
+                androidCodeId: "945426252",
+                // Android draw视屏广告id 必填
+                iosCodeId: "945426252",
+                //ios draw视屏广告id 必填
+                supportDeepLink: true,
+                //是否支持 DeepLink 选填
+                expressViewWidth: 600.5,
+                // 期望view 宽度 dp 必填
+                expressViewHeight: 800.5,
+                //期望view高度 dp 必填
+                callBack: FlutterUnionad.DrawFeedAdCallBack(
+                    onShow: () {
+                      print("draw广告显示");
+                    },
+                    onFail: (error) {
+                      print("draw广告加载失败 $error");
+                    },
+                    onClick: () {
+                      print("draw广告点击");
+                    },
+                    onDislike: (message) {
+                      print("draw点击不喜欢 $message");
+                    },
+                    onVideoPlay: () {
+                      print("draw视频播放");
+                    },
+                    onVideoPause: () {
+                      print("draw视频暂停");
+                    },
+                    onVideoStop: () {
+                      print("draw视频结束");
+                    }),
               ),
 ```
 
 ### 10、全屏视频广告
 ```Dart
- FlutterUnionad.fullScreenVideoAd(
+FlutterUnionad.fullScreenVideoAd(
                   androidCodeId: "945491318", //android 全屏广告id 必填
-                  iosCodeId: "945491318",//ios 全屏广告id 必填
-                  supportDeepLink: true,  //是否支持 DeepLink 选填
-                  orientation: FlutterUnionad.VideoVERTICAL,//视屏方向 选填
-              );
+                  iosCodeId: "945491318", //ios 全屏广告id 必填
+                  supportDeepLink: true, //是否支持 DeepLink 选填
+                  orientation: FlutterUnionad.AdOrientation.VERTICAL, //视屏方向 选填
+                );
 ```
-结果监听
+全屏广告结果监听
 ```Dart
-FlutterUnionad.adeventEvent
-       .receiveBroadcastStream()
-       .listen((data) {
-     if(data[FlutterUnionad.adType] == FlutterUnionad.fullVideoAd){
-        switch(data[FlutterUnionad.fullVideoType]){
-          case FlutterUnionad.onAdShow:
-            print("全屏广告显示");
-            break;
-          case FlutterUnionad.onAdVideoBarClick:
-            print("全屏广告返回");
-            break;
-          case FlutterUnionad.onAdClose:
-            print("全屏广告关闭");
-            break;
-          case FlutterUnionad.onVideoComplete:
-            print("全屏广告继续");
-            break;
-          case FlutterUnionad.onSkippedVideo:
-            print("全屏广告跳过");
-            break;
-        }
-     }
-   });
+FlutterUnionad.FlutterUnionadStream.initAdStream(
+      fullVideoAdCallBack: FlutterUnionad.FullVideoAdCallBack(
+        onShow: () {
+          print("全屏广告显示");
+        },
+        onSkip: () {
+          print("全屏广告跳过");
+        },
+        onClick: () {
+          print("全屏广告点击");
+        },
+        onFinish: () {
+          print("全屏广告结束");
+        },
+        onFail: (error) {
+          print("全屏广告错误 $error");
+        },
+        onClose: () {
+          print("全屏广告关闭");
+        },
+      ),
+    );
 ```
 
 ## 联系方式
