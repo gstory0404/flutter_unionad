@@ -12,7 +12,7 @@ import 'flutter_unionad_code.dart';
 class FlutterUnionadStream {
 
 
-  ///注册stream监听原生返回的状态信息
+  ///注册stream监听原生返回的信息
   static StreamSubscription initAdStream({FullVideoAdCallBack? fullVideoAdCallBack,
     InteractionAdCallBack? interactionAdCallBack,
     RewardAdCallBack? rewardAdCallBack}) {

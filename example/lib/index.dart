@@ -87,16 +87,6 @@ class _IndexPageState extends State<IndexPage> {
         },
       ),
     );
-    // 这里的 data 就是原生端发送过来的数据
-    // _adViewStream =
-    //     FlutterUnionad.adEventEvent.receiveBroadcastStream().listen((data) {
-    //   print("广告结果 ${data}");
-    //   if (data[FlutterUnionad.adType] == FlutterUnionad.rewardAd) {
-    //     print("激励广告结果----->  rewardVerify=${data[FlutterUnionad.rewardVerify]} "
-    //         "rewardName=${data[FlutterUnionad.rewardName]} "
-    //         "rewardAmount=${data[FlutterUnionad.rewardAmount]} ");
-    //   }
-    // });
   }
 
   void _initRegister() async {
