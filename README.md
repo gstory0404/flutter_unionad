@@ -221,6 +221,8 @@ FlutterUnionad.nativeAdView(
 ```
 
 #### 7、插屏广告
+
+不推荐使用，请使用新模版渲染插屏广告
 ```Dart
 await FlutterUnionad.interactionAd(
                   androidCodeId: "945417892",
@@ -261,7 +263,8 @@ FlutterUnionad.FlutterUnionadStream.initAdStream(
 ```
 
 
-#### 8、激励视频
+#### 8、激励视频广告
+预加载激励视频广告
 ```Dart
 FlutterUnionad.loadRewardVideoAd(
                   mIsExpress: true,
@@ -282,6 +285,10 @@ FlutterUnionad.loadRewardVideoAd(
                   //视屏方向 选填
                   mediaExtra: null, //扩展参数 选填
                 );
+```
+显示激励视频广告
+```dart
+ await FlutterUnionad.showRewardVideoAd();
 ```
 监听激励视频结果
 
@@ -306,6 +313,14 @@ FlutterUnionad.loadRewardVideoAd(
         },
         onVerify: (rewardVerify,rewardAmount,rewardName){
           print("激励广告奖励  $rewardVerify   $rewardAmount  $rewardName");
+        },
+         onReady: () async{
+          print("激励广告预加载准备就绪");
+          //显示激励广告
+          await FlutterUnionad.showRewardVideoAd();
+        },
+        onUnReady: (){
+          print("激励广告预加载未准备就绪");
         },
       ),
     );
@@ -349,6 +364,8 @@ FlutterUnionad.drawFeedAdView(
 ```
 
 ### 10、全屏视频广告
+
+不推荐使用，请使用新模版渲染插屏广告
 ```Dart
 FlutterUnionad.fullScreenVideoAd(
                   androidCodeId: "945491318", //android 全屏广告id 必填
@@ -358,6 +375,7 @@ FlutterUnionad.fullScreenVideoAd(
                 );
 ```
 全屏广告结果监听
+
 ```Dart
 FlutterUnionad.FlutterUnionadStream.initAdStream(
       fullVideoAdCallBack: FlutterUnionad.FullVideoAdCallBack(
@@ -382,6 +400,58 @@ FlutterUnionad.FlutterUnionadStream.initAdStream(
       ),
     );
 ```
+
+### 11、新模版渲染插屏广告  分为全屏和插屏
+预加载新模版渲染插屏广告
+```dart
+FlutterUnionad.loadFullScreenVideoAdInteraction(
+                  androidCodeId: "946201351", //android 全屏广告id 必填
+                  iosCodeId: "946201351", //ios 全屏广告id 必填
+                  supportDeepLink: true, //是否支持 DeepLink 选填
+                  orientation: FlutterUnionad.AdOrientation.VERTICAL, //视屏方向 选填
+                );
+```
+
+显示新模版渲染插屏广告
+```dart
+  await FlutterUnionad.showFullScreenVideoAdInteraction();
+```
+
+新模版渲染插屏广告结果监听
+```dart
+FlutterUnionad.FlutterUnionadStream.initAdStream(
+      // 新模板渲染插屏广告回调
+            fullScreenVideoAdInteractionCallBack: FlutterUnionad.FullScreenVideoAdInteractionCallBack(
+              onShow: () {
+                print("新模板渲染插屏广告显示");
+              },
+              onSkip: () {
+                print("新模板渲染插屏广告跳过");
+              },
+              onClick: () {
+                print("新模板渲染插屏广告点击");
+              },
+              onFinish: () {
+                print("新模板渲染插屏广告结束");
+              },
+              onFail: (error) {
+                print("新模板渲染插屏广告错误 $error");
+              },
+              onClose: () {
+                print("新模板渲染插屏广告关闭");
+              },
+              onReady: () async{
+                print("新模板渲染插屏广告预加载准备就绪");
+                //显示新模板渲染插屏
+                await FlutterUnionad.showFullScreenVideoAdInteraction();
+              },
+              onUnReady: (){
+                print("新模板渲染插屏广告预加载未准备就绪");
+              },
+            ),
+    );
+```
+
 
 ## 联系方式
 * Email: gstory0404@gmail.com

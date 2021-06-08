@@ -33,6 +33,9 @@ class AdType {
 
   ///插屏广告
   static const String interactAd = "interactionAd";
+
+  /// 新模板渲染插屏 分为全屏和插屏，全屏和插屏场景下开发者都可以选择投放的广告类型，分别为图片+视频、仅视频、仅图片
+  static const String fullScreenVideoAdInteraction = "fullScreenVideoAdInteraction";
 }
 
 class OnAdMethod {
@@ -75,6 +78,11 @@ class OnAdMethod {
 
   ///广告奖励校验
   static const String onVerify = "onVerify";
+
+  ///广告预加载完成
+  static const String onReady = "onReady";
+  ///广告未预加载
+  static const String onUnReady = "onUnReady";
 }
 
 ///权限请求结果

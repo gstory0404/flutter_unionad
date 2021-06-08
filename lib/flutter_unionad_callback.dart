@@ -37,6 +37,12 @@ typedef OnTimeOut = void Function();
 ///关闭
 typedef OnClose = void Function();
 
+///广告预加载完成
+typedef OnReady = void Function();
+
+///广告预加载未完成
+typedef OnUnReady = void Function();
+
 ///广告奖励验证
 typedef OnVerify = void Function(
     bool isVerify, int rewardAmount, String rewardName);
@@ -117,6 +123,28 @@ class FullVideoAdCallBack {
       this.onFinish});
 }
 
+/// 新模板渲染插屏
+class FullScreenVideoAdInteractionCallBack {
+  OnShow? onShow;
+  OnClick? onClick;
+  OnSkip? onSkip;
+  OnClose? onClose;
+  OnFail? onFail;
+  OnFinish? onFinish;
+  OnReady? onReady;
+  OnUnReady? onUnReady;
+
+  FullScreenVideoAdInteractionCallBack(
+      {this.onShow,
+      this.onClick,
+      this.onSkip,
+      this.onClose,
+      this.onFail,
+      this.onFinish,
+      this.onReady,
+      this.onUnReady});
+}
+
 ///插屏广告回调
 class InteractionAdCallBack {
   OnShow? onShow;
@@ -129,7 +157,7 @@ class InteractionAdCallBack {
       {this.onShow, this.onClick, this.onDislike, this.onClose, this.onFail});
 }
 
-///插屏广告回调
+///激励广告回调
 class RewardAdCallBack {
   OnShow? onShow;
   OnClose? onClose;
@@ -137,7 +165,16 @@ class RewardAdCallBack {
   OnSkip? onSkip;
   OnClick? onClick;
   OnVerify? onVerify;
+  OnReady? onReady;
+  OnUnReady? onUnReady;
 
   RewardAdCallBack(
-      {this.onShow, this.onClick, this.onClose, this.onFail,this.onVerify,this.onSkip});
+      {this.onShow,
+      this.onClick,
+      this.onClose,
+      this.onFail,
+      this.onVerify,
+      this.onSkip,
+      this.onReady,
+      this.onUnReady});
 }

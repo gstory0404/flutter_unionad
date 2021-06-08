@@ -65,6 +65,35 @@ class _IndexPageState extends State<IndexPage> {
           print("插屏广告不喜欢  $message");
         }
       ),
+      // 新模板渲染插屏广告回调
+      fullScreenVideoAdInteractionCallBack: FlutterUnionad.FullScreenVideoAdInteractionCallBack(
+        onShow: () {
+          print("新模板渲染插屏广告显示");
+        },
+        onSkip: () {
+          print("新模板渲染插屏广告跳过");
+        },
+        onClick: () {
+          print("新模板渲染插屏广告点击");
+        },
+        onFinish: () {
+          print("新模板渲染插屏广告结束");
+        },
+        onFail: (error) {
+          print("新模板渲染插屏广告错误 $error");
+        },
+        onClose: () {
+          print("新模板渲染插屏广告关闭");
+        },
+        onReady: () async{
+          print("新模板渲染插屏广告预加载准备就绪");
+          //显示新模板渲染插屏
+          await FlutterUnionad.showFullScreenVideoAdInteraction();
+        },
+        onUnReady: (){
+          print("新模板渲染插屏广告预加载未准备就绪");
+        },
+      ),
       //激励广告
       rewardAdCallBack: FlutterUnionad.RewardAdCallBack(
         onShow: (){
@@ -81,6 +110,13 @@ class _IndexPageState extends State<IndexPage> {
         },
         onSkip: (){
           print("激励广告跳过");
+        },
+        onReady: () async{
+          print("激励广告预加载准备就绪");
+          await FlutterUnionad.showRewardVideoAd();
+        },
+        onUnReady: (){
+          print("激励广告预加载未准备就绪");
         },
         onVerify: (rewardVerify,rewardAmount,rewardName){
           print("激励广告奖励  $rewardVerify   $rewardAmount  $rewardName");
@@ -283,6 +319,20 @@ class _IndexPageState extends State<IndexPage> {
                 FlutterUnionad.fullScreenVideoAd(
                   androidCodeId: "945491318", //android 全屏广告id 必填
                   iosCodeId: "945491318", //ios 全屏广告id 必填
+                  supportDeepLink: true, //是否支持 DeepLink 选填
+                  orientation: FlutterUnionad.AdOrientation.VERTICAL, //视屏方向 选填
+                );
+              },
+            ),
+            //新模板渲染插屏广告
+            MaterialButton(
+              color: Colors.blue,
+              textColor: Colors.white,
+              child: new Text('新模板渲染插屏广告'),
+              onPressed: () {
+                FlutterUnionad.loadFullScreenVideoAdInteraction(
+                  androidCodeId: "946201351", //android 全屏广告id 必填
+                  iosCodeId: "946201351", //ios 全屏广告id 必填
                   supportDeepLink: true, //是否支持 DeepLink 选填
                   orientation: FlutterUnionad.AdOrientation.VERTICAL, //视屏方向 选填
                 );

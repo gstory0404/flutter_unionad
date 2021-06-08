@@ -17,7 +17,7 @@ public class RewardedVideoAd : NSObject{
     
     private var bURewardedVideoAd :BUNativeExpressRewardedVideoAd?
     
-    public func showRewardedVideoAd(params : NSDictionary) {
+    public func loadRewardedVideoAd(params : NSDictionary) {
         LogUtil.logInstance.printLog(message: params)
         let mCodeId = params.value(forKey: "iosCodeId") as? String
         let userID = params.value(forKey: "userID") as? String
@@ -39,14 +39,26 @@ public class RewardedVideoAd : NSObject{
         self.bURewardedVideoAd!.delegate = self
         self.bURewardedVideoAd!.loadData()
     }
-}
-
-extension RewardedVideoAd: BUNativeExpressRewardedVideoAdDelegate {
-    public func nativeExpressRewardedVideoAdDidLoad(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
+    
+    public func showRewardedVideoAd(){
+        if(self.bURewardedVideoAd == nil){
+            let map : NSDictionary = ["adType":"rewardAd",
+                                      "onAdMethod":"onUnReady"]
+            SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
+            return
+        }
         self.bURewardedVideoAd!.show(fromRootViewController: MyUtils.getVC())
         LogUtil.logInstance.printLog(message: "激励广告加载成功")
         let map : NSDictionary = ["adType":"rewardAd",
                                   "onAdMethod":"onShow"]
+        SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
+    }
+}
+
+extension RewardedVideoAd: BUNativeExpressRewardedVideoAdDelegate {
+    public func nativeExpressRewardedVideoAdDidLoad(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
+        let map : NSDictionary = ["adType":"rewardAd",
+                                  "onAdMethod":"onReady"]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
     }
     
@@ -55,6 +67,7 @@ extension RewardedVideoAd: BUNativeExpressRewardedVideoAdDelegate {
         let map : NSDictionary = ["adType":"rewardAd",
                                   "onAdMethod":"onClose"]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
+        self.bURewardedVideoAd = nil
     }
     
     public func nativeExpressRewardedVideoAd(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd, didFailWithError error: Error?) {
@@ -100,6 +113,7 @@ extension RewardedVideoAd: BUNativeExpressRewardedVideoAdDelegate {
     
     public func nativeExpressRewardedVideoAdDidPlayFinish(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd, didFailWithError error: Error?) {
         LogUtil.logInstance.printLog(message: "激励广告完成")
+        self.bURewardedVideoAd = nil;
     }
     
     public func nativeExpressRewardedVideoAdDidClick(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {

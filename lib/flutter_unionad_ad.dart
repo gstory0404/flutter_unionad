@@ -127,6 +127,7 @@ Widget nativeAdView(
 }
 
 ///插屏广告
+@Deprecated("推荐使用新模板渲染插屏 loadFullScreenVideoAdInteraction")
 Future<bool> interactionAd({
   bool? mIsExpress,
   required String androidCodeId,
@@ -147,7 +148,7 @@ Future<bool> interactionAd({
   });
 }
 
-///激励视频广告
+///激励视频广告预加载
 Future<bool> loadRewardVideoAd({
   bool? mIsExpress,
   required String androidCodeId,
@@ -176,6 +177,11 @@ Future<bool> loadRewardVideoAd({
   });
 }
 
+///显示激励广告
+Future<bool> showRewardVideoAd() async {
+  return await _channel.invokeMethod("showRewardVideoAd", {});
+}
+
 ///draw视频广告
 Widget drawFeedAdView({
   bool? mIsExpress,
@@ -198,6 +204,7 @@ Widget drawFeedAdView({
 }
 
 ///个性化模板全屏广告
+@Deprecated("推荐使用新模板渲染插屏 loadFullScreenVideoAdInteraction")
 Future<bool> fullScreenVideoAd(
     {bool? mIsExpress,
     required String androidCodeId,
@@ -211,4 +218,23 @@ Future<bool> fullScreenVideoAd(
     "supportDeepLink": supportDeepLink ?? true,
     "orientation": orientation ?? AdOrientation.VERTICAL,
   });
+}
+
+///预加载新模板渲染插屏 分为全屏和插屏，全屏和插屏场景下开发者都可以选择投放的广告类型，分别为图片+视频、仅视频、仅图片。
+Future<bool> loadFullScreenVideoAdInteraction(
+    {required String androidCodeId,
+    required String iosCodeId,
+    bool? supportDeepLink,
+    int? orientation}) async {
+  return await _channel.invokeMethod("loadFullScreenVideoAdInteraction", {
+    "androidCodeId": androidCodeId,
+    "iosCodeId": iosCodeId,
+    "supportDeepLink": supportDeepLink ?? true,
+    "orientation": orientation ?? AdOrientation.VERTICAL,
+  });
+}
+
+///显示新模板渲染插屏 分为全屏和插屏，全屏和插屏场景下开发者都可以选择投放的广告类型，分别为图片+视频、仅视频、仅图片。
+Future<bool> showFullScreenVideoAdInteraction() async {
+  return await _channel.invokeMethod("showFullScreenVideoAdInteraction", {});
 }

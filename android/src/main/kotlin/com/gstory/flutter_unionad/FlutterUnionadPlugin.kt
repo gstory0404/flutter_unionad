@@ -7,6 +7,7 @@ import android.text.TextUtils
 import android.util.Log
 import androidx.annotation.NonNull
 import com.gstory.flutter_unionad.fullscreenvideoAd.FullScreenVideoExpressAd
+import com.gstory.flutter_unionad.fullscreenvideoadinteraction.FullScreenVideoAdInteraction
 import com.gstory.flutter_unionad.interactionad.InteractionExpressAd
 import com.gstory.flutter_unionad.rewardvideoad.RewardVideoAd
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -102,9 +103,12 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
             } else {
                 result.success(viersion)
             }
-            //激励视频广告
+            //预激励视频广告
         } else if (call.method == "loadRewardVideoAd") {
             RewardVideoAd.init(mActivity!!, mActivity!!, call.arguments as Map<String?, Any?>)
+            //显示激励广告
+        } else if (call.method == "showRewardVideoAd") {
+            RewardVideoAd.showAd()
             //插屏广告
         } else if (call.method == "interactionAd") {
             val mCodeId = call.argument<String>("androidCodeId")
@@ -120,6 +124,17 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
             val supportDeepLink = call.argument<Boolean>("supportDeepLink")
             val orientation = call.argument<Int>("orientation")
             FullScreenVideoExpressAd.init(mActivity!!, mActivity!!, mCodeId, supportDeepLink, orientation!!)
+            result.success(true)
+            //预加载插屏广告 全屏插屏二合一
+        }else if(call.method == "loadFullScreenVideoAdInteraction"){
+            val mCodeId = call.argument<String>("androidCodeId")
+            val supportDeepLink = call.argument<Boolean>("supportDeepLink")
+            val orientation = call.argument<Int>("orientation")
+            FullScreenVideoAdInteraction.init(mActivity!!, mActivity!!, mCodeId, supportDeepLink, orientation!!)
+            result.success(true)
+            //显示插屏广告 全屏插屏二合一
+        }else if(call.method == "showFullScreenVideoAdInteraction"){
+            FullScreenVideoAdInteraction.showAd()
             result.success(true)
         }
     }

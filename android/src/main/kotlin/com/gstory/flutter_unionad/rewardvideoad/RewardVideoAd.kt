@@ -119,9 +119,11 @@ object RewardVideoAd {
             //视频广告加载后的视频文件资源缓存到本地的回调
             override fun onRewardVideoCached() {
                 Log.e(TAG, "rewardVideoAd video cached")
-                mIsLoaded = true
-                mttRewardVideoAd?.showRewardVideoAd(mActivity, TTAdConstant.RitScenes.CUSTOMIZE_SCENES, "scenes_test")
-                mttRewardVideoAd = null
+//                mIsLoaded = true
+//                mttRewardVideoAd?.showRewardVideoAd(mActivity, TTAdConstant.RitScenes.CUSTOMIZE_SCENES, "scenes_test")
+//                mttRewardVideoAd = null
+                var map: MutableMap<String, Any?> = mutableMapOf("adType" to "rewardAd","onAdMethod" to "onReady")
+                FlutterUnionadEventPlugin.sendContent(map)
             }
 
             //视频广告素材加载到，如title,视频url等，不包括视频文件
@@ -181,6 +183,20 @@ object RewardVideoAd {
 //                })
             }
         })
+    }
+
+    /**
+     * 显示激励广告
+     */
+    fun showAd(){
+        if(mttRewardVideoAd == null){
+            var map: MutableMap<String, Any?> = mutableMapOf("adType" to "rewardAd","onAdMethod" to "onUnReady" , "error" to "广告预加载未完成")
+            FlutterUnionadEventPlugin.sendContent(map)
+            return
+        }
+        mIsLoaded = true
+        mttRewardVideoAd?.showRewardVideoAd(mActivity, TTAdConstant.RitScenes.CUSTOMIZE_SCENES, "scenes_test")
+        mttRewardVideoAd = null
     }
 
     private fun getAdType(type: Int): String? {

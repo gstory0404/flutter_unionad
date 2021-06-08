@@ -15,6 +15,7 @@ class FlutterUnionadStream {
   ///注册stream监听原生返回的信息
   static StreamSubscription initAdStream({FullVideoAdCallBack? fullVideoAdCallBack,
     InteractionAdCallBack? interactionAdCallBack,
+    FullScreenVideoAdInteractionCallBack? fullScreenVideoAdInteractionCallBack,
     RewardAdCallBack? rewardAdCallBack}) {
     StreamSubscription _adStream = adEventEvent.receiveBroadcastStream().listen((data) {
       switch (data[AdType.adType]){
@@ -61,6 +62,29 @@ class FlutterUnionadStream {
                break;
            }
            break;
+           /// 新模板渲染插屏
+        case AdType.fullScreenVideoAdInteraction:
+          switch (data[OnAdMethod.onAdMethod]) {
+            case OnAdMethod.onShow:
+              fullScreenVideoAdInteractionCallBack?.onShow!();
+              break;
+            case OnAdMethod.onClose:
+              fullScreenVideoAdInteractionCallBack?.onClose!();
+              break;
+            case OnAdMethod.onFail:
+              fullScreenVideoAdInteractionCallBack?.onFail!(data["error"]);
+              break;
+            case OnAdMethod.onClick:
+              fullScreenVideoAdInteractionCallBack?.onClick!();
+              break;
+            case OnAdMethod.onReady:
+              fullScreenVideoAdInteractionCallBack?.onReady!();
+              break;
+            case OnAdMethod.onUnReady:
+              fullScreenVideoAdInteractionCallBack?.onUnReady!();
+              break;
+          }
+          break;
           ///激励广告
         case AdType.rewardAd:
           switch (data[OnAdMethod.onAdMethod]) {
@@ -81,6 +105,12 @@ class FlutterUnionadStream {
               break;
             case OnAdMethod.onVerify:
               rewardAdCallBack?.onVerify!(data["rewardVerify"],data["rewardAmount"],data["rewardName"]);
+              break;
+            case OnAdMethod.onReady:
+              rewardAdCallBack?.onReady!();
+              break;
+            case OnAdMethod.onUnReady:
+              rewardAdCallBack?.onUnReady!();
               break;
           }
       }
