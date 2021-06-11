@@ -77,6 +77,12 @@ class FlutterUnionadStream {
             case OnAdMethod.onClick:
               fullScreenVideoAdInteractionCallBack?.onClick!();
               break;
+            case OnAdMethod.onSkip:
+              fullScreenVideoAdInteractionCallBack?.onSkip!();
+              break;
+            case OnAdMethod.onFinish:
+              fullScreenVideoAdInteractionCallBack?.onFinish!();
+              break;
             case OnAdMethod.onReady:
               fullScreenVideoAdInteractionCallBack?.onReady!();
               break;
