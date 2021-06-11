@@ -104,10 +104,7 @@ class _BannerAdViewState extends State<BannerAdView> {
     switch (call.method) {
       //显示广告
       case OnAdMethod.onShow:
-        if (widget.callBack != null) {
-          // widget.callBack(FlutterUnionadState(call.method, call.arguments));
-          widget.callBack?.onShow!();
-        }
+        widget.callBack?.onShow!();
         break;
       //广告加载失败
       case OnAdMethod.onFail:
@@ -116,10 +113,7 @@ class _BannerAdViewState extends State<BannerAdView> {
             _isShowAd = false;
           });
         }
-        if (widget.callBack != null) {
-          // widget.callBack(FlutterUnionadState(call.method, call.arguments));
-          widget.callBack?.onFail!(call.arguments);
-        }
+        widget.callBack?.onFail!(call.arguments);
         break;
       //广告不感兴趣
       case OnAdMethod.onDislike:
@@ -129,14 +123,11 @@ class _BannerAdViewState extends State<BannerAdView> {
           });
         }
         if (widget.callBack != null) {
-          // widget.callBack(FlutterUnionadState(call.method, call.arguments));
           widget.callBack?.onDislike!(call.arguments);
         }
         break;
       case OnAdMethod.onClick:
-        if (widget.callBack != null) {
-          widget.callBack?.onClick!();
-        }
+        widget.callBack?.onClick!();
         break;
     }
   }

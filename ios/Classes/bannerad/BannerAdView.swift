@@ -96,6 +96,7 @@ extension BannerAdView: BUNativeExpressBannerViewDelegate {
     
     public func nativeExpressBannerAdViewDidRemoved(_ bannerAdView: BUNativeExpressBannerView) {
         LogUtil.logInstance.printLog(message: "banner移除了")
+        self.disposeView()
     }
 }
 
