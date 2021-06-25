@@ -4,12 +4,10 @@ import android.app.Activity
 import android.content.Context
 import android.os.Looper
 import android.util.Log
-import com.bytedance.sdk.openadsdk.AdSlot
-import com.bytedance.sdk.openadsdk.TTAdConstant
-import com.bytedance.sdk.openadsdk.TTAdNative
-import com.bytedance.sdk.openadsdk.TTAdNative.RewardVideoAdListener
-import com.bytedance.sdk.openadsdk.TTRewardVideoAd
-import com.bytedance.sdk.openadsdk.TTRewardVideoAd.RewardAdInteractionListener
+import com.bykv.vk.openvk.TTRdVideoObject
+import com.bykv.vk.openvk.TTVfConstant
+import com.bykv.vk.openvk.TTVfNative
+import com.bykv.vk.openvk.VfSlot
 import com.gstory.flutter_unionad.FlutterUnionadEventPlugin
 import com.gstory.flutter_unionad.TTAdManagerHolder
 import com.gstory.flutter_unionad.UIUtils
@@ -27,8 +25,8 @@ object RewardVideoAd {
     var mContext: Context? = null
     var mActivity: Activity? = null
 
-    lateinit var mTTAdNative: TTAdNative
-    private var mttRewardVideoAd: TTRewardVideoAd? = null
+    lateinit var mTTAdNative: TTVfNative
+    private var mttRewardVideoAd: TTRdVideoObject? = null
     private var mIsLoaded = false //视频是否加载完成
 
     //参数
@@ -40,7 +38,7 @@ object RewardVideoAd {
     private var rewardName: String? = null
     private var rewardAmount: Int? = 0
     private var userID: String? = null
-    private var orientation: Int? = TTAdConstant.VERTICAL
+    private var orientation: Int? = TTVfConstant.VERTICAL
     private var mediaExtra: String? = null
 
     fun init(context: Context, mActivity: Activity, params: Map<String?, Any?>) {
@@ -65,7 +63,7 @@ object RewardVideoAd {
             this.mediaExtra = params["mediaExtra"] as String
         }
         val mTTAdManager = TTAdManagerHolder.get()
-        mTTAdNative = mTTAdManager.createAdNative(mContext)
+        mTTAdNative = mTTAdManager.createVfNative(mContext)
         loadRewardVideoAd()
     }
 
@@ -80,9 +78,9 @@ object RewardVideoAd {
                 "\nuserID $userID " +
                 "\norientation $orientation " +
                 "\nmediaExtra $mediaExtra ")
-        val adSlot: AdSlot
+        val adSlot: VfSlot
         if (mIsExpress) {
-            adSlot = AdSlot.Builder()
+            adSlot = VfSlot.Builder()
                     .setCodeId(mCodeId)
                     .setSupportDeepLink(supportDeepLink!!)
                     .setAdCount(1) //个性化模板广告需要设置期望个性化模板广告的大小,单位dp,激励视频场景，只要设置的值大于0即可
@@ -97,7 +95,7 @@ object RewardVideoAd {
                     .setMediaExtra(mediaExtra) //用户透传的信息，可不传
                     .build()
         } else {
-            adSlot = AdSlot.Builder()
+            adSlot = VfSlot.Builder()
                     .setCodeId(mCodeId)
                     .setSupportDeepLink(supportDeepLink!!)
                     .setAdCount(1)
@@ -111,13 +109,13 @@ object RewardVideoAd {
                     .build()
         }
 
-        mTTAdNative.loadRewardVideoAd(adSlot, object : RewardVideoAdListener {
+        mTTAdNative.loadRdVideoVr(adSlot, object : TTVfNative.RdVideoVfListener {
             override fun onError(code: Int, message: String) {
                 Log.e(TAG, "视频加载失败$code $message")
             }
 
             //视频广告加载后的视频文件资源缓存到本地的回调
-            override fun onRewardVideoCached() {
+            override fun onRdVideoCached() {
                 Log.e(TAG, "rewardVideoAd video cached")
 //                mIsLoaded = true
 //                mttRewardVideoAd?.showRewardVideoAd(mActivity, TTAdConstant.RitScenes.CUSTOMIZE_SCENES, "scenes_test")
@@ -127,25 +125,25 @@ object RewardVideoAd {
             }
 
             //视频广告素材加载到，如title,视频url等，不包括视频文件
-            override fun onRewardVideoAdLoad(ad: TTRewardVideoAd) {
-                Log.e(TAG, "rewardVideoAd loaded 广告类型：${getAdType(ad.rewardVideoAdType)}")
+            override fun onRdVideoVrLoad(ad: TTRdVideoObject) {
+                Log.e(TAG, "rewardVideoAd loaded 广告类型：${getAdType(ad.rdVideoVrType)}")
                 mIsLoaded = false
                 mttRewardVideoAd = ad
                 //mttRewardVideoAd.setShowDownLoadBar(false);
-                mttRewardVideoAd?.setRewardAdInteractionListener(object : RewardAdInteractionListener {
-                    override fun onAdShow() {
+                mttRewardVideoAd?.setRdVrInteractionListener(object : TTRdVideoObject.RdVrInteractionListener {
+                    override fun onShow() {
                         Log.e(TAG, "rewardVideoAd show")
                         var map: MutableMap<String, Any?> = mutableMapOf("adType" to "rewardAd","onAdMethod" to "onShow")
                         FlutterUnionadEventPlugin.sendContent(map)
                     }
 
-                    override fun onAdVideoBarClick() {
+                    override fun onVideoBarClick() {
                         Log.e(TAG, "rewardVideoAd bar click")
                         var map: MutableMap<String, Any?> = mutableMapOf("adType" to "rewardAd","onAdMethod" to "onClick")
                         FlutterUnionadEventPlugin.sendContent(map)
                     }
 
-                    override fun onAdClose() {
+                    override fun onClose() {
                         Log.e(TAG, "rewardVideoAd close")
                         var map: MutableMap<String, Any?> = mutableMapOf("adType" to "rewardAd","onAdMethod" to "onClose")
                         FlutterUnionadEventPlugin.sendContent(map)
@@ -157,11 +155,12 @@ object RewardVideoAd {
                         FlutterUnionadEventPlugin.sendContent(map)
                     }
 
+
                     override fun onVideoComplete() {
                         Log.e(TAG, "rewardVideoAd complete")
                     }
 
-                    override fun onRewardVerify(p0: Boolean, p1: Int, p2: String?, p3: Int, p4: String?) {
+                    override fun onRdVerify(p0: Boolean, p1: Int, p2: String?, p3: Int, p4: String?) {
                         Log.e(TAG, "verify: $p0 amount:$p1 name:$p2 p3:$p3 p4:$p4")
                         var map: MutableMap<String, Any?> = mutableMapOf("adType" to "rewardAd","onAdMethod" to "onVerify","rewardVerify" to p0, "rewardAmount" to p1, "rewardName" to p2)
                         FlutterUnionadEventPlugin.sendContent(map)
@@ -195,15 +194,15 @@ object RewardVideoAd {
             return
         }
         mIsLoaded = true
-        mttRewardVideoAd?.showRewardVideoAd(mActivity, TTAdConstant.RitScenes.CUSTOMIZE_SCENES, "scenes_test")
+        mttRewardVideoAd?.showRdVideoVr(mActivity, TTVfConstant.RitScenes.CUSTOMIZE_SCENES, "scenes_test")
         mttRewardVideoAd = null
     }
 
     private fun getAdType(type: Int): String? {
         when (type) {
-            TTAdConstant.AD_TYPE_COMMON_VIDEO -> return "普通激励视频，type=$type"
-            TTAdConstant.AD_TYPE_PLAYABLE_VIDEO -> return "Playable激励视频，type=$type"
-            TTAdConstant.AD_TYPE_PLAYABLE -> return "纯Playable，type=$type"
+            TTVfConstant.AD_TYPE_COMMON_VIDEO -> return "普通激励视频，type=$type"
+            TTVfConstant.AD_TYPE_PLAYABLE_VIDEO -> return "Playable激励视频，type=$type"
+            TTVfConstant.AD_TYPE_PLAYABLE -> return "纯Playable，type=$type"
         }
         return "未知类型+type=$type"
     }

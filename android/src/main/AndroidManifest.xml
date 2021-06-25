@@ -20,7 +20,11 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <application>
         <provider
-            android:name="com.bytedance.sdk.openadsdk.TTFileProvider"
+            android:name="com.bykv.vk.openvk.multipro.TTMultiProvider"
+            android:authorities="${applicationId}.TTMultiProvider"
+            android:exported="false" />
+        <provider
+            android:name="com.bykv.vk.openvk.TTFileProvider"
             android:authorities="${applicationId}.TTFileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -28,10 +32,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-        <provider
-            android:name="com.bytedance.sdk.openadsdk.multipro.TTMultiProvider"
-            android:authorities="${applicationId}.TTMultiProvider"
-            android:exported="false" />
+
         <activity
             android:name=".rewardvideoad.RewardVideoAd"
             android:theme="@android:style/Theme.Black.NoTitleBar"/>

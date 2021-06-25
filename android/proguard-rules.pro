@@ -1,6 +1,6 @@
 ## 穿山甲广告忽略
--keep class com.bytedance.sdk.openadsdk.** { *; }
--keep public interface com.bytedance.sdk.openadsdk.downloadnew.** {*;}
+-keep class com.bykv.vk.openvk.** { *; }
+-keep public interface com.bykv.vk.openvk.downloadnew.** {*;}
 -keep class com.pgl.sys.ces.* {*;}
 
 ## okhttp3忽略

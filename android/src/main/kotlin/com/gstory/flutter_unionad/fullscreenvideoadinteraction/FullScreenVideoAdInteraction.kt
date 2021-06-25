@@ -3,7 +3,9 @@ package com.gstory.flutter_unionad.fullscreenvideoadinteraction
 import android.app.Activity
 import android.content.Context
 import android.util.Log
-import com.bytedance.sdk.openadsdk.*
+import com.bykv.vk.openvk.TTFullVideoObject
+import com.bykv.vk.openvk.TTVfNative
+import com.bykv.vk.openvk.VfSlot
 import com.gstory.flutter_unionad.FlutterUnionadEventPlugin
 import com.gstory.flutter_unionad.TTAdManagerHolder
 import com.gstory.flutter_unionad.UIUtils
@@ -17,8 +19,8 @@ object FullScreenVideoAdInteraction {
     private var TAG = "FullScreenVideoExpressAd"
     var mContext: Context? = null
     var mActivity: Activity? = null
-    lateinit var mTTAdNative: TTAdNative
-    private var mttFullVideoAd: TTFullScreenVideoAd? = null
+    lateinit var mTTAdNative: TTVfNative
+    private var mttFullVideoAd: TTFullVideoObject? = null
 
     //广告所需参数
     private var mCodeId: String? = null
@@ -33,44 +35,45 @@ object FullScreenVideoAdInteraction {
         this.supportDeepLink = supportDeepLink
         this.orientation = orientation!!
         val mTTAdManager = TTAdManagerHolder.get()
-        mTTAdNative = mTTAdManager.createAdNative(context.applicationContext)
+        mTTAdNative = mTTAdManager.createVfNative(context.applicationContext)
         loadFullScreenVideoAd()
     }
 
     private fun loadFullScreenVideoAd() {
         Log.e(TAG, "广告位id  $mCodeId")
         //设置广告参数
-        val adSlot = AdSlot.Builder()
+        val adSlot = VfSlot.Builder()
                 .setCodeId(mCodeId) //广告位id
                 .setSupportDeepLink(supportDeepLink!!)
                 .setExpressViewAcceptedSize(500f, 500f)
                 .setOrientation(orientation)
                 .build()
         //加载全屏视频
-        mTTAdNative.loadFullScreenVideoAd(adSlot, object : TTAdNative.FullScreenVideoAdListener {
+        mTTAdNative.loadFullVideoVs(adSlot, object : TTVfNative.FullScreenVideoAdListener {
             override fun onError(code: Int, message: String) {
                 Log.e(TAG, "fullScreenVideoAd加载失败  $code === > $message")
                 var map: MutableMap<String, Any?> = mutableMapOf("adType" to "fullScreenVideoAdInteraction", "onAdMethod" to "onFail", "error" to "$code , $message")
                 FlutterUnionadEventPlugin.sendContent(map)
             }
 
-            override fun onFullScreenVideoAdLoad(ad: TTFullScreenVideoAd) {
+
+            override fun onFullVideoVsLoad(ad: TTFullVideoObject) {
                 Log.e(TAG, "fullScreenVideoAdInteraction loaded")
                 mttFullVideoAd = ad
-                mttFullVideoAd!!.setFullScreenVideoAdInteractionListener(object : TTFullScreenVideoAd.FullScreenVideoAdInteractionListener {
-                    override fun onAdShow() {
+                mttFullVideoAd!!.setFullScreenVideoAdInteractionListener(object : TTFullVideoObject.FullVideoVsInteractionListener {
+                    override fun onShow() {
                         Log.e(TAG, "fullScreenVideoAdInteraction show")
                         var map: MutableMap<String, Any?> = mutableMapOf("adType" to "fullScreenVideoAdInteraction", "onAdMethod" to "onShow")
                         FlutterUnionadEventPlugin.sendContent(map)
                     }
 
-                    override fun onAdVideoBarClick() {
+                    override fun onVideoBarClick() {
                         Log.e(TAG, "fullScreenVideoAd click")
                         var map: MutableMap<String, Any?> = mutableMapOf("adType" to "fullScreenVideoAdInteraction", "onAdMethod" to "onClick")
                         FlutterUnionadEventPlugin.sendContent(map)
                     }
 
-                    override fun onAdClose() {
+                    override fun onClose() {
                         Log.e(TAG, "fullScreenVideoAd close")
                         var map: MutableMap<String, Any?> = mutableMapOf("adType" to "fullScreenVideoAdInteraction", "onAdMethod" to "onClose")
                         FlutterUnionadEventPlugin.sendContent(map)
@@ -92,7 +95,7 @@ object FullScreenVideoAdInteraction {
                 FlutterUnionadEventPlugin.sendContent(map)
             }
 
-            override fun onFullScreenVideoCached() {
+            override fun onFullVideoCached() {
                 Log.e(TAG, "fullScreenVideoAdInteraction video cached")
             }
         })
@@ -104,6 +107,6 @@ object FullScreenVideoAdInteraction {
             FlutterUnionadEventPlugin.sendContent(map)
             return
         }
-        mttFullVideoAd!!.showFullScreenVideoAd(mActivity)
+        mttFullVideoAd!!.showFullVideoVs(mActivity)
     }
 }
