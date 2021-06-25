@@ -47,6 +47,7 @@ public class RewardedVideoAd : NSObject{
             SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
             return
         }
+        UIApplication.shared.setStatusBarHidden(true, with: UIStatusBarAnimation.none)
         self.bURewardedVideoAd!.show(fromRootViewController: MyUtils.getVC())
         LogUtil.logInstance.printLog(message: "激励广告加载成功")
         let map : NSDictionary = ["adType":"rewardAd",
@@ -64,6 +65,7 @@ extension RewardedVideoAd: BUNativeExpressRewardedVideoAdDelegate {
     
     public func nativeExpressRewardedVideoAdDidClose(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
         LogUtil.logInstance.printLog(message: "激励广告关闭")
+        UIApplication.shared.setStatusBarHidden(false, with: UIStatusBarAnimation.none)
         let map : NSDictionary = ["adType":"rewardAd",
                                   "onAdMethod":"onClose"]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
