@@ -115,7 +115,6 @@ extension RewardedVideoAd: BUNativeExpressRewardedVideoAdDelegate {
     
     public func nativeExpressRewardedVideoAdDidPlayFinish(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd, didFailWithError error: Error?) {
         LogUtil.logInstance.printLog(message: "激励广告完成")
-        self.bURewardedVideoAd = nil;
     }
     
     public func nativeExpressRewardedVideoAdDidClick(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {

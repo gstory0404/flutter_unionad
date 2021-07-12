@@ -57,5 +57,5 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 //    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
-    implementation 'com.pangle.cn:ads-sdk:3.6.1.4'
+    implementation 'com.pangle.cn:ads-sdk:+'
 }
