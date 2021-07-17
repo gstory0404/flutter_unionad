@@ -177,7 +177,7 @@ class _IndexPageState extends State<IndexPage> {
             Container(
               alignment: Alignment.center,
               height: 50,
-              child: Text("穿山甲初始化>>>>>> ${_init == null ? "成功" : "失败"}"),
+              child: Text("穿山甲初始化>>>>>> ${_init != null ? "成功" : "失败"}"),
             ),
             Container(
               alignment: Alignment.center,
