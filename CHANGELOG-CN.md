@@ -59,4 +59,4 @@
         
 ## 1.0.2
 
-* TODO: 新增androdid 隐私权限设置             
+* TODO: 新增android 隐私权限设置             
