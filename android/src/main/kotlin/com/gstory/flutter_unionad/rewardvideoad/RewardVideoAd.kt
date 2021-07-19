@@ -114,6 +114,8 @@ object RewardVideoAd {
         mTTAdNative.loadRewardVideoAd(adSlot, object : RewardVideoAdListener {
             override fun onError(code: Int, message: String) {
                 Log.e(TAG, "视频加载失败$code $message")
+                var map: MutableMap<String, Any?> = mutableMapOf("adType" to "rewardAd","onAdMethod" to "onFail" , "error" to "$code $message")
+                FlutterUnionadEventPlugin.sendContent(map)
             }
 
             //视频广告加载后的视频文件资源缓存到本地的回调
