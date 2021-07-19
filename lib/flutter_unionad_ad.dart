@@ -238,3 +238,41 @@ Future<bool> loadFullScreenVideoAdInteraction(
 Future<bool> showFullScreenVideoAdInteraction() async {
   return await _channel.invokeMethod("showFullScreenVideoAdInteraction", {});
 }
+
+///隐私信息控制开关 只有android起效
+///
+///isCanUseLocation 是否允许SDK主动使用地理位置信息 true可以获取，false禁止获取。默认为true
+///
+///lat 当isCanUseLocation=false时，可传入地理位置信息，穿山甲sdk使用您传入的地理位置信息lat
+///
+///lon 当isCanUseLocation=false时，可传入地理位置信息，穿山甲sdk使用您传入的地理位置信息lon
+///
+///isCanUsePhoneState 是否允许SDK主动使用手机硬件参数，如：imei
+///
+///imei 当isCanUsePhoneState=false时，可传入imei信息，穿山甲sdk使用您传入的imei信息
+///
+///isCanUseWifiState 是否允许SDK主动使用ACCESS_WIFI_STATE权限
+///
+///isCanUseWriteExternal 是否允许SDK主动使用WRITE_EXTERNAL_STORAGE权限
+///
+///oaid 开发者可以传入oaid
+Future<bool> andridPrivacy(
+    {bool? isCanUseLocation,
+    double? lat,
+    double? lon,
+    bool? isCanUsePhoneState,
+    String? imei,
+    bool? isCanUseWifiState,
+    bool? isCanUseWriteExternal,
+    String? oaid}) async {
+  return await _channel.invokeMethod("andridPrivacy", {
+    "isCanUseLocation": isCanUseLocation ?? true,
+    "lat": lat ?? 0.0,
+    "lon": lon ?? 0.0,
+    "isCanUsePhoneState": isCanUsePhoneState ?? true,
+    "imei": imei ?? "",
+    "isCanUseWifiState": isCanUseWifiState ?? true,
+    "isCanUseWriteExternal": isCanUseWriteExternal ?? true,
+    "oaid": oaid ?? "",
+  });
+}

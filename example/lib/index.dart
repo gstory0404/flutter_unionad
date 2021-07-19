@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_unionad/flutter_unionad.dart' as FlutterUnionad;
@@ -48,25 +49,20 @@ class _IndexPageState extends State<IndexPage> {
         },
       ),
       //插屏广告回调
-      interactionAdCallBack: FlutterUnionad.InteractionAdCallBack(
-        onShow: (){
-          print("插屏广告展示");
-        },
-        onClose: (){
-          print("插屏广告关闭");
-        },
-        onFail: (error){
-          print("插屏广告失败 $error");
-        },
-        onClick: (){
-          print("插屏广告点击");
-        },
-        onDislike: (message){
-          print("插屏广告不喜欢  $message");
-        }
-      ),
+      interactionAdCallBack: FlutterUnionad.InteractionAdCallBack(onShow: () {
+        print("插屏广告展示");
+      }, onClose: () {
+        print("插屏广告关闭");
+      }, onFail: (error) {
+        print("插屏广告失败 $error");
+      }, onClick: () {
+        print("插屏广告点击");
+      }, onDislike: (message) {
+        print("插屏广告不喜欢  $message");
+      }),
       // 新模板渲染插屏广告回调
-      fullScreenVideoAdInteractionCallBack: FlutterUnionad.FullScreenVideoAdInteractionCallBack(
+      fullScreenVideoAdInteractionCallBack:
+          FlutterUnionad.FullScreenVideoAdInteractionCallBack(
         onShow: () {
           print("新模板渲染插屏广告显示");
         },
@@ -85,46 +81,47 @@ class _IndexPageState extends State<IndexPage> {
         onClose: () {
           print("新模板渲染插屏广告关闭");
         },
-        onReady: () async{
+        onReady: () async {
           print("新模板渲染插屏广告预加载准备就绪");
           //显示新模板渲染插屏
           await FlutterUnionad.showFullScreenVideoAdInteraction();
         },
-        onUnReady: (){
+        onUnReady: () {
           print("新模板渲染插屏广告预加载未准备就绪");
         },
       ),
       //激励广告
       rewardAdCallBack: FlutterUnionad.RewardAdCallBack(
-        onShow: (){
+        onShow: () {
           print("激励广告显示");
         },
-        onClick: (){
+        onClick: () {
           print("激励广告点击");
         },
-        onFail: (error){
+        onFail: (error) {
           print("激励广告失败 $error");
         },
-        onClose: (){
+        onClose: () {
           print("激励广告关闭");
         },
-        onSkip: (){
+        onSkip: () {
           print("激励广告跳过");
         },
-        onReady: () async{
+        onReady: () async {
           print("激励广告预加载准备就绪");
           await FlutterUnionad.showRewardVideoAd();
         },
-        onUnReady: (){
+        onUnReady: () {
           print("激励广告预加载未准备就绪");
         },
-        onVerify: (rewardVerify,rewardAmount,rewardName){
+        onVerify: (rewardVerify, rewardAmount, rewardName) {
           print("激励广告奖励  $rewardVerify   $rewardAmount  $rewardName");
         },
       ),
     );
   }
 
+  //注册
   void _initRegister() async {
     _init = await FlutterUnionad.register(
         androidAppId: "5098580",
@@ -151,6 +148,22 @@ class _IndexPageState extends State<IndexPage> {
         ]); //允许直接下载的网络状态集合 选填
     _version = await FlutterUnionad.getSDKVersion();
     setState(() {});
+  }
+
+  //隐私权限
+  void _privacy() async {
+    if (Platform.isAndroid) {
+      await FlutterUnionad.andridPrivacy(
+        isCanUseLocation: false, //是否允许SDK主动使用地理位置信息 true可以获取，false禁止获取。默认为true
+        lat: 1.0,//当isCanUseLocation=false时，可传入地理位置信息，穿山甲sdk使用您传入的地理位置信息lat
+        lon: 1.0,//当isCanUseLocation=false时，可传入地理位置信息，穿山甲sdk使用您传入的地理位置信息lon
+        isCanUsePhoneState: false,//是否允许SDK主动使用手机硬件参数，如：imei
+        imei: "123",//当isCanUsePhoneState=false时，可传入imei信息，穿山甲sdk使用您传入的imei信息
+        isCanUseWifiState: false,//是否允许SDK主动使用ACCESS_WIFI_STATE权限
+        isCanUseWriteExternal: false,//是否允许SDK主动使用WRITE_EXTERNAL_STORAGE权限
+        oaid: "111",//开发者可以传入oaid
+      );
+    }
   }
 
   @override
@@ -183,6 +196,15 @@ class _IndexPageState extends State<IndexPage> {
               alignment: Alignment.center,
               height: 50,
               child: Text("穿山甲SDK版本号>>>>>> v$_version"),
+            ),
+            //隐私权限
+            MaterialButton(
+              color: Colors.blue,
+              textColor: Colors.white,
+              child: new Text('隐私权限控制'),
+              onPressed: () {
+                _privacy();
+              },
             ),
             //请求权限
             MaterialButton(

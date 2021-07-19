@@ -2,7 +2,6 @@ package com.gstory.flutter_unionad
 
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.text.TextUtils
 import android.util.Log
 import androidx.annotation.NonNull
@@ -90,6 +89,18 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
                     result.success(true)
                 }
             }
+            //隐私信息控制开关
+        }else if (call.method == "andridPrivacy") {
+            var arguments = call.arguments as Map<String?, Any?>
+            val isCanUseLocation = call.argument<Boolean>("isCanUseLocation")
+            val lat = call.argument<Double>("lat")
+            val lon = call.argument<Double>("lon")
+            val isCanUsePhoneState = call.argument<Boolean>("isCanUsePhoneState")
+            val imei = call.argument<String>("imei")
+            val isCanUseWifiState = call.argument<Boolean>("isCanUseWifiState")
+            val isCanUseWriteExternal = call.argument<Boolean>("isCanUseWriteExternal")
+            val oaid = call.argument<String>("oaid")
+            TTAdManagerHolder.updataConfig(isCanUseLocation!!,lat!!,lon!!,isCanUsePhoneState!!,imei!!,isCanUseWifiState!!,isCanUseWriteExternal!!,oaid!!)
             //请求权限
         } else if (call.method == "requestPermissionIfNecessary") {
             val mTTAdManager = TTAdManagerHolder.get()

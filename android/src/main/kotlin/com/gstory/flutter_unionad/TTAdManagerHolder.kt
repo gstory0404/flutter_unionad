@@ -1,10 +1,10 @@
 package com.gstory.flutter_unionad
 
 import android.content.Context
-import com.bytedance.sdk.openadsdk.TTAdConfig
-import com.bytedance.sdk.openadsdk.TTAdConstant
-import com.bytedance.sdk.openadsdk.TTAdManager
-import com.bytedance.sdk.openadsdk.TTAdSdk
+import android.util.Log
+import com.bytedance.sdk.openadsdk.*
+import com.gstory.flutter_unionad.fullscreenvideoadinteraction.FullScreenVideoAdInteraction
+import java.util.*
 
 /**
  * @Description:
@@ -49,5 +49,51 @@ object TTAdManagerHolder {
                 .supportMultiProcess(supportMultiProcess) //是否支持多进程
                 .needClearTaskReset() //.httpStack(new MyOkStack3())//自定义网络库，demo中给出了okhttp3版本的样例，其余请自行开发或者咨询工作人员。
                 .build()
+    }
+
+    //隐私权限控制
+    fun updataConfig(isCanUseLocation: Boolean, lat: Double, lon: Double, isCanUsePhoneState: Boolean, imei: String, isCanUseWifiState: Boolean, isCanUseWriteExternal: Boolean, oaid: String) {
+        TTAdSdk.updateAdConfig(buildConfig2(isCanUseLocation,lat,lon,isCanUsePhoneState,imei,isCanUseWifiState,isCanUseWriteExternal,oaid))
+    }
+
+    private fun buildConfig2(isCanUseLocation: Boolean, lat: Double, lon: Double, isCanUsePhoneState: Boolean, imei: String, isCanUseWifiState: Boolean, isCanUseWriteExternal: Boolean, oaid: String): TTAdConfig {
+        Log.e("隐私控制", "isCanUseLocation=$isCanUseLocation\n" +
+                "lat=$lat\n" +
+                "lon=$lon\n" +
+                "isCanUsePhoneState=$isCanUsePhoneState\n" +
+                "imei=$imei\n" +
+                "isCanUseWifiState=$isCanUseWifiState\n" +
+                "isCanUseWriteExternal=$isCanUseWriteExternal\n" +
+                "oaid=$oaid\n")
+        return TTAdConfig.Builder()
+                .customController(object : TTCustomController() {
+                    override fun isCanUseLocation(): Boolean {
+                        return isCanUseLocation
+                    }
+
+                    override fun getTTLocation(): TTLocation {
+                        return TTLocation(lat,lon)
+                    }
+
+                    override fun isCanUsePhoneState(): Boolean {
+                        return isCanUsePhoneState
+                    }
+
+                    override fun getDevImei(): String {
+                        return imei
+                    }
+
+                    override fun isCanUseWifiState(): Boolean {
+                        return isCanUseWifiState
+                    }
+
+                    override fun isCanUseWriteExternal(): Boolean {
+                        return isCanUseWriteExternal
+                    }
+
+                    override fun getDevOaid(): String {
+                        return oaid
+                    }
+                }).build()
     }
 }
