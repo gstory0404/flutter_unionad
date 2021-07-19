@@ -450,6 +450,22 @@ FlutterUnionad.FlutterUnionadStream.initAdStream(
     );
 ```
 
+#### 12、Android隐私权限控制
+```dart
+if (Platform.isAndroid) {
+      await FlutterUnionad.andridPrivacy(
+        isCanUseLocation: false, //是否允许SDK主动使用地理位置信息 true可以获取，false禁止获取。默认为true
+        lat: 1.0,//当isCanUseLocation=false时，可传入地理位置信息，穿山甲sdk使用您传入的地理位置信息lat
+        lon: 1.0,//当isCanUseLocation=false时，可传入地理位置信息，穿山甲sdk使用您传入的地理位置信息lon
+        isCanUsePhoneState: false,//是否允许SDK主动使用手机硬件参数，如：imei
+        imei: "123",//当isCanUsePhoneState=false时，可传入imei信息，穿山甲sdk使用您传入的imei信息
+        isCanUseWifiState: false,//是否允许SDK主动使用ACCESS_WIFI_STATE权限
+        isCanUseWriteExternal: false,//是否允许SDK主动使用WRITE_EXTERNAL_STORAGE权限
+        oaid: "111",//开发者可以传入oaid
+      );
+    }
+```
+
 ## 版本更新
 
 [更新日志](https://github.com/gstory0404/flutter_unionad/blob/master/CHANGELOG-CN.md)
