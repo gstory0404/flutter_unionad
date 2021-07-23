@@ -239,29 +239,6 @@ await FlutterUnionad.interactionAd(
                   expressNum: 2, //一次请求广告数量 大于1小于3 必填
                 );
 ```
-插屏广告结果回调
-```Dart
-FlutterUnionad.FlutterUnionadStream.initAdStream(
-      //插屏广告回调
-      interactionAdCallBack: FlutterUnionad.InteractionAdCallBack(
-        onShow: (){
-          print("插屏广告展示");
-        },
-        onClose: (){
-          print("插屏广告关闭");
-        },
-        onFail: (error){
-          print("插屏广告失败 $error");
-        },
-        onClick: (){
-          print("插屏广告点击");
-        },
-        onDislike: (message){
-          print("插屏广告不喜欢  $message");
-        }
-      ),
-    );
-```
 
 
 #### 8、激励视频广告
@@ -374,32 +351,6 @@ FlutterUnionad.fullScreenVideoAd(
                   supportDeepLink: true, //是否支持 DeepLink 选填
                   orientation: FlutterUnionad.AdOrientation.VERTICAL, //视屏方向 选填
                 );
-```
-全屏广告结果监听
-
-```Dart
-FlutterUnionad.FlutterUnionadStream.initAdStream(
-      fullVideoAdCallBack: FlutterUnionad.FullVideoAdCallBack(
-        onShow: () {
-          print("全屏广告显示");
-        },
-        onSkip: () {
-          print("全屏广告跳过");
-        },
-        onClick: () {
-          print("全屏广告点击");
-        },
-        onFinish: () {
-          print("全屏广告结束");
-        },
-        onFail: (error) {
-          print("全屏广告错误 $error");
-        },
-        onClose: () {
-          print("全屏广告关闭");
-        },
-      ),
-    );
 ```
 
 #### 11、新模版渲染插屏广告  分为全屏和插屏
