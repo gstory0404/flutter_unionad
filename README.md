@@ -34,8 +34,11 @@ flutter_unionad: ^1.0.2
 import 'package:flutter_unionad/flutter_unionad.dart' as FlutterUnionad;
 ```
 #### 2、Android
-aar文件已集成进插件中无需额外配置，只需要在android目录中AndroidManifest.xml配置
+SDK已配置插件中无需额外配置，只需要在android目录中AndroidManifest.xml配置
 ```Java
+<manifest ···
+    xmlns:tools="http://schemas.android.com/tools"
+    ···>
   <application
         tools:replace="android:label">
 ```
