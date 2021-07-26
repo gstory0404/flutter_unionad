@@ -1,13 +1,13 @@
 # 字节跳动穿山甲广告 Flutter版本
 
 <p>
-<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.0.2-success></a>
+<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.0.3-success></a>
 </p>
 
 ![image](https://github.com/gstory0404/flutter_unionad/blob/master/image/demo.gif)
 
 ## 简介
-  flutter_unioad是一款集成了穿山甲Android和iOSSDK的Flutter插件,方便直接调用穿山甲SDK方法开发，0.1.1开始已支持null safety
+  flutter_unioad是一款集成了穿山甲Android和iOSSDK的Flutter插件,方便直接调用穿山甲SDK方法开发，已支持null safety
   
 ## 官方文档
 * [Android](https://partner.oceanengine.com/union/media/union/download/detail?id=4&osType=android)
@@ -27,7 +27,7 @@
 ## 集成步骤
 #### 1、pubspec.yaml
 ```Dart
-flutter_unionad: ^1.0.2
+flutter_unionad: ^1.0.3
 ```
 引入
 ```Dart
