@@ -59,4 +59,8 @@
         
 ## 1.0.2
 
-* TODO: 新增android 隐私权限设置             
+* TODO: 新增android 隐私权限设置
+
+## 1.0.3
+
+* TODO:android sdk指定3.6.1.8,官方Maven仓库库有问题

@@ -59,3 +59,7 @@
 ## 1.0.2
 
 * TODO: fix bug
+
+## 1.0.3
+
+* TODO: fix bug
