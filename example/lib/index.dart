@@ -146,6 +146,7 @@ class _IndexPageState extends State<IndexPage> {
           FlutterUnionad.NetCode.NETWORK_STATE_4G,
           FlutterUnionad.NetCode.NETWORK_STATE_WIFI
         ]); //允许直接下载的网络状态集合 选填
+    print("sdk初始化 $_init");
     _version = await FlutterUnionad.getSDKVersion();
     setState(() {});
   }

@@ -5,6 +5,7 @@ import android.content.Context
 import android.text.TextUtils
 import android.util.Log
 import androidx.annotation.NonNull
+import com.bytedance.sdk.openadsdk.TTAdSdk
 import com.gstory.flutter_unionad.fullscreenvideoAd.FullScreenVideoExpressAd
 import com.gstory.flutter_unionad.fullscreenvideoadinteraction.FullScreenVideoAdInteraction
 import com.gstory.flutter_unionad.interactionad.InteractionExpressAd
@@ -85,8 +86,24 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
                 if (appName == null || appName.trim { it <= ' ' }.isEmpty()) {
                     result.error("600", "appName can't be null", null)
                 } else {
-                    TTAdManagerHolder.init(applicationContext!!, appId, useTextureView!!, appName, allowShowNotify!!, allowShowPageWhenScreenLock!!, debug!!, supportMultiProcess!!, directDownloadNetworkType)
-                    result.success(true)
+                    TTAdManagerHolder.init(applicationContext!!, appId, useTextureView!!, appName, allowShowNotify!!, allowShowPageWhenScreenLock!!, debug!!, supportMultiProcess!!, directDownloadNetworkType,
+                    object : TTAdSdk.InitCallback{
+                        override fun success() {
+                            Log.e("初始化","成功")
+                            mActivity!!.runOnUiThread(Runnable {
+                                result.success(true)
+                            })
+                        }
+
+                        override fun fail(p0: Int, p1: String?) {
+                            Log.e("初始化","失败 $p0  $p1")
+                            mActivity!!.runOnUiThread(Runnable {
+                                result.success(false)
+                            })
+                        }
+
+                    })
+
                 }
             }
             //隐私信息控制开关

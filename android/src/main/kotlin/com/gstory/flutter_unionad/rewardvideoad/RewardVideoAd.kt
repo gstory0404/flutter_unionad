@@ -121,9 +121,10 @@ object RewardVideoAd {
             //视频广告加载后的视频文件资源缓存到本地的回调
             override fun onRewardVideoCached() {
                 Log.e(TAG, "rewardVideoAd video cached")
-//                mIsLoaded = true
-//                mttRewardVideoAd?.showRewardVideoAd(mActivity, TTAdConstant.RitScenes.CUSTOMIZE_SCENES, "scenes_test")
-//                mttRewardVideoAd = null
+            }
+
+            override fun onRewardVideoCached(p0: TTRewardVideoAd?) {
+                Log.e(TAG, "rewardVideoAd video cached2")
                 var map: MutableMap<String, Any?> = mutableMapOf("adType" to "rewardAd","onAdMethod" to "onReady")
                 FlutterUnionadEventPlugin.sendContent(map)
             }
@@ -133,7 +134,6 @@ object RewardVideoAd {
                 Log.e(TAG, "rewardVideoAd loaded 广告类型：${getAdType(ad.rewardVideoAdType)}")
                 mIsLoaded = false
                 mttRewardVideoAd = ad
-                //mttRewardVideoAd.setShowDownLoadBar(false);
                 mttRewardVideoAd?.setRewardAdInteractionListener(object : RewardAdInteractionListener {
                     override fun onAdShow() {
                         Log.e(TAG, "rewardVideoAd show")
@@ -175,14 +175,6 @@ object RewardVideoAd {
                         FlutterUnionadEventPlugin.sendContent(map)
                     }
                 })
-//                mttRewardVideoAd!!.setDownloadListener(object : TTAppDownloadListener {
-//                    override fun onIdle() {}
-//                    override fun onDownloadActive(totalBytes: Long, currBytes: Long, fileName: String, appName: String) {}
-//                    override fun onDownloadPaused(totalBytes: Long, currBytes: Long, fileName: String, appName: String) {}
-//                    override fun onDownloadFailed(totalBytes: Long, currBytes: Long, fileName: String, appName: String) {}
-//                    override fun onDownloadFinished(totalBytes: Long, fileName: String, appName: String) {}
-//                    override fun onInstalled(fileName: String, appName: String) {}
-//                })
             }
         })
     }

@@ -20,14 +20,10 @@ object TTAdManagerHolder {
         return TTAdSdk.getAdManager()
     }
 
-    fun init(context: Context, appId: String, useTextureView: Boolean, appName: String, allowShowNotify: Boolean, allowShowPageWhenScreenLock: Boolean, debug: Boolean, supportMultiProcess: Boolean, directDownloadNetworkType: List<Int>) {
-        doInit(context, appId, useTextureView, appName, allowShowNotify, allowShowPageWhenScreenLock, debug, supportMultiProcess, directDownloadNetworkType)
-    }
-
     //step1:接入网盟广告sdk的初始化操作，详情见接入文档和穿山甲平台说明
-    private fun doInit(context: Context, appId: String, useTextureView: Boolean, appName: String, allowShowNotify: Boolean, allowShowPageWhenScreenLock: Boolean, debug: Boolean, supportMultiProcess: Boolean, directDownloadNetworkType: List<Int>) {
+    fun init(context: Context, appId: String, useTextureView: Boolean, appName: String, allowShowNotify: Boolean, allowShowPageWhenScreenLock: Boolean, debug: Boolean, supportMultiProcess: Boolean, directDownloadNetworkType: List<Int>,callback:TTAdSdk.InitCallback) {
         if (!sInit) {
-            TTAdSdk.init(context, buildConfig(context, appId, useTextureView, appName, allowShowNotify, allowShowPageWhenScreenLock, debug, supportMultiProcess, directDownloadNetworkType))
+            TTAdSdk.init(context, buildConfig(context, appId, useTextureView, appName, allowShowNotify, allowShowPageWhenScreenLock, debug, supportMultiProcess, directDownloadNetworkType),callback)
             sInit = true
         }
     }

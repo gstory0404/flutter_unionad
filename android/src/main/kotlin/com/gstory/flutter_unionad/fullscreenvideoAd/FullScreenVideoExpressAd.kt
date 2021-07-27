@@ -96,6 +96,10 @@ object FullScreenVideoExpressAd {
             override fun onFullScreenVideoCached() {
                 Log.e(TAG, "fullScreenVideoAd video cached")
             }
+
+            override fun onFullScreenVideoCached(p0: TTFullScreenVideoAd?) {
+                Log.e(TAG, "fullScreenVideoAd video cached2")
+            }
         })
     }
 }
