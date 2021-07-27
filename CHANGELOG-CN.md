@@ -63,4 +63,10 @@
 
 ## 1.0.3
 
-* TODO:android sdk指定3.6.1.8,官方Maven仓库库有问题
+* TODO: android sdk指定3.6.1.8,官方Maven仓库库有问题
+
+## 1.0.4
+
+* TODO: 1、优化andorid隐私权限逻辑
+        2、andorid sdk升级为3.8.0.6
+        3、ios sdk升级为3.8.0.2

@@ -1,7 +1,7 @@
 # 字节跳动穿山甲广告 Flutter版本
 
 <p>
-<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.0.3-success></a>
+<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.0.4-success></a>
 </p>
 
 ![image](https://github.com/gstory0404/flutter_unionad/blob/master/image/demo.gif)
@@ -27,7 +27,7 @@
 ## 集成步骤
 #### 1、pubspec.yaml
 ```Dart
-flutter_unionad: ^1.0.3
+flutter_unionad: ^1.0.4
 ```
 引入
 ```Dart
@@ -42,6 +42,7 @@ SDK已配置插件中无需额外配置，只需要在android目录中AndroidMan
   <application
         tools:replace="android:label">
 ```
+Android sdk版本3.8.0.6
 
 #### 3、IOS
 SDK已配置插件中，其余根据SDK文档配置，因为使用PlatformView，在Info.plist加入
@@ -49,6 +50,7 @@ SDK已配置插件中，其余根据SDK文档配置，因为使用PlatformView�
  <key>io.flutter.embedded_views_preview</key>
     <true/>
 ```
+IOS sdk版本3.8.0.2
 
 ## 使用
 
@@ -405,7 +407,7 @@ FlutterUnionad.FlutterUnionadStream.initAdStream(
 ```
 
 #### 12、Android隐私权限控制
-注：必须在FlutterUnionad.register前使用才生效
+注：必须在FlutterUnionad.register初始化前使用才生效
 ```dart
 if (Platform.isAndroid) {
       await FlutterUnionad.andridPrivacy(
