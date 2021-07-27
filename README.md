@@ -405,6 +405,7 @@ FlutterUnionad.FlutterUnionadStream.initAdStream(
 ```
 
 #### 12、Android隐私权限控制
+注：必须在FlutterUnionad.register前使用才生效
 ```dart
 if (Platform.isAndroid) {
       await FlutterUnionad.andridPrivacy(

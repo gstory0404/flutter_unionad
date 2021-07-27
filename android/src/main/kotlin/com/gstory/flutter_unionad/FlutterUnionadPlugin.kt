@@ -117,7 +117,7 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
             val isCanUseWifiState = call.argument<Boolean>("isCanUseWifiState")
             val isCanUseWriteExternal = call.argument<Boolean>("isCanUseWriteExternal")
             val oaid = call.argument<String>("oaid")
-            TTAdManagerHolder.updataConfig(isCanUseLocation!!,lat!!,lon!!,isCanUsePhoneState!!,imei!!,isCanUseWifiState!!,isCanUseWriteExternal!!,oaid!!)
+            TTAdManagerHolder.privacyConfig(isCanUseLocation!!,lat!!,lon!!,isCanUsePhoneState!!,imei!!,isCanUseWifiState!!,isCanUseWriteExternal!!,oaid!!)
             //请求权限
         } else if (call.method == "requestPermissionIfNecessary") {
             val mTTAdManager = TTAdManagerHolder.get()

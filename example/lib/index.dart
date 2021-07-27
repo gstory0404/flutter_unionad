@@ -26,6 +26,7 @@ class _IndexPageState extends State<IndexPage> {
   @override
   void initState() {
     super.initState();
+    _privacy();
     _initRegister();
     _adViewStream = FlutterUnionad.FlutterUnionadStream.initAdStream(
       fullVideoAdCallBack: FlutterUnionad.FullVideoAdCallBack(
@@ -197,15 +198,6 @@ class _IndexPageState extends State<IndexPage> {
               alignment: Alignment.center,
               height: 50,
               child: Text("穿山甲SDK版本号>>>>>> v$_version"),
-            ),
-            //隐私权限
-            MaterialButton(
-              color: Colors.blue,
-              textColor: Colors.white,
-              child: new Text('隐私权限控制'),
-              onPressed: () {
-                _privacy();
-              },
             ),
             //请求权限
             MaterialButton(
