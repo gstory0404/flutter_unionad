@@ -70,3 +70,7 @@
 * TODO: 1、优化andorid隐私权限逻辑
         2、andorid sdk升级为3.8.0.6
         3、ios sdk升级为3.8.0.2
+
+## 1.0.5
+
+* TODO: 1、降低android gradle版本

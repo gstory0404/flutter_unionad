@@ -1,7 +1,7 @@
 # 字节跳动穿山甲广告 Flutter版本
 
 <p>
-<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.0.4-success></a>
+<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.0.5-success></a>
 </p>
 
 ![image](https://github.com/gstory0404/flutter_unionad/blob/master/image/demo.gif)
@@ -27,14 +27,14 @@
 ## 集成步骤
 #### 1、pubspec.yaml
 ```Dart
-flutter_unionad: ^1.0.4
+flutter_unionad: ^1.0.5
 ```
 引入
 ```Dart
 import 'package:flutter_unionad/flutter_unionad.dart' as FlutterUnionad;
 ```
 #### 2、Android
-SDK已配置插件中无需额外配置，只需要在android目录中AndroidManifest.xml配置
+SDK(3.8.0.6)已配置插件中无需额外配置，只需要在android目录中AndroidManifest.xml配置
 ```Java
 <manifest ···
     xmlns:tools="http://schemas.android.com/tools"
@@ -42,15 +42,13 @@ SDK已配置插件中无需额外配置，只需要在android目录中AndroidMan
   <application
         tools:replace="android:label">
 ```
-Android sdk版本3.8.0.6
 
 #### 3、IOS
-SDK已配置插件中，其余根据SDK文档配置，因为使用PlatformView，在Info.plist加入
+SDK(3.8.0.2)已配置插件中，其余根据SDK文档配置，因为使用PlatformView，在Info.plist加入
 ```
  <key>io.flutter.embedded_views_preview</key>
     <true/>
 ```
-IOS sdk版本3.8.0.2
 
 ## 使用
 
