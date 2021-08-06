@@ -70,7 +70,7 @@ class _NativeExpressAdPageState extends State<NativeExpressAdPage> {
               iosCodeId: "945407034",
               supportDeepLink: true,
               expressViewWidth: 270,
-              expressViewHeight: 480,
+              expressViewHeight:400,
               expressNum: 3,
             ), //个性化模板信息流广告
             FlutterUnionad.nativeAdView(

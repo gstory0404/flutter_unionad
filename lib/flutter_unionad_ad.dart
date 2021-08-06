@@ -4,7 +4,6 @@ import 'package:flutter_unionad/bannerad/BannerAdView.dart';
 import 'package:flutter_unionad/drawfeedad/DrawFeedAdView.dart';
 import 'package:flutter_unionad/flutter_unionad.dart';
 import 'package:flutter_unionad/flutter_unionad_code.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_unionad/nativead/NativeAdView.dart';
 import 'package:flutter_unionad/splashad/SplashAdView.dart';
 
@@ -16,7 +15,26 @@ const MethodChannel _channel = const MethodChannel('flutter_unionad');
 const EventChannel adEventEvent =
     EventChannel("com.gstory.flutter_unionad/adevent");
 
-///sdk注册初始化
+/// # SDK注册初始化
+///
+///[androidAppId] 穿山甲广告 Android appid 必填
+///
+///[androidAppId] 穿山甲广告 ios appid 必填
+///
+///[useTextureView] 使用TextureView控件播放视频,默认为SurfaceView,当有SurfaceView冲突的场景，可以使用TextureView 选填
+///
+///[appname] 必填
+///
+///[allowShowNotify] 是否允许sdk展示通知栏提示 选填
+///
+///[allowShowPageWhenScreenLock] 是否在锁屏场景支持展示广告落地页 选填
+///
+///[debug] 是否显示debug日志
+///
+///[supportMultiProcess] 是否支持多进程，true支持 选填
+///
+///[directDownloadNetworkType] 允许直接下载的网络状态集合 选填
+///
 Future<bool> register({
   required String iosAppId,
   required String androidAppId,
@@ -50,17 +68,36 @@ Future<bool> register({
   });
 }
 
-///请求权限
+/// # 请求权限
 Future<int> requestPermissionIfNecessary() async {
   return await _channel.invokeMethod("requestPermissionIfNecessary");
 }
 
-///获取SDK版本号
+/// # 获取SDK版本号
 Future<String> getSDKVersion() async {
   return await _channel.invokeMethod("getSDKVersion");
 }
 
-///banner广告
+/// # banner广告
+///
+/// [androidCodeId] andrrid banner广告id 必填
+///
+/// [iosCodeId] ios banner广告id 必填
+///
+/// [express] 是否使用个性化模版
+///
+/// [supportDeepLink] 是否支持 DeepLink 选填
+///
+/// [expressAdNum] 一次请求广告数量 大于1小于3 必填
+///
+/// [expressTime] 轮播间隔事件 30-120秒  选填
+///
+/// [expressViewWidth] 期望view宽度 dp 必填
+///
+/// [expressViewHeight] 期望view高度 dp 必填
+///
+/// [callBack]  banner广告回调
+///
 Widget bannerAdView(
     {bool? mIsExpress,
     required String androidCodeId,
@@ -68,23 +105,38 @@ Widget bannerAdView(
     bool? supportDeepLink,
     required int expressAdNum,
     int? expressTime,
-    double? expressViewWidth,
-    double? expressViewHeight,
+    required double? expressViewWidth,
+    required double? expressViewHeight,
     BannerAdCallBack? callBack}) {
   return BannerAdView(
     mIsExpress: mIsExpress ?? false,
     androidCodeId: androidCodeId,
     iosCodeId: iosCodeId,
     supportDeepLink: supportDeepLink ?? true,
-    expressViewWidth: expressViewWidth ?? 400,
-    expressViewHeight: expressViewHeight ?? 200,
+    expressViewWidth: expressViewWidth ?? 0,
+    expressViewHeight: expressViewHeight ?? 0,
     expressAdNum: expressAdNum,
     expressTime: expressTime ?? 30,
     callBack: callBack,
   );
 }
 
-///开屏广告
+/// # 开屏广告
+///
+/// [mIsExpress] 是否使用个性化模版  设定widget宽高
+///
+/// [androidCodeId] android 开屏广告广告id 必填
+///
+/// [iosCodeId] ios 开屏广告广告id 必填
+///
+/// [supportDeepLink] 是否支持 DeepLink 选填
+///
+/// [expressViewWidth] 期望view 宽度 dp 选填 mIsExpress=true必填
+///
+/// [expressViewHeight] 期望view高度 dp 选填 mIsExpress=true必填
+///
+/// [callBack] 开屏广告回调
+///
 Widget splashAdView(
     {bool? mIsExpress,
     required String androidCodeId,
@@ -104,7 +156,22 @@ Widget splashAdView(
   );
 }
 
-///信息流广告
+/// # 信息流广告
+///
+/// [mIsExpress] 是否使用个性化模版  设定widget宽高
+///
+/// [androidCodeId] android 信息流广告id 必填
+///
+/// [iosCodeId] ios 信息流广告id 必填
+///
+/// [supportDeepLink] 是否支持 DeepLink 选填
+///
+/// [expressViewWidth] 期望view 宽度 dp 必填
+///
+/// [expressViewHeight] 期望view高度 dp 必填
+///
+/// [callBack] 信息流广告回调
+///
 Widget nativeAdView(
     {bool? mIsExpress,
     required String androidCodeId,
@@ -126,7 +193,22 @@ Widget nativeAdView(
   );
 }
 
-///插屏广告
+/// # 插屏广告
+///
+/// [mIsExpress] 是否使用个性化模版
+///
+/// [androidCodeId] android 插屏广告id 必填
+///
+/// [iosCodeId] ios 插屏广告id 必填
+///
+/// [supportDeepLink] 是否支持 DeepLink 选填
+///
+/// [expressViewWidth] 期望view 宽度 dp 必填
+///
+/// [expressViewHeight] 期望view高度 dp 必填
+///
+/// [callBack] 插屏广告回调
+///
 @Deprecated("推荐使用新模板渲染插屏 loadFullScreenVideoAdInteraction")
 Future<bool> interactionAd({
   bool? mIsExpress,
@@ -148,7 +230,20 @@ Future<bool> interactionAd({
   });
 }
 
-///激励视频广告预加载
+/// # 激励视频广告预加载
+///
+/// [mIsExpress] 是否使用个性化模版
+///
+/// [androidCodeId] android 激励视频广告id 必填
+///
+/// [iosCodeId] ios 激励视频广告id 必填
+///
+/// [supportDeepLink] 是否支持 DeepLink 选填
+///
+/// [expressViewWidth] 期望view 宽度 dp 必填
+///
+/// [expressViewHeight] 期望view高度 dp 必填
+///
 Future<bool> loadRewardVideoAd({
   bool? mIsExpress,
   required String androidCodeId,
@@ -177,12 +272,27 @@ Future<bool> loadRewardVideoAd({
   });
 }
 
-///显示激励广告
+/// # 显示激励广告
 Future<bool> showRewardVideoAd() async {
   return await _channel.invokeMethod("showRewardVideoAd", {});
 }
 
-///draw视频广告
+/// # draw视频广告
+///
+/// [mIsExpress] 是否使用个性化模版
+///
+/// [androidCodeId] android draw视频广告id 必填
+///
+/// [iosCodeId] ios draw视频广告 必填
+///
+/// [supportDeepLink] 是否支持 DeepLink 选填
+///
+/// [expressViewWidth] 期望view 宽度 dp 必填
+///
+/// [expressViewHeight] 期望view高度 dp 必填
+///
+/// [callBack] draw视频广告回调
+///
 Widget drawFeedAdView({
   bool? mIsExpress,
   required String androidCodeId,
@@ -220,7 +330,8 @@ Future<bool> fullScreenVideoAd(
   });
 }
 
-///预加载新模板渲染插屏 分为全屏和插屏，全屏和插屏场景下开发者都可以选择投放的广告类型，分别为图片+视频、仅视频、仅图片。
+/// # 预加载新模板渲染插屏
+///分为全屏和插屏，全屏和插屏场景下开发者都可以选择投放的广告类型，分别为图片+视频、仅视频、仅图片。
 Future<bool> loadFullScreenVideoAdInteraction(
     {required String androidCodeId,
     required String iosCodeId,

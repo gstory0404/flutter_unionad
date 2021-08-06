@@ -138,7 +138,7 @@ class _IndexPageState extends State<IndexPage> {
         allowShowPageWhenScreenLock: true,
         //是否在锁屏场景支持展示广告落地页 选填
         debug: true,
-        //测试阶段打开，可以通过日志排查问题，上线时去除该调用 选太难
+        //是否显示debug日志
         supportMultiProcess: true,
         //是否支持多进程，true支持 选填
         directDownloadNetworkType: [
