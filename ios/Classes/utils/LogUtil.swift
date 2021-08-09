@@ -11,7 +11,7 @@ public class LogUtil : NSObject{
    
     static let logInstance = LogUtil()
     
-    private var isDebug: Bool?
+    private var isDebug: Bool = false
     
     func isShow(debug:Bool){
         self.isDebug = debug
@@ -22,7 +22,7 @@ public class LogUtil : NSObject{
                      method: String = #function,
                      line: Int = #line)
     {
-        if(self.isDebug!){
+        if(self.isDebug == true){
             print("\((file as NSString).lastPathComponent)[\(line)], \(method): \(message)")
         }
     }
