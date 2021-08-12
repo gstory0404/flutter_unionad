@@ -12,7 +12,7 @@ class BannerAdView extends StatefulWidget {
   final int expressTime;
   final double expressViewWidth;
   final double expressViewHeight;
-  final BannerAdCallBack? callBack;
+  final FlutterUnionadBannerCallBack? callBack;
 
   const BannerAdView(
       {Key? key,
@@ -103,11 +103,11 @@ class _BannerAdViewState extends State<BannerAdView> {
   Future<dynamic> _platformCallHandler(MethodCall call) async {
     switch (call.method) {
       //显示广告
-      case OnAdMethod.onShow:
+      case FlutterUnionadMethod.onShow:
         widget.callBack?.onShow!();
         break;
       //广告加载失败
-      case OnAdMethod.onFail:
+      case FlutterUnionadMethod.onFail:
         if (mounted) {
           setState(() {
             _isShowAd = false;
@@ -116,7 +116,7 @@ class _BannerAdViewState extends State<BannerAdView> {
         widget.callBack?.onFail!(call.arguments);
         break;
       //广告不感兴趣
-      case OnAdMethod.onDislike:
+      case FlutterUnionadMethod.onDislike:
         if (mounted) {
           setState(() {
             _isShowAd = false;
@@ -126,7 +126,7 @@ class _BannerAdViewState extends State<BannerAdView> {
           widget.callBack?.onDislike!(call.arguments);
         }
         break;
-      case OnAdMethod.onClick:
+      case FlutterUnionadMethod.onClick:
         widget.callBack?.onClick!();
         break;
     }

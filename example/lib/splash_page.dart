@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_unionad/flutter_unionad.dart' as FlutterUnionad;
+import 'package:flutter_unionad/flutter_unionad.dart';
 
 /// 描述：开屏广告页
 /// @author guozi
@@ -34,7 +34,7 @@ class _SplashPageState extends State<SplashPage> {
           expressViewWidth: 750,
           //期望view高度 dp 选填 mIsExpress=true必填
           expressViewHeight: 800,
-          callBack: FlutterUnionad.SplashAdCallBack(
+          callBack: FlutterUnionadSplashCallBack(
             onShow: () {
               print("开屏广告显示");
             },

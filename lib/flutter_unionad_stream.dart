@@ -1,122 +1,124 @@
 import 'dart:async';
 
+import 'package:flutter/services.dart';
 import 'package:flutter_unionad/flutter_unionad.dart';
 
-import 'flutter_unionad_ad.dart';
 import 'flutter_unionad_code.dart';
 
 /// @Author: gstory
 /// @CreateDate: 2021/5/25 7:45 下午
-/// @Description: dart类作用描述
+/// @Description: 广告结果监听
+
+const EventChannel adEventEvent =
+EventChannel("com.gstory.flutter_unionad/adevent");
 
 class FlutterUnionadStream {
 
-
   ///注册stream监听原生返回的信息
-  static StreamSubscription initAdStream({FullVideoAdCallBack? fullVideoAdCallBack,
-    InteractionAdCallBack? interactionAdCallBack,
-    FullScreenVideoAdInteractionCallBack? fullScreenVideoAdInteractionCallBack,
-    RewardAdCallBack? rewardAdCallBack}) {
+  static StreamSubscription initAdStream({FlutterUnionadFullVideoCallBack? flutterUnionadFullVideoCallBack,
+    FlutterUnionadInteractionCallBack? flutterUnionadInteractionCallBack,
+    FlutterUnionadNewInteractionCallBack? flutterUnionadNewInteractionCallBack,
+    FlutterUnionadRewardAdCallBack? flutterUnionadRewardAdCallBack}) {
     StreamSubscription _adStream = adEventEvent.receiveBroadcastStream().listen((data) {
-      switch (data[AdType.adType]){
+      switch (data[FlutterUnionadType.adType]){
         ///全屏广告
-        case AdType.fullVideoAd:
-          switch (data[OnAdMethod.onAdMethod]) {
-            case OnAdMethod.onShow:
-              fullVideoAdCallBack?.onShow!();
+        case FlutterUnionadType.fullVideoAd:
+          switch (data[FlutterUnionadMethod.onAdMethod]) {
+            case FlutterUnionadMethod.onShow:
+              flutterUnionadFullVideoCallBack?.onShow!();
               break;
-            case OnAdMethod.onSkip:
-              fullVideoAdCallBack?.onSkip!();
+            case FlutterUnionadMethod.onSkip:
+              flutterUnionadFullVideoCallBack?.onSkip!();
               break;
-            case OnAdMethod.onFinish:
-              fullVideoAdCallBack?.onFinish!();
+            case FlutterUnionadMethod.onFinish:
+              flutterUnionadFullVideoCallBack?.onFinish!();
               break;
-            case OnAdMethod.onClose:
-              fullVideoAdCallBack?.onClose!();
+            case FlutterUnionadMethod.onClose:
+              flutterUnionadFullVideoCallBack?.onClose!();
               break;
-            case OnAdMethod.onFail:
-              fullVideoAdCallBack?.onFail!(data["error"]);
+            case FlutterUnionadMethod.onFail:
+              flutterUnionadFullVideoCallBack?.onFail!(data["error"]);
               break;
-            case OnAdMethod.onClick:
-              fullVideoAdCallBack?.onClick!();
+            case FlutterUnionadMethod.onClick:
+              flutterUnionadFullVideoCallBack?.onClick!();
               break;
           }
           break;
           ///插屏广告
-         case AdType.interactAd:
-           switch (data[OnAdMethod.onAdMethod]) {
-             case OnAdMethod.onShow:
-               interactionAdCallBack?.onShow!();
+         case FlutterUnionadType.interactAd:
+           switch (data[FlutterUnionadMethod.onAdMethod]) {
+             case FlutterUnionadMethod.onShow:
+               flutterUnionadInteractionCallBack?.onShow!();
                break;
-             case OnAdMethod.onDislike:
-               interactionAdCallBack?.onDislike!(data["message"]);
+             case FlutterUnionadMethod.onDislike:
+               flutterUnionadInteractionCallBack?.onDislike!(data["message"]);
                break;
-             case OnAdMethod.onClose:
-               interactionAdCallBack?.onClose!();
+             case FlutterUnionadMethod.onClose:
+               flutterUnionadInteractionCallBack?.onClose!();
                break;
-             case OnAdMethod.onFail:
-               interactionAdCallBack?.onFail!(data["error"]);
+             case FlutterUnionadMethod.onFail:
+               flutterUnionadInteractionCallBack?.onFail!(data["error"]);
                break;
-             case OnAdMethod.onClick:
-               interactionAdCallBack?.onClick!();
+             case FlutterUnionadMethod.onClick:
+               flutterUnionadInteractionCallBack?.onClick!();
                break;
            }
            break;
            /// 新模板渲染插屏
-        case AdType.fullScreenVideoAdInteraction:
-          switch (data[OnAdMethod.onAdMethod]) {
-            case OnAdMethod.onShow:
-              fullScreenVideoAdInteractionCallBack?.onShow!();
+        case FlutterUnionadType.fullScreenVideoAdInteraction:
+          switch (data[FlutterUnionadMethod.onAdMethod]) {
+            case FlutterUnionadMethod.onShow:
+              flutterUnionadNewInteractionCallBack?.onShow!();
               break;
-            case OnAdMethod.onClose:
-              fullScreenVideoAdInteractionCallBack?.onClose!();
+            case FlutterUnionadMethod.onClose:
+              flutterUnionadNewInteractionCallBack?.onClose!();
               break;
-            case OnAdMethod.onFail:
-              fullScreenVideoAdInteractionCallBack?.onFail!(data["error"]);
+            case FlutterUnionadMethod.onFail:
+              flutterUnionadNewInteractionCallBack?.onFail!(data["error"]);
               break;
-            case OnAdMethod.onClick:
-              fullScreenVideoAdInteractionCallBack?.onClick!();
+            case FlutterUnionadMethod.onClick:
+              flutterUnionadNewInteractionCallBack?.onClick!();
               break;
-            case OnAdMethod.onSkip:
-              fullScreenVideoAdInteractionCallBack?.onSkip!();
+            case FlutterUnionadMethod.onSkip:
+              flutterUnionadNewInteractionCallBack?.onSkip!();
               break;
-            case OnAdMethod.onFinish:
-              fullScreenVideoAdInteractionCallBack?.onFinish!();
+            case FlutterUnionadMethod.onFinish:
+              flutterUnionadNewInteractionCallBack?.onFinish!();
               break;
-            case OnAdMethod.onReady:
-              fullScreenVideoAdInteractionCallBack?.onReady!();
+            case FlutterUnionadMethod.onReady:
+              flutterUnionadNewInteractionCallBack?.onReady!();
               break;
-            case OnAdMethod.onUnReady:
-              fullScreenVideoAdInteractionCallBack?.onUnReady!();
+            case FlutterUnionadMethod.onUnReady:
+              flutterUnionadNewInteractionCallBack?.onUnReady!();
               break;
           }
           break;
           ///激励广告
-        case AdType.rewardAd:
-          switch (data[OnAdMethod.onAdMethod]) {
-            case OnAdMethod.onShow:
-              rewardAdCallBack?.onShow!();
+        case FlutterUnionadType.rewardAd:
+          switch (data[FlutterUnionadMethod.onAdMethod]) {
+            case FlutterUnionadMethod.onShow:
+              flutterUnionadRewardAdCallBack?.onShow!();
               break;
-            case OnAdMethod.onSkip:
-              rewardAdCallBack?.onSkip!();
+            case FlutterUnionadMethod.onSkip:
+              flutterUnionadRewardAdCallBack?.onSkip!();
               break;
-            case OnAdMethod.onClose:
-              rewardAdCallBack?.onClose!();
+            case FlutterUnionadMethod.onClose:
+              flutterUnionadRewardAdCallBack?.onClose!();
               break;
-            case OnAdMethod.onFail:
-              rewardAdCallBack?.onFail!(data["error"]);
+            case FlutterUnionadMethod.onFail:
+              flutterUnionadRewardAdCallBack?.onFail!(data["error"]);
               break;
-            case OnAdMethod.onClick:
-              rewardAdCallBack?.onClick!();
+            case FlutterUnionadMethod.onClick:
+              flutterUnionadRewardAdCallBack?.onClick!();
               break;
-            case OnAdMethod.onVerify:
-              rewardAdCallBack?.onVerify!(data["rewardVerify"],data["rewardAmount"],data["rewardName"]);
+            case FlutterUnionadMethod.onVerify:
+              flutterUnionadRewardAdCallBack?.onVerify!(data["rewardVerify"],data["rewardAmount"],data["rewardName"]);
               break;
-            case OnAdMethod.onReady:
-              rewardAdCallBack?.onReady!();
+            case FlutterUnionadMethod.onReady:
+              flutterUnionadRewardAdCallBack?.onReady!();
               break;
-            case OnAdMethod.onUnReady:
-              rewardAdCallBack?.onUnReady!();
+            case FlutterUnionadMethod.onUnReady:
+              flutterUnionadRewardAdCallBack?.onUnReady!();
               break;
           }
       }

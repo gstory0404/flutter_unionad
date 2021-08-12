@@ -69,15 +69,15 @@ await FlutterUnionad.register(
         allowShowPageWhenScreenLock: true,
         //是否在锁屏场景支持展示广告落地页 选填
         debug: true,
-        //测试阶段打开，可以通过日志排查问题，上线时去除该调用 选太难
+        //是否显示debug日志
         supportMultiProcess: true,
         //是否支持多进程，true支持 选填
         directDownloadNetworkType: [
-          FlutterUnionad.NetCode.NETWORK_STATE_2G,
-          FlutterUnionad.NetCode.NETWORK_STATE_3G,
-          FlutterUnionad.NetCode.NETWORK_STATE_4G,
-          FlutterUnionad.NetCode.NETWORK_STATE_WIFI
-        ]); //允许直接下载的网络状态集合 选填//允许直接下载的网络状态集合 选填
+        FlutterUnionadNetCode.NETWORK_STATE_2G,
+        FlutterUnionadNetCode.NETWORK_STATE_3G,
+        FlutterUnionadNetCode.NETWORK_STATE_4G,
+        FlutterUnionadNetCode.NETWORK_STATE_WIFI
+      ]); //允许直接下载的网络状态集合 选填  
 ```
 #### 2、获取SDK版本
 ```Dart
@@ -86,20 +86,23 @@ await FlutterUnionad.getSDKVersion();
 
 #### 3、请求权限
 ```Dart
-switch (await FlutterUnionad.requestPermissionIfNecessary()) {
-                  //未确定
-                  case FlutterUnionad.PermissionCode.notDetermined:
-                    break;
-                  //限制
-                  case FlutterUnionad.PermissionCode.restricted:
-                    break;
-                  //拒绝
-                  case FlutterUnionad.PermissionCode.denied:
-                    break;
-                  //同意
-                  case FlutterUnionad.PermissionCode.authorized:
-                    break;
-                }
+  FlutterUnionad.requestPermissionIfNecessary(
+      callBack: FlutterUnionadPermissionCallBack(
+            notDetermined: () {
+                print("权限未确定");
+            },
+            restricted: () {
+                print("权限限制");
+            },
+            denied: () {
+                print("权限拒绝");
+            },
+            authorized: () {
+                print("权限同意");
+            },
+       ),
+  );
+
 ```
 Android获取定位、照片权限，只返回成功
 Android相关权限为非必须权限，如果审核被拒可以在android目录下AndroidManifest.xml文件中参考以下申明，在打包时移除权限
@@ -127,7 +130,7 @@ FlutterUnionad.splashAdView(
           expressViewWidth: 750,
           //期望view高度 dp 选填 mIsExpress=true必填
           expressViewHeight: 800,
-          callBack: FlutterUnionad.SplashAdCallBack(
+          callBack: FlutterUnionadSplashCallBack(
             onShow: () {
               print("开屏广告显示");
             },
@@ -172,7 +175,7 @@ FlutterUnionad.bannerAdView(
               //期望view高度 dp 必填
               expressViewHeight: 120.5,
               //广告事件回调 选填
-              callBack: FlutterUnionad.BannerAdCallBack(
+              callBack: FlutterUnionadBannerCallBack(
                 onShow: () {
                   print("banner广告加载完成");
                 },
@@ -190,7 +193,7 @@ FlutterUnionad.bannerAdView(
 ```
 
 #### 6、信息流广告
-```
+```dart
 FlutterUnionad.nativeAdView(
               androidCodeId: "945417699",
               //android 信息流广告id 必填
@@ -205,7 +208,7 @@ FlutterUnionad.nativeAdView(
               expressNum: 2,
               mIsExpress: true,
               //一次请求广告数量 大于1小于3 必填
-              callBack: FlutterUnionad.NativeAdCallBack(
+              callBack: FlutterUnionadNativeCallBack(
                 onShow: () {
                   print("信息流广告显示");
                 },
@@ -260,7 +263,7 @@ FlutterUnionad.loadRewardVideoAd(
                   //奖励数量 选填
                   userID: "123",
                   //  用户id 选填
-                  orientation: FlutterUnionad.AdOrientation.VERTICAL,
+                  orientation: FlutterUnionadOrientation.VERTICAL,
                   //视屏方向 选填
                   mediaExtra: null, //扩展参数 选填
                 );
@@ -274,7 +277,7 @@ FlutterUnionad.loadRewardVideoAd(
 ```Dart
  FlutterUnionad.FlutterUnionadStream.initAdStream(
       //激励广告
-      rewardAdCallBack: FlutterUnionad.RewardAdCallBack(
+        flutterUnionadRewardAdCallBack: FlutterUnionadRewardAdCallBack(
         onShow: (){
           print("激励广告显示");
         },
@@ -317,7 +320,7 @@ FlutterUnionad.drawFeedAdView(
                 // 期望view 宽度 dp 必填
                 expressViewHeight: 800.5,
                 //期望view高度 dp 必填
-                callBack: FlutterUnionad.DrawFeedAdCallBack(
+                callBack: FlutterUnionadDrawFeedCallBack(
                     onShow: () {
                       print("draw广告显示");
                     },
@@ -350,7 +353,7 @@ FlutterUnionad.fullScreenVideoAd(
                   androidCodeId: "945491318", //android 全屏广告id 必填
                   iosCodeId: "945491318", //ios 全屏广告id 必填
                   supportDeepLink: true, //是否支持 DeepLink 选填
-                  orientation: FlutterUnionad.AdOrientation.VERTICAL, //视屏方向 选填
+                  orientation: FlutterUnionadOrientation.VERTICAL, //视屏方向 选填
                 );
 ```
 
@@ -361,7 +364,7 @@ FlutterUnionad.loadFullScreenVideoAdInteraction(
                   androidCodeId: "946201351", //android 全屏广告id 必填
                   iosCodeId: "946201351", //ios 全屏广告id 必填
                   supportDeepLink: true, //是否支持 DeepLink 选填
-                  orientation: FlutterUnionad.AdOrientation.VERTICAL, //视屏方向 选填
+                  orientation: FlutterUnionadOrientation.VERTICAL, //视屏方向 选填
                 );
 ```
 
@@ -374,7 +377,7 @@ FlutterUnionad.loadFullScreenVideoAdInteraction(
 ```dart
 FlutterUnionad.FlutterUnionadStream.initAdStream(
       // 新模板渲染插屏广告回调
-            fullScreenVideoAdInteractionCallBack: FlutterUnionad.FullScreenVideoAdInteractionCallBack(
+        flutterUnionadNewInteractionCallBack: FlutterUnionadNewInteractionCallBack(
               onShow: () {
                 print("新模板渲染插屏广告显示");
               },

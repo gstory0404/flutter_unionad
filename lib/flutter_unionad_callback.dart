@@ -47,18 +47,31 @@ typedef OnUnReady = void Function();
 typedef OnVerify = void Function(
     bool isVerify, int rewardAmount, String rewardName);
 
+///未确定
+typedef NotDetermined = void Function();
+
+///限制
+typedef Restricted = void Function();
+
+///拒绝
+typedef Denied = void Function();
+
+///同意
+typedef Authorized = void Function();
+
 ///banner广告回调
-class BannerAdCallBack {
+class FlutterUnionadBannerCallBack {
   OnShow? onShow;
   OnFail? onFail;
   OnDislike? onDislike;
   OnClick? onClick;
 
-  BannerAdCallBack({this.onShow, this.onFail, this.onDislike, this.onClick});
+  FlutterUnionadBannerCallBack(
+      {this.onShow, this.onFail, this.onDislike, this.onClick});
 }
 
 ///draw视频广告回调
-class DrawFeedAdCallBack {
+class FlutterUnionadDrawFeedCallBack {
   OnShow? onShow;
   OnFail? onFail;
   OnClick? onClick;
@@ -67,7 +80,7 @@ class DrawFeedAdCallBack {
   OnVideoPause? onVideoPause;
   OnVideoStop? onVideoStop;
 
-  DrawFeedAdCallBack(
+  FlutterUnionadDrawFeedCallBack(
       {this.onShow,
       this.onFail,
       this.onClick,
@@ -78,17 +91,18 @@ class DrawFeedAdCallBack {
 }
 
 ///信息流广告回调
-class NativeAdCallBack {
+class FlutterUnionadNativeCallBack {
   OnShow? onShow;
   OnFail? onFail;
   OnDislike? onDislike;
   OnClick? onClick;
 
-  NativeAdCallBack({this.onShow, this.onFail, this.onDislike, this.onClick});
+  FlutterUnionadNativeCallBack(
+      {this.onShow, this.onFail, this.onDislike, this.onClick});
 }
 
 ///开屏广告回调
-class SplashAdCallBack {
+class FlutterUnionadSplashCallBack {
   OnShow? onShow;
   OnFail? onFail;
   OnClick? onClick;
@@ -96,7 +110,7 @@ class SplashAdCallBack {
   OnSkip? onSkip;
   OnTimeOut? onTimeOut;
 
-  SplashAdCallBack(
+  FlutterUnionadSplashCallBack(
       {this.onShow,
       this.onFail,
       this.onClick,
@@ -106,7 +120,7 @@ class SplashAdCallBack {
 }
 
 ///全屏广告回调
-class FullVideoAdCallBack {
+class FlutterUnionadFullVideoCallBack {
   OnShow? onShow;
   OnClick? onClick;
   OnSkip? onSkip;
@@ -114,7 +128,7 @@ class FullVideoAdCallBack {
   OnFail? onFail;
   OnFinish? onFinish;
 
-  FullVideoAdCallBack(
+  FlutterUnionadFullVideoCallBack(
       {this.onShow,
       this.onClick,
       this.onSkip,
@@ -124,7 +138,7 @@ class FullVideoAdCallBack {
 }
 
 /// 新模板渲染插屏
-class FullScreenVideoAdInteractionCallBack {
+class FlutterUnionadNewInteractionCallBack {
   OnShow? onShow;
   OnClick? onClick;
   OnSkip? onSkip;
@@ -134,7 +148,7 @@ class FullScreenVideoAdInteractionCallBack {
   OnReady? onReady;
   OnUnReady? onUnReady;
 
-  FullScreenVideoAdInteractionCallBack(
+  FlutterUnionadNewInteractionCallBack(
       {this.onShow,
       this.onClick,
       this.onSkip,
@@ -146,19 +160,19 @@ class FullScreenVideoAdInteractionCallBack {
 }
 
 ///插屏广告回调
-class InteractionAdCallBack {
+class FlutterUnionadInteractionCallBack {
   OnShow? onShow;
   OnClick? onClick;
   OnDislike? onDislike;
   OnClose? onClose;
   OnFail? onFail;
 
-  InteractionAdCallBack(
+  FlutterUnionadInteractionCallBack(
       {this.onShow, this.onClick, this.onDislike, this.onClose, this.onFail});
 }
 
 ///激励广告回调
-class RewardAdCallBack {
+class FlutterUnionadRewardAdCallBack {
   OnShow? onShow;
   OnClose? onClose;
   OnFail? onFail;
@@ -168,7 +182,7 @@ class RewardAdCallBack {
   OnReady? onReady;
   OnUnReady? onUnReady;
 
-  RewardAdCallBack(
+  FlutterUnionadRewardAdCallBack(
       {this.onShow,
       this.onClick,
       this.onClose,
@@ -177,4 +191,18 @@ class RewardAdCallBack {
       this.onSkip,
       this.onReady,
       this.onUnReady});
+}
+
+class FlutterUnionadPermissionCallBack {
+  NotDetermined? notDetermined;
+  Restricted? restricted;
+  Denied? denied;
+  Authorized? authorized;
+
+  FlutterUnionadPermissionCallBack({
+    this.notDetermined,
+    this.restricted,
+    this.denied,
+    this.authorized,
+  });
 }

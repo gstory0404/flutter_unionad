@@ -11,7 +11,7 @@ class NativeAdView extends StatefulWidget {
   final double expressViewWidth;
   final double expressViewHeight;
   final int expressNum;
-  final NativeAdCallBack? callBack;
+  final FlutterUnionadNativeCallBack? callBack;
 
   const NativeAdView({Key? key,
     required this.mIsExpress,
@@ -98,13 +98,13 @@ class _NativeAdViewState extends State<NativeAdView> {
   Future<dynamic> _platformCallHandler(MethodCall call) async {
     switch (call.method) {
     //显示广告
-      case OnAdMethod.onShow:
+      case FlutterUnionadMethod.onShow:
         if (widget.callBack != null) {
           widget.callBack?.onShow!();
         }
         break;
     //广告加载失败
-      case OnAdMethod.onFail:
+      case FlutterUnionadMethod.onFail:
         if (mounted) {
           setState(() {
             _isShowAd = false;
@@ -115,7 +115,7 @@ class _NativeAdViewState extends State<NativeAdView> {
         }
         break;
     //广告不感兴趣
-      case OnAdMethod.onDislike:
+      case FlutterUnionadMethod.onDislike:
         if (mounted) {
           setState(() {
             _isShowAd = false;
@@ -126,7 +126,7 @@ class _NativeAdViewState extends State<NativeAdView> {
         }
         break;
         //点击
-      case OnAdMethod.onClick:
+      case FlutterUnionadMethod.onClick:
         if (widget.callBack != null) {
           widget.callBack?.onClick!();
         }

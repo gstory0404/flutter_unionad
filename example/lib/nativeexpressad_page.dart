@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_unionad/flutter_unionad.dart' as FlutterUnionad;
+import 'package:flutter_unionad/flutter_unionad.dart';
 
 /// 描述：个性化模板信息流广告
 /// @author guozi
@@ -42,7 +42,7 @@ class _NativeExpressAdPageState extends State<NativeExpressAdPage> {
               expressNum: 2,
               mIsExpress: true,
               //一次请求广告数量 大于1小于3 必填
-              callBack: FlutterUnionad.NativeAdCallBack(
+              callBack: FlutterUnionadNativeCallBack(
                 onShow: () {
                   print("信息流广告显示");
                 },
