@@ -32,7 +32,7 @@ flutter_unionad: ^1.1.0
 ```
 引入
 ```Dart
-import 'package:flutter_unionad/flutter_unionad.dart' as FlutterUnionad;
+import 'package:flutter_unionad/flutter_unionad.dart';
 ```
 #### 2、Android
 SDK(3.9.0.0)已配置插件中无需额外配置，只需要在android目录中AndroidManifest.xml配置
