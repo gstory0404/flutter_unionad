@@ -59,7 +59,9 @@ typedef Denied = void Function();
 ///同意
 typedef Authorized = void Function();
 
+///
 ///banner广告回调
+///
 class FlutterUnionadBannerCallBack {
   OnShow? onShow;
   OnFail? onFail;
@@ -70,7 +72,9 @@ class FlutterUnionadBannerCallBack {
       {this.onShow, this.onFail, this.onDislike, this.onClick});
 }
 
+///
 ///draw视频广告回调
+///
 class FlutterUnionadDrawFeedCallBack {
   OnShow? onShow;
   OnFail? onFail;
@@ -90,7 +94,9 @@ class FlutterUnionadDrawFeedCallBack {
       this.onVideoStop});
 }
 
+///
 ///信息流广告回调
+///
 class FlutterUnionadNativeCallBack {
   OnShow? onShow;
   OnFail? onFail;
@@ -101,7 +107,9 @@ class FlutterUnionadNativeCallBack {
       {this.onShow, this.onFail, this.onDislike, this.onClick});
 }
 
+///
 ///开屏广告回调
+///
 class FlutterUnionadSplashCallBack {
   OnShow? onShow;
   OnFail? onFail;
@@ -119,7 +127,9 @@ class FlutterUnionadSplashCallBack {
       this.onTimeOut});
 }
 
+///
 ///全屏广告回调
+///
 class FlutterUnionadFullVideoCallBack {
   OnShow? onShow;
   OnClick? onClick;
@@ -137,7 +147,9 @@ class FlutterUnionadFullVideoCallBack {
       this.onFinish});
 }
 
+///
 /// 新模板渲染插屏
+///
 class FlutterUnionadNewInteractionCallBack {
   OnShow? onShow;
   OnClick? onClick;
@@ -159,7 +171,9 @@ class FlutterUnionadNewInteractionCallBack {
       this.onUnReady});
 }
 
+///
 ///插屏广告回调
+///
 class FlutterUnionadInteractionCallBack {
   OnShow? onShow;
   OnClick? onClick;
@@ -171,7 +185,9 @@ class FlutterUnionadInteractionCallBack {
       {this.onShow, this.onClick, this.onDislike, this.onClose, this.onFail});
 }
 
+///
 ///激励广告回调
+///
 class FlutterUnionadRewardAdCallBack {
   OnShow? onShow;
   OnClose? onClose;
@@ -193,6 +209,10 @@ class FlutterUnionadRewardAdCallBack {
       this.onUnReady});
 }
 
+
+///
+///权限申请回调
+///
 class FlutterUnionadPermissionCallBack {
   NotDetermined? notDetermined;
   Restricted? restricted;
