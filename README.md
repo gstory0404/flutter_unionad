@@ -426,6 +426,12 @@ if (Platform.isAndroid) {
 
 [更新日志](https://github.com/gstory0404/flutter_unionad/blob/master/CHANGELOG.md)
 
+## 插件链接
+
+·聚合广告插件 [flutter_universalad](https://github.com/gstory0404/flutter_universalad)
+
+·腾讯优量汇广告插件 [flutter_tencentad](https://github.com/gstory0404/flutter_tencentad)
+
 
 ## 联系方式
 * Email: gstory0404@gmail.com
