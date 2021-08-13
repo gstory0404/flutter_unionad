@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_unionad/flutter_unionad.dart';
-import 'package:flutter_unionad/flutter_unionad_adstate.dart';
 import 'package:flutter_unionad/flutter_unionad_code.dart';
 
 class DrawFeedAdView extends StatefulWidget {
@@ -12,7 +11,7 @@ class DrawFeedAdView extends StatefulWidget {
   final bool supportDeepLink;
   final double expressViewWidth;
   final double expressViewHeight;
-  final DrawFeedAdCallBack? callBack;
+  final FlutterUnionadDrawFeedCallBack? callBack;
 
   const DrawFeedAdView(
       {Key? key,
@@ -98,13 +97,13 @@ class _DrawFeedAdViewState extends State<DrawFeedAdView> {
     print("====> ${call.method}   ${call.arguments}");
     switch (call.method) {
       //显示广告
-      case OnAdMethod.onShow:
+      case FlutterUnionadMethod.onShow:
         if (widget.callBack != null) {
           widget.callBack?.onShow!();
         }
         break;
       //广告加载失败
-      case OnAdMethod.onFail:
+      case FlutterUnionadMethod.onFail:
         if (widget.callBack != null) {
           widget.callBack?.onFail!(call.arguments);
         }
@@ -112,16 +111,16 @@ class _DrawFeedAdViewState extends State<DrawFeedAdView> {
           _isShowAd = false;
         });
         break;
-      case OnAdMethod.onClick:
+      case FlutterUnionadMethod.onClick:
         widget.callBack?.onClick!();
         break;
-      case OnAdMethod.onVideoPlay:
+      case FlutterUnionadMethod.onVideoPlay:
         widget.callBack?.onVideoPlay!();
         break;
-      case OnAdMethod.onVideoPause:
+      case FlutterUnionadMethod.onVideoPause:
         widget.callBack?.onVideoPause!();
         break;
-      case OnAdMethod.onVideoStop:
+      case FlutterUnionadMethod.onVideoStop:
         widget.callBack?.onVideoStop!();
         break;
     }

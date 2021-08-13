@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_unionad/flutter_unionad.dart' as FlutterUnionad;
+import 'package:flutter_unionad/flutter_unionad.dart';
 
 /// 描述：
 /// @author guozi
@@ -48,7 +48,7 @@ class _BannerPageState extends State<BannerPage> {
               //期望view高度 dp 必填
               expressViewHeight: 120.5,
               //广告事件回调 选填
-              callBack: FlutterUnionad.BannerAdCallBack(
+              callBack: FlutterUnionadBannerCallBack(
                 onShow: () {
                   print("banner广告加载完成");
                 },

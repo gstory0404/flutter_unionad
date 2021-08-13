@@ -4,7 +4,7 @@
 /// @time   2020/3/11
 
 ///网络类型
-class NetCode {
+class FlutterUnionadNetCode {
   static const int NETWORK_STATE_MOBILE = 1;
   static const int NETWORK_STATE_2G = 2;
   static const int NETWORK_STATE_3G = 3;
@@ -13,7 +13,7 @@ class NetCode {
 }
 
 ///激励视频方向
-class AdOrientation {
+class FlutterUnionadOrientation {
   ///竖屏
   static const int VERTICAL = 1;
 
@@ -22,7 +22,7 @@ class AdOrientation {
 }
 
 ///数据类型
-class AdType {
+class FlutterUnionadType {
   static const String adType = "adType";
 
   ///激励广告
@@ -38,7 +38,7 @@ class AdType {
   static const String fullScreenVideoAdInteraction = "fullScreenVideoAdInteraction";
 }
 
-class OnAdMethod {
+class FlutterUnionadMethod {
   ///stream中 广告方法
   static const String onAdMethod = "onAdMethod";
 
@@ -81,12 +81,13 @@ class OnAdMethod {
 
   ///广告预加载完成
   static const String onReady = "onReady";
+
   ///广告未预加载
   static const String onUnReady = "onUnReady";
 }
 
 ///权限请求结果
-class PermissionCode {
+class FlutterUnionadPermissionCode {
   ///未确定
   static const int notDetermined = 0;
 

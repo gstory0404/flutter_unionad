@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_unionad/flutter_unionad.dart' as FlutterUnionad;
+import 'package:flutter_unionad/flutter_unionad.dart';
 
 /// 描述：draw视频广告
 /// @author guozi
@@ -38,7 +38,7 @@ class _DrawFeedPageState extends State<DrawFeedPage> {
                 // 期望view 宽度 dp 必填
                 expressViewHeight: 800.5,
                 //期望view高度 dp 必填
-                callBack: FlutterUnionad.DrawFeedAdCallBack(
+                callBack: FlutterUnionadDrawFeedCallBack(
                     onShow: () {
                       print("draw广告显示");
                     },

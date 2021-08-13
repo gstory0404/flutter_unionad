@@ -10,7 +10,7 @@ class SplashAdView extends StatefulWidget {
   final bool supportDeepLink;
   final double expressViewWidth;
   final double expressViewHeight;
-  final SplashAdCallBack? callBack;
+  final FlutterUnionadSplashCallBack? callBack;
 
   const SplashAdView(
       {Key? key,
@@ -95,13 +95,13 @@ class _SplashAdViewState extends State<SplashAdView> {
   Future<dynamic> _platformCallHandler(MethodCall call) async {
     switch (call.method) {
       //显示广告
-      case OnAdMethod.onShow:
+      case FlutterUnionadMethod.onShow:
         if (widget.callBack != null) {
           widget.callBack?.onShow!();
         }
         break;
       //广告加载失败
-      case OnAdMethod.onFail:
+      case FlutterUnionadMethod.onFail:
         if (mounted) {
           setState(() {
             _isShowAd = false;
@@ -112,25 +112,25 @@ class _SplashAdViewState extends State<SplashAdView> {
         }
         break;
       //开屏广告点击
-      case OnAdMethod.onClick:
+      case FlutterUnionadMethod.onClick:
         if (widget.callBack != null) {
           widget.callBack?.onClick!();
         }
         break;
       //开屏广告跳过
-      case OnAdMethod.onSkip:
+      case FlutterUnionadMethod.onSkip:
         if (widget.callBack != null) {
           widget.callBack?.onSkip!();
         }
         break;
       //开屏广告倒计时结束
-      case OnAdMethod.onFinish:
+      case FlutterUnionadMethod.onFinish:
         if (widget.callBack != null) {
           widget.callBack?.onFinish!();
         }
         break;
       //开屏广告加载超时
-      case OnAdMethod.onTimeOut:
+      case FlutterUnionadMethod.onTimeOut:
         if (mounted) {
           setState(() {
             _isShowAd = false;
