@@ -13,11 +13,12 @@ A new flutter plugin project.
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Your Company' => 'email@example.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
+  s.source_files = 'Classes/**/*','PangleSDK/BUAdSDK.bundle'
   s.static_framework = true
   s.dependency 'Flutter'
   s.platform = :ios, '9.0'
-  s.dependency 'Ads-CN','~> 3.8.1.0'
+  s.dependency 'Ads-CN','~> 3.9.0.3'
+#  s.vendored_frameworks = 'PangleSDK/*.framework'
 
   # Flutter.framework does not contain a i386 slice. Only x86_64 simulators are supported.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
