@@ -10,6 +10,7 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="flutter_unionad_example"
         android:icon="@mipmap/ic_launcher"
+        android:networkSecurityConfig="@xml/network_config"
         tools:replace="android:label">
         <activity
             android:name=".MainActivity"

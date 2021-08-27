@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true" />
+    <domain-config>
+        <domain includeSubdomains="true">i.snssdk.com</domain>
+        <domain includeSubdomains="true">is.snssdk.com</domain>
+        <domain includeSubdomains="true">pangolin.snssdk.com</domain>
+        <domain includeSubdomains="true">extlog.snssdk.com</domain>
+        <domain includeSubdomains="true">sf3-ttcdn-tos.pstatp.com</domain>
+        <domain includeSubdomains="true">bds.snssdk.com</domain>
+        <domain includeSubdomains="true">dig.bdurl.net</domain>
+
+
+        <domain includeSubdomains="true">api-access.pangolin-sdk-toutiao.com</domain>
+        <domain includeSubdomains="true">sf1-fe-tos.pglstatp-toutiao.com</domain>
+        <domain includeSubdomains="true">sf1-be-pack.pglstatp-toutiao.com</domain>
+        <domain includeSubdomains="true">sf3-fe-tos.pglstatp-toutiao.com</domain>
+        <domain includeSubdomains="true">log-api.pangolin-sdk-toutiao.com</domain>
+        <domain includeSubdomains="true">s3-fe-scm.pglstatp-toutiao.com</domain>
+        <domain includeSubdomains="true">s3a.pstatp.com</domain>
+
+        <domain includeSubdomains="true">api-access.pangolin-sdk-toutiao-b.com</domain>
+        <domain includeSubdomains="true">log-api.pangolin-sdk-toutiao-b.com</domain>
+        <domain includeSubdomains="true">dm.pstatp.com</domain>
+
+
+        <domain includeSubdomains="true">toblog.ctobsnssdk.com</domain>
+        <domain includeSubdomains="true">sdfp.snssdk.com</domain>
+        <domain includeSubdomains="true">tosv.byted.org</domain>
+        <domain includeSubdomains="true">sf1-ttcdn-tos.pstatp.com</domain>
+        <domain includeSubdomains="true">sf6-fe-tos.pglstatp-toutiao.com</domain>
+        <domain includeSubdomains="true">log.snssdk.com</domain>
+        <domain includeSubdomains="true">tosv.boe.byted.org</domain>
+        <trust-anchors>
+            <certificates src="user" />//信任用户自己安装的证书
+            <certificates src="system" />
+        </trust-anchors>
+    </domain-config>
+</network-security-config>
