@@ -12,6 +12,8 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  bool _offstage = true;
+
   @override
   void initState() {
     super.initState();
@@ -21,41 +23,45 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        FlutterUnionad.splashAdView(
-          //是否使用个性化模版  设定widget宽高
-          mIsExpress: true,
-          //android 开屏广告广告id 必填
-          androidCodeId: "887367774",
-          //ios 开屏广告广告id 必填
-          iosCodeId: "887367774",
-          //是否支持 DeepLink 选填
-          supportDeepLink: true,
-          // 期望view 宽度 dp 选填 mIsExpress=true必填
-          expressViewWidth: 750,
-          //期望view高度 dp 选填 mIsExpress=true必填
-          expressViewHeight: 800,
-          callBack: FlutterUnionadSplashCallBack(
-            onShow: () {
-              print("开屏广告显示");
-            },
-            onClick: () {
-              print("开屏广告点击");
-              Navigator.pop(context);
-            },
-            onFail: (error) {
-              print("开屏广告失败 $error");
-            },
-            onFinish: () {
-              print("开屏广告倒计时结束");
-              Navigator.pop(context);
-            },
-            onSkip: () {
-              print("开屏广告跳过");
-              Navigator.pop(context);
-            },
-            onTimeOut: () {
-              print("开屏广告超时");
-            },
+        Offstage(
+          offstage: _offstage,
+          child: FlutterUnionad.splashAdView(
+            //是否使用个性化模版  设定widget宽高
+            mIsExpress: true,
+            //android 开屏广告广告id 必填
+            androidCodeId: "887367774",
+            //ios 开屏广告广告id 必填
+            iosCodeId: "887367774",
+            //是否支持 DeepLink 选填
+            supportDeepLink: true,
+            // 期望view 宽度 dp 选填 mIsExpress=true必填
+            expressViewWidth: 750,
+            //期望view高度 dp 选填 mIsExpress=true必填
+            expressViewHeight: 800,
+            callBack: FlutterUnionadSplashCallBack(
+              onShow: () {
+                print("开屏广告显示");
+                setState(() => _offstage = false);
+              },
+              onClick: () {
+                print("开屏广告点击");
+                Navigator.pop(context);
+              },
+              onFail: (error) {
+                print("开屏广告失败 $error");
+              },
+              onFinish: () {
+                print("开屏广告倒计时结束");
+                Navigator.pop(context);
+              },
+              onSkip: () {
+                print("开屏广告跳过");
+                Navigator.pop(context);
+              },
+              onTimeOut: () {
+                print("开屏广告超时");
+              },
+            ),
           ),
         ),
         Expanded(
