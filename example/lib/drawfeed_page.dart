@@ -12,6 +12,8 @@ class DrawFeedPage extends StatefulWidget {
 }
 
 class _DrawFeedPageState extends State<DrawFeedPage> {
+  bool _offstage = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,20 +29,23 @@ class _DrawFeedPageState extends State<DrawFeedPage> {
         childrenDelegate: SliverChildBuilderDelegate(
           (context, index) {
             return Center(
-              child: FlutterUnionad.drawFeedAdView(
-                androidCodeId: "945426252",
-                // Android draw视屏广告id 必填
-                iosCodeId: "945426252",
-                //ios draw视屏广告id 必填
-                supportDeepLink: true,
-                //是否支持 DeepLink 选填
-                expressViewWidth: 600.5,
-                // 期望view 宽度 dp 必填
-                expressViewHeight: 800.5,
-                //期望view高度 dp 必填
-                callBack: FlutterUnionadDrawFeedCallBack(
+              child: Offstage(
+                offstage: _offstage,
+                child: FlutterUnionad.drawFeedAdView(
+                  androidCodeId: "945426252",
+                  // Android draw视屏广告id 必填
+                  iosCodeId: "945426252",
+                  //ios draw视屏广告id 必填
+                  supportDeepLink: true,
+                  //是否支持 DeepLink 选填
+                  expressViewWidth: 600.5,
+                  // 期望view 宽度 dp 必填
+                  expressViewHeight: 800.5,
+                  //期望view高度 dp 必填
+                  callBack: FlutterUnionadDrawFeedCallBack(
                     onShow: () {
                       print("draw广告显示");
+                      setState(() => _offstage = false);
                     },
                     onFail: (error) {
                       print("draw广告加载失败 $error");
@@ -59,7 +64,9 @@ class _DrawFeedPageState extends State<DrawFeedPage> {
                     },
                     onVideoStop: () {
                       print("draw视频结束");
-                    }),
+                    },
+                  ),
+                ),
               ),
             );
           },
