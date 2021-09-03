@@ -1,0 +1,40 @@
+/*
+  BULanguage.strings
+  BUAdSDK
+
+  Created by wangyanlin on 2020/4/10.
+  Copyright © 2020 bytedance. All rights reserved.
+*/
+
+// String
+
+"Click" = "Nhấp";
+"AD" = "QUẢNG CÁO";
+"PlayConsumed" = "Bạn sẽ mất %.2f MB dữ  liệu để phát mục này";
+"Evaluation" = "Đánh giá";
+"Score" = "%@ xếp hạng";
+"Select" = "Chọn";
+"Back" = "Quay lại";
+"Replay" = "Nhấp để phát lại";
+"Continue" = "Tiếp tục phát";
+"Skip" = "Bỏ qua";
+"Feedback" = "Phản hồi";
+"FeedbackStr1" = "Cảm ơn bạn đã phản  hồi.";
+"FeedbackStr2" = "Chúng tôi sẽ tiếp tục nỗ  lực để mang đến cho bạn trải nghiệm quảng cáo tốt hơn.";
+"FeedbackStr3" = "Bạn đã gửi phản  hồi.";
+"FeedbackStr4" = "Vui lòng không gửi nhiều  lần!";
+"ViewNow" = "Xem ngay";
+"Download" = "Lấy";
+"LoadFailure" = "Không tải được. Vui lòng  thử lại.";
+"GetRewardAfterWatching" = "Xem hết video để nhận  phần thưởng";
+"GiveUpReward" = "Bỏ phần thưởng";
+"ContinueWatching" = "Tiếp tục xem";
+"CanbeTurnedOffAfter" = "Bỏ qua sau %d s";
+"Get" = "Tải";
+"View" = "Xem";
+"ContinuePlaying" = "Tiếp tục chơi";
+"GetRewardAfterPlaying" = "Chơi hết để giành phần  thưởng";
+"Wan" = "10  nghìn";
+"ViewDetail" = "Xem";
+"CommitScore" = "%@ xếp hạng";
+"AdsClosed" = "Quảng cáo đã đóng";

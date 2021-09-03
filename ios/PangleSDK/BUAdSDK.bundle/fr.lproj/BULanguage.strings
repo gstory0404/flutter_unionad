@@ -1,0 +1,41 @@
+/*
+  BULanguage.strings
+  BUAdSDK
+
+  Created by wangyanlin on 2020/4/10.
+  Copyright © 2020 bytedance. All rights reserved.
+*/
+
+// String
+
+"Click" = "Clic";
+"AD" = "ANNONCE";
+"PlayConsumed" = "%.2f Mo de données  seront utilisés pour la lecture";
+"Evaluation" = "Évaluation";
+"Score" = "%@ cote(s)";
+"Select" = "Sélectionner";
+"Back" = "Retour";
+"Replay" = "Cliquer pour relancer la  lecture";
+"Continue" = "Continuer pour lancer la  lecture";
+"Skip" = "Passer";
+"Feedback" = "Commentaire";
+"FeedbackStr1" = "Merci pour votre  commentaire.";
+"FeedbackStr2" = "Nous continuerons à  mettre tout en œuvre pour vous offrir une meilleure expérience  publicitaire.";
+"FeedbackStr3" = "Vous avez déjà envoyé un  commentaire.";
+"FeedbackStr4" = "Merci de ne pas envoyer  un commentaire plusieurs fois !";
+"ViewNow" = "Regarder";
+"Download" = "Obtenir";
+"LoadFailure" = "Téléchargement  impossible. Veuillez réessayer.";
+"GetRewardAfterWatching" = "Regardez la vidéo jusqu'à  la fin pour obtenir vos récompenses";
+"GiveUpReward" = "Renoncer aux  récompenses";
+"ContinueWatching" = "Continuer à  regarder";
+"CanbeTurnedOffAfter" = "Passer après  %d s";
+"Get" = "Télécharger";
+"View" = "Voir";
+"ContinuePlaying" = "Poursuivre la  lecture";
+"GetRewardAfterPlaying" = "Terminez la lecture pour  obtenir vos récompenses";
+"Wan" = "10 000";
+"ViewDetail" = "Voir";
+"CommitScore" = "%@ cote(s)";
+"AdsClosed" = "Annonces fermées";
+// Icon

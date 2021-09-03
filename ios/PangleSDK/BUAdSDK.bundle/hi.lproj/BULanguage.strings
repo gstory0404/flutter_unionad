@@ -1,0 +1,41 @@
+/*
+  BULanguage.strings
+  BUAdSDK
+
+  Created by wangyanlin on 2020/4/10.
+  Copyright © 2020 bytedance. All rights reserved.
+*/
+
+// String
+
+"Click" = "क्लिक  करें";
+"AD" = "विज्ञापन";
+"PlayConsumed" = "इसको चलाने पर %.2f MB  डेटा का इस्तेमाल होगा";
+"Evaluation" = "मूल्यांकन";
+"Score" = "%@ रेटिंग";
+"Select" = "चुनें";
+"Back" = "वापस जाएँ";
+"Replay" = "रीप्ले करने के लिए क्लिक  करें";
+"Continue" = "चलाना जारी रखें";
+"Skip" = "छोड़ें";
+"Feedback" = "फ़ीडबैक";
+"FeedbackStr1" = "आपके फ़ीडबैक के लिए  धन्यवाद.";
+"FeedbackStr2" = "हम आपको बेहतर विज्ञापन  अनुभव देने की कोशिश करते रहेंगे.";
+"FeedbackStr3" = "आप पहले ही फ़ीडबैक सबमिट  कर चुके हैं.";
+"FeedbackStr4" = "कृपया एक से अधिक बार न  सबमिट करें!";
+"ViewNow" = "अभी देखें";
+"Download" = "पाएँ";
+"LoadFailure" = "लोड नहीं किया जा सका.  कृपया फिर से कोशिश करें.";
+"GetRewardAfterWatching" = "रिवॉर्ड्स पाने के लिए  पूरा वीडियो देखें";
+"GiveUpReward" = "रिवॉर्ड्स छोड़ें";
+"ContinueWatching" = "देखते रहें";
+"CanbeTurnedOffAfter" = "%d सेकंड के बाद छोड़  दें";
+"Get" = "डाउनलोड करें";
+"View" = "देखें";
+"ContinuePlaying" = "देखना जारी रखें";
+"GetRewardAfterPlaying" = "रिवॉर्ड्स का दावा करने के  लिए पूरा देखें";
+"Wan" = "10  हज़ार";
+"ViewDetail" = "देखें";
+"CommitScore" = "%@ रेटिंग";
+"AdsClosed" = "विज्ञापन बंद";
+// Icon

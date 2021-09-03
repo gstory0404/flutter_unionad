@@ -1,0 +1,40 @@
+/*
+  BULanguage.strings
+  BUAdSDK
+
+  Created by wangyanlin on 2020/4/10.
+  Copyright © 2020 bytedance. All rights reserved.
+*/
+
+// String
+
+"Click" = "Нажмите";
+"AD" = "Рекламное  объявление";
+"PlayConsumed" = "На воспроизведение будет  потрачено %.2f МБ трафика";
+"Evaluation" = "Оценка";
+"Score" = "Оценки: %@";
+"Select" = "Выбрать";
+"Back" = "Назад";
+"Replay" = "Нажмите, чтобы  воспроизвести еще раз";
+"Continue" = "Продолжить  воспроизведение";
+"Skip" = "Пропустить";
+"Feedback" = "Отзыв";
+"FeedbackStr1" = "Благодарим за ваш  отзыв.";
+"FeedbackStr2" = "Мы постоянно работаем над  улучшением качества рекламы.";
+"FeedbackStr3" = "Вы уже оставили  отзыв.";
+"FeedbackStr4" = "Желательно оставлять  отзыв только один раз!";
+"ViewNow" = "Смотреть";
+"Download" = "Получить";
+"LoadFailure" = "Ошибка загрузки.  Попробуйте снова.";
+"GetRewardAfterWatching" = "Завершите просмотр  полного видео, чтобы получить награду";
+"GiveUpReward" = "Отказаться от  награды";
+"ContinueWatching" = "Продолжить  просмотр";
+"CanbeTurnedOffAfter" = "Можно пропустить через %d  с";
+"Get" = "Скачать";
+"View" = "Вид";
+"ContinuePlaying" = "Продолжить  просмотр";
+"GetRewardAfterPlaying" = "Завершите просмотр, чтобы  получить награду";
+"Wan" = "10  тысяч";
+"ViewDetail" = "Вид";
+"CommitScore" = "Оценки: %@";
+"AdsClosed" = "Объявления закрыты";

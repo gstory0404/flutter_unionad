@@ -1,0 +1,41 @@
+/*
+ BULanguage.strings
+ BUAdSDK
+ 
+ Created by iCuiCui on 2020/2/12.
+ Copyright © 2019 bytedance. All rights reserved.
+ */
+
+// String
+
+"Click" = "클릭";
+"AD" = "광고";
+"PlayConsumed" = "재생하면  %.2fMB 트래픽이 소비하다";
+"Evaluation" = "평가";
+"Score" = "%@ 평점";
+"Select" = "선택";
+"Wan" = "만";
+"Back" = "뒤로";
+"Replay" = "재생하다";
+"Continue" = "계속하다";
+"Skip" = "건너뛰다";
+"Feedback" = "피드백";
+"FeedbackStr1" = "피드백을 주셔서 감사합니다！";
+"FeedbackStr2" = "더 양질의 광고 체험을 드리 겠습니다!";
+"FeedbackStr3" = "피드백을 제출 완료 됐었습니다!";
+"FeedbackStr4" = "반복하게 제출하지 마십시오";
+"ViewNow" = "즉시 보기";
+"Download" = "즉시 다운로드";
+"LoadFailure" = "적재 실패, 재시도 클릭";
+"GetRewardAfterWatching" = "전체 비디오를 본 후 보상을 받으십시오.";
+"GiveUpReward" = "포상을 포기하다";
+"ContinueWatching" = "계속보기";
+"CanbeTurnedOffAfter" = "%ds후에 닫을 수 있다";
+"Get" = "다운로드";
+"View" = "체크";
+"ContinuePlaying" = "계속하다";
+"GetRewardAfterPlaying" = "리워드는 게임 플레이 이후에 지급됩니다.";
+"ViewDetail" = "체크";
+"CommitScore" = "%@ 평점";
+"AdsClosed" = "광고 종료";
+// Icon

@@ -1,0 +1,40 @@
+/*
+  BULanguage.strings
+  BUAdSDK
+
+  Created by wangyanlin on 2020/4/10.
+  Copyright © 2020 bytedance. All rights reserved.
+*/
+
+// String
+
+"Click" = "Clic";
+"AD" = "Annuncio";
+"PlayConsumed" = "La riproduzione  utilizzerà %.2f MB di dati";
+"Evaluation" = "Valutazione";
+"Score" = "Valutazione(i) %@";
+"Select" = "Seleziona";
+"Back" = "Indietro";
+"Replay" = "Clic per caricare";
+"Continue" = "Continua per  riprodurre";
+"Skip" = "Ignora";
+"Feedback" = "Feedback";
+"FeedbackStr1" = "Grazie per il tuo  feedback";
+"FeedbackStr2" = "Continueremo a impegnarci  per fornirti un'esperienza pubblicitaria migliore.";
+"FeedbackStr3" = "Hai già inviato il tuo  feedback.";
+"FeedbackStr4" = "Non inviarne più di  uno!";
+"ViewNow" = "Visualizza ora";
+"Download" = "Ottieni";
+"LoadFailure" = "Caricamento non riuscito.  Riprova.";
+"GetRewardAfterWatching" = "Finisci di guardare il  video per ottenere le ricompense";
+"GiveUpReward" = "Rinuncia a  ricompense";
+"ContinueWatching" = "Continua a  guardare";
+"CanbeTurnedOffAfter" = "Ignora dopo %ds";
+"Get" = "Scarica";
+"View" = "Visualizza";
+"ContinuePlaying" = "Continua a  riprodurre";
+"GetRewardAfterPlaying" = "Riproduci tutto per  richiedere le ricompense";
+"Wan" = "10  mila";
+"ViewDetail" = "Visualizza";
+"CommitScore" = "Valutazione(i) %@";
+"AdsClosed" = "Annunci chiusi";

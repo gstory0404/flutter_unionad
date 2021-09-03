@@ -1,0 +1,40 @@
+/*
+  BULanguage.strings
+  BUAdSDK
+
+  Created by wangyanlin on 2020/4/10.
+  Copyright © 2020 bytedance. All rights reserved.
+*/
+
+// String
+
+"Click" = "點擊";
+"AD" = "廣告";
+"PlayConsumed" = "播放將消耗%.2fMB流量";
+"Evaluation" = "評估";
+"Score" = "%@個評分";
+"Select" = "選擇";
+"Back" = "返回";
+"Replay" = "點擊重播";
+"Continue" = "繼續播放";
+"Skip" = "跳過";
+"Feedback" = "迴響";
+"FeedbackStr1" = "感謝您的迴響！";
+"FeedbackStr2" = "我們將為您帶來更優質的廣告體驗";
+"FeedbackStr3" = "您已提交過迴響！";
+"FeedbackStr4" = "請勿反復提交";
+"ViewNow" = "立即查看";
+"Download" = "立即下載";
+"LoadFailure" = "加載失敗，點擊重試";
+"GetRewardAfterWatching" = "觀看完整視頻才能獲得獎勵";
+"GiveUpReward" = "放弃獎勵";
+"ContinueWatching" = "繼續觀看";
+"CanbeTurnedOffAfter" = "%ds後可關閉";
+"Get" = "下載";
+"View" = "查看";
+"ContinuePlaying" = "繼續試玩";
+"GetRewardAfterPlaying" = "試玩後才可領取獎勵";
+"Wan" = "萬";
+"ViewDetail" = "查看詳情";
+"CommitScore" = "%@個評分";
+"AdsClosed" = "廣告已關閉";

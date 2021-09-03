@@ -1,0 +1,40 @@
+/*
+  BULanguage.strings
+  BUAdSDK
+
+  Created by wangyanlin on 2020/4/10.
+  Copyright © 2020 bytedance. All rights reserved.
+*/
+
+// String
+
+"Click" = "คลิก";
+"AD" = "โฆษณา";
+"PlayConsumed" = "การเล่นรายการนี้จะใช้อินเทอร์เน็ต  %.2f MB";
+"Evaluation" = "การประเมินผล";
+"Score" = "%@  คะแนน";
+"Select" = "เลือก";
+"Back" = "กลับ";
+"Replay" = "คลิกเพื่อเล่นซ้ำ";
+"Continue" = "ดำเนินการต่อเพื่อเล่น";
+"Skip" = "ข้าม";
+"Feedback" = "ผลตอบรับ";
+"FeedbackStr1" = "ขอบคุณสำหรับผลตอบรับของคุณ";
+"FeedbackStr2" = "เราจะพยายามอย่างต่อเนื่องเพื่อมอบประสบการณ์การโฆษณาที่ดียิ่งขึ้น";
+"FeedbackStr3" = "คุณได้ส่งผลตอบรับแล้ว";
+"FeedbackStr4" = "โปรดอย่าส่งมากกว่าหนึ่งครั้ง";
+"ViewNow" = "ดูตอนนี้";
+"Download" = "รับ";
+"LoadFailure" = "การโหลดล้มเหลว  โปรดลองอีกครั้ง";
+"GetRewardAfterWatching" = "ดูวิดีโอแบบเต็มจนจบเพื่อรับรางวัล";
+"GiveUpReward" = "รางวัลการยอมแพ้";
+"ContinueWatching" = "ดูต่อ";
+"CanbeTurnedOffAfter" = "ข้ามหลังจาก  %d วิ";
+"Get" = "ดาวน์โหลด";
+"View" = "ดู";
+"ContinuePlaying" = "เล่นต่อ";
+"GetRewardAfterPlaying" = "เล่นจนจบเพื่อรับรางวัล";
+"Wan" = "1 หมื่น";
+"ViewDetail" = "ดู";
+"CommitScore" = "%@  คะแนน";
+"AdsClosed" = "ปิดโฆษณา";

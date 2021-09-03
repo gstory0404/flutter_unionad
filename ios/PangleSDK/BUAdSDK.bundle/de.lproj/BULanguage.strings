@@ -1,0 +1,41 @@
+/*
+  BULanguage.strings
+  BUAdSDK
+
+  Created by wangyanlin on 2020/4/10.
+  Copyright © 2020 bytedance. All rights reserved.
+*/
+
+// String
+
+"Click" = "Klick";
+"AD" = "Anzeige";
+"PlayConsumed" = "Bei der Wiedergabe werden  %.2f MB Daten verbraucht";
+"Evaluation" = "Bewertung";
+"Score" = "%@ Rating(s)";
+"Select" = "Auswählen";
+"Back" = "Zurück";
+"Replay" = "Zum erneuten Wiedergeben  klicken";
+"Continue" = "Weiter wiedergeben";
+"Skip" = "Überspringen";
+"Feedback" = "Feedback";
+"FeedbackStr1" = "Vielen Dank für Ihr  Feedback.";
+"FeedbackStr2" = "Wir sind bemüht, Ihre  Werbeerfahrung weiter zu verbessern.";
+"FeedbackStr3" = "Sie haben bereits  Feedback übermittelt.";
+"FeedbackStr4" = "Bitte senden Sie Ihr  Feedback nicht mehrfach!";
+"ViewNow" = "Jetzt ansehen";
+"Download" = "Abrufen";
+"LoadFailure" = "Ladefehler. Bitte  versuchen Sie es erneut.";
+"GetRewardAfterWatching" = "Sehen Sie sich das Video  vollständig an, um Prämien zu erhalten.";
+"GiveUpReward" = "Auf Prämien  verzichten";
+"ContinueWatching" = "Weiter ansehen";
+"CanbeTurnedOffAfter" = "Nach %d s  überspringen";
+"Get" = "Herunterladen";
+"View" = "Ansehen";
+"ContinuePlaying" = "Weiter wiedergeben";
+"GetRewardAfterPlaying" = "Bis zum Ende wiedergeben,  um Prämien zu erhalten";
+"Wan" = "Zehntausend";
+"ViewDetail" = "Ansehen";
+"CommitScore" = "%@ Rating(s)";
+"AdsClosed" = "Anzeigen geschlossen";
+// Icon
