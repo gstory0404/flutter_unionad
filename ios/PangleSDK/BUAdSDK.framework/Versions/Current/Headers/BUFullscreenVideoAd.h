@@ -93,6 +93,20 @@ this method is used to get the type of fullscreen video ad
 @property (nonatomic, copy, readonly) NSDictionary *mediaExt;
 
 /**
+ Is  materialMeta from the preload, default is NO
+ @warning: Pure playable, the value of this field is accurate after the material is downloaded successfully. For others, the value of this field needs to be accurate after the video is downloaded successfully.
+ @Note :  This field is only useful in China area.
+ */
+@property (nonatomic, assign, readonly) BOOL materialMetaIsFromPreload;
+
+/**
+ The expiration timestamp of materialMeta
+ @warning: Pure playable, the value of this field is accurate after the material is downloaded successfully. For others, the value of this field needs to be accurate after the video is downloaded successfully.
+ @Note :  This field is only useful in China area.
+ */
+@property (nonatomic, assign, readonly) long expireTimestamp;
+
+/**
  Initializes video ad with slot id.
  @param slotID : the unique identifier of video ad.
  @return BUFullscreenVideoAd
@@ -130,6 +144,13 @@ this method is used to get the type of fullscreen video ad
  @return : whether it is successfully displayed.
  */
 - (BOOL)showAdFromRootViewController:(UIViewController *)rootViewController ritSceneDescribe:(NSString *_Nullable)sceneDescirbe;
+
+/**
+ Get the expiration timestamp of materialMeta
+ @warning: The value of this field is only accurate after the video is downloaded successfully or after the access is successfully obtained
+ @Note :  This API is only useful in China area.
+ */
+- (long)getExpireTimestamp;
 
 @end
 

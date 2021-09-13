@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *runLoopMode;
 
 + (BUTimer *)timerWithTimeInterval:(NSTimeInterval)seconds
-                            target:(id)target
+                            target:(nullable id)target
                           selector:(SEL)aSelector
                            repeats:(BOOL)repeats;
 

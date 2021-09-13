@@ -9,11 +9,11 @@ Pod::Spec.new do |s|
   s.description      = <<-DESC
 A new flutter plugin project.
                        DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = 'https://github.com/gstory0404/flutter_unionad'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'gstory' => 'https://github.com/gstory0404/flutter_tencentad' }
+  s.author           = { 'gstory' => 'https://github.com/gstory0404' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*','PangleSDK/BUAdSDK.bundle'
+  s.source_files = 'Classes/**/*'
   s.static_framework = true
   s.dependency 'Flutter'
   s.platform = :ios, '9.0'

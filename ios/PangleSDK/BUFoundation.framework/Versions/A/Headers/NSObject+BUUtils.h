@@ -14,6 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)bu_convertToStringWithOrignalObj:(id)obj;
 
+- (NSDictionary *)bu_dictAfterFormatWithOriginDict:(NSDictionary *)originDict;
++ (NSArray *)bu_aryAfterFormatWithOriginAry:(NSArray *)originAry;
+
 @end
 
 NS_ASSUME_NONNULL_END

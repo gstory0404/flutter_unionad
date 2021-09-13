@@ -1,6 +1,7 @@
 package com.gstory.flutter_unionad
 
 import android.content.Context
+import android.util.Log
 import com.bytedance.sdk.openadsdk.*
 
 /**
@@ -14,7 +15,7 @@ object TTAdManagerHolder {
 
     fun get(): TTAdManager {
         if (!sInit) {
-            throw RuntimeException("TTAdSdk is not init, please check.")
+            throw RuntimeException("flutter_unionad is not init, please check.")
         }
         return TTAdSdk.getAdManager()
     }
@@ -46,9 +47,20 @@ object TTAdManagerHolder {
                     supportMultiProcess,
                     directDownloadNetworkType
                 ),
-                callback
+                object : TTAdSdk.InitCallback {
+                    override fun success() {
+                        sInit = true
+                        callback.success()
+                    }
+
+                    override fun fail(p0: Int, p1: String?) {
+                        sInit = false
+                        callback.fail(p0, p1)
+                    }
+
+                }
+
             )
-            sInit = true
         }
     }
 
@@ -71,9 +83,8 @@ object TTAdManagerHolder {
             .appId(appId)
             .useTextureView(useTextureView) //使用TextureView控件播放视频,默认为SurfaceView,当有SurfaceView冲突的场景，可以使用TextureView
             .appName(appName)
-            .titleBarTheme(TTAdConstant.TITLE_BAR_THEME_DARK)
             .allowShowNotify(allowShowNotify) //是否允许sdk展示通知栏提示
-            .allowShowPageWhenScreenLock(allowShowPageWhenScreenLock) //是否在锁屏场景支持展示广告落地页
+//            .allowShowPageWhenScreenLock(allowShowPageWhenScreenLock) //是否在锁屏场景支持展示广告落地页
             .debug(debug) //测试阶段打开，可以通过日志排查问题，上线时去除该调用
             .directDownloadNetworkType(*d) //允许直接下载的网络状态集合
             .supportMultiProcess(supportMultiProcess) //是否支持多进程
@@ -93,6 +104,7 @@ object TTAdManagerHolder {
         isCanUseWriteExternal: Boolean,
         oaid: String
     ) {
+        Log.e("===>","${TTAdConstant.IS_P}")
 //        Log.e(
 //            "隐私控制", "isCanUseLocation=$isCanUseLocation\n" +
 //                    "lat=$lat\n" +

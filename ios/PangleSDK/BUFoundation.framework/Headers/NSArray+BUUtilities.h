@@ -49,6 +49,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (id)bu_reduceWithBlock:(id(^)(id item1, id item2))block initial:(id)initial;
 
+
+
+- (id)bu_findWithConditionBlock:(id(^)(id item))conditionBlock;
+- (id)bu_findWithIndexConditionBlock:(id(^)(id item, NSInteger index))indexConditionBlock;
 @end
 
 NS_ASSUME_NONNULL_END

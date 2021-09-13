@@ -26,22 +26,23 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
     private lateinit var channel: MethodChannel
     private var applicationContext: Context? = null
     private var mActivity: Activity? = null
-    private var mFlutterPluginBinding: FlutterPlugin.FlutterPluginBinding?  = null
+    private var mFlutterPluginBinding: FlutterPlugin.FlutterPluginBinding? = null
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         mActivity = binding.activity
-        Log.e("FlutterUnionadPlugin->","onAttachedToActivity")
-        FlutterUnionadViewPlugin.registerWith(mFlutterPluginBinding!!,mActivity!!)
+        Log.e("FlutterUnionadPlugin->", "onAttachedToActivity")
+        FlutterUnionadViewPlugin.registerWith(mFlutterPluginBinding!!, mActivity!!)
     }
 
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
         mActivity = binding.activity
-        Log.e("FlutterUnionadPlugin->","onReattachedToActivityForConfigChanges")
+        Log.e("FlutterUnionadPlugin->", "onReattachedToActivityForConfigChanges")
     }
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        Log.e("FlutterUnionadPlugin->","onAttachedToEngine")
-        channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), channelName)
+        Log.e("FlutterUnionadPlugin->", "onAttachedToEngine")
+        channel =
+            MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), channelName)
         channel.setMethodCallHandler(this)
         applicationContext = flutterPluginBinding.applicationContext
         mFlutterPluginBinding = flutterPluginBinding
@@ -51,17 +52,18 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
 
     override fun onDetachedFromActivityForConfigChanges() {
         mActivity = null
-        Log.e("FlutterUnionadPlugin->","onDetachedFromActivityForConfigChanges")
+        Log.e("FlutterUnionadPlugin->", "onDetachedFromActivityForConfigChanges")
     }
 
     override fun onDetachedFromActivity() {
         mActivity = null
-        Log.e("FlutterUnionadPlugin->","onDetachedFromActivity")
+        Log.e("FlutterUnionadPlugin->", "onDetachedFromActivity")
     }
 
 
     companion object {
         private var channelName = "flutter_unionad"
+
         @JvmStatic
         fun registerWith(registrar: Registrar) {
             val channel = MethodChannel(registrar.messenger(), channelName)
@@ -86,28 +88,35 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
                 if (appName == null || appName.trim { it <= ' ' }.isEmpty()) {
                     result.error("600", "appName can't be null", null)
                 } else {
-                    TTAdManagerHolder.init(applicationContext!!, appId, useTextureView!!, appName, allowShowNotify!!, allowShowPageWhenScreenLock!!, debug!!, supportMultiProcess!!, directDownloadNetworkType,
-                    object : TTAdSdk.InitCallback{
-                        override fun success() {
-                            Log.e("初始化","成功")
-                            mActivity!!.runOnUiThread(Runnable {
-                                result.success(true)
-                            })
+                    TTAdManagerHolder.init(applicationContext!!,
+                        appId,
+                        useTextureView!!,
+                        appName,
+                        allowShowNotify!!,
+                        allowShowPageWhenScreenLock!!,
+                        debug!!,
+                        supportMultiProcess!!,
+                        directDownloadNetworkType,
+                        object : TTAdSdk.InitCallback {
+                            override fun success() {
+                                Log.e("初始化", "成功")
+                                mActivity!!.runOnUiThread(Runnable {
+                                    result.success(true)
+                                })
+                            }
+
+                            override fun fail(p0: Int, p1: String?) {
+                                Log.e("初始化", "失败 $p0  $p1")
+                                mActivity!!.runOnUiThread(Runnable {
+                                    result.success(false)
+                                })
+                            }
                         }
-
-                        override fun fail(p0: Int, p1: String?) {
-                            Log.e("初始化","失败 $p0  $p1")
-                            mActivity!!.runOnUiThread(Runnable {
-                                result.success(false)
-                            })
-                        }
-
-                    })
-
+                    )
                 }
             }
             //隐私信息控制开关
-        }else if (call.method == "andridPrivacy") {
+        } else if (call.method == "andridPrivacy") {
             var arguments = call.arguments as Map<String?, Any?>
             val isCanUseLocation = call.argument<Boolean>("isCanUseLocation")
             val lat = call.argument<Double>("lat")
@@ -117,7 +126,16 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
             val isCanUseWifiState = call.argument<Boolean>("isCanUseWifiState")
             val isCanUseWriteExternal = call.argument<Boolean>("isCanUseWriteExternal")
             val oaid = call.argument<String>("oaid")
-            TTAdManagerHolder.privacyConfig(isCanUseLocation!!,lat!!,lon!!,isCanUsePhoneState!!,imei!!,isCanUseWifiState!!,isCanUseWriteExternal!!,oaid!!)
+            TTAdManagerHolder.privacyConfig(
+                isCanUseLocation!!,
+                lat!!,
+                lon!!,
+                isCanUsePhoneState!!,
+                imei!!,
+                isCanUseWifiState!!,
+                isCanUseWriteExternal!!,
+                oaid!!
+            )
             //请求权限
         } else if (call.method == "requestPermissionIfNecessary") {
             val mTTAdManager = TTAdManagerHolder.get()
@@ -144,24 +162,44 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
             var expressViewWidth = call.argument<Double>("expressViewWidth")
             var expressViewHeight = call.argument<Double>("expressViewHeight")
             var expressNum = call.argument<Integer>("expressNum")
-            InteractionExpressAd.init(mActivity!!,mActivity!!, mCodeId, supportDeepLink, expressViewWidth!!, expressViewHeight!!,expressNum!!)
+            InteractionExpressAd.init(
+                mActivity!!,
+                mActivity!!,
+                mCodeId,
+                supportDeepLink,
+                expressViewWidth!!,
+                expressViewHeight!!,
+                expressNum!!
+            )
             result.success(true)
             //全屏广告
-        } else if(call.method == "fullScreenVideoAd"){
+        } else if (call.method == "fullScreenVideoAd") {
             val mCodeId = call.argument<String>("androidCodeId")
             val supportDeepLink = call.argument<Boolean>("supportDeepLink")
             val orientation = call.argument<Int>("orientation")
-            FullScreenVideoExpressAd.init(mActivity!!, mActivity!!, mCodeId, supportDeepLink, orientation!!)
+            FullScreenVideoExpressAd.init(
+                mActivity!!,
+                mActivity!!,
+                mCodeId,
+                supportDeepLink,
+                orientation!!
+            )
             result.success(true)
             //预加载插屏广告 全屏插屏二合一
-        }else if(call.method == "loadFullScreenVideoAdInteraction"){
+        } else if (call.method == "loadFullScreenVideoAdInteraction") {
             val mCodeId = call.argument<String>("androidCodeId")
             val supportDeepLink = call.argument<Boolean>("supportDeepLink")
             val orientation = call.argument<Int>("orientation")
-            FullScreenVideoAdInteraction.init(mActivity!!, mActivity!!, mCodeId, supportDeepLink, orientation!!)
+            FullScreenVideoAdInteraction.init(
+                mActivity!!,
+                mActivity!!,
+                mCodeId,
+                supportDeepLink,
+                orientation!!
+            )
             result.success(true)
             //显示插屏广告 全屏插屏二合一
-        }else if(call.method == "showFullScreenVideoAdInteraction"){
+        } else if (call.method == "showFullScreenVideoAdInteraction") {
             FullScreenVideoAdInteraction.showAd()
             result.success(true)
         }

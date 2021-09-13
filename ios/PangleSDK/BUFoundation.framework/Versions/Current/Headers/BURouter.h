@@ -12,4 +12,6 @@
 
 @interface BURouter : NSObject
 + (void)presentFromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC;
+
++ (void)presentFromViewControllerOverFullScreen:(UIViewController *)fromVC toViewController:(UIViewController *)toVC;
 @end

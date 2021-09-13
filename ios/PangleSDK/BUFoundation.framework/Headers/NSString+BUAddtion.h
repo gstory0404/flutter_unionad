@@ -18,6 +18,7 @@ typedef NS_ENUM(NSUInteger, BULanguageType) {//"万"转换规则
 @interface NSString (BU_URLCoding)
 - (nullable NSString *)bu_URLEncodedString;
 - (nullable NSString *)bu_URLDecodedString;
+- (nullable NSString *)bu_URLEncodedStringWithCustomSet;
 @end
 
 @interface NSString (BU_Encryption)
@@ -48,9 +49,7 @@ typedef NS_ENUM(NSUInteger, BULanguageType) {//"万"转换规则
  *
  string转字典
  */
-+ (NSDictionary*)bu_parametersOfURLString:(NSString*)urlString DEPRECATED_MSG_ATTRIBUTE("使用 `bu_parametersOfURLQueryString` 代替此方法");
 + (NSDictionary*)bu_parametersOfURLQueryString:(NSString*)urlString;
-+ (NSDictionary*)bu_convertStringToDictionary:(NSString*)string;
 
 /*
  *
@@ -90,7 +89,7 @@ typedef NS_ENUM(NSUInteger, BULanguageType) {//"万"转换规则
 @interface NSString(BU_JSONValue)
 
 - (nullable id)bu_JSONValue:(NSError **)error;
-+ (nullable id)bu_objectWithJSONData:(NSData *)inData error:(NSError **)outError;
++ (nullable id)bu_objectWithJSONData:(nullable NSData *)inData error:(NSError **)outError;
 
 @end
 

@@ -30,6 +30,14 @@ typedef NS_ENUM(NSInteger, BUAdSlotPosition) {
     BUAdSlotPositionFullscreen = 5, 
 };
 
+/// value is equale req_type
+typedef NS_ENUM(NSInteger, BUAdLoadType) {
+    
+    BUAdLoadTypeUnknown                    = -1,//Unknown
+    BUAdLoadTypePreload                    = 1,//Preload resources
+    BUAdLoadTypeLoad                       = 3,//Load resources in real time
+};
+
 typedef NS_ENUM(NSInteger, BUSplashButtonType) {
     BUSplashButtonType_FullScreen  = 1,  // The whole area of splash view will respond to click event
     BUSplashButtonType_DownloadBar = 2   // The area of download bar in splash view will respond to click event
@@ -91,9 +99,18 @@ typedef NS_ENUM(NSInteger, BUSplashButtonType) {
 
 /// optional. additional user information
 @property (nonatomic, copy) NSString *userData;
- 
+
+/**
+ Ad load type
+    - BUAdLoadTypePreload : Preload resources
+    - BUAdLoadTypeLoad:     Load resources in real time
+ @Note :  This field is only useful in China. At present, this field is not necessary to set the content. It is only to investigate how developers use advertisements instead of realizing functions.
+ */
+@property (nonatomic, assign) BUAdLoadType adLoadType;
+
 /// optional. config the behaviour of click splash view
 @property (nonatomic, assign) BUSplashButtonType splashButtonType;
+
 - (NSDictionary *)dictionaryValue;
 
 @end

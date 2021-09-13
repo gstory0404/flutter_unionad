@@ -36,15 +36,15 @@ typedef NS_ENUM(NSUInteger, BUPersistentType) {
 
 - (NSArray *)allObjects;
 
-- (nullable id)objectForKey:(NSString *)key;
+- (nullable id)objectForKey:(nullable NSString *)key;
 
 - (nullable NSArray *)objectsForKeys:(NSArray *)keys;
 
 - (void)updateObjectsForKeys:(NSArray *)keys WithBlock:(NSDictionary * (^)(NSArray *objects))block;
 
-- (BOOL)setObject:(nullable id<NSCoding>)object forKey:(NSString *)key;
+- (BOOL)setObject:(nullable id<NSCoding>)object forKey:(nullable NSString *)key;
 
-- (BOOL)hasObjectForKey:(NSString *)key;
+- (BOOL)hasObjectForKey:(nullable NSString *)key;
 
 - (BOOL)removeAll;
 

@@ -68,6 +68,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (atomic, assign) BOOL allowModifyAudioSessionSetting;
 
+/**
+ If you are a Unity developer, set this to Yes
+ */
+@property (nonatomic, assign) BOOL unityDeveloper;
+
 @end
 
 NS_ASSUME_NONNULL_END
