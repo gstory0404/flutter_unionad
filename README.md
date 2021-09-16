@@ -1,7 +1,7 @@
 # 字节跳动穿山甲广告 Flutter版本
 
 <p>
-<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.1.2-success></a>
+<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.1.3-success></a>
 </p>
 
 ![image](https://github.com/gstory0404/flutter_unionad/blob/master/image/demo.gif)
@@ -28,7 +28,7 @@
 ## 集成步骤
 #### 1、pubspec.yaml
 ```Dart
-flutter_unionad: ^1.1.2
+flutter_unionad: ^1.1.3
 ```
 引入
 ```Dart

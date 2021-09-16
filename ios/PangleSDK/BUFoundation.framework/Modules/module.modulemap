@@ -1,6 +1,0 @@
-framework module BUFoundation {
-  umbrella header "BUFoundation.h"
-
-  export *
-  module * { export * }
-}
