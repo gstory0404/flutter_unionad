@@ -9,16 +9,21 @@ Pod::Spec.new do |s|
   s.description      = <<-DESC
 A new flutter plugin project.
                        DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = 'https://github.com/gstory0404/flutter_unionad'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'gstory' => 'https://github.com/gstory0404/flutter_tencentad' }
+  s.author           = { 'gstory' => 'https://github.com/gstory0404' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*','PangleSDK/BUAdSDK.bundle'
+  s.source_files = 'Classes/**/*'
   s.static_framework = true
   s.dependency 'Flutter'
   s.platform = :ios, '9.0'
-  s.dependency 'Ads-CN','~> 3.9.0.4'
-#  s.vendored_frameworks = 'PangleSDK/*.framework'
+  s.dependency 'Ads-CN-Beta','~> 4.0.0.0'
+# .framework文件
+#  s.vendored_frameworks = 'PangleSDK/BUAdSDK.framework','PangleSDK/BUCNAuxiliary.framework','PangleSDK/BUFoundation.framework'
+# .a文件
+ # s.vendored_libraries =''
+# .bundle文件
+#  s.resource='PangleSDK/BUAdSDK.bundle'
 
   # Flutter.framework does not contain a i386 slice. Only x86_64 simulators are supported.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
