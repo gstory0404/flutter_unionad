@@ -61,6 +61,8 @@ object TTAdManagerHolder {
                 }
 
             )
+        }else{
+            callback.success()
         }
     }
 

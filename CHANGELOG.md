@@ -110,3 +110,9 @@
 
 * 1、android sdk更新4.0.0.1
 * 2、ios sdk更新4.0.0.0
+
+## 1.1.4
+
+* 1、android sdk更新4.0.0.6
+* 2、ios sdk更新4.0.0.1
+* 3、优化android sdk初始化
