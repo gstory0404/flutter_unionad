@@ -1,7 +1,7 @@
 # 字节跳动穿山甲广告 Flutter版本
 
 <p>
-<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.1.3-success></a>
+<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.1.4-success></a>
 </p>
 
 ![image](https://github.com/gstory0404/flutter_unionad/blob/master/image/demo.gif)
@@ -15,12 +15,12 @@
 
 ## 本地环境
 ```
-[✓] Flutter (Channel stable, 2.2.3, on macOS 11.5.2 20G95 darwin-x64, locale zh-Hans-CN)
+[✓] Flutter (Channel stable, 2.5.0, on macOS 11.6 20G165 darwin-x64, locale zh-Hans-CN)
 [✓] Android toolchain - develop for Android devices (Android SDK version 30.0.3)
 [✓] Xcode - develop for iOS and macOS
 [✓] Chrome - develop for the web
 [✓] Android Studio (version 2020.3)
-[✓] VS Code (version 1.59.1)
+[✓] VS Code (version 1.60.1)
 [✓] Connected device (4 available)
 
 ```
@@ -28,14 +28,14 @@
 ## 集成步骤
 #### 1、pubspec.yaml
 ```Dart
-flutter_unionad: ^1.1.3
+flutter_unionad: ^1.1.4
 ```
 引入
 ```Dart
 import 'package:flutter_unionad/flutter_unionad.dart';
 ```
 #### 2、Android
-SDK(4.0.0.1)已配置插件中无需额外配置，只需要在android目录中AndroidManifest.xml配置
+SDK(4.0.0.6)已配置插件中无需额外配置，只需要在android目录中AndroidManifest.xml配置
 ```Java
 <manifest ···
     xmlns:tools="http://schemas.android.com/tools"
@@ -45,7 +45,7 @@ SDK(4.0.0.1)已配置插件中无需额外配置，只需要在android目录中A
 ```
 
 #### 3、IOS
-SDK(4.0.0.0)已配置插件中，其余根据SDK文档配置，因为使用PlatformView，在Info.plist加入
+SDK(4.0.0.1)已配置插件中，其余根据SDK文档配置，因为使用PlatformView，在Info.plist加入
 ```
  <key>io.flutter.embedded_views_preview</key>
     <true/>
