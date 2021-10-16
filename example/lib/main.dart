@@ -22,7 +22,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,7 +29,6 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
 
 class IndexPage extends StatefulWidget {
   @override
@@ -87,7 +85,8 @@ class _IndexPageState extends State<IndexPage> {
         },
       ),
       // 新模板渲染插屏广告回调
-      flutterUnionadNewInteractionCallBack: FlutterUnionadNewInteractionCallBack(
+      flutterUnionadNewInteractionCallBack:
+          FlutterUnionadNewInteractionCallBack(
         onShow: () {
           print("新模板渲染插屏广告显示");
         },
@@ -139,8 +138,9 @@ class _IndexPageState extends State<IndexPage> {
         onUnReady: () {
           print("激励广告预加载未准备就绪");
         },
-        onVerify: (rewardVerify, rewardAmount, rewardName) {
-          print("激励广告奖励  $rewardVerify   $rewardAmount  $rewardName");
+        onVerify: (rewardVerify, rewardAmount, rewardName, errorCode, error) {
+          print(
+              "激励广告奖励  验证结果=$rewardVerify 奖励=$rewardAmount  奖励名称$rewardName 错误吗=$errorCode 错误$error");
         },
       ),
     );
@@ -400,4 +400,3 @@ class _IndexPageState extends State<IndexPage> {
     }
   }
 }
-

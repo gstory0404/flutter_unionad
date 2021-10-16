@@ -45,7 +45,7 @@ typedef OnUnReady = void Function();
 
 ///广告奖励验证
 typedef OnVerify = void Function(
-    bool isVerify, int rewardAmount, String rewardName);
+    bool isVerify, int rewardAmount, String rewardName,int errorCode,String message);
 
 ///未确定
 typedef NotDetermined = void Function();

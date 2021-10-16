@@ -122,4 +122,7 @@ extension RewardedVideoAd: BUNativeExpressRewardedVideoAdDelegate {
                                   "onAdMethod":"onClick"]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
     }
+    
+    public func nativeExpressRewardedVideoAdCallback(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd, with nativeExpressVideoType: BUNativeExpressRewardedVideoAdType) {
+    }
 }

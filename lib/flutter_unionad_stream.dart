@@ -112,7 +112,7 @@ class FlutterUnionadStream {
               flutterUnionadRewardAdCallBack?.onClick!();
               break;
             case FlutterUnionadMethod.onVerify:
-              flutterUnionadRewardAdCallBack?.onVerify!(data["rewardVerify"],data["rewardAmount"],data["rewardName"]);
+              flutterUnionadRewardAdCallBack?.onVerify!(data["rewardVerify"],data["rewardAmount"],data["rewardName"],data["errorCode"],data["error"]);
               break;
             case FlutterUnionadMethod.onReady:
               flutterUnionadRewardAdCallBack?.onReady!();
