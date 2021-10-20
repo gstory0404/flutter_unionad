@@ -83,10 +83,12 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
             var supportMultiProcess = call.argument<Boolean>("supportMultiProcess")
             val directDownloadNetworkType = call.argument<List<Int>>("directDownloadNetworkType")!!
             if (appId == null || appId.trim { it <= ' ' }.isEmpty()) {
-                result.error("500", "appId can't be null", null)
+                Log.e("初始化", "appId can't be null")
+                result.success(false)
             } else {
                 if (appName == null || appName.trim { it <= ' ' }.isEmpty()) {
-                    result.error("600", "appName can't be null", null)
+                    Log.e("初始化", "appName can't be null")
+                    result.success(false)
                 } else {
                     TTAdManagerHolder.init(applicationContext!!,
                         appId,

@@ -24,8 +24,19 @@ public class SwiftFlutterUnionadPlugin: NSObject, FlutterPlugin {
     case "register":
         let param = call.arguments as! NSDictionary
         LogUtil.logInstance.isShow(debug: param.value(forKey: "debug") as? Bool ?? false)
-        TTAdManagerHolder.instace.initTTSDK(params: param)
-        result(true)
+        //如果已经初始化 就不再初始化
+        if(TTAdManagerHolder.instace.isInit){
+            result(true)
+            break
+        }
+        TTAdManagerHolder.instace.initTTSDK(params: param) { isSuccess, error in
+            if(isSuccess){
+                TTAdManagerHolder.instace.isInit = true
+                result(true)
+            }else{
+                result(false)
+            }
+        }
         break
     //获取sdk版本号
     case "getSDKVersion":
