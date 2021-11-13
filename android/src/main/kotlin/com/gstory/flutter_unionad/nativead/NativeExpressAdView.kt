@@ -77,10 +77,9 @@ class NativeExpressAdView(var context: Context,var activity: Activity, var messe
 
             override fun onNativeExpressAdLoad(ads: List<TTNativeExpressAd>) {
                 if (ads == null || ads.size == 0) {
-                    Log.e(TAG, "未拉去到信息流广告")
+                    Log.e(TAG, "未拉取到信息流广告")
                     return
                 }
-                Log.e(TAG, "未拉去到信息流广告数量===》 ${ads.size}")
                 //随机获取一条广告显示
                 mTTAd = ads[(0..ads.size - 1).random()]
                 bindAdListener(mTTAd!!)
