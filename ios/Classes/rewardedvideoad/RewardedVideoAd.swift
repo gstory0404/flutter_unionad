@@ -96,20 +96,27 @@ extension RewardedVideoAd: BUNativeExpressRewardedVideoAdDelegate {
     }
     
     public func nativeExpressRewardedVideoAdServerRewardDidFail(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd, error: Error?) {
+        LogUtil.logInstance.printLog(message: "异步请求的服务器验证失败回调")
         let map : NSDictionary = ["adType":"rewardAd",
-                                  "onAdMethod":"onFail",
+                                  "onAdMethod":"onVerify",
+                                  "rewardVerify":false,
+                                  "rewardAmount":self.rewardModel!.rewardAmount,
+                                  "rewardName":self.rewardModel!.rewardName ?? "",
+                                  "errorCode":(error! as NSError).code,
                                   "error":String(error.debugDescription)]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
     }
-    
+
     public func nativeExpressRewardedVideoAdServerRewardDidSucceed(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd, verify: Bool) {
         /// handle in close
-        LogUtil.logInstance.printLog(message: "激励广告观看成功")
+        LogUtil.logInstance.printLog(message: "异步请求的服务器验证成功回调，开发者需要在此回调中进行奖励发放")
         let map : NSDictionary = ["adType":"rewardAd",
                                   "onAdMethod":"onVerify",
                                   "rewardVerify":verify,
                                   "rewardAmount":self.rewardModel!.rewardAmount,
-                                  "rewardName":self.rewardModel!.rewardName ?? ""]
+                                  "rewardName":self.rewardModel!.rewardName ?? "",
+                                  "errorCode":0,
+                                  "error":""]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
     }
     
