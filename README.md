@@ -440,6 +440,8 @@ if (Platform.isAndroid) {
 |穿山甲广告插件|[flutter_unionad](https://github.com/gstory0404/flutter_unionad)|
 |腾讯优量汇广告插件|[flutter_tencentad](https://github.com/gstory0404/flutter_tencentad)|
 |聚合广告插件|[flutter_universalad](https://github.com/gstory0404/flutter_universalad)|
+|百度百青藤广告插件|[flutter_baiduad](https://github.com/gstory0404/flutter_baiduad)|
+|字节穿山甲内容合作插件|[flutter_pangrowth](https://github.com/gstory0404/flutter_pangrowth)|
 
 
 ## 联系方式
