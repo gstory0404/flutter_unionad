@@ -83,7 +83,7 @@ object RewardVideoAd {
                 "\nmediaExtra $mediaExtra ")
         val adSlot: AdSlot
         if (mIsExpress) {
-            adSlot = AdSlot.Builder()
+            adSlot = AdSlot.Builder().setDownloadType(1)
                     .setCodeId(mCodeId)
                     .setSupportDeepLink(supportDeepLink!!)
                     .setAdCount(1) //个性化模板广告需要设置期望个性化模板广告的大小,单位dp,激励视频场景，只要设置的值大于0即可
