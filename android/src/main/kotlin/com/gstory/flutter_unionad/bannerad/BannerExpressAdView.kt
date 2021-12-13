@@ -5,9 +5,7 @@ import android.content.Context
 import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
-import com.bytedance.sdk.openadsdk.*
-import com.bytedance.sdk.openadsdk.TTAdNative.NativeExpressAdListener
-import com.bytedance.sdk.openadsdk.TTNativeExpressAd.ExpressAdInteractionListener
+import com.bykv.vk.openvk.*
 import com.gstory.flutter_unionad.FlutterunionadViewConfig
 import com.gstory.flutter_unionad.TTAdManagerHolder.get
 import com.gstory.flutter_unionad.UIUtils
@@ -23,8 +21,8 @@ import io.flutter.plugin.platform.PlatformView
  */
 internal class BannerExpressAdView(var context: Context, var activity: Activity, messenger: BinaryMessenger?, id: Int, params: Map<String?, Any?>) : PlatformView {
     private val TAG = "BannerExpressAdView"
-    var mTTAdNative: TTAdNative
-    private var mTTAd: TTNativeExpressAd? = null
+    var mTTAdNative: TTVfNative
+    private var mTTAd: TTNtExpressObject? = null
     private var mExpressContainer: FrameLayout? = null
 
     //广告所需参数
@@ -53,7 +51,7 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
         mExpressContainer = FrameLayout(activity)
         Log.e("banner广告数量===>",expressAdNum.toString())
         val mTTAdManager = get()
-        mTTAdNative = mTTAdManager.createAdNative(context.applicationContext)
+        mTTAdNative = mTTAdManager.createVfNative(context.applicationContext)
         channel = MethodChannel(messenger,FlutterunionadViewConfig.bannerAdView+"_"+id)
         loadBannerExpressAd()
     }
@@ -63,20 +61,20 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
     }
 
     private fun loadBannerExpressAd() {
-        val adSlot = AdSlot.Builder()
+        val adSlot = VfSlot.Builder()
                 .setCodeId(mCodeId) //广告位id
                 .setSupportDeepLink(supportDeepLink!!)
                 .setAdCount(expressAdNum.toInt()) //请求广告数量为1到3条
                 .setExpressViewAcceptedSize(expressViewWidth, expressViewHeight) //期望模板广告view的size,单位dp
                 .setImageAcceptedSize(640, 320)//这个参数设置即可，不影响个性化模板广告的size
                 .build()
-        mTTAdNative.loadBannerExpressAd(adSlot, object : NativeExpressAdListener {
+        mTTAdNative.loadBnExpressVb(adSlot, object : TTVfNative.NtExpressVfListener {
             override fun onError(code: Int, message: String) {
                 mExpressContainer!!.removeAllViews()
                 channel?.invokeMethod("onFail",message)
             }
 
-            override fun onNativeExpressAdLoad(ads: List<TTNativeExpressAd>) {
+            override fun onNtExpressVnLoad(ads: MutableList<TTNtExpressObject>?) {
                 if (ads == null || ads.size == 0) {
                     return
                 }
@@ -94,14 +92,14 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
     }
 
 
-    private fun bindAdListener(ad: TTNativeExpressAd) {
-        ad.setExpressInteractionListener(object : ExpressAdInteractionListener {
-            override fun onAdClicked(view: View, type: Int) {
+    private fun bindAdListener(ad: TTNtExpressObject) {
+        ad.setExpressInteractionListener(object : TTNtExpressObject.NtInteractionListener {
+            override fun onClicked(view: View, type: Int) {
                 Log.e(TAG, "广告点击")
                 channel?.invokeMethod("onClick","")
             }
 
-            override fun onAdShow(view: View, type: Int) {
+            override fun onShow(view: View, type: Int) {
                 Log.e(TAG, "广告显示")
             }
 
@@ -126,6 +124,10 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
 //                mExpressContainer!!.layoutParams = mExpressContainerParams
                 mExpressContainer!!.addView(view)
                 channel?.invokeMethod("onShow","")
+            }
+
+            override fun onDismiss() {
+
             }
 
 
@@ -171,9 +173,9 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
      * @param ad
      * @param customStyle 是否自定义样式，true:样式自定义
      */
-    private fun bindDislike(ad: TTNativeExpressAd, customStyle: Boolean) {
+    private fun bindDislike(ad: TTNtExpressObject, customStyle: Boolean) {
         //使用默认个性化模板中默认dislike弹出样式
-        ad.setDislikeCallback(activity, object : TTAdDislike.DislikeInteractionCallback {
+        ad.setDislikeCallback(activity, object : TTVfDislike.DislikeInteractionCallback {
 
             override fun onSelected(p0: Int, p1: String?, p2: Boolean) {
                 Log.e(TAG, "点击 $p1")

@@ -6,8 +6,7 @@ import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
-import com.bytedance.sdk.openadsdk.*
-import com.bytedance.sdk.openadsdk.TTAdNative.NativeExpressAdListener
+import com.bykv.vk.openvk.*
 import com.gstory.flutter_unionad.TTAdManagerHolder
 import com.gstory.flutter_unionad.UIUtils
 import io.flutter.plugin.common.BinaryMessenger
@@ -21,8 +20,8 @@ import io.flutter.plugin.platform.PlatformView
  */
 class InteractionExpressAdView(var context: Context, var activity: Activity, messenger: BinaryMessenger?, id: Int, params: Map<String?, Any?>) : PlatformView {
     private val TAG = "InteractionExpressAd"
-    var mTTAdNative: TTAdNative
-    private var mTTAd: TTNativeExpressAd? = null
+    var mTTAdNative: TTVfNative
+    private var mTTAd: TTNtExpressObject? = null
     private var mExpressContainer : FrameLayout? = null
     //广告所需参数
     private val mCodeId: String?
@@ -43,7 +42,7 @@ class InteractionExpressAdView(var context: Context, var activity: Activity, mes
         expressViewHeight = hight.toFloat()
         mExpressContainer = FrameLayout(activity)
         val mTTAdManager = TTAdManagerHolder.get()
-        mTTAdNative = mTTAdManager.createAdNative(context.applicationContext)
+        mTTAdNative = mTTAdManager.createVfNative(context.applicationContext)
         loadInteractionExpressAd()
     }
 
@@ -53,7 +52,7 @@ class InteractionExpressAdView(var context: Context, var activity: Activity, mes
 
     private fun loadInteractionExpressAd() {
         //设置广告参数
-        val adSlot = AdSlot.Builder()
+        val adSlot = VfSlot.Builder()
                 .setCodeId(mCodeId) //广告位id
                 .setSupportDeepLink(supportDeepLink!!)
                 .setAdCount(expressNum.toInt()) //请求广告数量为1到3条
@@ -61,13 +60,13 @@ class InteractionExpressAdView(var context: Context, var activity: Activity, mes
                 .setImageAcceptedSize(640, 320) //这个参数设置即可，不影响个性化模板广告的size
                 .build()
         //加载广告
-        mTTAdNative.loadInteractionExpressAd(adSlot, object : NativeExpressAdListener {
+        mTTAdNative.loadItExpressVi(adSlot, object : TTVfNative.NtExpressVfListener  {
             override fun onError(code: Int, message: String) {
                 Log.e(TAG,"load error : $code, $message")
                 mExpressContainer!!.removeAllViews()
             }
 
-            override fun onNativeExpressAdLoad(ads: List<TTNativeExpressAd>) {
+            override fun onNtExpressVnLoad(ads: List<TTNtExpressObject>) {
                 if (ads == null || ads.size == 0) {
                     return
                 }
@@ -81,17 +80,17 @@ class InteractionExpressAdView(var context: Context, var activity: Activity, mes
     }
 
     //绑定广告行为
-    private fun bindAdListener(ad: TTNativeExpressAd) {
-        ad.setExpressInteractionListener(object : TTNativeExpressAd.AdInteractionListener {
-            override fun onAdDismiss() {
+    private fun bindAdListener(ad: TTNtExpressObject) {
+        ad.setExpressInteractionListener(object : TTNtExpressObject.NtInteractionListener {
+            override fun onDismiss() {
                 Log.e(TAG,"广告关闭")
             }
 
-            override fun onAdClicked(view: View, type: Int) {
+            override fun onClicked(view: View, type: Int) {
                 Log.e(TAG,"广告被点击")
             }
 
-            override fun onAdShow(view: View, type: Int) {
+            override fun onShow(view: View, type: Int) {
                 Log.e(TAG,"广告展示")
             }
 

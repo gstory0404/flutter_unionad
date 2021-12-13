@@ -5,10 +5,7 @@ import android.content.Context
 import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
-import com.bytedance.sdk.openadsdk.*
-import com.bytedance.sdk.openadsdk.TTAdNative.NativeExpressAdListener
-import com.bytedance.sdk.openadsdk.TTNativeExpressAd.ExpressAdInteractionListener
-import com.bytedance.sdk.openadsdk.TTNativeExpressAd.ExpressVideoAdListener
+import com.bykv.vk.openvk.*
 import com.gstory.flutter_unionad.FlutterunionadViewConfig
 import com.gstory.flutter_unionad.TTAdManagerHolder.get
 import com.gstory.flutter_unionad.UIUtils
@@ -24,8 +21,8 @@ import io.flutter.plugin.platform.PlatformView
  */
 internal class DrawFeedExpressAdView(var context: Context, var activity: Activity, messenger: BinaryMessenger?, id: Int, params: Map<String?, Any?>) : PlatformView {
     private val TAG = "DrawFeedExpressAdView"
-    var mTTAdNative: TTAdNative
-    private var mTTAd: TTNativeExpressAd? = null
+    var mTTAdNative: TTVfNative
+    private var mTTAd: TTNtExpressObject? = null
     private var mExpressContainer: FrameLayout? = null
 
     //广告所需参数
@@ -48,7 +45,7 @@ internal class DrawFeedExpressAdView(var context: Context, var activity: Activit
         expressViewHeight = hight.toFloat()
         mExpressContainer = FrameLayout(activity)
         val mTTAdManager = get()
-        mTTAdNative = mTTAdManager.createAdNative(context.applicationContext)
+        mTTAdNative = mTTAdManager.createVfNative(context.applicationContext)
         loadBannerExpressAd()
         channel = MethodChannel(messenger, FlutterunionadViewConfig.drawFeedAdView+"_"+id)
     }
@@ -58,37 +55,37 @@ internal class DrawFeedExpressAdView(var context: Context, var activity: Activit
     }
 
     private fun loadBannerExpressAd() {
-        val adSlot = AdSlot.Builder()
+        val adSlot = VfSlot.Builder()
                 .setCodeId(mCodeId) //广告位id
                 .setSupportDeepLink(supportDeepLink!!)
                 .setAdCount(1) //请求广告数量为1到3条
                 .setExpressViewAcceptedSize(expressViewWidth,expressViewHeight) //期望模板广告view的size,单位dp
                 .setImageAcceptedSize(640, 320)//这个参数设置即可，不影响个性化模板广告的size
                 .build()
-        mTTAdNative.loadExpressDrawFeedAd(adSlot, object : NativeExpressAdListener {
+        mTTAdNative.loadExpressDrawVf(adSlot, object : TTVfNative.NtExpressVfListener {
             override fun onError(code: Int, message: String) {
                 Log.e(TAG, "load error : $code, $message")
                 channel?.invokeMethod("onFail",message);
             }
 
-            override fun onNativeExpressAdLoad(ads: List<TTNativeExpressAd?>?) {
+            override fun onNtExpressVnLoad(ads: List<TTNtExpressObject?>?) {
                 if (ads == null || ads.isEmpty()) {
                     return;
                 }
                 for (ad in ads) {
-                    ad!!.setVideoAdListener(object : ExpressVideoAdListener {
-                        override fun onVideoAdPaused() {
+                    ad!!.setVideoListener(object : TTNtExpressObject.ExpressVideoListener {
+                        override fun onVideoPaused() {
                             channel?.invokeMethod("onVideoPause","");
                         }
 
                         override fun onProgressUpdate(p0: Long, p1: Long) {
                         }
 
-                        override fun onVideoAdComplete() {
+                        override fun onVideoComplete() {
                             channel?.invokeMethod("onVideoStop","");
                         }
 
-                        override fun onVideoAdStartPlay() {
+                        override fun onVideoStartPlay() {
                             channel?.invokeMethod("onVideoPlay","");
                         }
 
@@ -96,7 +93,7 @@ internal class DrawFeedExpressAdView(var context: Context, var activity: Activit
                             channel?.invokeMethod("onFail","$p0,$p1");
                         }
 
-                        override fun onVideoAdContinuePlay() {
+                        override fun onVideoContinuePlay() {
                         }
 
                         override fun onVideoLoad() {
@@ -108,13 +105,13 @@ internal class DrawFeedExpressAdView(var context: Context, var activity: Activit
                     })
                     //是否允许点击暂停视频播放
                     ad!!.setCanInterruptVideoPlay(true)
-                    ad!!.setExpressInteractionListener(object : ExpressAdInteractionListener{
-                        override fun onAdClicked(view: View, type: Int) {
+                    ad!!.setExpressInteractionListener(object : TTNtExpressObject.NtInteractionListener{
+                        override fun onClicked(view: View, type: Int) {
                             Log.e(TAG, "广告点击")
                             channel?.invokeMethod("onClick","");
                         }
 
-                        override fun onAdShow(view: View, type: Int) {
+                        override fun onShow(view: View, type: Int) {
                             Log.e(TAG, "广告显示")
                             channel?.invokeMethod("onShow","");
                         }
@@ -139,6 +136,10 @@ internal class DrawFeedExpressAdView(var context: Context, var activity: Activit
 //                val mExpressContainerParams: FrameLayout.LayoutParams = FrameLayout.LayoutParams(UIUtils.dip2px(activity, width).toInt(), UIUtils.dip2px(activity, height).toInt())
 //                mExpressContainer!!.layoutParams = mExpressContainerParams
                             mExpressContainer!!.addView(view)
+                        }
+
+                        override fun onDismiss() {
+
                         }
                     })
                     ad!!.render()

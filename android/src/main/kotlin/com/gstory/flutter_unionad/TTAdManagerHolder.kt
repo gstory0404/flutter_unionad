@@ -2,7 +2,7 @@ package com.gstory.flutter_unionad
 
 import android.content.Context
 import android.util.Log
-import com.bytedance.sdk.openadsdk.*
+import com.bykv.vk.openvk.*
 
 /**
  * @Description:
@@ -13,11 +13,11 @@ object TTAdManagerHolder {
     private var sInit = false
     private var controller: TTCustomController? = null
 
-    fun get(): TTAdManager {
+    fun get(): TTVfManager {
         if (!sInit) {
             throw RuntimeException("flutter_unionad is not init, please check.")
         }
-        return TTAdSdk.getAdManager()
+        return TTVfSdk.getVfManager()
     }
 
     //step1:接入网盟广告sdk的初始化操作，详情见接入文档和穿山甲平台说明
@@ -31,10 +31,10 @@ object TTAdManagerHolder {
         debug: Boolean,
         supportMultiProcess: Boolean,
         directDownloadNetworkType: List<Int>,
-        callback: TTAdSdk.InitCallback
+        callback: TTVfSdk.InitCallback
     ) {
         if (!sInit) {
-            TTAdSdk.init(
+            TTVfSdk.init(
                 context,
                 buildConfig(
                     context,
@@ -47,7 +47,7 @@ object TTAdManagerHolder {
                     supportMultiProcess,
                     directDownloadNetworkType
                 ),
-                object : TTAdSdk.InitCallback {
+                object : TTVfSdk.InitCallback {
                     override fun success() {
                         sInit = true
                         callback.success()
@@ -76,12 +76,12 @@ object TTAdManagerHolder {
         debug: Boolean,
         supportMultiProcess: Boolean,
         directDownloadNetworkType: List<Int>
-    ): TTAdConfig {
+    ): TTVfConfig {
         val d = IntArray(directDownloadNetworkType.size)
         for (i in directDownloadNetworkType.indices) {
             d[i] = directDownloadNetworkType[i]
         }
-        return TTAdConfig.Builder()
+        return TTVfConfig.Builder()
             .appId(appId)
             .useTextureView(useTextureView) //使用TextureView控件播放视频,默认为SurfaceView,当有SurfaceView冲突的场景，可以使用TextureView
             .appName(appName)
@@ -106,7 +106,7 @@ object TTAdManagerHolder {
         isCanUseWriteExternal: Boolean,
         oaid: String
     ) {
-        Log.e("===>","${TTAdConstant.IS_P}")
+        Log.e("===>","${TTVfConstant.IS_P}")
 //        Log.e(
 //            "隐私控制", "isCanUseLocation=$isCanUseLocation\n" +
 //                    "lat=$lat\n" +

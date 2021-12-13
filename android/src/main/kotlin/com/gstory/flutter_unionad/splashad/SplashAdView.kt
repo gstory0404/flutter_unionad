@@ -5,8 +5,7 @@ import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import androidx.annotation.MainThread
-import com.bytedance.sdk.openadsdk.*
-import com.bytedance.sdk.openadsdk.TTAdNative.SplashAdListener
+import com.bykv.vk.openvk.*
 import com.gstory.flutter_unionad.TTAdManagerHolder
 import com.gstory.flutter_unionad.UIUtils
 import com.gstory.flutter_unionad.FlutterUnionadEventPlugin
@@ -24,7 +23,7 @@ import io.flutter.plugin.platform.PlatformView
 internal class SplashAdView(var context: Context, var messenger: BinaryMessenger?, id: Int, params: Map<String?, Any?>) : PlatformView {
     private val TAG = "AdBannerView"
     private var mExpressContainer: FrameLayout? = null
-    var mTTAdNative: TTAdNative
+    var mTTAdNative: TTVfNative
 
     //广告所需参数
     private val mCodeId: String?
@@ -56,7 +55,7 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
         mIsExpress = params["mIsExpress"] as Boolean
         mExpressContainer = FrameLayout(context)
         val mTTAdManager = TTAdManagerHolder.get()
-        mTTAdNative = mTTAdManager.createAdNative(context.applicationContext)
+        mTTAdNative = mTTAdManager.createVfNative(context.applicationContext)
         channel = MethodChannel(messenger, FlutterunionadViewConfig.splashAdView+"_"+id)
         loadSplashAd()
     }
@@ -70,21 +69,21 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
      */
     private fun loadSplashAd() {
         var adSlot = if (mIsExpress!!) {
-            AdSlot.Builder()
+            VfSlot.Builder()
                     .setCodeId(mCodeId)
                     .setSupportDeepLink(supportDeepLink!!)
 //                    .setImageAcceptedSize(1080, 1920) //模板广告需要设置期望个性化模板广告的大小,单位dp,代码位是否属于个性化模板广告，请在穿山甲平台查看
                     .setExpressViewAcceptedSize(expressViewWidth, expressViewHeight)
                     .build()
         } else {
-            AdSlot.Builder()
+            VfSlot.Builder()
                     .setCodeId(mCodeId)
                     .setSupportDeepLink(supportDeepLink!!)
                     .setImageAcceptedSize(1080, 1920)
                     .build()
         }
         //step4:请求广告，调用开屏广告异步请求接口，对请求回调的广告作渲染处理
-        mTTAdNative.loadSplashAd(adSlot, object : SplashAdListener {
+        mTTAdNative.loadSphVs(adSlot, object : TTVfNative.SphVfListener {
             @MainThread
             override fun onError(code: Int, message: String) {
                 Log.e(TAG, message)
@@ -98,7 +97,7 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
             }
 
             @MainThread
-            override fun onSplashAdLoad(ad: TTSplashAd) {
+            override fun onSphVsLoad(ad:  TTSphObject?) {
                 Log.e(TAG, "开屏广告请求成功")
                 if (ad == null) {
                     channel?.invokeMethod("onFail","拉去广告失败")
@@ -120,24 +119,24 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
                 }
 
                 //设置SplashView的交互监听器
-                ad.setSplashInteractionListener(object : TTSplashAd.AdInteractionListener {
-                    override fun onAdClicked(view: View, type: Int) {
+                ad.setSplashInteractionListener(object : TTSphObject.VfInteractionListener {
+                    override fun onClicked(view: View, type: Int) {
                         Log.e(TAG, "onAdClicked开屏广告点击")
                         channel?.invokeMethod("onAplashClick","开屏广告点击")
                         channel?.invokeMethod("onClick","")
                     }
 
-                    override fun onAdShow(view: View, type: Int) {
+                    override fun onShow(view: View, type: Int) {
                         Log.e(TAG, "onAdShow开屏广告展示")
                         channel?.invokeMethod("onShow","开屏广告展示")
                     }
 
-                    override fun onAdSkip() {
+                    override fun onSkip() {
                         Log.e(TAG, "onAdSkip开屏广告跳过")
                         channel?.invokeMethod("onSkip","开屏广告跳过")
                     }
 
-                    override fun onAdTimeOver() {
+                    override fun onTimeOver() {
                         Log.e(TAG, "onAdTimeOver开屏广告倒计时结束")
                         channel?.invokeMethod("onFinish","开屏广告倒计时结束")
                     }

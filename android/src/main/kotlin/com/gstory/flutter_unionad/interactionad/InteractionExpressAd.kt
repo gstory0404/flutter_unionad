@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.util.Log
 import android.view.View
-import com.bytedance.sdk.openadsdk.*
+import com.bykv.vk.openvk.*
 import com.gstory.flutter_unionad.FlutterUnionadEventPlugin
 import com.gstory.flutter_unionad.TTAdManagerHolder
 
@@ -17,8 +17,8 @@ object InteractionExpressAd {
     private var TAG = "InteractionExpressAd"
     var mContext: Context? = null
     var mActivity: Activity? = null
-    lateinit var mTTAdNative: TTAdNative
-    private var mTTAd: TTNativeExpressAd? = null
+    lateinit var mTTAdNative: TTVfNative
+    private var mTTAd: TTNtExpressObject? = null
 
     //广告所需参数
     private var mCodeId: String? = null
@@ -36,13 +36,13 @@ object InteractionExpressAd {
         this.expressViewHeight = expressViewHeight.toFloat()
         this.expressNum = expressNum
         val mTTAdManager = TTAdManagerHolder.get()
-        mTTAdNative = mTTAdManager.createAdNative(context.applicationContext)
+        mTTAdNative = mTTAdManager.createVfNative(context.applicationContext)
         loadInteractionExpressAd()
     }
 
     private fun loadInteractionExpressAd() {
         //设置广告参数
-        val adSlot = AdSlot.Builder()
+        val adSlot = VfSlot.Builder()
                 .setCodeId(mCodeId) //广告位id
                 .setSupportDeepLink(supportDeepLink!!)
                 .setAdCount(expressNum.toInt()) //请求广告数量为1到3条
@@ -50,12 +50,12 @@ object InteractionExpressAd {
                 .setImageAcceptedSize(640, 320) //这个参数设置即可，不影响个性化模板广告的size
                 .build()
         //加载广告
-        mTTAdNative.loadInteractionExpressAd(adSlot, object : TTAdNative.NativeExpressAdListener {
+        mTTAdNative.loadItExpressVi(adSlot, object : TTVfNative.NtExpressVfListener {
             override fun onError(code: Int, message: String) {
                 Log.e(TAG, "load error : $code, $message")
             }
 
-            override fun onNativeExpressAdLoad(ads: List<TTNativeExpressAd>) {
+            override fun onNtExpressVnLoad(ads: MutableList<TTNtExpressObject>?) {
                 if (ads == null || ads.size == 0) {
                     return
                 }
@@ -68,22 +68,22 @@ object InteractionExpressAd {
     }
 
     //绑定广告行为
-    private fun bindAdListener(ad: TTNativeExpressAd) {
-        ad.setExpressInteractionListener(object : TTNativeExpressAd.AdInteractionListener {
+    private fun bindAdListener(ad: TTNtExpressObject) {
+        ad.setExpressInteractionListener(object :  TTNtExpressObject.NtInteractionListener {
 
-            override fun onAdDismiss() {
+            override fun onDismiss() {
                 Log.e(TAG, "广告关闭")
                 var map: MutableMap<String, Any?> = mutableMapOf("adType" to "interactionAd","onAdMethod" to "onClose")
                 FlutterUnionadEventPlugin.sendContent(map)
             }
 
-            override fun onAdClicked(view: View, type: Int) {
+            override fun onClicked(view: View, type: Int) {
                 Log.e(TAG, "广告被点击")
                 var map: MutableMap<String, Any?> = mutableMapOf("adType" to "interactionAd","onAdMethod" to "onClick")
                 FlutterUnionadEventPlugin.sendContent(map)
             }
 
-            override fun onAdShow(view: View, type: Int) {
+            override fun onShow(view: View, type: Int) {
                 Log.e(TAG, "广告展示")
                 var map: MutableMap<String, Any?> = mutableMapOf("adType" to "interactionAd","onAdMethod" to "onShow")
                 FlutterUnionadEventPlugin.sendContent(map)
@@ -104,8 +104,8 @@ object InteractionExpressAd {
         })
         //dislike设置
         bindDislike(ad, false)
-        Log.e(TAG, "广告类型${ad.interactionType}   ${TTAdConstant.INTERACTION_TYPE_DOWNLOAD}")
-        if (ad.interactionType != TTAdConstant.INTERACTION_TYPE_DOWNLOAD) {
+        Log.e(TAG, "广告类型${ad.interactionType}   ${TTVfConstant.INTERACTION_TYPE_DOWNLOAD}")
+        if (ad.interactionType != TTVfConstant.INTERACTION_TYPE_DOWNLOAD) {
             return
         }
         //可选，下载监听设置
@@ -141,9 +141,9 @@ object InteractionExpressAd {
      * @param ad
      * @param customStyle 是否自定义样式，true:样式自定义
      */
-    private fun bindDislike(ad: TTNativeExpressAd, customStyle: Boolean) {
+    private fun bindDislike(ad: TTNtExpressObject, customStyle: Boolean) {
         //使用默认个性化模板中默认dislike弹出样式
-        ad.setDislikeCallback(mActivity, object : TTAdDislike.DislikeInteractionCallback {
+        ad.setDislikeCallback(mActivity, object : TTVfDislike.DislikeInteractionCallback {
             
             override fun onSelected(p0: Int, p1: String?, p2: Boolean) {
                 Log.e(TAG, "点击 $p1")
