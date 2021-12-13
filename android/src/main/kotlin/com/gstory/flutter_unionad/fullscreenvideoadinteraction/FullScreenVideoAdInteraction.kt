@@ -43,7 +43,7 @@ object FullScreenVideoAdInteraction {
         val adSlot = AdSlot.Builder()
                 .setCodeId(mCodeId) //广告位id
                 .setSupportDeepLink(supportDeepLink!!)
-                .setExpressViewAcceptedSize(500f, 500f)
+                .setExpressViewAcceptedSize(200f, 200f)
                 .setOrientation(orientation)
                 .setAdLoadType(TTAdLoadType.PRELOAD)
                 .build()
