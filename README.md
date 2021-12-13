@@ -6,6 +6,8 @@
 
 ![image](https://github.com/gstory0404/flutter_unionad/blob/master/image/demo.gif)
 
+## 该分支解决oppo广告插件检测警告问题
+
 ## 简介
   flutter_unioad是一款集成了穿山甲Android和iOSSDK的Flutter插件,方便直接调用穿山甲SDK方法开发，已支持null safety,[体验demo](https://www.pgyer.com/j7YB)
   
@@ -27,7 +29,10 @@
 ## 集成步骤
 #### 1、pubspec.yaml
 ```Dart
-flutter_unionad: ^1.2.0
+  flutter_unionad:
+    git:
+      url: https://github.com/gstory0404/flutter_unionad.git
+      ref: brach_oppo
 ```
 引入
 ```Dart
