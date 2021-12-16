@@ -133,6 +133,7 @@ class FlutterUnionad {
       int? expressTime,
       required double? expressViewWidth,
       required double? expressViewHeight,
+      int? downloadType,
       FlutterUnionadBannerCallBack? callBack}) {
     return BannerAdView(
       mIsExpress: mIsExpress ?? false,
@@ -143,6 +144,8 @@ class FlutterUnionad {
       expressViewHeight: expressViewHeight ?? 0,
       expressAdNum: expressAdNum,
       expressTime: expressTime ?? 30,
+      downloadType:
+          downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
       callBack: callBack,
     );
   }
@@ -170,6 +173,7 @@ class FlutterUnionad {
       bool? supportDeepLink,
       double? expressViewWidth,
       double? expressViewHeight,
+      int? downloadType,
       FlutterUnionadSplashCallBack? callBack}) {
     return SplashAdView(
       mIsExpress: mIsExpress ?? false,
@@ -178,6 +182,8 @@ class FlutterUnionad {
       supportDeepLink: supportDeepLink ?? true,
       expressViewWidth: expressViewWidth ?? 0.0,
       expressViewHeight: expressViewHeight ?? 0.0,
+      downloadType:
+          downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
       callBack: callBack,
     );
   }
@@ -206,6 +212,7 @@ class FlutterUnionad {
       required double expressViewWidth,
       required double expressViewHeight,
       required int expressNum,
+      int? downloadType,
       FlutterUnionadNativeCallBack? callBack}) {
     return NativeAdView(
       mIsExpress: mIsExpress ?? false,
@@ -215,6 +222,8 @@ class FlutterUnionad {
       expressViewWidth: expressViewWidth,
       expressViewHeight: expressViewHeight,
       expressNum: expressNum,
+      downloadType:
+          downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
       callBack: callBack,
     );
   }
@@ -244,6 +253,7 @@ class FlutterUnionad {
     required double expressViewWidth,
     required double expressViewHeight,
     required int expressNum,
+    int? downloadType,
   }) async {
     return await _channel.invokeMethod("interactionAd", {
       "mIsExpress": mIsExpress ?? false,
@@ -253,6 +263,7 @@ class FlutterUnionad {
       "expressViewWidth": expressViewWidth,
       "expressViewHeight": expressViewHeight,
       "expressNum": expressNum,
+      "downloadType": downloadType,
     });
   }
 
@@ -282,6 +293,7 @@ class FlutterUnionad {
     required String userID,
     int? orientation,
     String? mediaExtra,
+    int? downloadType,
   }) async {
     return await _channel.invokeMethod("loadRewardVideoAd", {
       "mIsExpress": mIsExpress ?? false,
@@ -294,7 +306,9 @@ class FlutterUnionad {
       "rewardAmount": rewardAmount,
       "userID": userID,
       "orientation": orientation ?? 0,
-      "mediaExtra": mediaExtra ?? ""
+      "mediaExtra": mediaExtra ?? "",
+      "downloadType":
+          downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP
     });
   }
 
@@ -326,6 +340,7 @@ class FlutterUnionad {
     bool? supportDeepLink,
     required double expressViewWidth,
     required double expressViewHeight,
+    int? downloadType,
     FlutterUnionadDrawFeedCallBack? callBack,
   }) {
     return DrawFeedAdView(
@@ -335,39 +350,49 @@ class FlutterUnionad {
       supportDeepLink: supportDeepLink ?? true,
       expressViewWidth: expressViewWidth,
       expressViewHeight: expressViewHeight,
+      downloadType:
+          downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
       callBack: callBack,
     );
   }
 
   ///个性化模板全屏广告
   @Deprecated("推荐使用新模板渲染插屏 loadFullScreenVideoAdInteraction")
-  static Future<bool> fullScreenVideoAd(
-      {bool? mIsExpress,
-      required String androidCodeId,
-      required String iosCodeId,
-      bool? supportDeepLink,
-      int? orientation}) async {
+  static Future<bool> fullScreenVideoAd({
+    bool? mIsExpress,
+    required String androidCodeId,
+    required String iosCodeId,
+    bool? supportDeepLink,
+    int? orientation,
+    int? downloadType,
+  }) async {
     return await _channel.invokeMethod("fullScreenVideoAd", {
       "mIsExpress": mIsExpress ?? false,
       "androidCodeId": androidCodeId,
       "iosCodeId": iosCodeId,
       "supportDeepLink": supportDeepLink ?? true,
       "orientation": orientation ?? FlutterUnionadOrientation.VERTICAL,
+      "downloadType":
+          downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
     });
   }
 
   /// # 预加载新模板渲染插屏
   ///分为全屏和插屏，全屏和插屏场景下开发者都可以选择投放的广告类型，分别为图片+视频、仅视频、仅图片。
-  static Future<bool> loadFullScreenVideoAdInteraction(
-      {required String androidCodeId,
-      required String iosCodeId,
-      bool? supportDeepLink,
-      int? orientation}) async {
+  static Future<bool> loadFullScreenVideoAdInteraction({
+    required String androidCodeId,
+    required String iosCodeId,
+    bool? supportDeepLink,
+    int? orientation,
+    int? downloadType,
+  }) async {
     return await _channel.invokeMethod("loadFullScreenVideoAdInteraction", {
       "androidCodeId": androidCodeId,
       "iosCodeId": iosCodeId,
       "supportDeepLink": supportDeepLink ?? true,
       "orientation": orientation ?? FlutterUnionadOrientation.VERTICAL,
+      "downloadType":
+          downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
     });
   }
 

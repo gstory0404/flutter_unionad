@@ -35,6 +35,7 @@ internal class DrawFeedExpressAdView(var context: Context, var activity: Activit
     var expressViewHeight: Float
 
     private var startTime: Long = 0
+    private var downloadType : Int
 
     private var channel : MethodChannel?
 
@@ -44,6 +45,7 @@ internal class DrawFeedExpressAdView(var context: Context, var activity: Activit
         supportDeepLink = params["supportDeepLink"] as Boolean?
         var width = params["expressViewWidth"] as Double
         var hight = params["expressViewHeight"] as Double
+        downloadType = params["downloadType"] as Int
         expressViewWidth = width.toFloat()
         expressViewHeight = hight.toFloat()
         mExpressContainer = FrameLayout(activity)
@@ -64,6 +66,7 @@ internal class DrawFeedExpressAdView(var context: Context, var activity: Activit
                 .setAdCount(1) //请求广告数量为1到3条
                 .setExpressViewAcceptedSize(expressViewWidth,expressViewHeight) //期望模板广告view的size,单位dp
                 .setImageAcceptedSize(640, 320)//这个参数设置即可，不影响个性化模板广告的size
+                .setDownloadType(downloadType)
                 .build()
         mTTAdNative.loadExpressDrawFeedAd(adSlot, object : NativeExpressAdListener {
             override fun onError(code: Int, message: String) {

@@ -24,14 +24,16 @@ object FullScreenVideoExpressAd {
     private var mCodeId: String? = null
     private var supportDeepLink: Boolean? = true
     private var orientation: Int = 1
+    private var downloadType : Int = 1
 
 
-    fun init(context: Context, mActivity: Activity, mCodeId: String?, supportDeepLink: Boolean?, orientation: Int?) {
+    fun init(context: Context, mActivity: Activity, mCodeId: String?, supportDeepLink: Boolean?, orientation: Int?,downloadType : Int?) {
         this.mContext = context
         this.mActivity = mActivity
         this.mCodeId = mCodeId
         this.supportDeepLink = supportDeepLink
         this.orientation = orientation!!
+        this.downloadType = downloadType!!
         val mTTAdManager = TTAdManagerHolder.get()
         mTTAdNative = mTTAdManager.createAdNative(context.applicationContext)
         loadFullScreenVideoAd()
@@ -47,6 +49,7 @@ object FullScreenVideoExpressAd {
                 .setSupportDeepLink(supportDeepLink!!)
                 .setExpressViewAcceptedSize(width, height)
                 .setOrientation(orientation)
+                .setDownloadType(downloadType)
                 .build()
         //加载全屏视频
         mTTAdNative.loadFullScreenVideoAd(adSlot, object : TTAdNative.FullScreenVideoAdListener {

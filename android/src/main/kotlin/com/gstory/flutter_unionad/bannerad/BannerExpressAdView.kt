@@ -32,8 +32,9 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
     var supportDeepLink: Boolean? = true
     var expressViewWidth: Float
     var expressViewHeight: Float
-    var expressAdNum: Integer
-    var expressTime : Integer
+    var expressAdNum: Int
+    var expressTime : Int
+    var downloadType : Int
 
     private var startTime: Long = 0
 
@@ -46,8 +47,9 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
         supportDeepLink = params["supportDeepLink"] as Boolean?
         var width = params["expressViewWidth"] as Double
         var hight = params["expressViewHeight"] as Double
-        expressAdNum = params["expressAdNum"] as Integer
-        expressTime = params["expressTime"] as Integer
+        expressAdNum = params["expressAdNum"] as Int
+        expressTime = params["expressTime"] as Int
+        downloadType = params["downloadType"] as Int
         expressViewWidth = width.toFloat()
         expressViewHeight = hight.toFloat()
         mExpressContainer = FrameLayout(activity)
@@ -69,6 +71,7 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
                 .setAdCount(expressAdNum.toInt()) //请求广告数量为1到3条
                 .setExpressViewAcceptedSize(expressViewWidth, expressViewHeight) //期望模板广告view的size,单位dp
                 .setImageAcceptedSize(640, 320)//这个参数设置即可，不影响个性化模板广告的size
+                .setDownloadType(downloadType)
                 .build()
         mTTAdNative.loadBannerExpressAd(adSlot, object : NativeExpressAdListener {
             override fun onError(code: Int, message: String) {

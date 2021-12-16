@@ -147,3 +147,8 @@
 
 * 1、Android sdk升级4.1.0.5
 * 2、IOS sdk升级4.2.0.0
+
+## 1.2.1
+
+* Android sdk升级4.2.0.2
+* 所有广告新增downloadType，用于控制下载APP前是否弹出二次确认弹窗，4andorid合规审核

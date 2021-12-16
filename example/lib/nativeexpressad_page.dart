@@ -41,6 +41,8 @@ class _NativeExpressAdPageState extends State<NativeExpressAdPage> {
               //期望view高度 dp 必填
               expressNum: 2,
               mIsExpress: true,
+              //控制下载APP前是否弹出二次确认弹窗
+              downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
               //一次请求广告数量 大于1小于3 必填
               callBack: FlutterUnionadNativeCallBack(
                 onShow: () {

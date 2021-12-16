@@ -10,6 +10,7 @@ class SplashAdView extends StatefulWidget {
   final bool supportDeepLink;
   final double expressViewWidth;
   final double expressViewHeight;
+  final int downloadType;
   final FlutterUnionadSplashCallBack? callBack;
 
   const SplashAdView(
@@ -20,6 +21,7 @@ class SplashAdView extends StatefulWidget {
       required this.supportDeepLink,
       required this.expressViewWidth,
       required this.expressViewHeight,
+        required this.downloadType,
       this.callBack})
       : super(key: key);
 
@@ -58,6 +60,7 @@ class _SplashAdViewState extends State<SplashAdView> {
             "supportDeepLink": widget.supportDeepLink,
             "expressViewWidth": widget.expressViewWidth,
             "expressViewHeight": widget.expressViewHeight,
+            "downloadType":widget.downloadType,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),
@@ -75,6 +78,7 @@ class _SplashAdViewState extends State<SplashAdView> {
             "supportDeepLink": widget.supportDeepLink,
             "expressViewWidth": widget.expressViewWidth,
             "expressViewHeight": widget.expressViewHeight,
+            "downloadType":widget.downloadType,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),

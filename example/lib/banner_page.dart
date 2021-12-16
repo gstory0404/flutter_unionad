@@ -47,6 +47,8 @@ class _BannerPageState extends State<BannerPage> {
               expressViewWidth: 600.5,
               //期望view高度 dp 必填
               expressViewHeight: 120.5,
+              //控制下载APP前是否弹出二次确认弹窗
+              downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
               //广告事件回调 选填
               callBack: FlutterUnionadBannerCallBack(
                 onShow: () {

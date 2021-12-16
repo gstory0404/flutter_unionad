@@ -100,3 +100,11 @@ class FlutterUnionadPermissionCode {
   ///同意
   static const int authorized = 3;
 }
+
+
+class FlutterUnionadDownLoadType{
+  // 对于应用的下载不做特殊处理；
+  static const int DOWNLOAD_TYPE_NO_POPUP = 0;
+  // 应用每次下载都需要触发弹窗披露应用信息（不含跳转商店的场景），该配置优先级高于下载网络弹窗配置；
+  static const int DOWNLOAD_TYPE_POPUP = 1;
+}

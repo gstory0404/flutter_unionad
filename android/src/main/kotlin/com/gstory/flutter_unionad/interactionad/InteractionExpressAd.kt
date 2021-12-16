@@ -25,9 +25,10 @@ object InteractionExpressAd {
     private var supportDeepLink: Boolean? = true
     private var expressViewWidth: Float = 0f
     private var expressViewHeight: Float = 0f
-    private var expressNum: Integer = Integer(1)
+    private var expressNum: Int = 1
+    private var downloadType : Int = 1
 
-    fun init(context: Context, mActivity: Activity, mCodeId: String?, supportDeepLink: Boolean?, expressViewWidth: Double, expressViewHeight: Double,expressNum: Integer) {
+    fun init(context: Context, mActivity: Activity, mCodeId: String?, supportDeepLink: Boolean?, expressViewWidth: Double, expressViewHeight: Double,expressNum: Int,downloadType : Int?) {
         this.mContext = context
         this.mActivity = mActivity
         this.mCodeId = mCodeId
@@ -35,6 +36,7 @@ object InteractionExpressAd {
         this.expressViewWidth = expressViewWidth.toFloat()
         this.expressViewHeight = expressViewHeight.toFloat()
         this.expressNum = expressNum
+        this.downloadType = downloadType!!
         val mTTAdManager = TTAdManagerHolder.get()
         mTTAdNative = mTTAdManager.createAdNative(context.applicationContext)
         loadInteractionExpressAd()
@@ -48,6 +50,7 @@ object InteractionExpressAd {
                 .setAdCount(expressNum.toInt()) //请求广告数量为1到3条
                 .setExpressViewAcceptedSize(expressViewWidth, expressViewHeight)//期望个性化模板广告view的size,单位dp
                 .setImageAcceptedSize(640, 320) //这个参数设置即可，不影响个性化模板广告的size
+                .setDownloadType(downloadType)
                 .build()
         //加载广告
         mTTAdNative.loadInteractionExpressAd(adSlot, object : TTAdNative.NativeExpressAdListener {

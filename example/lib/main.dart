@@ -314,6 +314,8 @@ class _IndexPageState extends State<IndexPage> {
                   expressViewHeight: 450.0,
                   //期望view高度 dp 必填
                   expressNum: 2, //一次请求广告数量 大于1小于3 必填
+                  //控制下载APP前是否弹出二次确认弹窗
+                  downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
                 );
               },
             ),
@@ -332,13 +334,15 @@ class _IndexPageState extends State<IndexPage> {
                   //ios 激励视频广告id  必填
                   supportDeepLink: true,
                   //是否支持 DeepLink 选填
-                  rewardName: "100金币",
+                  rewardName: "200金币",
                   //奖励名称 选填
-                  rewardAmount: 100,
+                  rewardAmount: 200,
                   //奖励数量 选填
                   userID: "123",
                   //  用户id 选填
                   orientation: FlutterUnionadOrientation.VERTICAL,
+                  //控制下载APP前是否弹出二次确认弹窗
+                  downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
                   //视屏方向 选填
                   mediaExtra: null, //扩展参数 选填
                 );
@@ -365,10 +369,16 @@ class _IndexPageState extends State<IndexPage> {
               child: new Text('全屏广告'),
               onPressed: () {
                 FlutterUnionad.fullScreenVideoAd(
-                  androidCodeId: "945491318", //android 全屏广告id 必填
-                  iosCodeId: "945491318", //ios 全屏广告id 必填
-                  supportDeepLink: true, //是否支持 DeepLink 选填
-                  orientation: FlutterUnionadOrientation.VERTICAL, //视屏方向 选填
+                  androidCodeId: "945491318",
+                  //android 全屏广告id 必填
+                  iosCodeId: "945491318",
+                  //ios 全屏广告id 必填
+                  supportDeepLink: true,
+                  //是否支持 DeepLink 选填
+                  orientation: FlutterUnionadOrientation.VERTICAL,
+                  //视屏方向 选填
+                  //控制下载APP前是否弹出二次确认弹窗
+                  downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
                 );
               },
             ),
@@ -379,10 +389,16 @@ class _IndexPageState extends State<IndexPage> {
               child: new Text('新模板渲染插屏广告'),
               onPressed: () {
                 FlutterUnionad.loadFullScreenVideoAdInteraction(
-                  androidCodeId: "946201351", //android 全屏广告id 必填
-                  iosCodeId: "946201351", //ios 全屏广告id 必填
-                  supportDeepLink: true, //是否支持 DeepLink 选填
-                  orientation: FlutterUnionadOrientation.VERTICAL, //视屏方向 选填
+                  //android 全屏广告id 必填
+                  androidCodeId: "946201351",
+                  //ios 全屏广告id 必填
+                  iosCodeId: "946201351",
+                  //是否支持 DeepLink 选填
+                  supportDeepLink: true,
+                  //视屏方向 选填
+                  orientation: FlutterUnionadOrientation.VERTICAL,
+                  //控制下载APP前是否弹出二次确认弹窗
+                  downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
                 );
               },
             ),

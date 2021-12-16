@@ -38,6 +38,8 @@ class _SplashPageState extends State<SplashPage> {
             expressViewWidth: 750,
             //期望view高度 dp 选填 mIsExpress=true必填
             expressViewHeight: 800,
+            //控制下载APP前是否弹出二次确认弹窗
+            downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
             callBack: FlutterUnionadSplashCallBack(
               onShow: () {
                 print("开屏广告显示");

@@ -1,7 +1,7 @@
 # 字节跳动穿山甲广告 Flutter版本
 
 <p>
-<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.2.0-success></a>
+<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.2.1-success></a>
 </p>
 
 ![image](https://github.com/gstory0404/flutter_unionad/blob/master/image/demo.gif)
@@ -27,14 +27,14 @@
 ## 集成步骤
 #### 1、pubspec.yaml
 ```Dart
-flutter_unionad: ^1.2.0
+flutter_unionad: ^1.2.1
 ```
 引入
 ```Dart
 import 'package:flutter_unionad/flutter_unionad.dart';
 ```
 #### 2、Android
-SDK([4.1.0.5](https://www.csjplatform.com/union/media/union/download/log?id=4))已配置插件中无需额外配置，只需要在android目录中AndroidManifest.xml配置
+SDK([4.2.0.2](https://www.csjplatform.com/union/media/union/download/log?id=4))已配置插件中无需额外配置，只需要在android目录中AndroidManifest.xml配置
 ```Java
 <manifest ···
     xmlns:tools="http://schemas.android.com/tools"
@@ -129,6 +129,8 @@ FlutterUnionad.splashAdView(
           expressViewWidth: 750,
           //期望view高度 dp 选填 mIsExpress=true必填
           expressViewHeight: 800,
+          //控制下载APP前是否弹出二次确认弹窗
+          downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
           callBack: FlutterUnionadSplashCallBack(
             onShow: () {
               print("开屏广告显示");
@@ -173,6 +175,8 @@ FlutterUnionad.bannerAdView(
               expressViewWidth: 600.5,
               //期望view高度 dp 必填
               expressViewHeight: 120.5,
+              //控制下载APP前是否弹出二次确认弹窗
+              downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
               //广告事件回调 选填
               callBack: FlutterUnionadBannerCallBack(
                 onShow: () {
@@ -206,6 +210,8 @@ FlutterUnionad.nativeAdView(
               //期望view高度 dp 必填
               expressNum: 2,
               mIsExpress: true,
+              //控制下载APP前是否弹出二次确认弹窗
+              downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
               //一次请求广告数量 大于1小于3 必填
               callBack: FlutterUnionadNativeCallBack(
                 onShow: () {
@@ -240,6 +246,8 @@ await FlutterUnionad.interactionAd(
                   expressViewHeight: 450.0,
                   //期望view高度 dp 必填
                   expressNum: 2, //一次请求广告数量 大于1小于3 必填
+                  //控制下载APP前是否弹出二次确认弹窗
+                  downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
                 );
 ```
 
@@ -263,6 +271,8 @@ FlutterUnionad.loadRewardVideoAd(
                   userID: "123",
                   //  用户id 选填
                   orientation: FlutterUnionadOrientation.VERTICAL,
+                  //控制下载APP前是否弹出二次确认弹窗
+                  downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
                   //视屏方向 选填
                   mediaExtra: null, //扩展参数 选填
                 );
@@ -318,6 +328,8 @@ FlutterUnionad.drawFeedAdView(
                 expressViewWidth: 600.5,
                 // 期望view 宽度 dp 必填
                 expressViewHeight: 800.5,
+                //控制下载APP前是否弹出二次确认弹窗
+                downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
                 //期望view高度 dp 必填
                 callBack: FlutterUnionadDrawFeedCallBack(
                     onShow: () {
@@ -353,6 +365,8 @@ FlutterUnionad.fullScreenVideoAd(
                   iosCodeId: "945491318", //ios 全屏广告id 必填
                   supportDeepLink: true, //是否支持 DeepLink 选填
                   orientation: FlutterUnionadOrientation.VERTICAL, //视屏方向 选填
+                  //控制下载APP前是否弹出二次确认弹窗
+                  downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
                 );
 ```
 
@@ -364,6 +378,8 @@ FlutterUnionad.loadFullScreenVideoAdInteraction(
                   iosCodeId: "946201351", //ios 全屏广告id 必填
                   supportDeepLink: true, //是否支持 DeepLink 选填
                   orientation: FlutterUnionadOrientation.VERTICAL, //视屏方向 选填
+                  //控制下载APP前是否弹出二次确认弹窗
+                  downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
                 );
 ```
 

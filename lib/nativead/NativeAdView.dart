@@ -11,6 +11,7 @@ class NativeAdView extends StatefulWidget {
   final double expressViewWidth;
   final double expressViewHeight;
   final int expressNum;
+  final int downloadType;
   final FlutterUnionadNativeCallBack? callBack;
 
   const NativeAdView({Key? key,
@@ -21,6 +22,7 @@ class NativeAdView extends StatefulWidget {
     required this.expressViewWidth,
     required this.expressViewHeight,
     required this.expressNum,
+    required this.downloadType,
     this.callBack})
       : super(key: key);
 
@@ -60,6 +62,7 @@ class _NativeAdViewState extends State<NativeAdView> {
             "expressViewWidth": widget.expressViewWidth,
             "expressViewHeight": widget.expressViewHeight,
             "expressNum":widget.expressNum,
+            "downloadType":widget.downloadType,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),
@@ -78,6 +81,7 @@ class _NativeAdViewState extends State<NativeAdView> {
             "expressViewWidth": widget.expressViewWidth,
             "expressViewHeight": widget.expressViewHeight,
             "expressNum":widget.expressNum,
+            "downloadType":widget.downloadType,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),

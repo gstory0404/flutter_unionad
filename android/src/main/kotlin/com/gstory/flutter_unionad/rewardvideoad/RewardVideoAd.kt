@@ -43,6 +43,7 @@ object RewardVideoAd {
     private var userID: String? = null
     private var orientation: Int? = TTAdConstant.VERTICAL
     private var mediaExtra: String? = null
+    private var downloadType: Int = 1
 
     fun init(context: Context, mActivity: Activity, params: Map<String?, Any?>) {
         this.mContext = context
@@ -65,6 +66,7 @@ object RewardVideoAd {
         } else {
             this.mediaExtra = params["mediaExtra"] as String
         }
+        this.downloadType = params["downloadType"] as Int
         val mTTAdManager = TTAdManagerHolder.get()
         mTTAdNative = mTTAdManager.createAdNative(mContext)
         loadRewardVideoAd()
@@ -89,28 +91,30 @@ object RewardVideoAd {
                     .setAdCount(1) //个性化模板广告需要设置期望个性化模板广告的大小,单位dp,激励视频场景，只要设置的值大于0即可
                     .setExpressViewAcceptedSize(UIUtils.px2dip(mContext!!, expressViewWidth!!), UIUtils.px2dip(mContext!!, expressViewHeight!!))
                     .setImageAcceptedSize(1080, 1920)
-                    .setRewardName(rewardName) //奖励的名称
-                    .setRewardAmount(rewardAmount!!) //奖励的数量
+//                    .setRewardName(rewardName) //奖励的名称
+//                    .setRewardAmount(rewardAmount!!) //奖励的数量
                     .setAdLoadType(TTAdLoadType.PRELOAD) //预加载
                     //必传参数，表来标识应用侧唯一用户；若非服务器回调模式或不需sdk透传
                     //可设置为空字符串
                     .setUserID(userID)
                     .setOrientation(orientation!!) //设置期望视频播放的方向，为TTAdConstant.HORIZONTAL或TTAdConstant.VERTICAL
                     .setMediaExtra(mediaExtra) //用户透传的信息，可不传
+                    .setDownloadType(downloadType)
                     .build()
         } else {
             adSlot = AdSlot.Builder()
                     .setCodeId(mCodeId)
                     .setSupportDeepLink(supportDeepLink!!)
                     .setAdCount(1)
-                    .setRewardName(rewardName) //奖励的名称
-                    .setRewardAmount(rewardAmount!!) //奖励的数量
+//                    .setRewardName(rewardName) //奖励的名称
+//                    .setRewardAmount(rewardAmount!!) //奖励的数量
                     .setAdLoadType(TTAdLoadType.PRELOAD) //预加载
                     //必传参数，表来标识应用侧唯一用户；若非服务器回调模式或不需sdk透传
                     //可设置为空字符串
                     .setUserID(userID)
                     .setOrientation(orientation!!) //设置期望视频播放的方向，为TTAdConstant.HORIZONTAL或TTAdConstant.VERTICAL
                     .setMediaExtra(mediaExtra) //用户透传的信息，可不传
+                    .setDownloadType(downloadType)
                     .build()
         }
 

@@ -12,6 +12,7 @@ class BannerAdView extends StatefulWidget {
   final int expressTime;
   final double expressViewWidth;
   final double expressViewHeight;
+  final int downloadType;
   final FlutterUnionadBannerCallBack? callBack;
 
   const BannerAdView(
@@ -24,6 +25,7 @@ class BannerAdView extends StatefulWidget {
       required this.expressTime,
       required this.expressViewWidth,
       required this.expressViewHeight,
+      required this.downloadType,
       this.callBack})
       : super(key: key);
 
@@ -64,6 +66,7 @@ class _BannerAdViewState extends State<BannerAdView> {
             "expressViewHeight": widget.expressViewHeight,
             "expressAdNum": widget.expressAdNum,
             "expressTime": widget.expressTime,
+            "downloadType":widget.downloadType,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),
@@ -83,6 +86,7 @@ class _BannerAdViewState extends State<BannerAdView> {
             "expressViewHeight": widget.expressViewHeight,
             "expressAdNum": widget.expressAdNum,
             "expressTime": widget.expressTime,
+            "downloadType":widget.downloadType,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),

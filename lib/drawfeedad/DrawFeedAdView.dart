@@ -11,6 +11,7 @@ class DrawFeedAdView extends StatefulWidget {
   final bool supportDeepLink;
   final double expressViewWidth;
   final double expressViewHeight;
+  final int downloadType;
   final FlutterUnionadDrawFeedCallBack? callBack;
 
   const DrawFeedAdView(
@@ -21,6 +22,7 @@ class DrawFeedAdView extends StatefulWidget {
       required this.supportDeepLink,
       required this.expressViewWidth,
       required this.expressViewHeight,
+        required this.downloadType,
       this.callBack})
       : super(key: key);
 
@@ -59,6 +61,7 @@ class _DrawFeedAdViewState extends State<DrawFeedAdView> {
             "supportDeepLink": widget.supportDeepLink,
             "expressViewWidth": widget.expressViewWidth,
             "expressViewHeight": widget.expressViewHeight,
+            "downloadType":widget.downloadType,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),
@@ -76,6 +79,7 @@ class _DrawFeedAdViewState extends State<DrawFeedAdView> {
             "supportDeepLink": widget.supportDeepLink,
             "expressViewWidth": widget.expressViewWidth,
             "expressViewHeight": widget.expressViewHeight,
+            "downloadType":widget.downloadType,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),
