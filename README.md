@@ -4,7 +4,7 @@
 <a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.2.1-success></a>
 </p>
 
-![image](https://github.com/gstory0404/flutter_unionad/blob/master/image/demo.gif)
+<img src="https://github.com/gstory0404/flutter_unionad/blob/master/image/demo.gif" width="30%">
 
 ## 简介
   flutter_unioad是一款集成了穿山甲Android和iOSSDK的Flutter插件,方便直接调用穿山甲SDK方法开发，已支持null safety,[体验demo](https://www.pgyer.com/j7YB)
