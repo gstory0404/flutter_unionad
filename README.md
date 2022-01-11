@@ -104,7 +104,10 @@ await FlutterUnionad.getSDKVersion();
 
 ```
 Android获取定位、照片权限，只返回成功
+
 Android相关权限为非必须权限，可选择在AndroidManifest.xml中声明
+
+插件1.2.2以后不在默认集成权限，需手动配置
 ```java
 
 <!--可选权限-->
