@@ -1,7 +1,7 @@
 # 字节跳动穿山甲广告 Flutter版本
 
 <p>
-<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.2.1-success></a>
+<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.2.2-success></a>
 </p>
 
 ![image](https://github.com/gstory0404/flutter_unionad/blob/master/image/demo.gif)
@@ -27,14 +27,14 @@
 ## 集成步骤
 #### 1、pubspec.yaml
 ```Dart
-flutter_unionad: ^1.2.1
+flutter_unionad: ^1.2.2
 ```
 引入
 ```Dart
 import 'package:flutter_unionad/flutter_unionad.dart';
 ```
 #### 2、Android
-SDK([4.2.0.2](https://www.csjplatform.com/union/media/union/download/log?id=4))已配置插件中无需额外配置，只需要在android目录中AndroidManifest.xml配置
+SDK([4.2.5.1](https://www.csjplatform.com/union/media/union/download/log?id=4))已配置插件中无需额外配置，只需要在android目录中AndroidManifest.xml配置
 ```Java
 <manifest ···
     xmlns:tools="http://schemas.android.com/tools"
@@ -44,7 +44,7 @@ SDK([4.2.0.2](https://www.csjplatform.com/union/media/union/download/log?id=4))�
 ```
 
 #### 3、IOS
-SDK([4.2.0.0](https://www.csjplatform.com/union/media/union/download/log?id=16)))已配置插件中，其余根据SDK文档配置，因为使用PlatformView，在Info.plist加入
+SDK([4.2.5.1](https://www.csjplatform.com/union/media/union/download/log?id=16)))已配置插件中，其余根据SDK文档配置，因为使用PlatformView，在Info.plist加入
 ```
  <key>io.flutter.embedded_views_preview</key>
     <true/>
@@ -104,11 +104,26 @@ await FlutterUnionad.getSDKVersion();
 
 ```
 Android获取定位、照片权限，只返回成功
-Android相关权限为非必须权限，如果审核被拒可以在android目录下AndroidManifest.xml文件中参考以下申明，在打包时移除权限
+Android相关权限为非必须权限，可选择在AndroidManifest.xml中声明
 ```java
-<uses-permission
-        android:name="android.permission.READ_PHONE_STATE"
-        tools:node="remove" />
+
+<!--可选权限-->
+<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+<uses-permission android:name="android.permission.GET_TASKS"/>
+
+<!--可选，穿山甲提供“获取地理位置权限”和“不给予地理位置权限，开发者传入地理位置参数”两种方式上报用户位置，两种方式均可不选，添加位置权限或参数将帮助投放定位广告-->
+<!--请注意：无论通过何种方式提供给穿山甲用户地理位置，均需向用户声明地理位置权限将应用于穿山甲广告投放，穿山甲不强制获取地理位置信息-->
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+<!-- 穿山甲3400版本新增：建议添加“query_all_package”权限，穿山甲将通过此权限在Android R系统上判定广告对应的应用是否在用户的app上安装，避免投放错误的广告，以此提高用户的广告体验。若添加此权限，需要在您的用户隐私文档中声明！ -->
+<uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
+
+<!-- 如果有视频相关的广告且使用textureView播放，请务必添加，否则黑屏 -->
 
 ```
 
