@@ -1,6 +1,6 @@
 name: flutter_unionad
 description: A flutter plugin for Bytedance-UnionAD.It is convenient for Android and IOS to directly call the method and native view of advertisement SDK.
-version: 1.2.2
+version: 1.2.3
 homepage: https://github.com/gstory0404/flutter_unionad
 
 environment:

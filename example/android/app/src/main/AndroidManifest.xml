@@ -21,7 +21,7 @@
     <!-- 如果有视频相关的广告且使用textureView播放，请务必添加，否则黑屏 -->
 
     <application
-        android:name="io.flutter.app.FlutterApplication"
+        android:name="${applicationName}"
         android:label="flutter_unionad_example"
         android:icon="@mipmap/ic_launcher"
         android:networkSecurityConfig="@xml/network_config"

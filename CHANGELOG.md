@@ -1,3 +1,9 @@
+## 1.2.3
+
+* Android sdk升级4.2.5.2
+* ios sdk升级4.2.5.2
+* 优化ios ViewController
+
 ## 1.2.2
 
 * Android sdk升级4.2.5.1
