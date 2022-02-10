@@ -38,6 +38,16 @@ public class NativeAdView : NSObject,FlutterPlatformView{
         self.nativeExpressAdManager = BUNativeExpressAdManager()
         super.init()
         self.channel = FlutterMethodChannel.init(name: FlutterUnionadConfig.view.nativeAdView + "_" + String(id), binaryMessenger: binaryMessenger)
+        self.channel?.setMethodCallHandler({[weak self] call, result in
+            if call.method == "iosIsUserInteractionEnabled" {
+                if let argument = call.arguments as? [String:Any], let iosIsUserInteractionEnabled = argument["iosIsUserInteractionEnabled"] as? Bool {
+                    self?.container.isUserInteractionEnabled = iosIsUserInteractionEnabled
+                }
+                result(nil)
+                return
+            }
+            result(FlutterMethodNotImplemented)
+        })
         self.loadNativeExpressAd()
         LogUtil.logInstance.printLog(message: id)
     }

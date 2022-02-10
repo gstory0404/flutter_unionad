@@ -12,6 +12,7 @@ class NativeAdView extends StatefulWidget {
   final double expressViewHeight;
   final int expressNum;
   final int downloadType;
+  final bool? iosIsUserInteractionEnabled;
   final FlutterUnionadNativeCallBack? callBack;
 
   const NativeAdView({Key? key,
@@ -23,8 +24,9 @@ class NativeAdView extends StatefulWidget {
     required this.expressViewHeight,
     required this.expressNum,
     required this.downloadType,
-    this.callBack})
-      : super(key: key);
+    this.iosIsUserInteractionEnabled,
+    this.callBack,
+  }) : super(key: key);
 
   @override
   _NativeAdViewState createState() => _NativeAdViewState();
@@ -69,7 +71,7 @@ class _NativeAdViewState extends State<NativeAdView> {
         ),
       );
     } else if (defaultTargetPlatform == TargetPlatform.iOS) {
-      return Container(
+      Widget iosContainer = Container(
         width: widget.expressViewWidth,
         height: widget.expressViewHeight,
         child: UiKitView(
@@ -87,6 +89,14 @@ class _NativeAdViewState extends State<NativeAdView> {
           creationParamsCodec: const StandardMessageCodec(),
         ),
       );
+
+      if (widget.iosIsUserInteractionEnabled != null) {
+        // 当广告所在页面被压入底层之后，调用尽管setState，UiKitView仍不会重新初始化，故发送消息更新一下，确保状态正常
+        sendMsgToNative('iosIsUserInteractionEnabled', body: {
+          'iosIsUserInteractionEnabled': widget.iosIsUserInteractionEnabled
+        });
+      }
+      return iosContainer;
     } else {
       return Container();
     }
@@ -96,6 +106,17 @@ class _NativeAdViewState extends State<NativeAdView> {
   void _registerChannel(int id) {
     _channel = MethodChannel("${_viewType}_$id");
     _channel?.setMethodCallHandler(_platformCallHandler);
+  }
+
+  Future sendMsgToNative(String name, {Object? body}) async {
+    try {
+      var result = await _channel?.invokeMethod(name, body);
+      return result;
+    } on PlatformException catch (e) {
+      Future fut = Future.error(e.toString());
+      FlutterError.reportError(FlutterErrorDetails(exception: e));
+      return fut;
+    }
   }
 
   //监听原生view传值

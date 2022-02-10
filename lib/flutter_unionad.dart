@@ -213,6 +213,7 @@ class FlutterUnionad {
       required double expressViewHeight,
       required int expressNum,
       int? downloadType,
+      bool? iosIsUserInteractionEnabled,
       FlutterUnionadNativeCallBack? callBack}) {
     return NativeAdView(
       mIsExpress: mIsExpress ?? false,
@@ -224,6 +225,7 @@ class FlutterUnionad {
       expressNum: expressNum,
       downloadType:
           downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
+      iosIsUserInteractionEnabled: iosIsUserInteractionEnabled,
       callBack: callBack,
     );
   }
