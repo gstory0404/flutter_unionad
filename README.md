@@ -477,6 +477,7 @@ if (Platform.isAndroid) {
 |百度百青藤广告插件|[flutter_baiduad](https://github.com/gstory0404/flutter_baiduad)|
 |字节穿山甲内容合作插件|[flutter_pangrowth](https://github.com/gstory0404/flutter_pangrowth)|
 |文档预览插件|[file_preview](https://github.com/gstory0404/file_preview)|
+|滤镜|[GpuImage](https://github.com/gstory0404/gpu_image)|
 
 ## 联系方式
 * Email: gstory0404@gmail.com
