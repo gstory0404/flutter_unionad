@@ -38,10 +38,16 @@ class _NativeAdViewState extends State<NativeAdView> {
   //广告是否显示
   bool _isShowAd = true;
 
+  //宽高
+  double _width = 0;
+  double _height = 0;
+
   @override
   void initState() {
     super.initState();
     _isShowAd = true;
+    _width = widget.expressViewWidth;
+    _height = widget.expressViewHeight;
   }
 
   @override
@@ -51,8 +57,8 @@ class _NativeAdViewState extends State<NativeAdView> {
     }
     if (defaultTargetPlatform == TargetPlatform.android) {
       return Container(
-        width: widget.expressViewWidth,
-        height: widget.expressViewHeight,
+        width: _width,
+        height: _height,
         child: AndroidView(
           viewType: _viewType,
           creationParams: {
@@ -70,8 +76,8 @@ class _NativeAdViewState extends State<NativeAdView> {
       );
     } else if (defaultTargetPlatform == TargetPlatform.iOS) {
       return Container(
-        width: widget.expressViewWidth,
-        height: widget.expressViewHeight,
+        width: _width,
+        height: _height,
         child: UiKitView(
           viewType: _viewType,
           creationParams: {
@@ -103,9 +109,15 @@ class _NativeAdViewState extends State<NativeAdView> {
     switch (call.method) {
     //显示广告
       case FlutterUnionadMethod.onShow:
-        if (widget.callBack != null) {
-          widget.callBack?.onShow!();
+        Map map = call.arguments;
+        if (mounted) {
+          setState(() {
+            _isShowAd = true;
+            _width = (map["width"]).toDouble();
+            _height = (map["height"]).toDouble();
+          });
         }
+        widget.callBack?.onShow!();
         break;
     //广告加载失败
       case FlutterUnionadMethod.onFail:
@@ -114,9 +126,7 @@ class _NativeAdViewState extends State<NativeAdView> {
             _isShowAd = false;
           });
         }
-        if (widget.callBack != null) {
-          widget.callBack?.onFail!(call.arguments);
-        }
+        widget.callBack?.onFail!(call.arguments);
         break;
     //广告不感兴趣
       case FlutterUnionadMethod.onDislike:
@@ -125,15 +135,11 @@ class _NativeAdViewState extends State<NativeAdView> {
             _isShowAd = false;
           });
         }
-        if (widget.callBack != null) {
-          widget.callBack?.onDislike!(call.arguments);
-        }
+        widget.callBack?.onDislike!(call.arguments);
         break;
         //点击
       case FlutterUnionadMethod.onClick:
-        if (widget.callBack != null) {
-          widget.callBack?.onClick!();
-        }
+        widget.callBack?.onClick!();
         break;
     }
   }

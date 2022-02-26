@@ -39,7 +39,7 @@ public class BannerAdView : NSObject,FlutterPlatformView{
     public func view() -> UIView {
         return self.container
     }
-    
+
     private func loadBannerExpressAd(){
         self.removeAllView()
         let viewWidth:CGFloat = CGFloat(self.expressViewWidth!)
@@ -86,7 +86,9 @@ extension BannerAdView: BUNativeExpressBannerViewDelegate {
     
     public func nativeExpressBannerAdViewRenderSuccess(_ bannerAdView: BUNativeExpressBannerView) {
         LogUtil.logInstance.printLog(message: "banner渲染成功")
-        self.channel?.invokeMethod("onShow", arguments: "")
+        let map : NSDictionary = ["width":bannerAdView.frame.size.width,
+                                  "height":bannerAdView.frame.size.height]
+        self.channel?.invokeMethod("onShow", arguments: map)
     }
     
     public func nativeExpressBannerAdViewDidClick(_ bannerAdView: BUNativeExpressBannerView) {

@@ -38,10 +38,16 @@ class _DrawFeedAdViewState extends State<DrawFeedAdView> {
   //广告是否显示
   bool _isShowAd = true;
 
+  //宽高
+  double _width = 0;
+  double _height = 0;
+
   @override
   void initState() {
     super.initState();
     _isShowAd = true;
+    _width = widget.expressViewWidth;
+    _height = widget.expressViewHeight;
   }
 
   @override
@@ -51,8 +57,8 @@ class _DrawFeedAdViewState extends State<DrawFeedAdView> {
     }
     if (defaultTargetPlatform == TargetPlatform.android) {
       return Container(
-        width: widget.expressViewWidth,
-        height: widget.expressViewHeight,
+        width: _width,
+        height: _height,
         child: AndroidView(
           viewType: _viewType,
           creationParams: {
@@ -69,8 +75,8 @@ class _DrawFeedAdViewState extends State<DrawFeedAdView> {
       );
     } else if (defaultTargetPlatform == TargetPlatform.iOS) {
       return Container(
-        width: widget.expressViewWidth,
-        height: widget.expressViewHeight,
+        width: _width,
+        height: _height,
         child: UiKitView(
           viewType: _viewType,
           creationParams: {
@@ -98,10 +104,17 @@ class _DrawFeedAdViewState extends State<DrawFeedAdView> {
 
   //监听原生view传值
   Future<dynamic> _platformCallHandler(MethodCall call) async {
-    print("====> ${call.method}   ${call.arguments}");
     switch (call.method) {
       //显示广告
       case FlutterUnionadMethod.onShow:
+        Map map = call.arguments;
+        if (mounted) {
+          setState(() {
+            _isShowAd = true;
+            _width = (map["width"]).toDouble();
+            _height = (map["height"]).toDouble();
+          });
+        }
         if (widget.callBack != null) {
           widget.callBack?.onShow!();
         }

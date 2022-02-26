@@ -41,10 +41,16 @@ class _BannerAdViewState extends State<BannerAdView> {
   //广告是否显示
   bool _isShowAd = true;
 
+  //宽高
+  double _width = 0;
+  double _height = 0;
+
   @override
   void initState() {
     super.initState();
     _isShowAd = true;
+    _width = widget.expressViewWidth;
+    _height = widget.expressViewHeight;
   }
 
   @override
@@ -54,8 +60,8 @@ class _BannerAdViewState extends State<BannerAdView> {
     }
     if (defaultTargetPlatform == TargetPlatform.android) {
       return Container(
-        width: widget.expressViewWidth,
-        height: widget.expressViewHeight,
+        width: _width,
+        height: _height,
         child: AndroidView(
           viewType: _viewType,
           creationParams: {
@@ -74,8 +80,8 @@ class _BannerAdViewState extends State<BannerAdView> {
       );
     } else if (defaultTargetPlatform == TargetPlatform.iOS) {
       return Container(
-        width: widget.expressViewWidth,
-        height: widget.expressViewHeight,
+        width: _width,
+        height: _height,
         child: UiKitView(
           viewType: _viewType,
           creationParams: {
@@ -108,6 +114,14 @@ class _BannerAdViewState extends State<BannerAdView> {
     switch (call.method) {
       //显示广告
       case FlutterUnionadMethod.onShow:
+        Map map = call.arguments;
+        if (mounted) {
+          setState(() {
+            _isShowAd = true;
+            _width = (map["width"]).toDouble();
+            _height = (map["height"]).toDouble();
+          });
+        }
         widget.callBack?.onShow!();
         break;
       //广告加载失败

@@ -1,7 +1,7 @@
 # 字节跳动穿山甲广告 Flutter版本
 
 <p>
-<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.2.3-success></a>
+<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.2.4-success></a>
 </p>
 
 <img src="https://github.com/gstory0404/flutter_unionad/blob/master/image/demo.gif" width="30%">
@@ -15,12 +15,12 @@
 
 ## 本地环境
 ```
-[✓] Flutter (Channel stable, 2.10.0, on macOS 12.1 21C52 darwin-x64, locale zh-Hans-CN)
-[✓] Android toolchain - develop for Android devices (Android SDK version 30.0.3)
+[✓] Flutter (Channel stable, 2.10.2, on macOS 12.2.1 21D62 darwin-x64, locale zh-Hans-CN)
+[✓] Android toolchain - develop for Android devices (Android SDK version 33.0.0-rc1)
 [✓] Xcode - develop for iOS and macOS (Xcode 13.2.1)
 [✓] Chrome - develop for the web
-[✓] Android Studio (version 2020.3)
-[✓] VS Code (version 1.63.2)
+[✓] Android Studio (version 2021.1)
+[✓] VS Code (version 1.64.2)
 [✓] Connected device (4 available)
 [✓] HTTP Host Availability
 ```
@@ -28,14 +28,14 @@
 ## 集成步骤
 #### 1、pubspec.yaml
 ```Dart
-flutter_unionad: ^1.2.3
+flutter_unionad: ^1.2.4
 ```
 引入
 ```Dart
 import 'package:flutter_unionad/flutter_unionad.dart';
 ```
 #### 2、Android
-SDK([4.2.5.2](https://www.csjplatform.com/union/media/union/download/log?id=4))已配置插件中无需额外配置，只需要在android目录中AndroidManifest.xml配置
+SDK([4.3.0.1](https://www.csjplatform.com/union/media/union/download/log?id=4))已配置插件中无需额外配置，只需要在android目录中AndroidManifest.xml配置
 ```Java
 <manifest ···
     xmlns:tools="http://schemas.android.com/tools"
@@ -45,7 +45,7 @@ SDK([4.2.5.2](https://www.csjplatform.com/union/media/union/download/log?id=4))�
 ```
 
 #### 3、IOS
-SDK([4.2.5.2](https://www.csjplatform.com/union/media/union/download/log?id=16)))已配置插件中，其余根据SDK文档配置，因为使用PlatformView，在Info.plist加入
+SDK([4.3.0.2](https://www.csjplatform.com/union/media/union/download/log?id=16)))已配置插件中，其余根据SDK文档配置，因为使用PlatformView，在Info.plist加入
 ```
  <key>io.flutter.embedded_views_preview</key>
     <true/>

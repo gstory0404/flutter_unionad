@@ -83,7 +83,9 @@ extension NativeAdView : BUNativeExpressAdViewDelegate{
             view.rootViewController = MyUtils.getVC()
             view.render()
             self.container.addSubview(view)
-            self.channel?.invokeMethod("onShow", arguments: "")
+            let map : NSDictionary = ["width":view.frame.size.width,
+                                      "height":view.frame.size.height]
+            self.channel?.invokeMethod("onShow", arguments: map)
         }
     }
     

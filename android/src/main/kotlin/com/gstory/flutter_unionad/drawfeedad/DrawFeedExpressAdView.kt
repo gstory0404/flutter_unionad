@@ -111,6 +111,8 @@ internal class DrawFeedExpressAdView(var context: Context, var activity: Activit
                     })
                     //是否允许点击暂停视频播放
                     ad!!.setCanInterruptVideoPlay(true)
+                    var viewWidth = 0.0f
+                    var viewHeight = 0.0f
                     ad!!.setExpressInteractionListener(object : ExpressAdInteractionListener{
                         override fun onAdClicked(view: View, type: Int) {
                             Log.e(TAG, "广告点击")
@@ -119,7 +121,8 @@ internal class DrawFeedExpressAdView(var context: Context, var activity: Activit
 
                         override fun onAdShow(view: View, type: Int) {
                             Log.e(TAG, "广告显示")
-                            channel?.invokeMethod("onShow","");
+                            var map: MutableMap<String, Any?> = mutableMapOf("width" to viewWidth, "height" to viewHeight)
+                            channel?.invokeMethod("onShow",map);
                         }
 
                         override fun onRenderFail(view: View, msg: String, code: Int) {
@@ -139,8 +142,10 @@ internal class DrawFeedExpressAdView(var context: Context, var activity: Activit
                                     "\nheightDP= ${UIUtils.dip2px(activity, height)}")
                             //返回view的宽高 单位 dp
                             mExpressContainer!!.removeAllViews()
-//                val mExpressContainerParams: FrameLayout.LayoutParams = FrameLayout.LayoutParams(UIUtils.dip2px(activity, width).toInt(), UIUtils.dip2px(activity, height).toInt())
-//                mExpressContainer!!.layoutParams = mExpressContainerParams
+//                            val mExpressContainerParams: FrameLayout.LayoutParams = FrameLayout.LayoutParams(UIUtils.dip2px(activity, width).toInt(), UIUtils.dip2px(activity, height).toInt())
+//                            mExpressContainer!!.layoutParams = mExpressContainerParams
+                            viewWidth = width
+                            viewHeight = height
                             mExpressContainer!!.addView(view)
                         }
                     })

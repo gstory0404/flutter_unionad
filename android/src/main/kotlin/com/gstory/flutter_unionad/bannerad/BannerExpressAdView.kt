@@ -53,7 +53,7 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
         expressViewWidth = width.toFloat()
         expressViewHeight = hight.toFloat()
         mExpressContainer = FrameLayout(activity)
-        Log.e("banner广告数量===>",expressAdNum.toString())
+        Log.e(TAG,expressAdNum.toString())
         val mTTAdManager = get()
         mTTAdNative = mTTAdManager.createAdNative(context.applicationContext)
         channel = MethodChannel(messenger,FlutterunionadViewConfig.bannerAdView+"_"+id)
@@ -80,14 +80,14 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
             }
 
             override fun onNativeExpressAdLoad(ads: List<TTNativeExpressAd>) {
-                if (ads == null || ads.size == 0) {
+                if (ads == null || ads.isEmpty()) {
                     return
                 }
-                Log.e("banner拉去到广告数量",ads.size.toString())
-                mTTAd = ads[(0..ads.size - 1).random()]
+                Log.e(TAG,ads.size.toString())
+                mTTAd = ads[(ads.indices).random()]
                 if(null != expressTime && expressTime > 30){
                     //轮播间隔
-                    mTTAd!!.setSlideIntervalTime(expressTime.toInt() * 1000)
+                    mTTAd!!.setSlideIntervalTime(expressTime * 1000)
                 }
                 bindAdListener(mTTAd!!)
                 startTime = System.currentTimeMillis()
@@ -98,6 +98,8 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
 
 
     private fun bindAdListener(ad: TTNativeExpressAd) {
+        var viewWidth = 0.0f
+        var viewHeight = 0.0f
         ad.setExpressInteractionListener(object : ExpressAdInteractionListener {
             override fun onAdClicked(view: View, type: Int) {
                 Log.e(TAG, "广告点击")
@@ -106,6 +108,8 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
 
             override fun onAdShow(view: View, type: Int) {
                 Log.e(TAG, "广告显示")
+                var map: MutableMap<String, Any?> = mutableMapOf("width" to viewWidth, "height" to viewHeight)
+                channel?.invokeMethod("onShow",map)
             }
 
             override fun onRenderFail(view: View, msg: String, code: Int) {
@@ -114,7 +118,7 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
             }
 
             override fun onRenderSuccess(view: View, width: Float, height: Float) {
-                Log.e("ExpressView", "render suc:" + (System.currentTimeMillis() - startTime))
+                Log.e(TAG, "render suc:" + (System.currentTimeMillis() - startTime))
                 Log.e(TAG, "\nexpressViewWidth=$expressViewWidth " +
                         "\nexpressViewWidthDP=${UIUtils.px2dip(activity, expressViewWidth)}" +
                         "\nexpressViewHeight $expressViewHeight" +
@@ -127,11 +131,10 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
                 mExpressContainer!!.removeAllViews()
 //                val mExpressContainerParams: FrameLayout.LayoutParams = FrameLayout.LayoutParams(UIUtils.dip2px(activity, width).toInt(), UIUtils.dip2px(activity, height).toInt())
 //                mExpressContainer!!.layoutParams = mExpressContainerParams
+                viewWidth = width
+                viewHeight = height
                 mExpressContainer!!.addView(view)
-                channel?.invokeMethod("onShow","")
             }
-
-
         })
         //dislike设置
         bindDislike(ad, false)

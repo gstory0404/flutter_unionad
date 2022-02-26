@@ -79,12 +79,12 @@ class NativeExpressAdView(var context: Context,var activity: Activity, var messe
             }
 
             override fun onNativeExpressAdLoad(ads: List<TTNativeExpressAd>) {
-                if (ads == null || ads.size == 0) {
+                if (ads == null || ads.isEmpty()) {
                     Log.e(TAG, "未拉取到信息流广告")
                     return
                 }
                 //随机获取一条广告显示
-                mTTAd = ads[(0..ads.size - 1).random()]
+                mTTAd = ads[(ads.indices).random()]
                 bindAdListener(mTTAd!!)
                 mTTAd!!.render() //调用render开始渲染广告
             }
@@ -116,7 +116,8 @@ class NativeExpressAdView(var context: Context,var activity: Activity, var messe
 //                mExpressContainerParams.gravity = Gravity.CENTER
 //                mExpressContainer!!.layoutParams = mExpressContainerParams
                 mExpressContainer!!.addView(view)
-                channel?.invokeMethod("onShow","")
+                var map: MutableMap<String, Any?> = mutableMapOf("width" to width, "height" to height)
+                channel?.invokeMethod("onShow",map)
             }
         })
         //dislike设置
