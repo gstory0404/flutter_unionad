@@ -102,7 +102,7 @@ extension RewardedVideoAd: BUNativeExpressRewardedVideoAdDelegate {
                                   "rewardVerify":false,
                                   "rewardAmount":self.rewardModel!.rewardAmount,
                                   "rewardName":self.rewardModel!.rewardName ?? "",
-                                  "errorCode":(error! as NSError).code,
+                                  "errorCode":error != nil ? (error! as NSError).code : 1,
                                   "error":String(error.debugDescription)]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
     }
