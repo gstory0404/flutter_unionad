@@ -97,6 +97,7 @@ extension RewardedVideoAd: BUNativeExpressRewardedVideoAdDelegate {
     
     public func nativeExpressRewardedVideoAdServerRewardDidFail(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd, error: Error?) {
         LogUtil.logInstance.printLog(message: "异步请求的服务器验证失败回调")
+        LogUtil.logInstance.printLog(message: error)
         let map : NSDictionary = ["adType":"rewardAd",
                                   "onAdMethod":"onVerify",
                                   "rewardVerify":false,
