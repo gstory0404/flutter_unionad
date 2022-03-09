@@ -1,0 +1,43 @@
+PODS:
+  - Ads-CN (4.3.0.3):
+    - Ads-CN/BUAdSDK (= 4.3.0.3)
+  - Ads-CN/BUAdSDK (4.3.0.3):
+    - Ads-CN/BUFoundation
+    - Ads-CN/Domestic
+  - Ads-CN/BUFoundation (4.3.0.3):
+    - BURelyFoundation (= 0.0.1.47)
+  - Ads-CN/Domestic (4.3.0.3)
+  - BURelyFoundation (0.0.1.47):
+    - BURelyFoundation/HM (= 0.0.1.47)
+    - BURelyFoundation/NETWork (= 0.0.1.47)
+  - BURelyFoundation/HM (0.0.1.47)
+  - BURelyFoundation/NETWork (0.0.1.47)
+  - Flutter (1.0.0)
+  - flutter_unionad (0.0.1):
+    - Ads-CN (~> 4.3.0.3)
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - flutter_unionad (from `.symlinks/plugins/flutter_unionad/ios`)
+
+SPEC REPOS:
+  trunk:
+    - Ads-CN
+    - BURelyFoundation
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  flutter_unionad:
+    :path: ".symlinks/plugins/flutter_unionad/ios"
+
+SPEC CHECKSUMS:
+  Ads-CN: f5871961bbe334135ecd62c4fde46bc80c36d4de
+  BURelyFoundation: 5e7f811867d3ee91ed20e426c505e31c55674256
+  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  flutter_unionad: f626c5eb5b10e1c0d78491031862388238572a28
+
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+
+COCOAPODS: 1.11.2

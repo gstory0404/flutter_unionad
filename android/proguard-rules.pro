@@ -11,8 +11,3 @@
 -keep class com.bytedance.embed_dr.** {*;}
 
 -keep class com.bykv.vk.** {*;}
-
-## okhttp3忽略
--dontwarn com.squareup.okhttp3.**
--keep class com.squareup.okhttp3.** { *;}
--dontwarn okio.**

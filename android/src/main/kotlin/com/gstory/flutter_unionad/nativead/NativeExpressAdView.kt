@@ -9,6 +9,7 @@ import com.bytedance.sdk.openadsdk.*
 import com.bytedance.sdk.openadsdk.TTAdDislike.DislikeInteractionCallback
 import com.bytedance.sdk.openadsdk.TTAdNative.NativeExpressAdListener
 import com.bytedance.sdk.openadsdk.TTNativeExpressAd.ExpressAdInteractionListener
+import com.gstory.flutter_unionad.FlutterUnionadEventPlugin
 import com.gstory.flutter_unionad.FlutterunionadViewConfig
 import com.gstory.flutter_unionad.TTAdManagerHolder
 import com.gstory.flutter_unionad.UIUtils
@@ -110,6 +111,7 @@ class NativeExpressAdView(var context: Context,var activity: Activity, var messe
             override fun onRenderSuccess(view: View, width: Float, height: Float) {
                 //返回view的宽高 单位 dp
                 Log.e(TAG, "渲染成功")
+
                 //在渲染成功回调时展示广告，提升体验
                 mExpressContainer!!.removeAllViews()
 //                val mExpressContainerParams: FrameLayout.LayoutParams = FrameLayout.LayoutParams(UIUtils.dip2px(activity, width).toInt(), UIUtils.dip2px(activity, height).toInt())
