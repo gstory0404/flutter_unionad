@@ -37,7 +37,7 @@ class _NativeExpressAdPageState extends State<NativeExpressAdPage> {
               //是否支持 DeepLink 选填
               expressViewWidth: 375.5,
               // 期望view 宽度 dp 必填
-              expressViewHeight: 275.5,
+              expressViewHeight: 0,
               //期望view高度 dp 必填
               expressNum: 2,
               mIsExpress: true,
@@ -64,7 +64,7 @@ class _NativeExpressAdPageState extends State<NativeExpressAdPage> {
               iosCodeId: "945417487",
               supportDeepLink: true,
               expressViewWidth: 375.5,
-              expressViewHeight: 284.5,
+              expressViewHeight: 0,
               expressNum: 3,
             ), //个性化模板信息流广告
             FlutterUnionad.nativeAdView(
@@ -72,7 +72,7 @@ class _NativeExpressAdPageState extends State<NativeExpressAdPage> {
               iosCodeId: "945407034",
               supportDeepLink: true,
               expressViewWidth: 270,
-              expressViewHeight:400,
+              expressViewHeight:0,
               expressNum: 3,
             ), //个性化模板信息流广告
             FlutterUnionad.nativeAdView(
@@ -80,7 +80,7 @@ class _NativeExpressAdPageState extends State<NativeExpressAdPage> {
               iosCodeId: "945407034",
               supportDeepLink: true,
               expressViewWidth: 270,
-              expressViewHeight: 480,
+              expressViewHeight: 0,
               expressNum: 3,
             ),
           ],

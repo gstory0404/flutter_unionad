@@ -14,16 +14,17 @@ class NativeAdView extends StatefulWidget {
   final int downloadType;
   final FlutterUnionadNativeCallBack? callBack;
 
-  const NativeAdView({Key? key,
-    required this.mIsExpress,
-    required this.androidCodeId,
-    required this.iosCodeId,
-    required this.supportDeepLink,
-    required this.expressViewWidth,
-    required this.expressViewHeight,
-    required this.expressNum,
-    required this.downloadType,
-    this.callBack})
+  const NativeAdView(
+      {Key? key,
+      required this.mIsExpress,
+      required this.androidCodeId,
+      required this.iosCodeId,
+      required this.supportDeepLink,
+      required this.expressViewWidth,
+      required this.expressViewHeight,
+      required this.expressNum,
+      required this.downloadType,
+      this.callBack})
       : super(key: key);
 
   @override
@@ -58,7 +59,7 @@ class _NativeAdViewState extends State<NativeAdView> {
     if (defaultTargetPlatform == TargetPlatform.android) {
       return Container(
         width: _width,
-        height: _height,
+        height: _height == 0 ? 0.5 : _height,//高为0的时候不会原生不会加载 默认设为0.5
         child: AndroidView(
           viewType: _viewType,
           creationParams: {
@@ -67,8 +68,8 @@ class _NativeAdViewState extends State<NativeAdView> {
             "supportDeepLink": widget.supportDeepLink,
             "expressViewWidth": widget.expressViewWidth,
             "expressViewHeight": widget.expressViewHeight,
-            "expressNum":widget.expressNum,
-            "downloadType":widget.downloadType,
+            "expressNum": widget.expressNum,
+            "downloadType": widget.downloadType,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),
@@ -77,7 +78,7 @@ class _NativeAdViewState extends State<NativeAdView> {
     } else if (defaultTargetPlatform == TargetPlatform.iOS) {
       return Container(
         width: _width,
-        height: _height,
+        height: _height == 0 ? 0.5 : _height,//高为0的时候原生不会加载 默认设为0.5
         child: UiKitView(
           viewType: _viewType,
           creationParams: {
@@ -86,8 +87,8 @@ class _NativeAdViewState extends State<NativeAdView> {
             "supportDeepLink": widget.supportDeepLink,
             "expressViewWidth": widget.expressViewWidth,
             "expressViewHeight": widget.expressViewHeight,
-            "expressNum":widget.expressNum,
-            "downloadType":widget.downloadType,
+            "expressNum": widget.expressNum,
+            "downloadType": widget.downloadType,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),
@@ -107,7 +108,7 @@ class _NativeAdViewState extends State<NativeAdView> {
   //监听原生view传值
   Future<dynamic> _platformCallHandler(MethodCall call) async {
     switch (call.method) {
-    //显示广告
+      //显示广告
       case FlutterUnionadMethod.onShow:
         Map map = call.arguments;
         if (mounted) {
@@ -119,7 +120,7 @@ class _NativeAdViewState extends State<NativeAdView> {
         }
         widget.callBack?.onShow!();
         break;
-    //广告加载失败
+      //广告加载失败
       case FlutterUnionadMethod.onFail:
         if (mounted) {
           setState(() {
@@ -128,7 +129,7 @@ class _NativeAdViewState extends State<NativeAdView> {
         }
         widget.callBack?.onFail!(call.arguments);
         break;
-    //广告不感兴趣
+      //广告不感兴趣
       case FlutterUnionadMethod.onDislike:
         if (mounted) {
           setState(() {
@@ -137,7 +138,7 @@ class _NativeAdViewState extends State<NativeAdView> {
         }
         widget.callBack?.onDislike!(call.arguments);
         break;
-        //点击
+      //点击
       case FlutterUnionadMethod.onClick:
         widget.callBack?.onClick!();
         break;

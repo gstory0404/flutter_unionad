@@ -83,9 +83,6 @@ extension NativeAdView : BUNativeExpressAdViewDelegate{
             view.rootViewController = MyUtils.getVC()
             view.render()
             self.container.addSubview(view)
-            let map : NSDictionary = ["width":view.frame.size.width,
-                                      "height":view.frame.size.height]
-            self.channel?.invokeMethod("onShow", arguments: map)
         }
     }
     
@@ -97,6 +94,9 @@ extension NativeAdView : BUNativeExpressAdViewDelegate{
     }
     //渲染成功
     public func nativeExpressAdViewRenderSuccess(_ nativeExpressAdView: BUNativeExpressAdView) {
+        let map : NSDictionary = ["width":nativeExpressAdView.frame.size.width,
+                                  "height":nativeExpressAdView.frame.size.height]
+        self.channel?.invokeMethod("onShow", arguments: map)
         LogUtil.logInstance.printLog(message: "nativeExpressAdViewRenderSuccess")
     }
     //点击不感兴趣

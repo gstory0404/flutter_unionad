@@ -1,6 +1,7 @@
 package com.gstory.flutter_unionad
 
 import android.content.Context
+import android.util.Log
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.EventChannel
 
@@ -19,7 +20,11 @@ class FlutterUnionadEventPlugin : FlutterPlugin, EventChannel.StreamHandler {
         private var context: Context? = null
 
         fun sendContent(content: MutableMap<String, Any?>) {
-            eventSink?.success(content);
+            eventSink?.success(content)
+        }
+
+        fun sendError(errorCode: String, errorMessage: String, content: MutableMap<String, Any?>) {
+            eventSink?.error(errorCode, errorMessage, content)
         }
     }
 

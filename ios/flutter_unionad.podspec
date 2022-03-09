@@ -17,8 +17,8 @@ A new flutter plugin project.
   s.static_framework = true
   s.dependency 'Flutter'
   s.platform = :ios, '9.0'
-  #s.dependency 'Ads-CN','~> 4.2.5.1'
-  s.dependency 'Ads-CN-Beta','~> 4.3.0.2'
+  s.dependency 'Ads-CN','~> 4.3.0.3'
+ # s.dependency 'Ads-CN-Beta','~> 4.3.0.2'
 # .framework文件
 #  s.vendored_frameworks = 'PangleSDK/BUAdSDK.framework','PangleSDK/BUCNAuxiliary.framework','PangleSDK/BUFoundation.framework'
 # .a文件

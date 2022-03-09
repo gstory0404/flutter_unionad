@@ -1,7 +1,7 @@
 # 字节跳动穿山甲广告 Flutter版本
 
 <p>
-<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.2.4-success></a>
+<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.2.5-success></a>
 </p>
 
 <img src="https://github.com/gstory0404/flutter_unionad/blob/master/image/demo.gif" width="30%">
@@ -28,7 +28,7 @@
 ## 集成步骤
 #### 1、pubspec.yaml
 ```Dart
-flutter_unionad: ^1.2.4
+flutter_unionad: ^1.2.5
 ```
 引入
 ```Dart
@@ -224,7 +224,7 @@ FlutterUnionad.nativeAdView(
               supportDeepLink: true,
               //是否支持 DeepLink 选填
               expressViewWidth: 375.5,
-              // 期望view 宽度 dp 必填
+              // 期望view 宽度 dp 必填，如果设为0则根据返回广告宽高做自适应调整
               expressViewHeight: 275.5,
               //期望view高度 dp 必填
               expressNum: 2,
