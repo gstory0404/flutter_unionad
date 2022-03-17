@@ -77,14 +77,14 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
                     .setSupportDeepLink(supportDeepLink!!)
 //                    .setImageAcceptedSize(1080, 1920) //模板广告需要设置期望个性化模板广告的大小,单位dp,代码位是否属于个性化模板广告，请在穿山甲平台查看
                     .setExpressViewAcceptedSize(expressViewWidth, expressViewHeight)
-                    .setDownloadType(downloadType)
+//                    .setDownloadType(downloadType)
                     .build()
         } else {
             AdSlot.Builder()
                     .setCodeId(mCodeId)
                     .setSupportDeepLink(supportDeepLink!!)
                     .setImageAcceptedSize(1080, 1920)
-                    .setDownloadType(downloadType)
+//                    .setDownloadType(downloadType)
                     .build()
         }
         //step4:请求广告，调用开屏广告异步请求接口，对请求回调的广告作渲染处理

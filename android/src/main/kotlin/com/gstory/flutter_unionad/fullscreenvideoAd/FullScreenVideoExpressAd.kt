@@ -49,7 +49,7 @@ object FullScreenVideoExpressAd {
                 .setSupportDeepLink(supportDeepLink!!)
                 .setExpressViewAcceptedSize(width, height)
                 .setOrientation(orientation)
-                .setDownloadType(downloadType)
+//                .setDownloadType(downloadType)
                 .build()
         //加载全屏视频
         mTTAdNative.loadFullScreenVideoAd(adSlot, object : TTAdNative.FullScreenVideoAdListener {

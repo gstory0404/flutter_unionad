@@ -50,7 +50,7 @@ object InteractionExpressAd {
                 .setAdCount(expressNum.toInt()) //请求广告数量为1到3条
                 .setExpressViewAcceptedSize(expressViewWidth, expressViewHeight)//期望个性化模板广告view的size,单位dp
                 .setImageAcceptedSize(640, 320) //这个参数设置即可，不影响个性化模板广告的size
-                .setDownloadType(downloadType)
+//                .setDownloadType(downloadType)
                 .build()
         //加载广告
         mTTAdNative.loadInteractionExpressAd(adSlot, object : TTAdNative.NativeExpressAdListener {

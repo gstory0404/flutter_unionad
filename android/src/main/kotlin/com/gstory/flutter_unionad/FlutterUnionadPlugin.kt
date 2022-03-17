@@ -138,6 +138,7 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
                     isCanUseWriteExternal!!,
                     oaid!!
             )
+            result.success(true)
             //请求权限
         } else if (call.method == "requestPermissionIfNecessary") {
             val mTTAdManager = TTAdManagerHolder.get()

@@ -44,7 +44,7 @@ class _IndexPageState extends State<IndexPage> {
   void initState() {
     super.initState();
     _privacy();
-    _initRegister();
+    // _initRegister();
     _adViewStream = FlutterUnionadStream.initAdStream(
       flutterUnionadFullVideoCallBack: FlutterUnionadFullVideoCallBack(
         onShow: () {
@@ -196,6 +196,7 @@ class _IndexPageState extends State<IndexPage> {
         //是否允许SDK主动使用WRITE_EXTERNAL_STORAGE权限
         oaid: "111", //开发者可以传入oaid
       );
+      _initRegister();
     }
   }
 

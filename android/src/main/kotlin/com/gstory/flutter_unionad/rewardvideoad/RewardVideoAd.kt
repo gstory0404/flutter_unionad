@@ -99,7 +99,7 @@ object RewardVideoAd {
                     .setUserID(userID)
                     .setOrientation(orientation!!) //设置期望视频播放的方向，为TTAdConstant.HORIZONTAL或TTAdConstant.VERTICAL
                     .setMediaExtra(mediaExtra) //用户透传的信息，可不传
-                    .setDownloadType(downloadType)
+//                    .setDownloadType(downloadType)
                     .build()
         } else {
             adSlot = AdSlot.Builder()
@@ -114,7 +114,7 @@ object RewardVideoAd {
                     .setUserID(userID)
                     .setOrientation(orientation!!) //设置期望视频播放的方向，为TTAdConstant.HORIZONTAL或TTAdConstant.VERTICAL
                     .setMediaExtra(mediaExtra) //用户透传的信息，可不传
-                    .setDownloadType(downloadType)
+//                    .setDownloadType(downloadType)
                     .build()
         }
 

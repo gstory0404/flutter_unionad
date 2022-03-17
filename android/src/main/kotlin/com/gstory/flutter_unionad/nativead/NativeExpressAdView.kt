@@ -69,7 +69,7 @@ class NativeExpressAdView(var context: Context,var activity: Activity, var messe
                 .setAdCount(expressNum) //请求广告数量为1到3条
                 .setImageAcceptedSize(640,320) //这个参数设置即可，不影响个性化模板广告的size
                 .setExpressViewAcceptedSize(expressViewWidth, expressViewHeight)
-                .setDownloadType(downloadType)
+//                .setDownloadType(downloadType)
                 .build()
         //加载广告
         mTTAdNative.loadNativeExpressAd(adSlot, object : NativeExpressAdListener {
