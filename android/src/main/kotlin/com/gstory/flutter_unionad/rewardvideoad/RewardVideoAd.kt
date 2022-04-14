@@ -2,6 +2,7 @@ package com.gstory.flutter_unionad.rewardvideoad
 
 import android.app.Activity
 import android.content.Context
+import android.os.Bundle
 import android.os.Looper
 import android.util.Log
 import com.bytedance.sdk.openadsdk.AdSlot
@@ -170,7 +171,14 @@ object RewardVideoAd {
                         Log.e(TAG, "rewardVideoAd complete")
                     }
 
-                    //视频播放完成后，奖励验证回调，rewardVerify：是否有效，rewardAmount：奖励梳理，rewardName：奖励名称，code：错误码，msg：错误信息
+                    /**
+                     * 视频播放完成后，奖励验证回调
+                     * rewardVerify：是否有效，
+                     * rewardAmount：奖励梳理，
+                     * rewardName：奖励名称，
+                     * code：错误码，
+                     * msg：错误信息
+                     */
                     override fun onRewardVerify(p0: Boolean, p1: Int, p2: String?, p3: Int, p4: String?) {
                         Log.e(TAG, "verify: $p0 amount:$p1 name:$p2 p3:$p3 p4:$p4")
                         var map: MutableMap<String, Any?> = mutableMapOf("adType" to "rewardAd",
@@ -180,6 +188,27 @@ object RewardVideoAd {
                                 "rewardName" to p2,
                                 "errorCode" to p3,
                                 "error" to p4)
+                        FlutterUnionadEventPlugin.sendContent(map)
+                    }
+
+                    /**
+                     * 激励视频播放完毕，验证是否有效发放奖励的回调 4400版本新增
+                     *
+                     * @param isRewardValid 奖励有效
+                     * @param rewardType 奖励类型，0:基础奖励 >0:进阶奖励
+                     * @param extraInfo 奖励的额外参数
+                     */
+                    override fun onRewardArrived(p0: Boolean, p1: Int, p2: Bundle) {
+                        Log.e(TAG, "onRewardArrived: $p0 amount:$p1 name:$p2")
+                        var map: MutableMap<String, Any?> = mutableMapOf("adType" to "rewardAd",
+                            "onAdMethod" to "onRewardArrived",
+                            "rewardVerify" to p0,
+                            "rewardType" to p1,
+                            "rewardAmount" to p2["reward_extra_key_reward_amount"],
+                            "rewardName" to p2["reward_extra_key_reward_name"],
+                            "propose" to p2["reward_extra_key_reward_propose"],
+                            "errorCode" to p2["reward_extra_key_error_code"],
+                            "error" to p2["reward_extra_key_error_msg"])
                         FlutterUnionadEventPlugin.sendContent(map)
                     }
 

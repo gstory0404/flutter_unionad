@@ -1,3 +1,23 @@
+## 1.2.7
+* Andorid sdk升级4.4.0.2
+* iOS sdk升级4.4.0.0
+* 激励广告广告新增进阶奖励回调,旧版的回调保留
+```dart
+///激励广告广告进阶奖励回调参数
+/// [isVerify] 是否成功
+/// [rewardType]奖励类型
+/// [rewardAmount]奖励数量
+/// [rewardName]奖励名称
+/// [errorCode]错误码
+/// [error]错误信息
+/// [propose] 建议奖励数量
+typedef OnRewardArrived = void Function(
+    bool isVerify, int rewardType, int rewardAmount,
+    String rewardName, int errorCode, String error, double propose);
+```
+* Android权限控制FlutterUnionad.andridPrivacy新增  
+  alist（是否允许SDK主动获取设备上应用安装列表的采集权限）
+
 ## 1.2.6
 
 * android sdk升级4.3.0.8

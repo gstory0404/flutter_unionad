@@ -418,6 +418,9 @@ class FlutterUnionad {
   ///isCanUseWriteExternal 是否允许SDK主动使用WRITE_EXTERNAL_STORAGE权限
   ///
   ///oaid 开发者可以传入oaid
+  ///
+  ///alist 是否允许SDK主动获取设备上应用安装列表的采集权限
+  ///
   static Future<bool> andridPrivacy(
       {bool? isCanUseLocation,
       double? lat,
@@ -426,7 +429,8 @@ class FlutterUnionad {
       String? imei,
       bool? isCanUseWifiState,
       bool? isCanUseWriteExternal,
-      String? oaid}) async {
+      String? oaid,
+      bool? alist}) async {
     return await _channel.invokeMethod("andridPrivacy", {
       "isCanUseLocation": isCanUseLocation ?? true,
       "lat": lat ?? 0.0,
@@ -436,6 +440,7 @@ class FlutterUnionad {
       "isCanUseWifiState": isCanUseWifiState ?? true,
       "isCanUseWriteExternal": isCanUseWriteExternal ?? true,
       "oaid": oaid ?? "",
+      "alist": alist ?? true,
     });
   }
 }

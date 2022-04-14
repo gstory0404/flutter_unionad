@@ -44,8 +44,25 @@ typedef OnReady = void Function();
 typedef OnUnReady = void Function();
 
 ///广告奖励验证
-typedef OnVerify = void Function(
-    bool isVerify, int rewardAmount, String rewardName,int errorCode,String message);
+/// [isVerify] 是否成功
+/// [rewardAmount]奖励数量
+/// [rewardName]奖励名称
+/// [errorCode]错误码
+/// [message]错误信息
+typedef OnVerify = void Function(bool isVerify, int rewardAmount,
+    String rewardName, int errorCode, String message);
+
+///激励广告广告进阶奖励回调参数
+/// [isVerify] 是否成功
+/// [rewardType]奖励类型
+/// [rewardAmount]奖励数量
+/// [rewardName]奖励名称
+/// [errorCode]错误码
+/// [error]错误信息
+/// [propose] 建议奖励数量
+typedef OnRewardArrived = void Function(
+    bool isVerify, int rewardType, int rewardAmount,
+    String rewardName, int errorCode, String error, double propose);
 
 ///未确定
 typedef NotDetermined = void Function();
@@ -195,6 +212,7 @@ class FlutterUnionadRewardAdCallBack {
   OnSkip? onSkip;
   OnClick? onClick;
   OnVerify? onVerify;
+  OnRewardArrived? onRewardArrived;
   OnReady? onReady;
   OnUnReady? onUnReady;
 
@@ -204,11 +222,11 @@ class FlutterUnionadRewardAdCallBack {
       this.onClose,
       this.onFail,
       this.onVerify,
+      this.onRewardArrived,
       this.onSkip,
       this.onReady,
       this.onUnReady});
 }
-
 
 ///
 ///权限申请回调

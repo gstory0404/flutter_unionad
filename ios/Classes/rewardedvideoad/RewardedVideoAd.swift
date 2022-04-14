@@ -98,27 +98,51 @@ extension RewardedVideoAd: BUNativeExpressRewardedVideoAdDelegate {
     public func nativeExpressRewardedVideoAdServerRewardDidFail(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd, error: Error?) {
         LogUtil.logInstance.printLog(message: "异步请求的服务器验证失败回调")
         LogUtil.logInstance.printLog(message: error)
+        //旧版奖励回调
         let map : NSDictionary = ["adType":"rewardAd",
                                   "onAdMethod":"onVerify",
                                   "rewardVerify":false,
-                                  "rewardAmount":self.rewardModel!.rewardAmount,
-                                  "rewardName":self.rewardModel!.rewardName ?? "",
-                                  "errorCode":error != nil ? (error! as NSError).code : 1,
+                                  "rewardAmount":rewardedVideoAd.rewardedVideoModel.rewardAmount,
+                                  "rewardName":rewardedVideoAd.rewardedVideoModel.rewardName ?? "",
+                                  "errorCode":error != nil ? (error! as NSError).code : 0,
                                   "error":String(error.debugDescription)]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
+        //新版奖励回调
+        let arrivedMap : NSDictionary = ["adType":"rewardAd",
+                                  "onAdMethod":"onRewardArrived",
+                                  "rewardVerify":false,
+                                  "rewardAmount":rewardedVideoAd.rewardedVideoModel.rewardAmount,
+                                  "rewardName":rewardedVideoAd.rewardedVideoModel.rewardName ?? "",
+                                  "errorCode":error != nil ? (error! as NSError).code : 0,
+                                  "error":String(error.debugDescription),
+                                  "rewardType":rewardedVideoAd.rewardedVideoModel.rewardType.rawValue,
+                                  "extraInfo":String.init(format:"%.2f",rewardedVideoAd.rewardedVideoModel.rewardPropose)]
+        SwiftFlutterUnionadPlugin.event!.sendEvent(event: arrivedMap)
     }
 
     public func nativeExpressRewardedVideoAdServerRewardDidSucceed(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd, verify: Bool) {
         /// handle in close
         LogUtil.logInstance.printLog(message: "异步请求的服务器验证成功回调，开发者需要在此回调中进行奖励发放")
+        //旧版奖励回调
         let map : NSDictionary = ["adType":"rewardAd",
                                   "onAdMethod":"onVerify",
                                   "rewardVerify":verify,
-                                  "rewardAmount":self.rewardModel!.rewardAmount,
-                                  "rewardName":self.rewardModel!.rewardName ?? "",
+                                  "rewardAmount":rewardedVideoAd.rewardedVideoModel.rewardAmount,
+                                  "rewardName":rewardedVideoAd.rewardedVideoModel.rewardName ?? "",
                                   "errorCode":0,
                                   "error":""]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
+        //新版奖励回调
+        let arrivedMap : NSDictionary = ["adType":"rewardAd",
+                                  "onAdMethod":"onRewardArrived",
+                                  "rewardVerify":verify,
+                                  "rewardAmount":rewardedVideoAd.rewardedVideoModel.rewardAmount,
+                                  "rewardName":rewardedVideoAd.rewardedVideoModel.rewardName ?? "",
+                                  "errorCode":0,
+                                  "error":"",
+                                  "rewardType":rewardedVideoAd.rewardedVideoModel.rewardType.rawValue,
+                                  "extraInfo":String.init(format:"%.2f",rewardedVideoAd.rewardedVideoModel.rewardPropose)]
+        SwiftFlutterUnionadPlugin.event!.sendEvent(event: arrivedMap)
     }
     
     public func nativeExpressRewardedVideoAdDidPlayFinish(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd, didFailWithError error: Error?) {

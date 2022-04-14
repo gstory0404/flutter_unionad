@@ -42,7 +42,7 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         Log.e("FlutterUnionadPlugin->", "onAttachedToEngine")
         channel =
-                MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), channelName)
+            MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), channelName)
         channel.setMethodCallHandler(this)
         applicationContext = flutterPluginBinding.applicationContext
         mFlutterPluginBinding = flutterPluginBinding
@@ -91,29 +91,29 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
                     result.success(false)
                 } else {
                     TTAdManagerHolder.init(applicationContext!!,
-                            appId,
-                            useTextureView!!,
-                            appName,
-                            allowShowNotify!!,
-                            allowShowPageWhenScreenLock!!,
-                            debug!!,
-                            supportMultiProcess!!,
-                            directDownloadNetworkType,
-                            object : TTAdSdk.InitCallback {
-                                override fun success() {
-                                    Log.e("初始化", "成功")
-                                    mActivity!!.runOnUiThread(Runnable {
-                                        result.success(true)
-                                    })
-                                }
-
-                                override fun fail(p0: Int, p1: String?) {
-                                    Log.e("初始化", "失败 $p0  $p1")
-                                    mActivity!!.runOnUiThread(Runnable {
-                                        result.success(false)
-                                    })
-                                }
+                        appId,
+                        useTextureView!!,
+                        appName,
+                        allowShowNotify!!,
+                        allowShowPageWhenScreenLock!!,
+                        debug!!,
+                        supportMultiProcess!!,
+                        directDownloadNetworkType,
+                        object : TTAdSdk.InitCallback {
+                            override fun success() {
+                                Log.e("初始化", "成功")
+                                mActivity!!.runOnUiThread(Runnable {
+                                    result.success(true)
+                                })
                             }
+
+                            override fun fail(p0: Int, p1: String?) {
+                                Log.e("初始化", "失败 $p0  $p1")
+                                mActivity!!.runOnUiThread(Runnable {
+                                    result.success(false)
+                                })
+                            }
+                        }
                     )
                 }
             }
@@ -128,15 +128,17 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
             val isCanUseWifiState = call.argument<Boolean>("isCanUseWifiState")
             val isCanUseWriteExternal = call.argument<Boolean>("isCanUseWriteExternal")
             val oaid = call.argument<String>("oaid")
+            val alist = call.argument<Boolean>("alist")
             TTAdManagerHolder.privacyConfig(
-                    isCanUseLocation!!,
-                    lat!!,
-                    lon!!,
-                    isCanUsePhoneState!!,
-                    imei!!,
-                    isCanUseWifiState!!,
-                    isCanUseWriteExternal!!,
-                    oaid!!
+                isCanUseLocation!!,
+                lat!!,
+                lon!!,
+                isCanUsePhoneState!!,
+                imei!!,
+                isCanUseWifiState!!,
+                isCanUseWriteExternal!!,
+                oaid!!,
+                alist!!
             )
             result.success(true)
             //请求权限
@@ -167,14 +169,14 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
             var expressNum = call.argument<Int>("expressNum")
             var downloadType = call.argument<Int>("downloadType")
             InteractionExpressAd.init(
-                    mActivity!!,
-                    mActivity!!,
-                    mCodeId,
-                    supportDeepLink,
-                    expressViewWidth!!,
-                    expressViewHeight!!,
-                    expressNum!!,
-                    downloadType
+                mActivity!!,
+                mActivity!!,
+                mCodeId,
+                supportDeepLink,
+                expressViewWidth!!,
+                expressViewHeight!!,
+                expressNum!!,
+                downloadType
             )
             result.success(true)
             //全屏广告
@@ -184,12 +186,12 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
             val orientation = call.argument<Int>("orientation")
             val downloadType = call.argument<Int>("downloadType")
             FullScreenVideoExpressAd.init(
-                    mActivity!!,
-                    mActivity!!,
-                    mCodeId,
-                    supportDeepLink,
-                    orientation!!,
-                    downloadType
+                mActivity!!,
+                mActivity!!,
+                mCodeId,
+                supportDeepLink,
+                orientation!!,
+                downloadType
             )
             result.success(true)
             //预加载插屏广告 全屏插屏二合一
@@ -199,12 +201,12 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
             val orientation = call.argument<Int>("orientation")
             val downloadType = call.argument<Int>("downloadType")
             FullScreenVideoAdInteraction.init(
-                    mActivity!!,
-                    mActivity!!,
-                    mCodeId,
-                    supportDeepLink,
-                    orientation!!,
-                    downloadType!!
+                mActivity!!,
+                mActivity!!,
+                mCodeId,
+                supportDeepLink,
+                orientation!!,
+                downloadType!!
             )
             result.success(true)
             //显示插屏广告 全屏插屏二合一

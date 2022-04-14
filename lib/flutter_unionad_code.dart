@@ -79,6 +79,9 @@ class FlutterUnionadMethod {
   ///广告奖励校验
   static const String onVerify = "onVerify";
 
+  //
+  static const String onRewardArrived = "onRewardArrived";
+
   ///广告预加载完成
   static const String onReady = "onReady";
 
@@ -103,8 +106,17 @@ class FlutterUnionadPermissionCode {
 
 
 class FlutterUnionadDownLoadType{
-  // 对于应用的下载不做特殊处理；
+  /// 对于应用的下载不做特殊处理；
   static const int DOWNLOAD_TYPE_NO_POPUP = 0;
-  // 应用每次下载都需要触发弹窗披露应用信息（不含跳转商店的场景），该配置优先级高于下载网络弹窗配置；
+  /// 应用每次下载都需要触发弹窗披露应用信息（不含跳转商店的场景），该配置优先级高于下载网络弹窗配置；
   static const int DOWNLOAD_TYPE_POPUP = 1;
+}
+
+class FlutterUnionadRewardType{
+  ///基础奖励
+  static const int REWARD_TYPE_DEFAULT = 0;
+  ///进阶奖励-互动
+  static const int REWARD_TYPE_INTERACT = 1;
+  ///进阶奖励-超过30s的视频播放完成
+  static const int REWARD_TYPE_VIDEO_COMPLETE = 2;
 }

@@ -104,19 +104,10 @@ object TTAdManagerHolder {
         imei: String,
         isCanUseWifiState: Boolean,
         isCanUseWriteExternal: Boolean,
-        oaid: String
+        oaid: String,
+        alist:Boolean
     ) {
         Log.e("===>","${TTAdConstant.IS_P}")
-//        Log.e(
-//            "隐私控制", "isCanUseLocation=$isCanUseLocation\n" +
-//                    "lat=$lat\n" +
-//                    "lon=$lon\n" +
-//                    "isCanUsePhoneState=$isCanUsePhoneState\n" +
-//                    "imei=$imei\n" +
-//                    "isCanUseWifiState=$isCanUseWifiState\n" +
-//                    "isCanUseWriteExternal=$isCanUseWriteExternal\n" +
-//                    "oaid=$oaid\n"
-//        )
         controller = object : TTCustomController() {
             override fun isCanUseLocation(): Boolean {
                 return isCanUseLocation
@@ -144,6 +135,10 @@ object TTAdManagerHolder {
 
             override fun getDevOaid(): String {
                 return oaid
+            }
+
+            override fun alist(): Boolean {
+                return alist
             }
         }
     }

@@ -1,7 +1,7 @@
 # 字节跳动穿山甲广告 Flutter版本
 
 <p>
-<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.2.6-success></a>
+<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.2.7-success></a>
 </p>
 
 <img src="https://github.com/gstory0404/flutter_unionad/blob/master/image/demo.gif" width="30%">
@@ -28,14 +28,14 @@
 ## 集成步骤
 #### 1、pubspec.yaml
 ```Dart
-flutter_unionad: ^1.2.6
+flutter_unionad: ^1.2.7
 ```
 引入
 ```Dart
 import 'package:flutter_unionad/flutter_unionad.dart';
 ```
 #### 2、Android
-SDK([4.3.0.8](https://www.csjplatform.com/union/media/union/download/log?id=4))已配置插件中无需额外配置，只需要在android目录中AndroidManifest.xml配置
+SDK([4.4.0.2](https://www.csjplatform.com/union/media/union/download/log?id=4))已配置插件中无需额外配置，只需要在android目录中AndroidManifest.xml配置
 ```Java
 <manifest ···
     xmlns:tools="http://schemas.android.com/tools"
@@ -45,7 +45,7 @@ SDK([4.3.0.8](https://www.csjplatform.com/union/media/union/download/log?id=4))�
 ```
 
 #### 3、IOS
-SDK([4.3.0.3](https://www.csjplatform.com/union/media/union/download/log?id=16)))已配置插件中，其余根据SDK文档配置，因为使用PlatformView，在Info.plist加入
+SDK([4.4.0.0](https://www.csjplatform.com/union/media/union/download/log?id=16)))已配置插件中，其余根据SDK文档配置，因为使用PlatformView，在Info.plist加入
 ```
  <key>io.flutter.embedded_views_preview</key>
     <true/>
@@ -335,7 +335,13 @@ FlutterUnionad.loadRewardVideoAd(
         },
         onUnReady: (){
           print("激励广告预加载未准备就绪");
-        },
+        }, 
+        onRewardArrived: (rewardVerify, rewardType, rewardAmount, rewardName,
+          errorCode, error, propose) {
+            print(
+            "阶段激励广告奖励  验证结果=$rewardVerify 奖励类型<FlutterUnionadRewardType>=$rewardType 奖励=$rewardAmount"
+            "奖励名称$rewardName 错误码=$errorCode 错误$error 建议奖励$propose");
+            }),
       ),
     );
 ```
@@ -459,6 +465,7 @@ if (Platform.isAndroid) {
         isCanUseWifiState: false,//是否允许SDK主动使用ACCESS_WIFI_STATE权限
         isCanUseWriteExternal: false,//是否允许SDK主动使用WRITE_EXTERNAL_STORAGE权限
         oaid: "111",//开发者可以传入oaid
+        alist: false,//是否允许SDK主动获取设备上应用安装列表的采集权限
       );
     }
 ```

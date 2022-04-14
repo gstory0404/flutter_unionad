@@ -116,33 +116,30 @@ class _IndexPageState extends State<IndexPage> {
       ),
       //激励广告
       flutterUnionadRewardAdCallBack: FlutterUnionadRewardAdCallBack(
-        onShow: () {
-          print("激励广告显示");
-        },
-        onClick: () {
-          print("激励广告点击");
-        },
-        onFail: (error) {
-          print("激励广告失败 $error");
-        },
-        onClose: () {
-          print("激励广告关闭");
-        },
-        onSkip: () {
-          print("激励广告跳过");
-        },
-        onReady: () async {
-          print("激励广告预加载准备就绪");
-          await FlutterUnionad.showRewardVideoAd();
-        },
-        onUnReady: () {
-          print("激励广告预加载未准备就绪");
-        },
-        onVerify: (rewardVerify, rewardAmount, rewardName, errorCode, error) {
-          print(
-              "激励广告奖励  验证结果=$rewardVerify 奖励=$rewardAmount  奖励名称$rewardName 错误吗=$errorCode 错误$error");
-        },
-      ),
+          onShow: () {
+        print("激励广告显示");
+      }, onClick: () {
+        print("激励广告点击");
+      }, onFail: (error) {
+        print("激励广告失败 $error");
+      }, onClose: () {
+        print("激励广告关闭");
+      }, onSkip: () {
+        print("激励广告跳过");
+      }, onReady: () async {
+        print("激励广告预加载准备就绪");
+        await FlutterUnionad.showRewardVideoAd();
+      }, onUnReady: () {
+        print("激励广告预加载未准备就绪");
+      }, onVerify: (rewardVerify, rewardAmount, rewardName, errorCode, error) {
+        print(
+            "激励广告奖励  验证结果=$rewardVerify 奖励=$rewardAmount  奖励名称$rewardName 错误码=$errorCode 错误$error");
+      }, onRewardArrived: (rewardVerify, rewardType, rewardAmount, rewardName,
+              errorCode, error, propose) {
+        print(
+            "阶段激励广告奖励  验证结果=$rewardVerify 奖励类型<FlutterUnionadRewardType>=$rewardType 奖励=$rewardAmount"
+                "奖励名称$rewardName 错误码=$errorCode 错误$error 建议奖励$propose");
+      }),
     );
   }
 
@@ -195,9 +192,11 @@ class _IndexPageState extends State<IndexPage> {
         isCanUseWriteExternal: false,
         //是否允许SDK主动使用WRITE_EXTERNAL_STORAGE权限
         oaid: "111", //开发者可以传入oaid
+        //是否允许SDK主动获取设备上应用安装列表的采集权限
+        alist: false,
       );
-      _initRegister();
     }
+    _initRegister();
   }
 
   @override
@@ -314,7 +313,8 @@ class _IndexPageState extends State<IndexPage> {
                   // 期望view 宽度 dp 必填
                   expressViewHeight: 450.0,
                   //期望view高度 dp 必填
-                  expressNum: 2, //一次请求广告数量 大于1小于3 必填
+                  expressNum: 2,
+                  //一次请求广告数量 大于1小于3 必填
                   //控制下载APP前是否弹出二次确认弹窗
                   downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
                 );
