@@ -82,6 +82,7 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
             var debug = call.argument<Boolean>("debug")
             var supportMultiProcess = call.argument<Boolean>("supportMultiProcess")
             val directDownloadNetworkType = call.argument<List<Int>>("directDownloadNetworkType")!!
+            val personalise = call.argument<String>("personalise")
             if (appId == null || appId.trim { it <= ' ' }.isEmpty()) {
                 Log.e("初始化", "appId can't be null")
                 result.success(false)
@@ -99,6 +100,7 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
                         debug!!,
                         supportMultiProcess!!,
                         directDownloadNetworkType,
+                        personalise!!,
                         object : TTAdSdk.InitCallback {
                             override fun success() {
                                 Log.e("初始化", "成功")
@@ -113,7 +115,7 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
                                     result.success(false)
                                 })
                             }
-                        }
+                        },
                     )
                 }
             }

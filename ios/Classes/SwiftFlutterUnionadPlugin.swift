@@ -24,14 +24,8 @@ public class SwiftFlutterUnionadPlugin: NSObject, FlutterPlugin {
     case "register":
         let param = call.arguments as! NSDictionary
         LogUtil.logInstance.isShow(debug: param.value(forKey: "debug") as? Bool ?? false)
-        //如果已经初始化 就不再初始化
-        if(TTAdManagerHolder.instace.isInit){
-            result(true)
-            break
-        }
         TTAdManagerHolder.instace.initTTSDK(params: param) { isSuccess, error in
             if(isSuccess){
-                TTAdManagerHolder.instace.isInit = true
                 result(true)
             }else{
                 result(false)
@@ -48,23 +42,6 @@ public class SwiftFlutterUnionadPlugin: NSObject, FlutterPlugin {
             ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
                 LogUtil.logInstance.printLog(message: status.rawValue)
                 result(status.rawValue)
-//                switch (status) {
-//                    //同意授权
-//                    case ATTrackingManager.AuthorizationStatus.authorized:
-//                        result(true)
-//                        break
-//                    //拒绝
-//                    case ATTrackingManager.AuthorizationStatus.denied:
-//                        result(false)
-//                        break
-//                        //用户未做选择或未弹窗
-//                    case ATTrackingManager.AuthorizationStatus.notDetermined:
-//                        result(false)
-//                        break
-//                    default:
-//                        result(false)
-//                        break
-//                }
             })
         } else {
             result(3)

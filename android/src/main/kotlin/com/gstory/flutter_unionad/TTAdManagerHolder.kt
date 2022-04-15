@@ -31,39 +31,37 @@ object TTAdManagerHolder {
         debug: Boolean,
         supportMultiProcess: Boolean,
         directDownloadNetworkType: List<Int>,
+        personalise: String,
         callback: TTAdSdk.InitCallback
     ) {
-        if (!sInit) {
-            TTAdSdk.init(
+        TTAdSdk.init(
+            context,
+            buildConfig(
                 context,
-                buildConfig(
-                    context,
-                    appId,
-                    useTextureView,
-                    appName,
-                    allowShowNotify,
-                    allowShowPageWhenScreenLock,
-                    debug,
-                    supportMultiProcess,
-                    directDownloadNetworkType
-                ),
-                object : TTAdSdk.InitCallback {
-                    override fun success() {
-                        sInit = true
-                        callback.success()
-                    }
-
-                    override fun fail(p0: Int, p1: String?) {
-                        sInit = false
-                        callback.fail(p0, p1)
-                    }
-
+                appId,
+                useTextureView,
+                appName,
+                allowShowNotify,
+                allowShowPageWhenScreenLock,
+                debug,
+                supportMultiProcess,
+                directDownloadNetworkType,
+                personalise
+            ),
+            object : TTAdSdk.InitCallback {
+                override fun success() {
+                    sInit = true
+                    callback.success()
                 }
 
-            )
-        }else{
-            callback.success()
-        }
+                override fun fail(p0: Int, p1: String?) {
+                    sInit = false
+                    callback.fail(p0, p1)
+                }
+
+            }
+
+        )
     }
 
     private fun buildConfig(
@@ -75,7 +73,8 @@ object TTAdManagerHolder {
         allowShowPageWhenScreenLock: Boolean,
         debug: Boolean,
         supportMultiProcess: Boolean,
-        directDownloadNetworkType: List<Int>
+        directDownloadNetworkType: List<Int>,
+        personalise: String,
     ): TTAdConfig {
         val d = IntArray(directDownloadNetworkType.size)
         for (i in directDownloadNetworkType.indices) {
@@ -92,6 +91,7 @@ object TTAdManagerHolder {
             .supportMultiProcess(supportMultiProcess) //是否支持多进程
             .needClearTaskReset() //.httpStack(new MyOkStack3())//自定义网络库，demo中给出了okhttp3版本的样例，其余请自行开发或者咨询工作人员。
             .customController(controller)
+            .data("[{\"name\":\"personal_ads_type\" ,\"value\":\"$personalise\"}]")
             .build()
     }
 
@@ -105,9 +105,9 @@ object TTAdManagerHolder {
         isCanUseWifiState: Boolean,
         isCanUseWriteExternal: Boolean,
         oaid: String,
-        alist:Boolean
+        alist: Boolean
     ) {
-        Log.e("===>","${TTAdConstant.IS_P}")
+        Log.e("===>", "${TTAdConstant.IS_P}")
         controller = object : TTCustomController() {
             override fun isCanUseLocation(): Boolean {
                 return isCanUseLocation

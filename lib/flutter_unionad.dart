@@ -40,6 +40,8 @@ class FlutterUnionad {
   ///
   ///[directDownloadNetworkType] 允许直接下载的网络状态集合 选填
   ///
+  ///[personalise] 是否开启个性化推荐 选填 [FlutterUnionadPersonalise.open]开启 [FlutterUnionadPersonalise.close]关闭
+  ///
   static Future<bool> register({
     required String iosAppId,
     required String androidAppId,
@@ -49,6 +51,7 @@ class FlutterUnionad {
     bool? allowShowPageWhenScreenLock,
     bool? debug,
     bool? supportMultiProcess,
+    String? personalise,
     List<int>? directDownloadNetworkType,
   }) async {
     return await _channel.invokeMethod("register", {
@@ -60,6 +63,7 @@ class FlutterUnionad {
       "allowShowPageWhenScreenLock": allowShowPageWhenScreenLock ?? false,
       "debug": debug ?? false,
       "supportMultiProcess": supportMultiProcess ?? false,
+      "personalise":personalise ?? FlutterUnionadPersonalise.open,
       "directDownloadNetworkType": directDownloadNetworkType != null
           ? directDownloadNetworkType
           : [

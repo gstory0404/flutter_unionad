@@ -35,7 +35,8 @@ class FlutterUnionadType {
   static const String interactAd = "interactionAd";
 
   /// 新模板渲染插屏 分为全屏和插屏，全屏和插屏场景下开发者都可以选择投放的广告类型，分别为图片+视频、仅视频、仅图片
-  static const String fullScreenVideoAdInteraction = "fullScreenVideoAdInteraction";
+  static const String fullScreenVideoAdInteraction =
+      "fullScreenVideoAdInteraction";
 }
 
 class FlutterUnionadMethod {
@@ -104,19 +105,29 @@ class FlutterUnionadPermissionCode {
   static const int authorized = 3;
 }
 
-
-class FlutterUnionadDownLoadType{
+class FlutterUnionadDownLoadType {
   /// 对于应用的下载不做特殊处理；
   static const int DOWNLOAD_TYPE_NO_POPUP = 0;
+
   /// 应用每次下载都需要触发弹窗披露应用信息（不含跳转商店的场景），该配置优先级高于下载网络弹窗配置；
   static const int DOWNLOAD_TYPE_POPUP = 1;
 }
 
-class FlutterUnionadRewardType{
+class FlutterUnionadRewardType {
   ///基础奖励
   static const int REWARD_TYPE_DEFAULT = 0;
+
   ///进阶奖励-互动
   static const int REWARD_TYPE_INTERACT = 1;
+
   ///进阶奖励-超过30s的视频播放完成
   static const int REWARD_TYPE_VIDEO_COMPLETE = 2;
+}
+
+class FlutterUnionadPersonalise {
+  ///屏蔽个性化推荐广告；
+  static const String close = "0";
+
+  ///不屏蔽个性化推荐广告
+  static const String open = "1";
 }

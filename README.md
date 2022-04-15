@@ -1,7 +1,7 @@
 # 字节跳动穿山甲广告 Flutter版本
 
 <p>
-<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.2.7-success></a>
+<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.2.8-success></a>
 </p>
 
 <img src="https://github.com/gstory0404/flutter_unionad/blob/master/image/demo.gif" width="30%">
@@ -28,7 +28,7 @@
 ## 集成步骤
 #### 1、pubspec.yaml
 ```Dart
-flutter_unionad: ^1.2.7
+flutter_unionad: ^1.2.8
 ```
 引入
 ```Dart
@@ -58,30 +58,36 @@ SDK([4.4.0.0](https://www.csjplatform.com/union/media/union/download/log?id=16))
 ## 使用
 
 #### 1、SDK初始化
+
+⚠️如果要修改个性化，重新调用初始化方法
 ```Dart
 await FlutterUnionad.register(
-        androidAppId: "5098580",
         //穿山甲广告 Android appid 必填
-        iosAppId: "5098580",
+        androidAppId: "5098580",
         //穿山甲广告 ios appid 必填
-        useTextureView: true,
+        iosAppId: "5098580",
         //使用TextureView控件播放视频,默认为SurfaceView,当有SurfaceView冲突的场景，可以使用TextureView 选填
-        appName: "unionad_test",
+        useTextureView: true,
         //appname 必填
-        allowShowNotify: true,
+        appName: "unionad_test",
         //是否允许sdk展示通知栏提示 选填
-        allowShowPageWhenScreenLock: true,
+        allowShowNotify: true,
         //是否在锁屏场景支持展示广告落地页 选填
-        debug: true,
+        allowShowPageWhenScreenLock: true,
         //是否显示debug日志
-        supportMultiProcess: true,
+        debug: true,
         //是否支持多进程，true支持 选填
+        supportMultiProcess: true,
+        //是否开启个性化推荐 选填 默认开启
+        personalise: FlutterUnionadPersonalise.close,
+        //允许直接下载的网络状态集合 选填
         directDownloadNetworkType: [
         FlutterUnionadNetCode.NETWORK_STATE_2G,
         FlutterUnionadNetCode.NETWORK_STATE_3G,
         FlutterUnionadNetCode.NETWORK_STATE_4G,
         FlutterUnionadNetCode.NETWORK_STATE_WIFI
-      ]); //允许直接下载的网络状态集合 选填  
+        ]
+);
 ```
 #### 2、获取SDK版本
 ```Dart

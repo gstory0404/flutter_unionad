@@ -138,7 +138,7 @@ class _IndexPageState extends State<IndexPage> {
               errorCode, error, propose) {
         print(
             "阶段激励广告奖励  验证结果=$rewardVerify 奖励类型<FlutterUnionadRewardType>=$rewardType 奖励=$rewardAmount"
-                "奖励名称$rewardName 错误码=$errorCode 错误$error 建议奖励$propose");
+            "奖励名称$rewardName 错误码=$errorCode 错误$error 建议奖励$propose");
       }),
     );
   }
@@ -146,28 +146,31 @@ class _IndexPageState extends State<IndexPage> {
   //注册
   void _initRegister() async {
     _init = await FlutterUnionad.register(
-        androidAppId: "5098580",
         //穿山甲广告 Android appid 必填
-        iosAppId: "5098580",
+        androidAppId: "5098580",
         //穿山甲广告 ios appid 必填
-        useTextureView: true,
+        iosAppId: "5098580",
         //使用TextureView控件播放视频,默认为SurfaceView,当有SurfaceView冲突的场景，可以使用TextureView 选填
-        appName: "unionad_test",
+        useTextureView: true,
         //appname 必填
-        allowShowNotify: true,
+        appName: "unionad_test",
         //是否允许sdk展示通知栏提示 选填
-        allowShowPageWhenScreenLock: true,
+        allowShowNotify: true,
         //是否在锁屏场景支持展示广告落地页 选填
-        debug: true,
+        allowShowPageWhenScreenLock: true,
         //是否显示debug日志
-        supportMultiProcess: true,
+        debug: true,
         //是否支持多进程，true支持 选填
+        supportMultiProcess: true,
+        //是否开启个人性推荐 选填
+        personalise: FlutterUnionadPersonalise.open,
+        //允许直接下载的网络状态集合 选填
         directDownloadNetworkType: [
           FlutterUnionadNetCode.NETWORK_STATE_2G,
           FlutterUnionadNetCode.NETWORK_STATE_3G,
           FlutterUnionadNetCode.NETWORK_STATE_4G,
           FlutterUnionadNetCode.NETWORK_STATE_WIFI
-        ]); //允许直接下载的网络状态集合 选填
+        ]);
     print("sdk初始化 $_init");
     _version = await FlutterUnionad.getSDKVersion();
     setState(() {});
@@ -191,7 +194,8 @@ class _IndexPageState extends State<IndexPage> {
         //是否允许SDK主动使用ACCESS_WIFI_STATE权限
         isCanUseWriteExternal: false,
         //是否允许SDK主动使用WRITE_EXTERNAL_STORAGE权限
-        oaid: "111", //开发者可以传入oaid
+        oaid: "111",
+        //开发者可以传入oaid
         //是否允许SDK主动获取设备上应用安装列表的采集权限
         alist: false,
       );
@@ -229,6 +233,42 @@ class _IndexPageState extends State<IndexPage> {
               alignment: Alignment.center,
               height: 50,
               child: Text("穿山甲SDK版本号>>>>>> v$_version"),
+            ),
+            //修改个性化推荐
+            MaterialButton(
+              color: Colors.blue,
+              textColor: Colors.white,
+              child: new Text('修改个性化推荐'),
+              onPressed: () async {
+                _init = await FlutterUnionad.register(
+                    //穿山甲广告 Android appid 必填
+                    androidAppId: "5098580",
+                    //穿山甲广告 ios appid 必填
+                    iosAppId: "5098580",
+                    //使用TextureView控件播放视频,默认为SurfaceView,当有SurfaceView冲突的场景，可以使用TextureView 选填
+                    useTextureView: true,
+                    //appname 必填
+                    appName: "unionad_test",
+                    //是否允许sdk展示通知栏提示 选填
+                    allowShowNotify: true,
+                    //是否在锁屏场景支持展示广告落地页 选填
+                    allowShowPageWhenScreenLock: true,
+                    //是否显示debug日志
+                    debug: true,
+                    //是否支持多进程，true支持 选填
+                    supportMultiProcess: true,
+                    //是否开启个性化推荐 选填
+                    personalise: FlutterUnionadPersonalise.close,
+                    //允许直接下载的网络状态集合 选填
+                    directDownloadNetworkType: [
+                      FlutterUnionadNetCode.NETWORK_STATE_2G,
+                      FlutterUnionadNetCode.NETWORK_STATE_3G,
+                      FlutterUnionadNetCode.NETWORK_STATE_4G,
+                      FlutterUnionadNetCode.NETWORK_STATE_WIFI
+                    ]);
+                print("sdk初始化 $_init");
+                setState(() {});
+              },
             ),
             //请求权限
             MaterialButton(
