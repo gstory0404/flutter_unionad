@@ -12,8 +12,8 @@ import io.flutter.plugin.platform.PlatformViewFactory
  * @CreateDate: 2020/8/19 11:37
  */
 class SplashAdViewFactory(private val messenger: BinaryMessenger) : PlatformViewFactory(StandardMessageCodec.INSTANCE) {
-    override fun create(context: Context, id: Int, args: Any): PlatformView {
+    override fun create(context: Context?, id: Int, args: Any?): PlatformView {
         val params = args as Map<String?, Any?>
-        return SplashAdView(context, messenger, id, params)
+        return SplashAdView(context!!, messenger, id, params)
     }
 }

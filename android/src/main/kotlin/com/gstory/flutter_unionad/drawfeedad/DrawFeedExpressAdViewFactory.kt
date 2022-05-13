@@ -13,8 +13,8 @@ import io.flutter.plugin.platform.PlatformViewFactory
  * @CreateDate: 2020/8/7 10:41
  */
 internal class DrawFeedExpressAdViewFactory(private val messenger: BinaryMessenger, private val activity: Activity) : PlatformViewFactory(StandardMessageCodec.INSTANCE) {
-    override fun create(context: Context, id: Int, args: Any): PlatformView {
+    override fun create(context: Context?, id: Int, args: Any?): PlatformView {
         val params = args as Map<String?, Any?>
-        return DrawFeedExpressAdView(context, activity,messenger, id, params)
+        return DrawFeedExpressAdView(context!!, activity,messenger, id, params)
     }
 }

@@ -21,7 +21,7 @@ import io.flutter.plugin.platform.PlatformView
  * @Author: gstory0404@gmail
  * @CreateDate: 2020/8/19 10:34
  */
-internal class SplashAdView(var context: Context, var messenger: BinaryMessenger?, id: Int, params: Map<String?, Any?>) : PlatformView {
+internal class SplashAdView(var context: Context, var messenger: BinaryMessenger, id: Int, params: Map<String?, Any?>) : PlatformView {
     private val TAG = "AdBannerView"
     private var mExpressContainer: FrameLayout? = null
     var mTTAdNative: TTAdNative

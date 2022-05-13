@@ -21,7 +21,7 @@ import io.flutter.plugin.platform.PlatformView
  * @Author: gstory0404@gmailh
  * @CreateDate: 2020/8/7 10:31
  */
-internal class BannerExpressAdView(var context: Context, var activity: Activity, messenger: BinaryMessenger?, id: Int, params: Map<String?, Any?>) : PlatformView {
+internal class BannerExpressAdView(var context: Context, var activity: Activity, messenger: BinaryMessenger, id: Int, params: Map<String?, Any?>) : PlatformView {
     private val TAG = "BannerExpressAdView"
     var mTTAdNative: TTAdNative
     private var mTTAd: TTNativeExpressAd? = null
