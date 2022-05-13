@@ -15,20 +15,23 @@
 
 ## 本地环境
 ```
-[✓] Flutter (Channel stable, 2.10.2, on macOS 12.2.1 21D62 darwin-x64, locale zh-Hans-CN)
+[✓] Flutter (Channel stable, 3.0.0, on macOS 12.3.1 21E258 darwin-x64, locale zh-Hans-CN)
 [✓] Android toolchain - develop for Android devices (Android SDK version 33.0.0-rc1)
-[✓] Xcode - develop for iOS and macOS (Xcode 13.2.1)
+[✓] Xcode - develop for iOS and macOS (Xcode 13.3.1)
 [✓] Chrome - develop for the web
 [✓] Android Studio (version 2021.1)
-[✓] VS Code (version 1.64.2)
-[✓] Connected device (4 available)
+[✓] VS Code (version 1.66.2)
+[✓] Connected device (3 available)
 [✓] HTTP Host Availability
 ```
 
 ## 集成步骤
 #### 1、pubspec.yaml
 ```Dart
-flutter_unionad: ^1.2.8
+//Flutter3.0
+flutter_unionad: ^1.3.0
+//Flutter2.0
+flutter_unionad: 1.2.8
 ```
 引入
 ```Dart
