@@ -22,7 +22,7 @@ import io.flutter.plugin.platform.PlatformView
  * @Author: gstory0404@gmail
  * @CreateDate: 2020/8/7 10:31
  */
-internal class DrawFeedExpressAdView(var context: Context, var activity: Activity, messenger: BinaryMessenger?, id: Int, params: Map<String?, Any?>) : PlatformView {
+internal class DrawFeedExpressAdView(var context: Context, var activity: Activity, messenger: BinaryMessenger, id: Int, params: Map<String?, Any?>) : PlatformView {
     private val TAG = "DrawFeedExpressAdView"
     var mTTAdNative: TTAdNative
     private var mTTAd: TTNativeExpressAd? = null
