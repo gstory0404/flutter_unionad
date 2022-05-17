@@ -199,8 +199,6 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
     }
 
     override fun dispose() {
-        if (mTTAd != null) {
-            mTTAd!!.destroy()
-        }
+        mTTAd?.destroy()
     }
 }

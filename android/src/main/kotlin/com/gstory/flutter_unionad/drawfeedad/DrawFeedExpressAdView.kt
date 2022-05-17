@@ -157,8 +157,6 @@ internal class DrawFeedExpressAdView(var context: Context, var activity: Activit
     }
 
     override fun dispose() {
-        if (mTTAd != null) {
-            mTTAd!!.destroy()
-        }
+        mTTAd?.destroy()
     }
 }

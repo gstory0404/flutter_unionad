@@ -148,8 +148,6 @@ class InteractionExpressAdView(var context: Context, var activity: Activity, mes
     }
 
     override fun dispose() {
-        if (mTTAd != null) {
-            mTTAd!!.destroy()
-        }
+        mTTAd?.destroy()
     }
 }
