@@ -188,6 +188,7 @@ class NativeExpressAdView(var context: Context,var activity: Activity, var messe
     }
 
     override fun dispose() {
+        Log.e(TAG, "广告释放")
         //调用destroy()方法释放
         mTTAd?.destroy();
     }

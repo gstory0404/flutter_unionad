@@ -157,6 +157,7 @@ internal class DrawFeedExpressAdView(var context: Context, var activity: Activit
     }
 
     override fun dispose() {
+        Log.e(TAG, "广告释放")
         mTTAd?.destroy()
     }
 }
