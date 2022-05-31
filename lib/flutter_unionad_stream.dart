@@ -28,22 +28,34 @@ class FlutterUnionadStream {
         case FlutterUnionadType.fullVideoAd:
           switch (data[FlutterUnionadMethod.onAdMethod]) {
             case FlutterUnionadMethod.onShow:
-              flutterUnionadFullVideoCallBack?.onShow!();
+              if(flutterUnionadFullVideoCallBack?.onShow != null){
+                flutterUnionadFullVideoCallBack?.onShow!();
+              }
               break;
             case FlutterUnionadMethod.onSkip:
-              flutterUnionadFullVideoCallBack?.onSkip!();
+              if(flutterUnionadFullVideoCallBack?.onSkip != null){
+                flutterUnionadFullVideoCallBack?.onSkip!();
+              }
               break;
             case FlutterUnionadMethod.onFinish:
-              flutterUnionadFullVideoCallBack?.onFinish!();
+              if(flutterUnionadFullVideoCallBack?.onFinish != null){
+                flutterUnionadFullVideoCallBack?.onFinish!();
+              }
               break;
             case FlutterUnionadMethod.onClose:
-              flutterUnionadFullVideoCallBack?.onClose!();
+              if(flutterUnionadFullVideoCallBack?.onClose != null){
+                flutterUnionadFullVideoCallBack?.onClose!();
+              }
               break;
             case FlutterUnionadMethod.onFail:
-              flutterUnionadFullVideoCallBack?.onFail!(data["error"]);
+              if(flutterUnionadFullVideoCallBack?.onFail != null){
+                flutterUnionadFullVideoCallBack?.onFail!(data["error"]);
+              }
               break;
             case FlutterUnionadMethod.onClick:
-              flutterUnionadFullVideoCallBack?.onClick!();
+              if(flutterUnionadFullVideoCallBack?.onClick != null){
+                flutterUnionadFullVideoCallBack?.onClick!();
+              }
               break;
           }
           break;
@@ -52,19 +64,29 @@ class FlutterUnionadStream {
         case FlutterUnionadType.interactAd:
           switch (data[FlutterUnionadMethod.onAdMethod]) {
             case FlutterUnionadMethod.onShow:
-              flutterUnionadInteractionCallBack?.onShow!();
+              if(flutterUnionadInteractionCallBack?.onShow != null){
+                flutterUnionadInteractionCallBack?.onShow!();
+              }
               break;
             case FlutterUnionadMethod.onDislike:
-              flutterUnionadInteractionCallBack?.onDislike!(data["message"]);
+              if(flutterUnionadInteractionCallBack?.onDislike != null){
+                flutterUnionadInteractionCallBack?.onDislike!(data["message"]);
+              }
               break;
             case FlutterUnionadMethod.onClose:
-              flutterUnionadInteractionCallBack?.onClose!();
+              if(flutterUnionadInteractionCallBack?.onClose != null){
+                flutterUnionadInteractionCallBack?.onClose!();
+              }
               break;
             case FlutterUnionadMethod.onFail:
-              flutterUnionadInteractionCallBack?.onFail!(data["error"]);
+              if(flutterUnionadInteractionCallBack?.onFail != null){
+                flutterUnionadInteractionCallBack?.onFail!(data["error"]);
+              }
               break;
             case FlutterUnionadMethod.onClick:
-              flutterUnionadInteractionCallBack?.onClick!();
+              if(flutterUnionadInteractionCallBack?.onClick != null){
+                flutterUnionadInteractionCallBack?.onClick!();
+              }
               break;
           }
           break;
@@ -73,28 +95,44 @@ class FlutterUnionadStream {
         case FlutterUnionadType.fullScreenVideoAdInteraction:
           switch (data[FlutterUnionadMethod.onAdMethod]) {
             case FlutterUnionadMethod.onShow:
-              flutterUnionadNewInteractionCallBack?.onShow!();
+              if(flutterUnionadNewInteractionCallBack?.onShow != null){
+                flutterUnionadNewInteractionCallBack?.onShow!();
+              }
               break;
             case FlutterUnionadMethod.onClose:
-              flutterUnionadNewInteractionCallBack?.onClose!();
+              if(flutterUnionadNewInteractionCallBack?.onClose != null){
+                flutterUnionadNewInteractionCallBack?.onClose!();
+              }
               break;
             case FlutterUnionadMethod.onFail:
-              flutterUnionadNewInteractionCallBack?.onFail!(data["error"]);
+              if(flutterUnionadNewInteractionCallBack?.onFail != null){
+                flutterUnionadNewInteractionCallBack?.onFail!(data["error"]);
+              }
               break;
             case FlutterUnionadMethod.onClick:
-              flutterUnionadNewInteractionCallBack?.onClick!();
+              if(flutterUnionadNewInteractionCallBack?.onClick != null){
+                flutterUnionadNewInteractionCallBack?.onClick!();
+              }
               break;
             case FlutterUnionadMethod.onSkip:
-              flutterUnionadNewInteractionCallBack?.onSkip!();
+              if(flutterUnionadNewInteractionCallBack?.onSkip != null){
+                flutterUnionadNewInteractionCallBack?.onSkip!();
+              }
               break;
             case FlutterUnionadMethod.onFinish:
-              flutterUnionadNewInteractionCallBack?.onFinish!();
+              if(flutterUnionadNewInteractionCallBack?.onFinish != null){
+                flutterUnionadNewInteractionCallBack?.onFinish!();
+              }
               break;
             case FlutterUnionadMethod.onReady:
-              flutterUnionadNewInteractionCallBack?.onReady!();
+              if(flutterUnionadNewInteractionCallBack?.onReady != null){
+                flutterUnionadNewInteractionCallBack?.onReady!();
+              }
               break;
             case FlutterUnionadMethod.onUnReady:
-              flutterUnionadNewInteractionCallBack?.onUnReady!();
+              if(flutterUnionadNewInteractionCallBack?.onUnReady != null){
+                flutterUnionadNewInteractionCallBack?.onUnReady!();
+              }
               break;
           }
           break;
@@ -103,43 +141,61 @@ class FlutterUnionadStream {
         case FlutterUnionadType.rewardAd:
           switch (data[FlutterUnionadMethod.onAdMethod]) {
             case FlutterUnionadMethod.onShow:
-              flutterUnionadRewardAdCallBack?.onShow!();
+              if(flutterUnionadRewardAdCallBack?.onShow != null){
+                flutterUnionadRewardAdCallBack?.onShow!();
+              }
               break;
             case FlutterUnionadMethod.onSkip:
-              flutterUnionadRewardAdCallBack?.onSkip!();
+              if(flutterUnionadRewardAdCallBack?.onSkip != null){
+                flutterUnionadRewardAdCallBack?.onSkip!();
+              }
               break;
             case FlutterUnionadMethod.onClose:
-              flutterUnionadRewardAdCallBack?.onClose!();
+              if(flutterUnionadRewardAdCallBack?.onClose != null){
+                flutterUnionadRewardAdCallBack?.onClose!();
+              }
               break;
             case FlutterUnionadMethod.onFail:
-              flutterUnionadRewardAdCallBack?.onFail!(data["error"]);
+              if(flutterUnionadRewardAdCallBack?.onFail != null){
+                flutterUnionadRewardAdCallBack?.onFail!(data["error"]);
+              }
               break;
             case FlutterUnionadMethod.onClick:
-              flutterUnionadRewardAdCallBack?.onClick!();
+              if(flutterUnionadRewardAdCallBack?.onClick != null){
+                flutterUnionadRewardAdCallBack?.onClick!();
+              }
               break;
             case FlutterUnionadMethod.onVerify:
-              flutterUnionadRewardAdCallBack?.onVerify!(
-                  data["rewardVerify"],
-                  data["rewardAmount"] ?? 0,
-                  data["rewardName"] ?? "",
-                  data["errorCode"] ?? 0,
-                  data["error"] ?? "");
+              if(flutterUnionadRewardAdCallBack?.onVerify != null){
+                flutterUnionadRewardAdCallBack?.onVerify!(
+                    data["rewardVerify"],
+                    data["rewardAmount"] ?? 0,
+                    data["rewardName"] ?? "",
+                    data["errorCode"] ?? 0,
+                    data["error"] ?? "");
+              }
               break;
             case FlutterUnionadMethod.onRewardArrived:
-              flutterUnionadRewardAdCallBack?.onRewardArrived!(
-                  data["rewardVerify"],
-                  data["rewardType"],
-                  data["rewardAmount"] ?? 0,
-                  data["rewardName"] ?? "",
-                  data["errorCode"] ?? 0,
-                  data["error"] ?? "",
-                  data["propose"] ?? 1);
+              if(flutterUnionadRewardAdCallBack?.onRewardArrived != null){
+                flutterUnionadRewardAdCallBack?.onRewardArrived!(
+                    data["rewardVerify"],
+                    data["rewardType"],
+                    data["rewardAmount"] ?? 0,
+                    data["rewardName"] ?? "",
+                    data["errorCode"] ?? 0,
+                    data["error"] ?? "",
+                    data["propose"] ?? 1);
+              }
               break;
             case FlutterUnionadMethod.onReady:
-              flutterUnionadRewardAdCallBack?.onReady!();
+              if(flutterUnionadRewardAdCallBack?.onReady != null){
+                flutterUnionadRewardAdCallBack?.onReady!();
+              }
               break;
             case FlutterUnionadMethod.onUnReady:
-              flutterUnionadRewardAdCallBack?.onUnReady!();
+              if(flutterUnionadRewardAdCallBack?.onUnReady != null){
+                flutterUnionadRewardAdCallBack?.onUnReady!();
+              }
               break;
           }
       }
