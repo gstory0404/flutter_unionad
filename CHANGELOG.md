@@ -1,3 +1,6 @@
+## 1.3.2
+* fixbug
+
 ## 1.3.1
 * Andorid sdk升级[4.5.1.1](https://www.csjplatform.com/union/media/union/download/log?id=4)
 * iOS sdk升级[4.5.0.0](https://www.csjplatform.com/union/media/union/download/log?id=16)
