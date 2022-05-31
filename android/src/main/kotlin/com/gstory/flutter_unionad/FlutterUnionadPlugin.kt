@@ -42,7 +42,7 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         Log.e("FlutterUnionadPlugin->", "onAttachedToEngine")
         channel =
-            MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), channelName)
+            MethodChannel(flutterPluginBinding.binaryMessenger, channelName)
         channel.setMethodCallHandler(this)
         applicationContext = flutterPluginBinding.applicationContext
         mFlutterPluginBinding = flutterPluginBinding
@@ -104,14 +104,14 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
                         object : TTAdSdk.InitCallback {
                             override fun success() {
                                 Log.e("初始化", "成功")
-                                mActivity!!.runOnUiThread(Runnable {
+                                mActivity?.runOnUiThread(Runnable {
                                     result.success(true)
                                 })
                             }
 
                             override fun fail(p0: Int, p1: String?) {
                                 Log.e("初始化", "失败 $p0  $p1")
-                                mActivity!!.runOnUiThread(Runnable {
+                                mActivity?.runOnUiThread(Runnable {
                                     result.success(false)
                                 })
                             }
