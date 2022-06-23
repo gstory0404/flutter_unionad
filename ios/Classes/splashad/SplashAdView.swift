@@ -19,6 +19,7 @@ public class SplashAdView : NSObject,FlutterPlatformView{
     let expressViewWidth : Float?
     let expressViewHeight :Float?
     var mIsExpress :Bool? = true
+    var adLoadType : Int? = 0
     
     init(_ frame : CGRect,binaryMessenger: FlutterBinaryMessenger , id : Int64, params :Any?) {
         self.frame = frame
@@ -29,6 +30,7 @@ public class SplashAdView : NSObject,FlutterPlatformView{
         self.supportDeepLink = dict.value(forKey: "supportDeepLink") as? Bool
         self.expressViewWidth = Float(dict.value(forKey: "expressViewWidth") as! Double)
         self.expressViewHeight = Float(dict.value(forKey: "expressViewHeight") as! Double)
+        self.adLoadType = dict.value(forKey: "adLoadType") as? Int
         super.init()
         self.channel = FlutterMethodChannel.init(name: FlutterUnionadConfig.view.splashAdView + "_" + String(id), binaryMessenger: binaryMessenger)
         self.loadSplash()

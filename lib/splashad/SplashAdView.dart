@@ -11,6 +11,7 @@ class SplashAdView extends StatefulWidget {
   final double expressViewWidth;
   final double expressViewHeight;
   final int downloadType;
+  final int? adLoadType;
   final FlutterUnionadSplashCallBack? callBack;
 
   const SplashAdView(
@@ -21,7 +22,8 @@ class SplashAdView extends StatefulWidget {
       required this.supportDeepLink,
       required this.expressViewWidth,
       required this.expressViewHeight,
-        required this.downloadType,
+      required this.downloadType,
+      required this.adLoadType,
       this.callBack})
       : super(key: key);
 
@@ -50,8 +52,12 @@ class _SplashAdViewState extends State<SplashAdView> {
     }
     if (defaultTargetPlatform == TargetPlatform.android) {
       return Container(
-        width: widget.mIsExpress ? widget.expressViewWidth : MediaQuery.of(context).size.width,
-        height: widget.mIsExpress ? widget.expressViewHeight : MediaQuery.of(context).size.height,
+        width: widget.mIsExpress
+            ? widget.expressViewWidth
+            : MediaQuery.of(context).size.width,
+        height: widget.mIsExpress
+            ? widget.expressViewHeight
+            : MediaQuery.of(context).size.height,
         child: AndroidView(
           viewType: _viewType,
           creationParams: {
@@ -60,7 +66,8 @@ class _SplashAdViewState extends State<SplashAdView> {
             "supportDeepLink": widget.supportDeepLink,
             "expressViewWidth": widget.expressViewWidth,
             "expressViewHeight": widget.expressViewHeight,
-            "downloadType":widget.downloadType,
+            "downloadType": widget.downloadType,
+            "adLoadType": widget.adLoadType,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),
@@ -68,8 +75,12 @@ class _SplashAdViewState extends State<SplashAdView> {
       );
     } else if (defaultTargetPlatform == TargetPlatform.iOS) {
       return Container(
-        width: widget.mIsExpress ? widget.expressViewWidth : MediaQuery.of(context).size.width,
-        height: widget.mIsExpress ? widget.expressViewHeight : MediaQuery.of(context).size.height,
+        width: widget.mIsExpress
+            ? widget.expressViewWidth
+            : MediaQuery.of(context).size.width,
+        height: widget.mIsExpress
+            ? widget.expressViewHeight
+            : MediaQuery.of(context).size.height,
         child: UiKitView(
           viewType: _viewType,
           creationParams: {
@@ -78,7 +89,8 @@ class _SplashAdViewState extends State<SplashAdView> {
             "supportDeepLink": widget.supportDeepLink,
             "expressViewWidth": widget.expressViewWidth,
             "expressViewHeight": widget.expressViewHeight,
-            "downloadType":widget.downloadType,
+            "downloadType": widget.downloadType,
+            "adLoadType": widget.adLoadType,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),

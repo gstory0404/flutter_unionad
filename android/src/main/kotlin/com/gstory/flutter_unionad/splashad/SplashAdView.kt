@@ -33,6 +33,7 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
     private var expressViewHeight: Float
     private var mIsExpress: Boolean? = true
     private var downloadType : Int = 1
+    private var adLoadType : Int = 0
 
     //开屏广告加载超时时间,建议大于3000,这里为了冷启动第一次加载到广告并且展示,示例设置了3000ms
     private val AD_TIME_OUT = 3000
@@ -45,6 +46,7 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
         var width = params["expressViewWidth"] as Double
         var hight = params["expressViewHeight"] as Double
         downloadType = params["downloadType"] as Int
+        adLoadType = params["adLoadType"] as Int
         if (width == 0.0) {
             expressViewWidth = UIUtils.getScreenWidthDp(context)
         } else {
@@ -71,6 +73,14 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
      * 加载开屏广告
      */
     private fun loadSplashAd() {
+        var loadType = TTAdLoadType.UNKNOWN
+        if(adLoadType == 0){
+            loadType = TTAdLoadType.UNKNOWN
+        }else if(adLoadType == 1){
+            loadType = TTAdLoadType.LOAD
+        }else if(adLoadType == 2){
+            loadType = TTAdLoadType.PRELOAD
+        }
         var adSlot = if (mIsExpress!!) {
             AdSlot.Builder()
                     .setCodeId(mCodeId)
@@ -78,6 +88,7 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
 //                    .setImageAcceptedSize(1080, 1920) //模板广告需要设置期望个性化模板广告的大小,单位dp,代码位是否属于个性化模板广告，请在穿山甲平台查看
                     .setExpressViewAcceptedSize(expressViewWidth, expressViewHeight)
 //                    .setDownloadType(downloadType)
+                    .setAdLoadType(loadType)
                     .build()
         } else {
             AdSlot.Builder()
@@ -85,6 +96,7 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
                     .setSupportDeepLink(supportDeepLink!!)
                     .setImageAcceptedSize(1080, 1920)
 //                    .setDownloadType(downloadType)
+                    .setAdLoadType(loadType)
                     .build()
         }
         //step4:请求广告，调用开屏广告异步请求接口，对请求回调的广告作渲染处理

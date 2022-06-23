@@ -63,7 +63,7 @@ class FlutterUnionad {
       "allowShowPageWhenScreenLock": allowShowPageWhenScreenLock ?? false,
       "debug": debug ?? false,
       "supportMultiProcess": supportMultiProcess ?? false,
-      "personalise":personalise ?? FlutterUnionadPersonalise.open,
+      "personalise": personalise ?? FlutterUnionadPersonalise.open,
       "directDownloadNetworkType": directDownloadNetworkType != null
           ? directDownloadNetworkType
           : [
@@ -170,6 +170,8 @@ class FlutterUnionad {
   ///
   /// [FlutterUnionAdSplashCallBack] 开屏广告回调
   ///
+  /// [adLoadType]用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，[FlutterUnionadSplashType]
+  ///
   static Widget splashAdView(
       {bool? mIsExpress,
       required String androidCodeId,
@@ -178,6 +180,7 @@ class FlutterUnionad {
       double? expressViewWidth,
       double? expressViewHeight,
       int? downloadType,
+      int? adLoadType,
       FlutterUnionadSplashCallBack? callBack}) {
     return SplashAdView(
       mIsExpress: mIsExpress ?? false,
@@ -188,6 +191,7 @@ class FlutterUnionad {
       expressViewHeight: expressViewHeight ?? 0.0,
       downloadType:
           downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
+      adLoadType: adLoadType ?? FlutterUnionadSplashType.LOAD,
       callBack: callBack,
     );
   }

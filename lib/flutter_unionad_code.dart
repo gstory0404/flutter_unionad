@@ -131,3 +131,12 @@ class FlutterUnionadPersonalise {
   ///不屏蔽个性化推荐广告
   static const String open = "1";
 }
+
+class FlutterUnionadSplashType {
+  ///未知；
+  static const int UNKNOWN = 0;
+  ///实时
+  static const int LOAD = 1;
+  ///预览
+  static const int PRELOAD = 2;
+}

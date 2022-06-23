@@ -1,3 +1,6 @@
+## 1.3.4
+* 开屏广告新增onLoadType参数，用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载
+
 ## 1.3.3
 * Andorid sdk升级[4.6.0.2](https://www.csjplatform.com/union/media/union/download/log?id=4)
 * iOS sdk升级[4.4.0.7](https://www.csjplatform.com/union/media/union/download/log?id=16)
