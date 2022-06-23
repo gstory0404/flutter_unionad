@@ -1,23 +1,21 @@
 PODS:
-  - Ads-CN-Beta (4.5.0.0):
-    - Ads-CN-Beta/BUAdSDK (= 4.5.0.0)
-  - Ads-CN-Beta/BUAdSDK (4.5.0.0):
-    - Ads-CN-Beta/Domestic
-  - Ads-CN-Beta/BUFoundation (4.5.0.0):
-    - BURelyFoundation (= 0.0.1.58)
-  - Ads-CN-Beta/CSJAdSDK (4.5.0.0):
-    - Ads-CN-Beta/BUFoundation
-  - Ads-CN-Beta/Domestic (4.5.0.0):
-    - Ads-CN-Beta/BUFoundation
-    - Ads-CN-Beta/CSJAdSDK
-  - BURelyFoundation (0.0.1.58):
-    - BURelyFoundation/HM (= 0.0.1.58)
-    - BURelyFoundation/NETWork (= 0.0.1.58)
-  - BURelyFoundation/HM (0.0.1.58)
-  - BURelyFoundation/NETWork (0.0.1.58)
+  - Ads-CN (4.4.0.7):
+    - Ads-CN/BUAdSDK (= 4.4.0.7)
+  - Ads-CN/BUAdSDK (4.4.0.7):
+    - Ads-CN/BUFoundation
+    - Ads-CN/Domestic
+  - Ads-CN/BUFoundation (4.4.0.7):
+    - BURelyFoundation (= 0.0.1.47)
+  - Ads-CN/Domestic (4.4.0.7):
+    - Ads-CN/BUFoundation
+  - BURelyFoundation (0.0.1.47):
+    - BURelyFoundation/HM (= 0.0.1.47)
+    - BURelyFoundation/NETWork (= 0.0.1.47)
+  - BURelyFoundation/HM (0.0.1.47)
+  - BURelyFoundation/NETWork (0.0.1.47)
   - Flutter (1.0.0)
   - flutter_unionad (0.0.1):
-    - Ads-CN-Beta (~> 4.5.0.0)
+    - Ads-CN (~> 4.4.0.7)
     - Flutter
 
 DEPENDENCIES:
@@ -26,7 +24,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - Ads-CN-Beta
+    - Ads-CN
     - BURelyFoundation
 
 EXTERNAL SOURCES:
@@ -36,10 +34,10 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_unionad/ios"
 
 SPEC CHECKSUMS:
-  Ads-CN-Beta: 1495061981b3a99c921432d97e8bca37f85ad423
-  BURelyFoundation: f529322f9e93cf8cc0b4539e447aff77a8ff34de
+  Ads-CN: 94ade9100fe370f96a1c2e878c3ff03f823053e4
+  BURelyFoundation: 5e7f811867d3ee91ed20e426c505e31c55674256
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
-  flutter_unionad: fed1ff139417589bb3c318f929f036d1deb6b1b9
+  flutter_unionad: 8bfea46fa48461bcc3f53258d6ce905cbc9276b9
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 
