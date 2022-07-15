@@ -73,13 +73,16 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
      * 加载开屏广告
      */
     private fun loadSplashAd() {
-        var loadType = TTAdLoadType.UNKNOWN
-        if(adLoadType == 0){
-            loadType = TTAdLoadType.UNKNOWN
-        }else if(adLoadType == 1){
-            loadType = TTAdLoadType.LOAD
-        }else if(adLoadType == 2){
-            loadType = TTAdLoadType.PRELOAD
+        var loadType = when (adLoadType) {
+            1 -> {
+                TTAdLoadType.LOAD
+            }
+            2 -> {
+                TTAdLoadType.PRELOAD
+            }
+            else -> {
+                TTAdLoadType.UNKNOWN
+            }
         }
         var adSlot = if (mIsExpress!!) {
             AdSlot.Builder()

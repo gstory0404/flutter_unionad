@@ -23,21 +23,29 @@ import io.flutter.plugin.platform.PlatformView
  * @Author: gstory0404@gmail
  * @CreateDate: 2020/8/20 16:31
  */
-class NativeExpressAdView(var context: Context,var activity: Activity, var messenger: BinaryMessenger, id: Int, params: Map<String?, Any?>) : PlatformView {
+class NativeExpressAdView(
+    var context: Context,
+    var activity: Activity,
+    var messenger: BinaryMessenger,
+    id: Int,
+    params: Map<String?, Any?>
+) : PlatformView {
     private val TAG = "NativeExpressAdView"
     private var mExpressContainer: FrameLayout? = null
     var mTTAdNative: TTAdNative
     private var mTTAd: TTNativeExpressAd? = null
+
     //广告所需参数
     private val mCodeId: String?
     var supportDeepLink: Boolean? = true
     var expressViewWidth: Float
     var expressViewHeight: Float
-    var mHasShowDownloadActive :Boolean? = false
-    var expressNum : Int
-    var downloadType : Int
+    var mHasShowDownloadActive: Boolean? = false
+    var expressNum: Int
+    var downloadType: Int
+    var adLoadType: Int
 
-    private var channel : MethodChannel?
+    private var channel: MethodChannel?
 
     init {
         mCodeId = params["androidCodeId"] as String?
@@ -46,12 +54,13 @@ class NativeExpressAdView(var context: Context,var activity: Activity, var messe
         var hight = params["expressViewHeight"] as Double
         expressNum = params["expressNum"] as Int
         downloadType = params["downloadType"] as Int
+        adLoadType = params["adLoadType"] as Int
         expressViewWidth = width.toFloat()
         expressViewHeight = hight.toFloat()
         mExpressContainer = FrameLayout(context)
         val mTTAdManager = TTAdManagerHolder.get()
         mTTAdNative = mTTAdManager.createAdNative(context.applicationContext)
-        channel = MethodChannel(messenger, FlutterunionadViewConfig.nativeAdView+"_"+id)
+        channel = MethodChannel(messenger, FlutterunionadViewConfig.nativeAdView + "_" + id)
         loadNativeExpressAd()
     }
 
@@ -63,20 +72,32 @@ class NativeExpressAdView(var context: Context,var activity: Activity, var messe
      * 加载信息流广告
      */
     private fun loadNativeExpressAd() {
+        var loadType = when (adLoadType) {
+            1 -> {
+                TTAdLoadType.LOAD
+            }
+            2 -> {
+                TTAdLoadType.PRELOAD
+            }
+            else -> {
+                TTAdLoadType.UNKNOWN
+            }
+        }
         val adSlot = AdSlot.Builder()
-                .setCodeId(mCodeId)
-                .setSupportDeepLink(supportDeepLink!!)
-                .setAdCount(expressNum) //请求广告数量为1到3条
-                .setImageAcceptedSize(640,320) //这个参数设置即可，不影响个性化模板广告的size
-                .setExpressViewAcceptedSize(expressViewWidth, expressViewHeight)
+            .setCodeId(mCodeId)
+            .setSupportDeepLink(supportDeepLink!!)
+            .setAdCount(expressNum) //请求广告数量为1到3条
+            .setImageAcceptedSize(640, 320) //这个参数设置即可，不影响个性化模板广告的size
+            .setExpressViewAcceptedSize(expressViewWidth, expressViewHeight)
 //                .setDownloadType(downloadType)
-                .build()
+            .setAdLoadType(loadType)
+            .build()
         //加载广告
         mTTAdNative.loadNativeExpressAd(adSlot, object : NativeExpressAdListener {
             override fun onError(code: Int, message: String) {
                 Log.e(TAG, "信息流广告拉去失败 $code   $message")
                 mExpressContainer!!.removeAllViews()
-                channel?.invokeMethod("onFail",message)
+                channel?.invokeMethod("onFail", message)
             }
 
             override fun onNativeExpressAdLoad(ads: List<TTNativeExpressAd>) {
@@ -96,7 +117,7 @@ class NativeExpressAdView(var context: Context,var activity: Activity, var messe
         ad.setExpressInteractionListener(object : ExpressAdInteractionListener {
             override fun onAdClicked(view: View, type: Int) {
                 Log.e(TAG, "广告被点击")
-                channel?.invokeMethod("onClick",null)
+                channel?.invokeMethod("onClick", null)
             }
 
             override fun onAdShow(view: View, type: Int) {
@@ -105,7 +126,7 @@ class NativeExpressAdView(var context: Context,var activity: Activity, var messe
 
             override fun onRenderFail(view: View, msg: String, code: Int) {
                 Log.e(TAG, "ExpressView render fail:" + System.currentTimeMillis())
-                channel?.invokeMethod("onFail",msg)
+                channel?.invokeMethod("onFail", msg)
             }
 
             override fun onRenderSuccess(view: View, width: Float, height: Float) {
@@ -118,8 +139,9 @@ class NativeExpressAdView(var context: Context,var activity: Activity, var messe
 //                mExpressContainerParams.gravity = Gravity.CENTER
 //                mExpressContainer!!.layoutParams = mExpressContainerParams
                 mExpressContainer!!.addView(view)
-                var map: MutableMap<String, Any?> = mutableMapOf("width" to width, "height" to height)
-                channel?.invokeMethod("onShow",map)
+                var map: MutableMap<String, Any?> =
+                    mutableMapOf("width" to width, "height" to height)
+                channel?.invokeMethod("onShow", map)
             }
         })
         //dislike设置
@@ -173,7 +195,7 @@ class NativeExpressAdView(var context: Context,var activity: Activity, var messe
                 Log.e(TAG, "点击 $p1")
                 //用户选择不喜欢原因后，移除广告展示
                 mExpressContainer!!.removeAllViews()
-                channel?.invokeMethod("onDislike",p1)
+                channel?.invokeMethod("onDislike", p1)
             }
 
             override fun onCancel() {
@@ -181,9 +203,9 @@ class NativeExpressAdView(var context: Context,var activity: Activity, var messe
             }
 
             override fun onShow() {
-                
+
             }
-            
+
         })
     }
 

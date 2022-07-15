@@ -1,3 +1,15 @@
+## 1.3.5
+* android sdk升级4.6.0.7
+* ios sdk升级4.5.1.6
+* BannerAdView 新增 [isUserInteractionEnabled] 是否启用点击 仅ios生效 默认启用 解决点击穿透异常
+* BannerAdView 新增 [adLoadType]用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，[FlutterUnionadLoadType]
+* DrawFeedAdView 新增 [adLoadType]用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，[FlutterUnionadLoadType]
+* NativeAdView 新增 [isUserInteractionEnabled] 是否启用点击 仅ios生效 默认启用，解决点击穿透异常
+* NativeAdView 新增 [adLoadType]用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，[FlutterUnionadLoadType]
+* loadRewardVideoAd 新增 [adLoadType]用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，[FlutterUnionadLoadType]
+* loadFullScreenVideoAdInteraction 新增 新增 [adLoadType]用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，[FlutterUnionadLoadType]
+* 感谢[BelindaShy](https://github.com/BelindaShy)的 [pr](https://github.com/gstory0404/flutter_unionad/pull/43)
+
 ## 1.3.4
 * 开屏广告新增onLoadType参数，用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载
 

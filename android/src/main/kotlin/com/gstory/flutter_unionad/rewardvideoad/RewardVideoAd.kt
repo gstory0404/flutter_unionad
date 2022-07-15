@@ -45,6 +45,7 @@ object RewardVideoAd {
     private var orientation: Int? = TTAdConstant.VERTICAL
     private var mediaExtra: String? = null
     private var downloadType: Int = 1
+    private var adLoadType : Int = 0
 
     fun init(context: Context, mActivity: Activity, params: Map<String?, Any?>) {
         this.mContext = context
@@ -68,6 +69,7 @@ object RewardVideoAd {
             this.mediaExtra = params["mediaExtra"] as String
         }
         this.downloadType = params["downloadType"] as Int
+        this.adLoadType = params["adLoadType"] as Int
         val mTTAdManager = TTAdManagerHolder.get()
         mTTAdNative = mTTAdManager.createAdNative(mContext)
         loadRewardVideoAd()
@@ -84,6 +86,17 @@ object RewardVideoAd {
                 "\nuserID $userID " +
                 "\norientation $orientation " +
                 "\nmediaExtra $mediaExtra ")
+        var loadType = when (adLoadType) {
+            1 -> {
+                TTAdLoadType.LOAD
+            }
+            2 -> {
+                TTAdLoadType.PRELOAD
+            }
+            else -> {
+                TTAdLoadType.UNKNOWN
+            }
+        }
         val adSlot: AdSlot
         if (mIsExpress) {
             adSlot = AdSlot.Builder()
@@ -94,7 +107,7 @@ object RewardVideoAd {
                     .setImageAcceptedSize(1080, 1920)
 //                    .setRewardName(rewardName) //奖励的名称
 //                    .setRewardAmount(rewardAmount!!) //奖励的数量
-                    .setAdLoadType(TTAdLoadType.PRELOAD) //预加载
+                    .setAdLoadType(loadType) //预加载
                     //必传参数，表来标识应用侧唯一用户；若非服务器回调模式或不需sdk透传
                     //可设置为空字符串
                     .setUserID(userID)
@@ -109,7 +122,7 @@ object RewardVideoAd {
                     .setAdCount(1)
 //                    .setRewardName(rewardName) //奖励的名称
 //                    .setRewardAmount(rewardAmount!!) //奖励的数量
-                    .setAdLoadType(TTAdLoadType.PRELOAD) //预加载
+                    .setAdLoadType(loadType) //预加载
                     //必传参数，表来标识应用侧唯一用户；若非服务器回调模式或不需sdk透传
                     //可设置为空字符串
                     .setUserID(userID)

@@ -386,6 +386,8 @@ class _IndexPageState extends State<IndexPage> {
                   downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
                   //视屏方向 选填
                   mediaExtra: null, //扩展参数 选填
+                  //用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，
+                  adLoadType: FlutterUnionadLoadType.PRELOAD,
                 );
               },
             ),
@@ -440,6 +442,8 @@ class _IndexPageState extends State<IndexPage> {
                   orientation: FlutterUnionadOrientation.VERTICAL,
                   //控制下载APP前是否弹出二次确认弹窗
                   downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
+                  //用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，
+                  adLoadType: FlutterUnionadLoadType.PRELOAD,
                 );
               },
             ),

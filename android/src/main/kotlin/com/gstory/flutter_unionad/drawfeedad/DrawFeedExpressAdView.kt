@@ -33,6 +33,7 @@ internal class DrawFeedExpressAdView(var context: Context, var activity: Activit
     var supportDeepLink: Boolean? = true
     var expressViewWidth: Float
     var expressViewHeight: Float
+    private var adLoadType: Int
 
     private var startTime: Long = 0
     private var downloadType : Int
@@ -46,6 +47,7 @@ internal class DrawFeedExpressAdView(var context: Context, var activity: Activit
         var width = params["expressViewWidth"] as Double
         var hight = params["expressViewHeight"] as Double
         downloadType = params["downloadType"] as Int
+        adLoadType = params["adLoadType"] as Int
         expressViewWidth = width.toFloat()
         expressViewHeight = hight.toFloat()
         mExpressContainer = FrameLayout(activity)
@@ -60,6 +62,17 @@ internal class DrawFeedExpressAdView(var context: Context, var activity: Activit
     }
 
     private fun loadBannerExpressAd() {
+        var loadType = when (adLoadType) {
+            1 -> {
+                TTAdLoadType.LOAD
+            }
+            2 -> {
+                TTAdLoadType.PRELOAD
+            }
+            else -> {
+                TTAdLoadType.UNKNOWN
+            }
+        }
         val adSlot = AdSlot.Builder()
                 .setCodeId(mCodeId) //广告位id
                 .setSupportDeepLink(supportDeepLink!!)
@@ -67,6 +80,7 @@ internal class DrawFeedExpressAdView(var context: Context, var activity: Activit
                 .setExpressViewAcceptedSize(expressViewWidth,expressViewHeight) //期望模板广告view的size,单位dp
                 .setImageAcceptedSize(640, 320)//这个参数设置即可，不影响个性化模板广告的size
 //                .setDownloadType(downloadType)
+            .setAdLoadType(loadType)
                 .build()
         mTTAdNative.loadExpressDrawFeedAd(adSlot, object : NativeExpressAdListener {
             override fun onError(code: Int, message: String) {

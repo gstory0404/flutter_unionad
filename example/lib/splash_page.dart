@@ -41,7 +41,7 @@ class _SplashPageState extends State<SplashPage> {
             //控制下载APP前是否弹出二次确认弹窗
             downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
             //用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，
-            adLoadType: FlutterUnionadSplashType.LOAD,
+            adLoadType: FlutterUnionadLoadType.LOAD,
             callBack: FlutterUnionadSplashCallBack(
               onShow: () {
                 print("开屏广告显示");

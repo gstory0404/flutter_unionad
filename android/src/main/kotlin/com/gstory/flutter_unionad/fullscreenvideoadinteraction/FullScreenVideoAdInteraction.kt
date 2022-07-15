@@ -25,15 +25,17 @@ object FullScreenVideoAdInteraction {
     private var supportDeepLink: Boolean? = true
     private var orientation: Int = 1
     private var downloadType : Int = 1
+    private var adLoadType : Int = 0
 
 
-    fun init(context: Context, mActivity: Activity, mCodeId: String?, supportDeepLink: Boolean?, orientation: Int?,downloadType : Int?) {
+    fun init(context: Context, mActivity: Activity, mCodeId: String?, supportDeepLink: Boolean?, orientation: Int?,downloadType : Int?,adLoadType : Int?) {
         this.mContext = context
         this.mActivity = mActivity
         this.mCodeId = mCodeId
         this.supportDeepLink = supportDeepLink
         this.orientation = orientation!!
         this.downloadType = downloadType!!
+        this.adLoadType = adLoadType!!
         val mTTAdManager = TTAdManagerHolder.get()
         mTTAdNative = mTTAdManager.createAdNative(context.applicationContext)
         loadFullScreenVideoAd()
@@ -41,13 +43,24 @@ object FullScreenVideoAdInteraction {
 
     private fun loadFullScreenVideoAd() {
         Log.e(TAG, "广告位id  $mCodeId")
+        var loadType = when (adLoadType) {
+            1 -> {
+                TTAdLoadType.LOAD
+            }
+            2 -> {
+                TTAdLoadType.PRELOAD
+            }
+            else -> {
+                TTAdLoadType.UNKNOWN
+            }
+        }
         //设置广告参数
         val adSlot = AdSlot.Builder()
                 .setCodeId(mCodeId) //广告位id
                 .setSupportDeepLink(supportDeepLink!!)
                 .setExpressViewAcceptedSize(500f, 500f)
                 .setOrientation(orientation)
-                .setAdLoadType(TTAdLoadType.PRELOAD)
+                .setAdLoadType(loadType)
 //                .setDownloadType(downloadType)
                 .build()
         //加载全屏视频

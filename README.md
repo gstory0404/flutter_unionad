@@ -165,6 +165,8 @@ FlutterUnionad.splashAdView(
           expressViewHeight: 800,
           //控制下载APP前是否弹出二次确认弹窗
           downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
+          //用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，
+          adLoadType: FlutterUnionadLoadType.LOAD,
           callBack: FlutterUnionadSplashCallBack(
             onShow: () {
               print("开屏广告显示");
@@ -211,6 +213,10 @@ FlutterUnionad.bannerAdView(
               expressViewHeight: 120.5,
               //控制下载APP前是否弹出二次确认弹窗
               downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
+             //用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，
+              adLoadType: FlutterUnionadLoadType.LOAD,
+              //是否启用点击 仅ios生效 默认启用
+              isUserInteractionEnabled: true,
               //广告事件回调 选填
               callBack: FlutterUnionadBannerCallBack(
                 onShow: () {
@@ -231,37 +237,43 @@ FlutterUnionad.bannerAdView(
 
 #### 6、信息流广告
 ```dart
+//个性化模板信息流广告
 FlutterUnionad.nativeAdView(
-              androidCodeId: "945417699",
-              //android 信息流广告id 必填
-              iosCodeId: "945417699",
-              //ios banner广告id 必填
-              supportDeepLink: true,
-              //是否支持 DeepLink 选填
-              expressViewWidth: 375.5,
-              // 期望view 宽度 dp 必填，如果设为0则根据返回广告宽高做自适应调整
-              expressViewHeight: 275.5,
-              //期望view高度 dp 必填
-              expressNum: 2,
-              mIsExpress: true,
-              //控制下载APP前是否弹出二次确认弹窗
-              downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
-              //一次请求广告数量 大于1小于3 必填
-              callBack: FlutterUnionadNativeCallBack(
-                onShow: () {
-                  print("信息流广告显示");
-                },
-                onFail: (error) {
-                  print("信息流广告失败 $error");
-                },
-                onDislike: (message) {
-                  print("信息流广告不感兴趣 $message");
-                },
-                onClick: () {
-                  print("信息流广告点击");
-                },
-              ),
-            ),
+    //android 信息流广告id 必填
+    androidCodeId: "945417699",
+    //ios banner广告id 必填
+    iosCodeId: "945417699",
+    //是否支持 DeepLink 选填
+    supportDeepLink: true,
+    // 期望view 宽度 dp 必填
+    expressViewWidth: 375.5,
+    //期望view高度 dp 必填
+    expressViewHeight: 0,
+    //一次请求广告数量 大于1小于3 必填
+    expressNum: 2,
+    mIsExpress: true,
+    //控制下载APP前是否弹出二次确认弹窗
+    downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
+    //是否启用点击 仅ios生效 默认启用
+    isUserInteractionEnabled: true,
+    //用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，
+    adLoadType: FlutterUnionadLoadType.LOAD,
+    callBack: FlutterUnionadNativeCallBack(
+        onShow: () {
+            print("信息流广告显示");
+        },
+        onFail: (error) {
+            print("信息流广告失败 $error");
+        },
+        onDislike: (message) {
+            print("信息流广告不感兴趣 $message");
+        },
+        onClick: () {
+            print("信息流广告点击");
+        },
+    ),
+),
+
 ```
 
 #### 7、~~插屏广告~~
@@ -309,6 +321,8 @@ FlutterUnionad.loadRewardVideoAd(
                   downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
                   //视屏方向 选填
                   mediaExtra: null, //扩展参数 选填
+                  //用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，
+                  adLoadType: FlutterUnionadLoadType.PRELOAD,
                 );
 ```
 显示激励视频广告
@@ -370,6 +384,8 @@ FlutterUnionad.drawFeedAdView(
                 expressViewHeight: 800.5,
                 //控制下载APP前是否弹出二次确认弹窗
                 downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
+                //用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，
+                adLoadType: FlutterUnionadLoadType.LOAD,
                 //期望view高度 dp 必填
                 callBack: FlutterUnionadDrawFeedCallBack(
                     onShow: () {
@@ -420,6 +436,8 @@ FlutterUnionad.loadFullScreenVideoAdInteraction(
                   orientation: FlutterUnionadOrientation.VERTICAL, //视屏方向 选填
                   //控制下载APP前是否弹出二次确认弹窗
                   downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
+                  //用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，
+                  adLoadType: FlutterUnionadLoadType.PRELOAD,
                 );
 ```
 

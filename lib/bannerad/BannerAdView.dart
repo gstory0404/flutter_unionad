@@ -13,6 +13,8 @@ class BannerAdView extends StatefulWidget {
   final double expressViewWidth;
   final double expressViewHeight;
   final int downloadType;
+  final bool isUserInteractionEnabled;
+  final int? adLoadType;
   final FlutterUnionadBannerCallBack? callBack;
 
   const BannerAdView(
@@ -26,6 +28,8 @@ class BannerAdView extends StatefulWidget {
       required this.expressViewWidth,
       required this.expressViewHeight,
       required this.downloadType,
+      required this.isUserInteractionEnabled,
+      required this.adLoadType,
       this.callBack})
       : super(key: key);
 
@@ -72,13 +76,16 @@ class _BannerAdViewState extends State<BannerAdView> {
             "expressViewHeight": widget.expressViewHeight,
             "expressAdNum": widget.expressAdNum,
             "expressTime": widget.expressTime,
-            "downloadType":widget.downloadType,
+            "downloadType": widget.downloadType,
+            "adLoadType": widget.adLoadType,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),
         ),
       );
     } else if (defaultTargetPlatform == TargetPlatform.iOS) {
+      sendMsgToNative('isUserInteractionEnabled',
+          body: widget.isUserInteractionEnabled);
       return Container(
         width: _width,
         height: _height,
@@ -92,7 +99,7 @@ class _BannerAdViewState extends State<BannerAdView> {
             "expressViewHeight": widget.expressViewHeight,
             "expressAdNum": widget.expressAdNum,
             "expressTime": widget.expressTime,
-            "downloadType":widget.downloadType,
+            "downloadType": widget.downloadType,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),
@@ -107,6 +114,17 @@ class _BannerAdViewState extends State<BannerAdView> {
   void _registerChannel(int id) {
     _channel = MethodChannel("${_viewType}_$id");
     _channel?.setMethodCallHandler(_platformCallHandler);
+  }
+
+  Future sendMsgToNative(String name, {Object? body}) async {
+    try {
+      var result = await _channel?.invokeMethod(name, body);
+      return result;
+    } on PlatformException catch (e) {
+      Future fut = Future.error(e.toString());
+      FlutterError.reportError(FlutterErrorDetails(exception: e));
+      return fut;
+    }
   }
 
   //监听原生view传值

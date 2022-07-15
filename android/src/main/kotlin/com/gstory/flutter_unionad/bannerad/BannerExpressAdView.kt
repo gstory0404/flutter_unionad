@@ -21,7 +21,13 @@ import io.flutter.plugin.platform.PlatformView
  * @Author: gstory0404@gmailh
  * @CreateDate: 2020/8/7 10:31
  */
-internal class BannerExpressAdView(var context: Context, var activity: Activity, messenger: BinaryMessenger, id: Int, params: Map<String?, Any?>) : PlatformView {
+internal class BannerExpressAdView(
+    var context: Context,
+    var activity: Activity,
+    messenger: BinaryMessenger,
+    id: Int,
+    params: Map<String?, Any?>
+) : PlatformView {
     private val TAG = "BannerExpressAdView"
     var mTTAdNative: TTAdNative
     private var mTTAd: TTNativeExpressAd? = null
@@ -33,16 +39,17 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
     var expressViewWidth: Float
     var expressViewHeight: Float
     var expressAdNum: Int
-    var expressTime : Int
-    var downloadType : Int
+    var expressTime: Int
+    var downloadType: Int
+    private var adLoadType: Int = 0
 
     private var startTime: Long = 0
 
-    private var channel : MethodChannel?
+    private var channel: MethodChannel?
 
 
     init {
-        Log.e("banner广告数量",params["expressAdNum"].toString())
+        Log.e("banner广告数量", params["expressAdNum"].toString())
         mCodeId = params["androidCodeId"] as String?
         supportDeepLink = params["supportDeepLink"] as Boolean?
         var width = params["expressViewWidth"] as Double
@@ -50,13 +57,14 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
         expressAdNum = params["expressAdNum"] as Int
         expressTime = params["expressTime"] as Int
         downloadType = params["downloadType"] as Int
+        adLoadType = params["adLoadType"] as Int
         expressViewWidth = width.toFloat()
         expressViewHeight = hight.toFloat()
         mExpressContainer = FrameLayout(activity)
-        Log.e(TAG,expressAdNum.toString())
+        Log.e(TAG, expressAdNum.toString())
         val mTTAdManager = get()
         mTTAdNative = mTTAdManager.createAdNative(context.applicationContext)
-        channel = MethodChannel(messenger,FlutterunionadViewConfig.bannerAdView+"_"+id)
+        channel = MethodChannel(messenger, FlutterunionadViewConfig.bannerAdView + "_" + id)
         loadBannerExpressAd()
     }
 
@@ -65,27 +73,39 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
     }
 
     private fun loadBannerExpressAd() {
+        var loadType = when (adLoadType) {
+            1 -> {
+                TTAdLoadType.LOAD
+            }
+            2 -> {
+                TTAdLoadType.PRELOAD
+            }
+            else -> {
+                TTAdLoadType.UNKNOWN
+            }
+        }
         val adSlot = AdSlot.Builder()
-                .setCodeId(mCodeId) //广告位id
-                .setSupportDeepLink(supportDeepLink!!)
-                .setAdCount(expressAdNum.toInt()) //请求广告数量为1到3条
-                .setExpressViewAcceptedSize(expressViewWidth, expressViewHeight) //期望模板广告view的size,单位dp
-                .setImageAcceptedSize(640, 320)//这个参数设置即可，不影响个性化模板广告的size
+            .setCodeId(mCodeId) //广告位id
+            .setSupportDeepLink(supportDeepLink!!)
+            .setAdCount(expressAdNum.toInt()) //请求广告数量为1到3条
+            .setExpressViewAcceptedSize(expressViewWidth, expressViewHeight) //期望模板广告view的size,单位dp
+            .setImageAcceptedSize(640, 320)//这个参数设置即可，不影响个性化模板广告的size
 //                .setDownloadType(downloadType)
-                .build()
+            .setAdLoadType(loadType)
+            .build()
         mTTAdNative.loadBannerExpressAd(adSlot, object : NativeExpressAdListener {
             override fun onError(code: Int, message: String) {
                 mExpressContainer!!.removeAllViews()
-                channel?.invokeMethod("onFail",message)
+                channel?.invokeMethod("onFail", message)
             }
 
             override fun onNativeExpressAdLoad(ads: List<TTNativeExpressAd>) {
                 if (ads == null || ads.isEmpty()) {
                     return
                 }
-                Log.e(TAG,ads.size.toString())
+                Log.e(TAG, ads.size.toString())
                 mTTAd = ads[(ads.indices).random()]
-                if(null != expressTime && expressTime > 30){
+                if (null != expressTime && expressTime > 30) {
                     //轮播间隔
                     mTTAd!!.setSlideIntervalTime(expressTime * 1000)
                 }
@@ -103,30 +123,33 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
         ad.setExpressInteractionListener(object : ExpressAdInteractionListener {
             override fun onAdClicked(view: View, type: Int) {
                 Log.e(TAG, "广告点击")
-                channel?.invokeMethod("onClick","")
+                channel?.invokeMethod("onClick", "")
             }
 
             override fun onAdShow(view: View, type: Int) {
                 Log.e(TAG, "广告显示")
-                var map: MutableMap<String, Any?> = mutableMapOf("width" to viewWidth, "height" to viewHeight)
-                channel?.invokeMethod("onShow",map)
+                var map: MutableMap<String, Any?> =
+                    mutableMapOf("width" to viewWidth, "height" to viewHeight)
+                channel?.invokeMethod("onShow", map)
             }
 
             override fun onRenderFail(view: View, msg: String, code: Int) {
                 Log.e(TAG, "render fail: $code   $msg")
-                channel?.invokeMethod("onFail",msg)
+                channel?.invokeMethod("onFail", msg)
             }
 
             override fun onRenderSuccess(view: View, width: Float, height: Float) {
                 Log.e(TAG, "render suc:" + (System.currentTimeMillis() - startTime))
-                Log.e(TAG, "\nexpressViewWidth=$expressViewWidth " +
-                        "\nexpressViewWidthDP=${UIUtils.px2dip(activity, expressViewWidth)}" +
-                        "\nexpressViewHeight $expressViewHeight" +
-                        "\nexpressViewHeightDP=${UIUtils.px2dip(activity, expressViewHeight)}" +
-                        "\nwidth= $width" +
-                        "\nwidthDP= ${UIUtils.dip2px(activity, width)}"+
-                        "\nheight= $height" +
-                        "\nheightDP= ${UIUtils.dip2px(activity, height)}")
+                Log.e(
+                    TAG, "\nexpressViewWidth=$expressViewWidth " +
+                            "\nexpressViewWidthDP=${UIUtils.px2dip(activity, expressViewWidth)}" +
+                            "\nexpressViewHeight $expressViewHeight" +
+                            "\nexpressViewHeightDP=${UIUtils.px2dip(activity, expressViewHeight)}" +
+                            "\nwidth= $width" +
+                            "\nwidthDP= ${UIUtils.dip2px(activity, width)}" +
+                            "\nheight= $height" +
+                            "\nheightDP= ${UIUtils.dip2px(activity, height)}"
+                )
                 //返回view的宽高 单位 dp
                 mExpressContainer!!.removeAllViews()
 //                val mExpressContainerParams: FrameLayout.LayoutParams = FrameLayout.LayoutParams(UIUtils.dip2px(activity, width).toInt(), UIUtils.dip2px(activity, height).toInt())
@@ -185,7 +208,7 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
                 Log.e(TAG, "点击 $p1")
                 //用户选择不喜欢原因后，移除广告展示
                 mExpressContainer!!.removeAllViews()
-                channel?.invokeMethod("onDislike",p1)
+                channel?.invokeMethod("onDislike", p1)
             }
 
             override fun onCancel() {
@@ -193,7 +216,7 @@ internal class BannerExpressAdView(var context: Context, var activity: Activity,
             }
 
             override fun onShow() {
-                
+
             }
         })
     }

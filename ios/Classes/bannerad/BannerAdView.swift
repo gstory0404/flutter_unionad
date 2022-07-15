@@ -35,6 +35,14 @@ public class BannerAdView : NSObject,FlutterPlatformView{
         super.init()
         self.channel = FlutterMethodChannel.init(name: FlutterUnionadConfig.view.bannerAdView + "_" + String(id), binaryMessenger: binaryMessenger)
         self.loadBannerExpressAd()
+        self.channel?.setMethodCallHandler({[weak self] call, result in
+                    if call.method == "isUserInteractionEnabled" {
+                        self?.container.isUserInteractionEnabled = call.arguments as! Bool
+                        result(nil)
+                        return
+                    }
+                    result(FlutterMethodNotImplemented)
+                })
     }
     public func view() -> UIView {
         return self.container

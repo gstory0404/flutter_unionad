@@ -202,13 +202,15 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
             val supportDeepLink = call.argument<Boolean>("supportDeepLink")
             val orientation = call.argument<Int>("orientation")
             val downloadType = call.argument<Int>("downloadType")
+            val adLoadType = call.argument<Int>("adLoadType")
             FullScreenVideoAdInteraction.init(
                 mActivity!!,
                 mActivity!!,
                 mCodeId,
                 supportDeepLink,
                 orientation!!,
-                downloadType!!
+                downloadType!!,
+                adLoadType
             )
             result.success(true)
             //显示插屏广告 全屏插屏二合一

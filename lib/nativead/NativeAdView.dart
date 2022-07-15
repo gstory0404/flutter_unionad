@@ -12,6 +12,8 @@ class NativeAdView extends StatefulWidget {
   final double expressViewHeight;
   final int expressNum;
   final int downloadType;
+  final bool isUserInteractionEnabled;
+  final int? adLoadType;
   final FlutterUnionadNativeCallBack? callBack;
 
   const NativeAdView(
@@ -24,6 +26,8 @@ class NativeAdView extends StatefulWidget {
       required this.expressViewHeight,
       required this.expressNum,
       required this.downloadType,
+      required this.isUserInteractionEnabled,
+      required this.adLoadType,
       this.callBack})
       : super(key: key);
 
@@ -59,7 +63,7 @@ class _NativeAdViewState extends State<NativeAdView> {
     if (defaultTargetPlatform == TargetPlatform.android) {
       return Container(
         width: _width,
-        height: _height == 0 ? 0.5 : _height,//高为0的时候不会原生不会加载 默认设为0.5
+        height: _height == 0 ? 0.5 : _height, //高为0的时候不会原生不会加载 默认设为0.5
         child: AndroidView(
           viewType: _viewType,
           creationParams: {
@@ -70,15 +74,18 @@ class _NativeAdViewState extends State<NativeAdView> {
             "expressViewHeight": widget.expressViewHeight,
             "expressNum": widget.expressNum,
             "downloadType": widget.downloadType,
+            "adLoadType": widget.adLoadType,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),
         ),
       );
     } else if (defaultTargetPlatform == TargetPlatform.iOS) {
+      sendMsgToNative('isUserInteractionEnabled',
+          body: widget.isUserInteractionEnabled);
       return Container(
         width: _width,
-        height: _height == 0 ? 0.5 : _height,//高为0的时候原生不会加载 默认设为0.5
+        height: _height == 0 ? 0.5 : _height, //高为0的时候原生不会加载 默认设为0.5
         child: UiKitView(
           viewType: _viewType,
           creationParams: {
@@ -103,6 +110,17 @@ class _NativeAdViewState extends State<NativeAdView> {
   void _registerChannel(int id) {
     _channel = MethodChannel("${_viewType}_$id");
     _channel?.setMethodCallHandler(_platformCallHandler);
+  }
+
+  Future sendMsgToNative(String name, {Object? body}) async {
+    try {
+      var result = await _channel?.invokeMethod(name, body);
+      return result;
+    } on PlatformException catch (e) {
+      Future fut = Future.error(e.toString());
+      FlutterError.reportError(FlutterErrorDetails(exception: e));
+      return fut;
+    }
   }
 
   //监听原生view传值

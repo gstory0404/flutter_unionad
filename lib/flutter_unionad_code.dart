@@ -132,7 +132,7 @@ class FlutterUnionadPersonalise {
   static const String open = "1";
 }
 
-class FlutterUnionadSplashType {
+class FlutterUnionadLoadType {
   ///未知；
   static const int UNKNOWN = 0;
   ///实时

@@ -43,6 +43,8 @@ class _DrawFeedPageState extends State<DrawFeedPage> {
                   expressViewHeight: 800.5,
                   //控制下载APP前是否弹出二次确认弹窗
                   downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
+                  //用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，
+                  adLoadType: FlutterUnionadLoadType.LOAD,
                   //期望view高度 dp 必填
                   callBack: FlutterUnionadDrawFeedCallBack(
                     onShow: () {

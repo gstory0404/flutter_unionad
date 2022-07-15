@@ -49,6 +49,10 @@ class _BannerPageState extends State<BannerPage> {
               expressViewHeight: 120.5,
               //控制下载APP前是否弹出二次确认弹窗
               downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
+              //用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，
+              adLoadType: FlutterUnionadLoadType.LOAD,
+              //是否启用点击
+              isUserInteractionEnabled: true,
               //广告事件回调 选填
               callBack: FlutterUnionadBannerCallBack(
                 onShow: () {
@@ -73,6 +77,7 @@ class _BannerPageState extends State<BannerPage> {
               expressTime: 40,
               expressViewWidth: 600,
               expressViewHeight: 200,
+              isUserInteractionEnabled: false,
             ),
             FlutterUnionad.bannerAdView(
               androidCodeId: "945410197",
@@ -92,6 +97,21 @@ class _BannerPageState extends State<BannerPage> {
               expressViewWidth: 600,
               expressViewHeight: 180,
             ),
+            // MaterialButton(
+            //   color: Colors.blue,
+            //   textColor: Colors.white,
+            //   child: new Text('测试'),
+            //   onPressed: () {
+            //     Navigator.push(
+            //       context,
+            //       new MaterialPageRoute(
+            //         builder: (context) => new Center(
+            //           child: Text("123"),
+            //         ),
+            //       ),
+            //     );
+            //   },
+            // ),
           ],
         ),
       ),
