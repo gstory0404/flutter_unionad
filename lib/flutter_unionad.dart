@@ -331,9 +331,8 @@ class FlutterUnionad {
       "userID": userID,
       "orientation": orientation ?? 0,
       "mediaExtra": mediaExtra ?? "",
-      "downloadType":
-      downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
-      adLoadType: adLoadType ?? FlutterUnionadLoadType.LOAD,
+      "downloadType": downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
+      "adLoadType": adLoadType ?? FlutterUnionadLoadType.LOAD,
     });
   }
 
