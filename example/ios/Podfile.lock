@@ -1,13 +1,13 @@
 PODS:
-  - Ads-CN (4.5.1.6):
-    - Ads-CN/BUAdSDK (= 4.5.1.6)
-  - Ads-CN/BUAdSDK (4.5.1.6):
+  - Ads-CN (4.6.0.7):
+    - Ads-CN/BUAdSDK (= 4.6.0.7)
+  - Ads-CN/BUAdSDK (4.6.0.7):
     - Ads-CN/Domestic
-  - Ads-CN/BUFoundation (4.5.1.6):
+  - Ads-CN/BUFoundation (4.6.0.7):
     - BURelyFoundation (= 0.0.1.58)
-  - Ads-CN/CSJAdSDK (4.5.1.6):
+  - Ads-CN/CSJAdSDK (4.6.0.7):
     - Ads-CN/BUFoundation
-  - Ads-CN/Domestic (4.5.1.6):
+  - Ads-CN/Domestic (4.6.0.7):
     - Ads-CN/BUFoundation
     - Ads-CN/CSJAdSDK
   - BURelyFoundation (0.0.1.58):
@@ -17,7 +17,7 @@ PODS:
   - BURelyFoundation/NETWork (0.0.1.58)
   - Flutter (1.0.0)
   - flutter_unionad (0.0.1):
-    - Ads-CN (~> 4.5.1.6)
+    - Ads-CN (= 4.6.0.7)
     - Flutter
 
 DEPENDENCIES:
@@ -36,11 +36,11 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_unionad/ios"
 
 SPEC CHECKSUMS:
-  Ads-CN: 5563d7a0ed3f99fd47d421fcb48e70688efedd55
+  Ads-CN: f141a1c2f156e2f8c57f76bd8f89f1242660c9b9
   BURelyFoundation: f529322f9e93cf8cc0b4539e447aff77a8ff34de
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
-  flutter_unionad: 134ef0337ba1a2d69912c290ac4923eeb4779efc
+  flutter_unionad: 6417850ce21ea6d7e45e8431abe5c3fd920819bf
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

@@ -1,13 +1,13 @@
 # 字节跳动穿山甲广告 Flutter版本
 
 <p>
-<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.3.6-success></a>
+<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.3.7-success></a>
 </p>
 
 <img src="https://github.com/gstory0404/flutter_unionad/blob/master/image/demo.gif" width="30%">
 
 ## 简介
-  flutter_unioad是一款集成了穿山甲Android和iOSSDK的Flutter插件,方便直接调用穿山甲SDK方法开发，已支持null safety,[体验demo](https://www.pgyer.com/j7YB)
+  flutter_unioad是一款集成了穿山甲Android和iOSSDK的Flutter插件,方便直接调用穿山甲SDK方法开发，已支持null safety,[体验demo](https://www.pgyer.com/09cI)
   
 ## 官方文档
 * [Android](https://partner.oceanengine.com/union/media/union/download/detail?id=4&osType=android)
@@ -33,7 +33,7 @@
 ## 集成步骤
 #### 1、pubspec.yaml
 ```Dart
-flutter_unionad: ^1.3.6
+flutter_unionad: ^1.3.7
 ```
 引入
 ```Dart
@@ -50,7 +50,7 @@ SDK([4.6.0.7](https://www.csjplatform.com/union/media/union/download/log?id=4))�
 ```
 
 #### 3、IOS
-SDK([4.5.1.6](https://www.csjplatform.com/union/media/union/download/log?id=16)))已配置插件中，其余根据SDK文档配置，因为使用PlatformView，在Info.plist加入
+SDK([4.6.0.7](https://www.csjplatform.com/union/media/union/download/log?id=16)))已配置插件中，其余根据SDK文档配置，因为使用PlatformView，在Info.plist加入
 ```
  <key>io.flutter.embedded_views_preview</key>
     <true/>
@@ -514,6 +514,10 @@ if (Platform.isAndroid) {
 |字节穿山甲内容合作插件|[flutter_pangrowth](https://github.com/gstory0404/flutter_pangrowth)|
 |文档预览插件|[file_preview](https://github.com/gstory0404/file_preview)|
 |滤镜|[gpu_image](https://github.com/gstory0404/gpu_image)|
+
+## 开源不易，觉得有用的话请作者喝杯奶茶ð
+<img src="https://file.gstory.cn/weixindashang.jpg" width = "200" height = "200" alt="打赏" align=left />
+
 
 ## 联系方式
 * Email: gstory0404@gmail.com
