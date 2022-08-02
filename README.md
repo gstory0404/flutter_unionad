@@ -7,7 +7,7 @@
 <img src="https://github.com/gstory0404/flutter_unionad/blob/master/image/demo.gif" width="30%">
 
 ## 简介
-  flutter_unioad是一款集成了穿山甲Android和iOSSDK的Flutter插件,方便直接调用穿山甲SDK方法开发，已支持null safety,[体验demo](https://www.pgyer.com/09cI)
+  flutter_unioad是一款集成了穿山甲Android和iOSSDK的Flutter插件,方便直接调用穿山甲SDK方法开发，已支持null safety,[体验demo](https://www.pgyer.com/j7YB)
   
 ## 官方文档
 * [Android](https://partner.oceanengine.com/union/media/union/download/detail?id=4&osType=android)
@@ -515,8 +515,8 @@ if (Platform.isAndroid) {
 |文档预览插件|[file_preview](https://github.com/gstory0404/file_preview)|
 |滤镜|[gpu_image](https://github.com/gstory0404/gpu_image)|
 
-## 开源不易，觉得有用的话请作者喝杯奶茶ð
-<img src="https://file.gstory.cn/weixindashang.jpg" width = "200" height = "200" alt="打赏" align=left />
+### 开源不易，觉得有用的话可以请作者喝杯奶茶🧋
+<img src="https://file.gstory.cn/weixindashang.jpg" width = "200" height = "160" alt="打赏"/>
 
 
 ## 联系方式
