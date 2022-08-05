@@ -17,15 +17,15 @@
 
 [更新日志](https://github.com/gstory0404/flutter_unionad/blob/master/CHANGELOG.md)
 
-## 本地环境
+## 本地开发环境
 ```
-[✓] Flutter (Channel stable, 3.0.3, on macOS 12.4 21F79 darwin-x64, locale zh-Hans-CN)
+[✓] Flutter (Channel stable, 3.0.4, on macOS 12.5 21G72 darwin-x64, locale zh-Hans-CN)
 [✓] Android toolchain - develop for Android devices (Android SDK version 33.0.0-rc1)
 [✓] Xcode - develop for iOS and macOS (Xcode 13.4.1)
 [✓] Chrome - develop for the web
 [✓] Android Studio (version 2021.2)
 [✓] IntelliJ IDEA Ultimate Edition (version 2022.1.1)
-[✓] VS Code (version 1.68.0)
+[✓] VS Code (version 1.69.2)
 [✓] Connected device (3 available)
 [✓] HTTP Host Availability
 ```
