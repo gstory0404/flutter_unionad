@@ -516,7 +516,7 @@ if (Platform.isAndroid) {
 |滤镜|[gpu_image](https://github.com/gstory0404/gpu_image)|
 
 ### 开源不易，觉得有用的话可以请作者喝杯奶茶🧋
-<img src="https://file.gstory.cn/weixindashang.jpg" width = "200" height = "160" alt="打赏"/>
+<img src="https://github.com/gstory0404/flutter_unionad/blob/master/image/weixin.jpg" width = "200" height = "160" alt="打赏"/>
 
 
 ## 联系方式
