@@ -23,7 +23,9 @@ public class SwiftFlutterUnionadPlugin: NSObject, FlutterPlugin {
     //注册初始化
     case "register":
         let param = call.arguments as! NSDictionary
-        LogUtil.logInstance.isShow(debug: param.value(forKey: "debug") as? Bool ?? false)
+        let isDebug = param.value(forKey: "debug") as? Bool ?? false;
+        let appId = param.value(forKey: "iosAppId") as? String
+        LogUtil.logInstance.isShow(debug: isDebug)
         TTAdManagerHolder.instace.initTTSDK(params: param) { isSuccess, error in
             if(isSuccess){
                 result(true)

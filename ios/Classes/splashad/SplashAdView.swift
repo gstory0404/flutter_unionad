@@ -20,6 +20,9 @@ public class SplashAdView : NSObject,FlutterPlatformView{
     let expressViewHeight :Float?
     var mIsExpress :Bool? = true
     var adLoadType : Int? = 0
+    var timeout : Double? = 3.0
+    var splashAd:BUSplashAd?
+    
     
     init(_ frame : CGRect,binaryMessenger: FlutterBinaryMessenger , id : Int64, params :Any?) {
         self.frame = frame
@@ -31,6 +34,7 @@ public class SplashAdView : NSObject,FlutterPlatformView{
         self.expressViewWidth = Float(dict.value(forKey: "expressViewWidth") as! Double)
         self.expressViewHeight = Float(dict.value(forKey: "expressViewHeight") as! Double)
         self.adLoadType = dict.value(forKey: "adLoadType") as? Int
+        self.timeout = (dict.value(forKey: "timeout") as! Double) / 1000
         super.init()
         self.channel = FlutterMethodChannel.init(name: FlutterUnionadConfig.view.splashAdView + "_" + String(id), binaryMessenger: binaryMessenger)
         self.loadSplash()
@@ -40,133 +44,94 @@ public class SplashAdView : NSObject,FlutterPlatformView{
         return self.container
     }
     
-    private func refreshView(width: CGFloat, height: CGFloat) {
-           var params = [String: Any?]()
-           params["width"] = width
-           params["height"] = height
-       }
-    
     func loadSplash(){
-        self.removeAllView()
-        if(self.mIsExpress!){
-            let size : CGSize
-            if(self.expressViewWidth == 0 || self.expressViewHeight == 0){
-                size = CGSize(width: MyUtils.getScreenSize().width, height: MyUtils.getScreenSize().height)
-            }else{
-                size = CGSize(width: CGFloat(self.expressViewWidth!), height: CGFloat(self.expressViewHeight!))
-            }
-            self.frame.size = size
-            let splashView = BUNativeExpressSplashView(slotID: self.mCodeId!,adSize:size, rootViewController:MyUtils.getVC())
-            self.container.addSubview(splashView)
-            splashView.delegate = self
-            splashView.loadAdData()
-            LogUtil.logInstance.printLog(message: "BUNativeExpressSplashView开始初始化")
-            LogUtil.logInstance.printLog(message: self.expressViewHeight!)
-        }else{
-            self.frame.size = CGSize(width: MyUtils.getScreenSize().width, height: MyUtils.getScreenSize().height)
-            let splashView = BUSplashAdView(slotID: self.mCodeId!, frame: MyUtils.getScreenSize())
-            self.container.addSubview(splashView)
-            splashView.delegate = self
-            splashView.rootViewController = MyUtils.getVC()
-            splashView.loadAdData()
-            LogUtil.logInstance.printLog(message: "BUSplashAdView开始初始化")
-        }
-    }
-    
-    private func removeAllView(){
         self.container.removeFromSuperview()
+        let size : CGSize
+        if(self.expressViewWidth == 0 || self.expressViewHeight == 0){
+            size = CGSize(width: MyUtils.getScreenSize().width, height: MyUtils.getScreenSize().height)
+        }else{
+            size = CGSize(width: CGFloat(self.expressViewWidth!), height: CGFloat(self.expressViewHeight!))
+        }
+        self.splashAd = BUSplashAd.init(slotID: self.mCodeId!, adSize:size);
+        self.splashAd?.tolerateTimeout = self.timeout ?? 3.0;
+//        self.splashAd?.hideSkipButton = false;
+        self.splashAd?.delegate = self;
+        LogUtil.logInstance.printLog(message: "开屏广告开始加载")
+        self.splashAd?.loadData();
     }
     
     private func disposeView() {
-        self.removeAllView()
+        self.container.removeFromSuperview()
     }
 }
 
 extension SplashAdView : BUSplashAdDelegate{
-    public func splashAdDidLoad(_ splashAdView: BUSplashAdView) {
-        LogUtil.logInstance.printLog(message: "加载完成")
-        self.refreshView(width: frame.width, height: frame.height)
-        self.channel?.invokeMethod("onShow", arguments: "开屏广告点击")
+    
+    //SDK渲染开屏广告加载成功回调
+    public func splashAdLoadSuccess(_ splashAd: BUSplashAd) {
+        LogUtil.logInstance.printLog(message: "开屏广告加载成功回调")
+        splashAd.showSplashView(inRootViewController: MyUtils.getVC());
     }
     
-    public func splashAdDidClick(_ splashAd: BUSplashAdView) {
-        self.channel?.invokeMethod("onClick", arguments: "开屏广告点击")
-    }
-    
-    public func splashAdDidClickSkip(_ splashAd: BUSplashAdView) {
-        self.channel?.invokeMethod("onSkip", arguments: "开屏广告跳过")
-    }
-    
-    public func splashAdCountdown(toZero splashAd: BUSplashAdView) {
-        self.channel?.invokeMethod("onFinish", arguments: "开屏广告倒计时结束")
+    //返回的错误码(error)表示广告加载失败的原因，所有错误码详情请见链接Link
+    public func splashAdLoadFail(_ splashAd: BUSplashAd, error: BUAdError?) {
+        LogUtil.logInstance.printLog(message:"开屏广告加载失败");
         self.disposeView()
+        self.channel?.invokeMethod("onFail", arguments:String(error.debugDescription));
     }
     
+    //SDK渲染开屏广告渲染成功回调
+    public func splashAdRenderSuccess(_ splashAd: BUSplashAd) {
+        LogUtil.logInstance.printLog(message: "开屏广告渲染成功")
+        self.container.addSubview(splashAd.splashView!);
+        self.channel?.invokeMethod("onShow", arguments: "开屏广告加载完成")
+    }
     
-    public func splashAd(_ splashAd: BUSplashAdView, didFailWithError error: Error?) {
-        self.disposeView()
-        self.channel?.invokeMethod("onFail", arguments:String(error.debugDescription))
-    }
-}
-
-extension SplashAdView : BUNativeExpressSplashViewDelegate{
-    public func nativeExpressSplashViewDidLoad(_ splashAdView: BUNativeExpressSplashView) {
-        LogUtil.logInstance.printLog(message: "加载完成")
-    }
-
-    public func nativeExpressSplashView(_ splashAdView: BUNativeExpressSplashView, didFailWithError error: Error?) {
-        LogUtil.logInstance.printLog(message: "加载失败")
+    //SDK渲染开屏广告渲染失败回调
+    public func splashAdRenderFail(_ splashAd: BUSplashAd, error: BUAdError?) {
+        LogUtil.logInstance.printLog(message: "开屏广告渲染失败")
         LogUtil.logInstance.printLog(message: error)
-        splashAdView.remove()
         self.disposeView()
         self.channel?.invokeMethod("onFail", arguments:String(error.debugDescription))
     }
-
-    public func nativeExpressSplashViewRenderSuccess(_ splashAdView: BUNativeExpressSplashView) {
-        LogUtil.logInstance.printLog(message: "加载成功")
-        self.channel?.invokeMethod("onShow", arguments: "")
+    
+    //SDK渲染开屏广告即将展示
+    public func splashAdWillShow(_ splashAd: BUSplashAd) {
+        LogUtil.logInstance.printLog(message: "开屏广告即将展示")
     }
-
-    public func nativeExpressSplashViewRenderFail(_ splashAdView: BUNativeExpressSplashView, error: Error?) {
-        LogUtil.logInstance.printLog(message: "渲染失败")
-        splashAdView.remove()
+    
+    public func splashAdDidShow(_ splashAd: BUSplashAd) {
+        LogUtil.logInstance.printLog(message: "开屏广告展示")
+    }
+    
+    public func splashAdDidClose(_ splashAd: BUSplashAd, closeType: BUSplashAdCloseType) {
+        LogUtil.logInstance.printLog(message: "开屏广告关闭回调")
+        if(closeType == BUSplashAdCloseType.clickSkip){
+            self.channel?.invokeMethod("onSkip", arguments: "开屏广告跳过")
+        }else{
+            self.channel?.invokeMethod("onFinish", arguments: "开屏广告倒计时结束")
+        }
         self.disposeView()
-        self.channel?.invokeMethod("onFail", arguments:String(error.debugDescription))
     }
-
-    public func nativeExpressSplashViewWillVisible(_ splashAdView: BUNativeExpressSplashView) {
-        LogUtil.logInstance.printLog(message: "显示")
+    
+    //SDK渲染开屏广告关闭回调，当用户点击广告时会直接触发此回调，建议在此回调方法中直接进行广告对象的移除操作
+    public func splashAdViewControllerDidClose(_ splashAd: BUSplashAd) {
+//        self.channel?.invokeMethod("onFinish", arguments: "开屏广告倒计时结束")
+//        self.disposeView()
     }
-
-    public func nativeExpressSplashViewDidClick(_ splashAdView: BUNativeExpressSplashView) {
-        LogUtil.logInstance.printLog(message: "广告点击")
+    
+    //此回调在广告跳转到其他控制器时，该控制器被关闭时调用。interactionType：此参数可区分是打开的appstore/网页/视频广告详情页面
+    public func splashDidCloseOtherController(_ splashAd: BUSplashAd, interactionType: BUInteractionType) {
+        
+    }
+    
+    //视频广告播放完毕回调
+    public func splashVideoAdDidPlayFinish(_ splashAd: BUSplashAd, didFailWithError error: Error) {
+        
+    }
+    
+    //SDK渲染开屏广告点击回调
+    public func splashAdDidClick(_ splashAd: BUSplashAd) {
         self.channel?.invokeMethod("onClick", arguments: "开屏广告点击")
     }
-
-    public func nativeExpressSplashViewDidClickSkip(_ splashAdView: BUNativeExpressSplashView) {
-        LogUtil.logInstance.printLog(message: "点击跳过")
-        self.channel?.invokeMethod("onSkip", arguments: "开屏广告跳过")
-    }
-
-    public func nativeExpressSplashViewCountdown(toZero splashAdView: BUNativeExpressSplashView) {
-        LogUtil.logInstance.printLog(message: "倒计时结束")
-        splashAdView.remove()
-        self.channel?.invokeMethod("onFinish", arguments: "开屏广告倒计时结束")
-    }
-
-    public func nativeExpressSplashViewDidClose(_ splashAdView: BUNativeExpressSplashView) {
-        LogUtil.logInstance.printLog(message: "点击关闭")
-        splashAdView.remove()
-        self.disposeView()
-    }
-
-    public func nativeExpressSplashViewFinishPlayDidPlayFinish(_ splashView: BUNativeExpressSplashView, didFailWithError error: Error) {
-        LogUtil.logInstance.printLog(message: "加载完毕")
-    }
-
-    public func nativeExpressSplashViewDidCloseOtherController(_ splashView: BUNativeExpressSplashView, interactionType: BUInteractionType) {
-        LogUtil.logInstance.printLog(message: "关闭")
-    }
-
-
 }

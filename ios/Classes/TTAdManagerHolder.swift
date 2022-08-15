@@ -17,9 +17,16 @@ public class TTAdManagerHolder : NSObject{
         let personalise = params.value(forKey: "personalise") as? String
         let userExtData = "[{\"name\":\"personal_ads_type\" ,\"value\":\"%@\"}]"
         if(appId != nil){
-            BUAdSDKManager.setAppID(appId)
-            BUAdSDKManager.setLoglevel(debug ? BUAdSDKLogLevel.debug : BUAdSDKLogLevel.none)
-            BUAdSDKManager.setUserExtData(NSString(format: userExtData as NSString, personalise!) as String)
+            let config = BUAdSDKConfiguration.init();
+            config.territory = BUAdSDKTerritory.CN;
+            config.appID = appId ?? "";
+            if(debug){
+                config.logLevel = BUAdSDKLogLevel.verbose;
+            }else{
+                config.logLevel = BUAdSDKLogLevel.none;
+            }
+//            config.privacyProvider = BUDPrivacyProvider.init();
+            config.userExtData = NSString(format: userExtData as NSString, personalise!) as String;
             BUAdSDKManager.start(asyncCompletionHandler: handelr)
         }
     }

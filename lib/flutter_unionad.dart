@@ -67,12 +67,12 @@ class FlutterUnionad {
       "directDownloadNetworkType": directDownloadNetworkType != null
           ? directDownloadNetworkType
           : [
-        FlutterUnionadNetCode.NETWORK_STATE_MOBILE,
-        FlutterUnionadNetCode.NETWORK_STATE_2G,
-        FlutterUnionadNetCode.NETWORK_STATE_3G,
-        FlutterUnionadNetCode.NETWORK_STATE_4G,
-        FlutterUnionadNetCode.NETWORK_STATE_WIFI
-      ]
+              FlutterUnionadNetCode.NETWORK_STATE_MOBILE,
+              FlutterUnionadNetCode.NETWORK_STATE_2G,
+              FlutterUnionadNetCode.NETWORK_STATE_3G,
+              FlutterUnionadNetCode.NETWORK_STATE_4G,
+              FlutterUnionadNetCode.NETWORK_STATE_WIFI
+            ]
     });
   }
 
@@ -84,19 +84,19 @@ class FlutterUnionad {
   static Future<void> requestPermissionIfNecessary(
       {FlutterUnionadPermissionCallBack? callBack}) async {
     switch (await _channel.invokeMethod("requestPermissionIfNecessary")) {
-    //未确定
+      //未确定
       case FlutterUnionadPermissionCode.notDetermined:
         callBack?.notDetermined!();
         break;
-    //限制
+      //限制
       case FlutterUnionadPermissionCode.restricted:
         callBack?.restricted!();
         break;
-    //拒绝
+      //拒绝
       case FlutterUnionadPermissionCode.denied:
         callBack?.denied!();
         break;
-    //同意
+      //同意
       case FlutterUnionadPermissionCode.authorized:
         callBack?.authorized!();
         break;
@@ -132,18 +132,19 @@ class FlutterUnionad {
   ///
   /// [FlutterUnionAdBannerCallBack]  banner广告回调
   ///
-  static Widget bannerAdView({bool? mIsExpress,
-    required String androidCodeId,
-    required String iosCodeId,
-    bool? supportDeepLink,
-    required int expressAdNum,
-    int? expressTime,
-    required double? expressViewWidth,
-    required double? expressViewHeight,
-    int? downloadType,
-    bool? isUserInteractionEnabled,
-    int? adLoadType,
-    FlutterUnionadBannerCallBack? callBack}) {
+  static Widget bannerAdView(
+      {bool? mIsExpress,
+      required String androidCodeId,
+      required String iosCodeId,
+      bool? supportDeepLink,
+      required int expressAdNum,
+      int? expressTime,
+      required double? expressViewWidth,
+      required double? expressViewHeight,
+      int? downloadType,
+      bool? isUserInteractionEnabled,
+      int? adLoadType,
+      FlutterUnionadBannerCallBack? callBack}) {
     return BannerAdView(
       mIsExpress: mIsExpress ?? false,
       androidCodeId: androidCodeId,
@@ -154,7 +155,7 @@ class FlutterUnionad {
       expressAdNum: expressAdNum,
       expressTime: expressTime ?? 30,
       downloadType:
-      downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
+          downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
       isUserInteractionEnabled: isUserInteractionEnabled ?? true,
       adLoadType: adLoadType ?? FlutterUnionadLoadType.LOAD,
       callBack: callBack,
@@ -179,15 +180,19 @@ class FlutterUnionad {
   ///
   /// [adLoadType]用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，[FlutterUnionadLoadType]
   ///
-  static Widget splashAdView({bool? mIsExpress,
-    required String androidCodeId,
-    required String iosCodeId,
-    bool? supportDeepLink,
-    double? expressViewWidth,
-    double? expressViewHeight,
-    int? downloadType,
-    int? adLoadType,
-    FlutterUnionadSplashCallBack? callBack}) {
+  /// [timeout] 开屏广告加载超时时间,建议大于3000,这里为了冷启动第一次加载到广告并且展示,示例设置了3000ms
+  ///
+  static Widget splashAdView(
+      {bool? mIsExpress,
+      required String androidCodeId,
+      required String iosCodeId,
+      bool? supportDeepLink,
+      double? expressViewWidth,
+      double? expressViewHeight,
+      int? downloadType,
+      int? adLoadType,
+      int? timeout,
+      FlutterUnionadSplashCallBack? callBack}) {
     return SplashAdView(
       mIsExpress: mIsExpress ?? false,
       androidCodeId: androidCodeId,
@@ -196,8 +201,9 @@ class FlutterUnionad {
       expressViewWidth: expressViewWidth ?? 0.0,
       expressViewHeight: expressViewHeight ?? 0.0,
       downloadType:
-      downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
+          downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
       adLoadType: adLoadType ?? FlutterUnionadLoadType.LOAD,
+      timeout: timeout ?? 3000,
       callBack: callBack,
     );
   }
@@ -222,17 +228,18 @@ class FlutterUnionad {
   ///
   /// [FlutterUnionAdNativeCallBack] 信息流广告回调
   ///
-  static Widget nativeAdView({bool? mIsExpress,
-    required String androidCodeId,
-    required String iosCodeId,
-    bool? supportDeepLink,
-    required double expressViewWidth,
-    required double expressViewHeight,
-    required int expressNum,
-    int? downloadType,
-    bool? isUserInteractionEnabled,
-    int? adLoadType,
-    FlutterUnionadNativeCallBack? callBack}) {
+  static Widget nativeAdView(
+      {bool? mIsExpress,
+      required String androidCodeId,
+      required String iosCodeId,
+      bool? supportDeepLink,
+      required double expressViewWidth,
+      required double expressViewHeight,
+      required int expressNum,
+      int? downloadType,
+      bool? isUserInteractionEnabled,
+      int? adLoadType,
+      FlutterUnionadNativeCallBack? callBack}) {
     return NativeAdView(
       mIsExpress: mIsExpress ?? false,
       androidCodeId: androidCodeId,
@@ -243,7 +250,7 @@ class FlutterUnionad {
       expressNum: expressNum,
       isUserInteractionEnabled: isUserInteractionEnabled ?? true,
       downloadType:
-      downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
+          downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
       adLoadType: adLoadType ?? FlutterUnionadLoadType.LOAD,
       callBack: callBack,
     );
@@ -331,7 +338,8 @@ class FlutterUnionad {
       "userID": userID,
       "orientation": orientation ?? 0,
       "mediaExtra": mediaExtra ?? "",
-      "downloadType": downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
+      "downloadType":
+          downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
       "adLoadType": adLoadType ?? FlutterUnionadLoadType.LOAD,
     });
   }
@@ -378,7 +386,7 @@ class FlutterUnionad {
       expressViewWidth: expressViewWidth,
       expressViewHeight: expressViewHeight,
       downloadType:
-      downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
+          downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
       adLoadType: adLoadType ?? FlutterUnionadLoadType.LOAD,
       callBack: callBack,
     );
@@ -401,7 +409,7 @@ class FlutterUnionad {
       "supportDeepLink": supportDeepLink ?? true,
       "orientation": orientation ?? FlutterUnionadOrientation.VERTICAL,
       "downloadType":
-      downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
+          downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
     });
   }
 
@@ -421,7 +429,7 @@ class FlutterUnionad {
       "supportDeepLink": supportDeepLink ?? true,
       "orientation": orientation ?? FlutterUnionadOrientation.VERTICAL,
       "downloadType":
-      downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
+          downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
       "adLoadType": adLoadType ?? FlutterUnionadLoadType.PRELOAD
     });
   }
@@ -451,15 +459,16 @@ class FlutterUnionad {
   ///
   ///alist 是否允许SDK主动获取设备上应用安装列表的采集权限
   ///
-  static Future<bool> andridPrivacy({bool? isCanUseLocation,
-    double? lat,
-    double? lon,
-    bool? isCanUsePhoneState,
-    String? imei,
-    bool? isCanUseWifiState,
-    bool? isCanUseWriteExternal,
-    String? oaid,
-    bool? alist}) async {
+  static Future<bool> andridPrivacy(
+      {bool? isCanUseLocation,
+      double? lat,
+      double? lon,
+      bool? isCanUsePhoneState,
+      String? imei,
+      bool? isCanUseWifiState,
+      bool? isCanUseWriteExternal,
+      String? oaid,
+      bool? alist}) async {
     return await _channel.invokeMethod("andridPrivacy", {
       "isCanUseLocation": isCanUseLocation ?? true,
       "lat": lat ?? 0.0,

@@ -9,7 +9,6 @@ import com.bytedance.sdk.openadsdk.*
 import com.bytedance.sdk.openadsdk.TTAdNative.SplashAdListener
 import com.gstory.flutter_unionad.TTAdManagerHolder
 import com.gstory.flutter_unionad.UIUtils
-import com.gstory.flutter_unionad.FlutterUnionadEventPlugin
 import com.gstory.flutter_unionad.FlutterunionadViewConfig
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodChannel
@@ -22,7 +21,7 @@ import io.flutter.plugin.platform.PlatformView
  * @CreateDate: 2020/8/19 10:34
  */
 internal class SplashAdView(var context: Context, var messenger: BinaryMessenger, id: Int, params: Map<String?, Any?>) : PlatformView {
-    private val TAG = "AdBannerView"
+    private val TAG = "SplashAdView"
     private var mExpressContainer: FrameLayout? = null
     var mTTAdNative: TTAdNative
 
@@ -34,9 +33,7 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
     private var mIsExpress: Boolean? = true
     private var downloadType : Int = 1
     private var adLoadType : Int = 0
-
-    //开屏广告加载超时时间,建议大于3000,这里为了冷启动第一次加载到广告并且展示,示例设置了3000ms
-    private val AD_TIME_OUT = 3000
+    private var timeout : Int = 3000
 
     private var channel : MethodChannel?
 
@@ -47,6 +44,7 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
         var hight = params["expressViewHeight"] as Double
         downloadType = params["downloadType"] as Int
         adLoadType = params["adLoadType"] as Int
+        timeout = params["timeout"] as Int
         if (width == 0.0) {
             expressViewWidth = UIUtils.getScreenWidthDp(context)
         } else {
@@ -84,41 +82,30 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
                 TTAdLoadType.UNKNOWN
             }
         }
-        var adSlot = if (mIsExpress!!) {
-            AdSlot.Builder()
-                    .setCodeId(mCodeId)
-                    .setSupportDeepLink(supportDeepLink!!)
-//                    .setImageAcceptedSize(1080, 1920) //模板广告需要设置期望个性化模板广告的大小,单位dp,代码位是否属于个性化模板广告，请在穿山甲平台查看
-                    .setExpressViewAcceptedSize(expressViewWidth, expressViewHeight)
+        var adSlot = AdSlot.Builder()
+            .setCodeId(mCodeId)
+            .setSupportDeepLink(supportDeepLink!!)
+            //不区分渲染方式，要求开发者同时设置setImageAcceptedSize（单位：px）和setExpressViewAcceptedSize（单位：dp ）接口，不同时设置可能会导致展示异常。
+            .setImageAcceptedSize(UIUtils.dip2px(context,expressViewWidth).toInt(),
+                UIUtils.dip2px(context,expressViewHeight).toInt()
+            )
+            .setExpressViewAcceptedSize(expressViewWidth, expressViewHeight)
 //                    .setDownloadType(downloadType)
-                    .setAdLoadType(loadType)
-                    .build()
-        } else {
-            AdSlot.Builder()
-                    .setCodeId(mCodeId)
-                    .setSupportDeepLink(supportDeepLink!!)
-                    .setImageAcceptedSize(1080, 1920)
-//                    .setDownloadType(downloadType)
-                    .setAdLoadType(loadType)
-                    .build()
-        }
+            .setAdLoadType(loadType)
+            .build()
         //step4:请求广告，调用开屏广告异步请求接口，对请求回调的广告作渲染处理
-        mTTAdNative.loadSplashAd(adSlot, object : SplashAdListener {
-            @MainThread
-            override fun onError(code: Int, message: String) {
-                Log.e(TAG, message)
-                channel?.invokeMethod("onFail",message)
+        mTTAdNative.loadSplashAd(adSlot,object : TTAdNative.CSJSplashAdListener{
+            override fun onSplashLoadSuccess() {
+                Log.e(TAG, "开屏广告加载成功")
             }
 
-            @MainThread
-            override fun onTimeout() {
-                Log.e(TAG, "开屏广告加载超时")
-                channel?.invokeMethod("onTimeOut","")
+            override fun onSplashLoadFail(p0: CSJAdError?) {
+                Log.e(TAG, p0?.msg.toString())
+                channel?.invokeMethod("onFail",p0?.msg.toString())
             }
 
-            @MainThread
-            override fun onSplashAdLoad(ad: TTSplashAd) {
-                Log.e(TAG, "开屏广告请求成功")
+            override fun onSplashRenderSuccess(ad: CSJSplashAd?) {
+                Log.e(TAG, "开屏广告渲染成功")
                 if (ad == null) {
                     channel?.invokeMethod("onFail","拉去广告失败")
                     return
@@ -128,72 +115,42 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
                 if (view != null && mExpressContainer != null) {
                     //把SplashView 添加到ViewGroup中,注意开屏广告view：width >=70%屏幕宽；height >=50%屏幕高
                     mExpressContainer!!.removeAllViews()
-//                    val mExpressContainerParams: FrameLayout.LayoutParams = FrameLayout.LayoutParams(UIUtils.dip2px(context, expressViewWidth).toInt(),
-//                            UIUtils.dip2px(context, expressViewHeight).toInt())
-//                    mExpressContainer!!.layoutParams = mExpressContainerParams
                     mExpressContainer!!.addView(view)
-                    //设置不开启开屏广告倒计时功能以及不显示跳过按钮,如果这么设置，您需要自定义倒计时逻辑
-                    //ad.setNotAllowSdkCountdown();
-                } else {
-
                 }
-
-                //设置SplashView的交互监听器
-                ad.setSplashInteractionListener(object : TTSplashAd.AdInteractionListener {
-                    override fun onAdClicked(view: View, type: Int) {
-                        Log.e(TAG, "onAdClicked开屏广告点击")
-                        channel?.invokeMethod("onAplashClick","开屏广告点击")
-                        channel?.invokeMethod("onClick","")
-                    }
-
-                    override fun onAdShow(view: View, type: Int) {
-                        Log.e(TAG, "onAdShow开屏广告展示")
+                ad.setSplashAdListener(object :CSJSplashAd.SplashAdListener{
+                    override fun onSplashAdShow(p0: CSJSplashAd?) {
+                        Log.e(TAG, "开屏广告展示")
                         channel?.invokeMethod("onShow","开屏广告展示")
                     }
 
-                    override fun onAdSkip() {
-                        Log.e(TAG, "onAdSkip开屏广告跳过")
-                        channel?.invokeMethod("onSkip","开屏广告跳过")
+                    override fun onSplashAdClick(p0: CSJSplashAd?) {
+                        Log.e(TAG, "开屏广告点击")
+                        channel?.invokeMethod("onClick","开屏广告点击")
+//                        channel?.invokeMethod("onFinish", "开屏广告点击关闭")
                     }
 
-                    override fun onAdTimeOver() {
-                        Log.e(TAG, "onAdTimeOver开屏广告倒计时结束")
-                        channel?.invokeMethod("onFinish","开屏广告倒计时结束")
+                    override fun onSplashAdClose(p0: CSJSplashAd?, closeType: Int) {
+                        Log.e(TAG, "开屏广告结束$closeType")
+                        //closeType 1跳过 2倒计时结束
+                        if(closeType == 1){
+                            channel?.invokeMethod("onSkip","开屏广告跳过")
+                        }else {
+                            channel?.invokeMethod("onFinish", "开屏广告倒计时结束")
+                        }
                     }
+
                 })
-//                if (ad.interactionType == TTAdConstant.INTERACTION_TYPE_DOWNLOAD) {
-//                    ad.setDownloadListener(object : TTAppDownloadListener {
-//                        var hasShow = false
-//                        override fun onIdle() {}
-//                        override fun onDownloadActive(totalBytes: Long, currBytes: Long, fileName: String, appName: String) {
-//                            if (!hasShow) {
-//                                Log.e(TAG, "下载中...")
-//                                hasShow = true
-//                            }
-//                        }
-//
-//                        override fun onDownloadPaused(totalBytes: Long, currBytes: Long, fileName: String, appName: String) {
-//                            Log.e(TAG, "下载暂停...")
-//                        }
-//
-//                        override fun onDownloadFailed(totalBytes: Long, currBytes: Long, fileName: String, appName: String) {
-//                            Log.e(TAG, "下载失败...")
-//                        }
-//
-//                        override fun onDownloadFinished(totalBytes: Long, fileName: String, appName: String) {
-//                            Log.e(TAG, "下载完成...")
-//                        }
-//
-//                        override fun onInstalled(fileName: String, appName: String) {
-//                            Log.e(TAG, "安装完成...")
-//                        }
-//                    })
-//                }
             }
-        }, AD_TIME_OUT)
+
+            override fun onSplashRenderFail(p0: CSJSplashAd?, p1: CSJAdError?) {
+                Log.e(TAG, p1?.msg.toString())
+                channel?.invokeMethod("onFail",p1?.msg.toString())
+            }
+
+        },timeout)
     }
 
     override fun dispose() {
-
+        mExpressContainer?.removeAllViews()
     }
 }
