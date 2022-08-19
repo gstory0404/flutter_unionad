@@ -7,7 +7,7 @@
 <img src="https://github.com/gstory0404/flutter_unionad/blob/master/image/demo.gif" width="30%">
 
 ## 简介
-  flutter_unioad是一款集成了穿山甲Android和iOSSDK的Flutter插件,方便直接调用穿山甲SDK方法开发，已支持null safety,[体验demo](https://www.pgyer.com/j7YB)
+  flutter_unioad是一款集成了穿山甲Android和iOSSDK的Flutter插件,方便直接调用穿山甲SDK方法开发，已支持null safety,[体验demo](https://www.pgyer.com/j7YB)，可通过[GTAds](https://github.com/gstory0404/GTAds)实现多个广告平台介入、统一管理。
   
 ## 官方文档
 * [Android](https://partner.oceanengine.com/union/media/union/download/detail?id=4&osType=android)
@@ -509,12 +509,13 @@ if (Platform.isAndroid) {
 |:----|:----|
 |穿山甲广告插件|[flutter_unionad](https://github.com/gstory0404/flutter_unionad)|
 |腾讯优量汇广告插件|[flutter_tencentad](https://github.com/gstory0404/flutter_tencentad)|
-|聚合广告插件|[flutter_universalad](https://github.com/gstory0404/flutter_universalad)|
+|聚合广告插件(迁移至GTAds)|[flutter_universalad](https://github.com/gstory0404/flutter_universalad)|
 |百度百青藤广告插件|[flutter_baiduad](https://github.com/gstory0404/flutter_baiduad)|
 |字节穿山甲内容合作插件|[flutter_pangrowth](https://github.com/gstory0404/flutter_pangrowth)|
 |文档预览插件|[file_preview](https://github.com/gstory0404/file_preview)|
 |滤镜|[gpu_image](https://github.com/gstory0404/gpu_image)|
-|Gromore聚合广告|[gromore](https://github.com/gstory0404/gromore)|
+|穿山甲Gromore聚合广告|[gromore](https://github.com/gstory0404/gromore)|
+|GTAds聚合广告|[GTAds](https://github.com/gstory0404/GTAds)|
 
 ### 开源不易，觉得有用的话可以请作者喝杯奶茶🧋
 <img src="https://github.com/gstory0404/flutter_unionad/blob/master/image/weixin.jpg" width = "200" height = "160" alt="打赏"/>
