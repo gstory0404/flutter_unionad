@@ -98,7 +98,7 @@ extension NativeAdView : BUNativeExpressAdViewDelegate{
     public func nativeExpressAdFail(toLoad nativeExpressAd: BUNativeExpressAdManager, error: Error?) {
         LogUtil.logInstance.printLog(message: "nativeExpressAdFail")
         LogUtil.logInstance.printLog(message: error)
-        self.channel?.invokeMethod("onFail", arguments: String(error.debugDescription))
+        self.channel?.invokeMethod("onFail", arguments: error?.localizedDescription)
     }
     //渲染成功
     public func nativeExpressAdViewRenderSuccess(_ nativeExpressAdView: BUNativeExpressAdView) {
@@ -135,7 +135,7 @@ extension NativeAdView : BUNativeExpressAdViewDelegate{
         LogUtil.logInstance.printLog(message: "nativeExpressAdViewRenderFail")
         LogUtil.logInstance.printLog(message: error)
         self.disposeView()
-        self.channel?.invokeMethod("onFail", arguments: String(error.debugDescription))
+        self.channel?.invokeMethod("onFail", arguments: error?.localizedDescription)
     }
     
     public func nativeExpressAdViewPlayerDidPlayFinish(_ nativeExpressAdView: BUNativeExpressAdView, error: Error) {

@@ -56,7 +56,7 @@ extension FullscreenVideoAd : BUFullscreenVideoAdDelegate{
         LogUtil.logInstance.printLog(message: error)
         let map : NSDictionary = ["adType":"fullVideoAd",
                                   "onAdMethod":"onFail",
-                                  "error":String(error.debugDescription)]
+                                  "error":error?.localizedDescription]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
     }
     public func fullscreenVideoAdDidClose(_ fullscreenVideoAd: BUFullscreenVideoAd) {
@@ -108,7 +108,7 @@ extension FullscreenVideoAd : BUNativeExpressFullscreenVideoAdDelegate{
         LogUtil.logInstance.printLog(message: error)
         let map : NSDictionary = ["adType":"fullVideoAd",
                                   "onAdMethod":"onFail",
-                                  "error":String(error.debugDescription)]
+                                  "error":error?.localizedDescription]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
     }
     

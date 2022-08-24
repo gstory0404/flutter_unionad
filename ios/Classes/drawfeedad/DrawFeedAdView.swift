@@ -91,7 +91,7 @@ extension DrawFeedAdView : BUNativeExpressAdViewDelegate{
     public func nativeExpressAdFail(toLoad nativeExpressAd: BUNativeExpressAdManager, error: Error?) {
         LogUtil.logInstance.printLog(message: "DrawfeedAd Fail")
         LogUtil.logInstance.printLog(message: error)
-        self.channel?.invokeMethod("onFail", arguments: String(error.debugDescription))
+        self.channel?.invokeMethod("onFail", arguments: error?.localizedDescription)
     }
     
     public func nativeExpressAdViewRenderSuccess(_ nativeExpressAdView: BUNativeExpressAdView) {
@@ -136,8 +136,8 @@ extension DrawFeedAdView : BUNativeExpressAdViewDelegate{
     
     public func nativeExpressAdViewRenderFail(_ nativeExpressAdView: BUNativeExpressAdView, error: Error?) {
         LogUtil.logInstance.printLog(message: "DrawfeedAdv RenderFail")
-        LogUtil.logInstance.printLog(message: error.debugDescription)
-        self.channel?.invokeMethod("onFail", arguments: String(error.debugDescription))
+        LogUtil.logInstance.printLog(message: error)
+        self.channel?.invokeMethod("onFail", arguments: error?.localizedDescription)
     }
     
     public func nativeExpressAdViewDidCloseOtherController(_ nativeExpressAdView: BUNativeExpressAdView, interactionType: BUInteractionType) {

@@ -47,19 +47,19 @@ extension InteractionAd : BUNativeExpresInterstitialAdDelegate{
     
     func nativeExpresInterstitialAdRenderFail(_ interstitialAd: BUNativeExpressInterstitialAd, error: Error?) {
         LogUtil.logInstance.printLog(message: "插屏广告数据渲染失败")
-        LogUtil.logInstance.printLog(message: error!)
+        LogUtil.logInstance.printLog(message: error)
         let map : NSDictionary = ["adType":"interactionAd",
                                   "onAdMethod":"onFail",
-                                  "error":String(error.debugDescription)]
+                                  "error":error?.localizedDescription]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
     }
     
     func nativeExpresInterstitialAd(_ interstitialAd: BUNativeExpressInterstitialAd, didFailWithError error: Error?) {
         LogUtil.logInstance.printLog(message: "插屏广告数据加载失败")
-        LogUtil.logInstance.printLog(message: error!)
+        LogUtil.logInstance.printLog(message: error)
         let map : NSDictionary = ["adType":"interactionAd",
                                   "onAdMethod":"onFail",
-                                  "error":String(error.debugDescription)]
+                                  "error":error?.localizedDescription]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
     }
     

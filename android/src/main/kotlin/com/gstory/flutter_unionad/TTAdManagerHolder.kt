@@ -74,7 +74,7 @@ object TTAdManagerHolder {
         debug: Boolean,
         supportMultiProcess: Boolean,
         directDownloadNetworkType: List<Int>,
-        personalise: String,
+        personalise: String
     ): TTAdConfig {
         val d = IntArray(directDownloadNetworkType.size)
         for (i in directDownloadNetworkType.indices) {

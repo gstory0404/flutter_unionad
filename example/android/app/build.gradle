@@ -46,10 +46,10 @@ android {
 
     signingConfigs {
         config {
-            storeFile file("..\\key\\key.jks")
-            storePassword "gstory"
+            storeFile file("..\\keys\\key.jks")
+            storePassword "123456"
             keyAlias "gstory"
-            keyPassword "gstory"
+            keyPassword "123456"
         }
     }
 

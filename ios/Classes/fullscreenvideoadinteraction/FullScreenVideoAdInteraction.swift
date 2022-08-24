@@ -44,7 +44,7 @@ extension FullScreenVideoAdInteraction : BUNativeExpressFullscreenVideoAdDelegat
         LogUtil.logInstance.printLog(message: error)
         let map : NSDictionary = ["adType":"fullScreenVideoAdInteraction",
                                   "onAdMethod":"onFail",
-                                  "error":String(error.debugDescription)]
+                                  "error":error?.localizedDescription]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
     }
     

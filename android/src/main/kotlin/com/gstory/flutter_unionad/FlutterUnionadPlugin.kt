@@ -115,7 +115,7 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
                                     result.success(false)
                                 })
                             }
-                        },
+                        }
                     )
                 }
             }

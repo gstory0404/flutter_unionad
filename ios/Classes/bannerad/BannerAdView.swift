@@ -76,13 +76,13 @@ extension BannerAdView: BUNativeExpressBannerViewDelegate {
 
     public func nativeExpressBannerAdViewRenderFail(_ bannerAdView: BUNativeExpressBannerView, error: Error?) {
         LogUtil.logInstance.printLog(message:error)
-        self.channel?.invokeMethod("onFail", arguments: String(error.debugDescription))
+        self.channel?.invokeMethod("onFail", arguments:error?.localizedDescription)
         self.disposeView()
     }
 
     public func nativeExpressBannerAdView(_ bannerAdView: BUNativeExpressBannerView, didLoadFailWithError error: Error?) {
-        LogUtil.logInstance.printLog(message:String(error.debugDescription))
-        self.channel?.invokeMethod("onFail", arguments: String(error.debugDescription))
+        LogUtil.logInstance.printLog(message:error)
+        self.channel?.invokeMethod("onFail", arguments: error?.localizedDescription)
         self.disposeView()
     }
 

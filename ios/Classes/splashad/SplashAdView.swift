@@ -77,7 +77,7 @@ extension SplashAdView : BUSplashAdDelegate{
     public func splashAdLoadFail(_ splashAd: BUSplashAd, error: BUAdError?) {
         LogUtil.logInstance.printLog(message:"开屏广告加载失败");
         self.disposeView()
-        self.channel?.invokeMethod("onFail", arguments:String(error.debugDescription));
+        self.channel?.invokeMethod("onFail", arguments:error?.description ?? "")
     }
     
     //SDK渲染开屏广告渲染成功回调
@@ -92,7 +92,7 @@ extension SplashAdView : BUSplashAdDelegate{
         LogUtil.logInstance.printLog(message: "开屏广告渲染失败")
         LogUtil.logInstance.printLog(message: error)
         self.disposeView()
-        self.channel?.invokeMethod("onFail", arguments:String(error.debugDescription))
+        self.channel?.invokeMethod("onFail", arguments:error?.description ?? "")
     }
     
     //SDK渲染开屏广告即将展示
@@ -127,7 +127,7 @@ extension SplashAdView : BUSplashAdDelegate{
     
     //视频广告播放完毕回调
     public func splashVideoAdDidPlayFinish(_ splashAd: BUSplashAd, didFailWithError error: Error) {
-        
+       
     }
     
     //SDK渲染开屏广告点击回调
