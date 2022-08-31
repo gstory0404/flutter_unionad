@@ -38,6 +38,12 @@
 #### 1、pubspec.yaml
 ```Dart
 flutter_unionad: ^1.3.9
+
+//体验最新版 不稳定慎用
+flutter_unionad:
+  git:
+     url: https://github.com/gstory0404/flutter_unionad.git
+     ref: 0fa30ec431b0063b8d06c0148c8bbc51f088bcbf
 ```
 引入
 ```Dart
