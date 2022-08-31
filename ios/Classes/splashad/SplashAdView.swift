@@ -18,7 +18,7 @@ public class SplashAdView : NSObject,FlutterPlatformView{
     var supportDeepLink :Bool? = true
     let width : Float?
     let height :Float?
-    var mIsExpress :Bool? = true
+    var hideSkip :Bool = false
     var adLoadType : Int? = 0
     var timeout : Double? = 3.0
     var splashAd:BUSplashAd?
@@ -29,7 +29,7 @@ public class SplashAdView : NSObject,FlutterPlatformView{
         self.container = UIView(frame: frame)
         let dict = params as! NSDictionary
         self.mCodeId = dict.value(forKey: "iosCodeId") as? String
-        self.mIsExpress = dict.value(forKey: "mIsExpress") as? Bool
+        self.hideSkip = dict.value(forKey: "hideSkip") as! Bool
         self.supportDeepLink = dict.value(forKey: "supportDeepLink") as? Bool
         self.width = Float(dict.value(forKey: "expressViewWidth") as! Double)
         self.height = Float(dict.value(forKey: "expressViewHeight") as! Double)
@@ -55,7 +55,7 @@ public class SplashAdView : NSObject,FlutterPlatformView{
         }
         let splash = BUSplashAd.init(slotID: self.mCodeId!, adSize:size)
         splash.tolerateTimeout = self.timeout ?? 3.0
-        splash.hideSkipButton = false
+        splash.hideSkipButton = self.hideSkip
         splash.supportCardView = false
         splash.supportZoomOutView = false
         splash.delegate = self
@@ -81,7 +81,7 @@ public class SplashAdView : NSObject,FlutterPlatformView{
         skipBtn.backgroundColor = UIColor.gray
         skipBtn.alpha = 0.8
         skipBtn.layer.cornerRadius = 10
-        self.container.addSubview(skipBtn)
+        self.splashAd?.splashView?.addSubview(skipBtn)
     }
     
     //跳过事件
@@ -109,8 +109,10 @@ extension SplashAdView : BUSplashAdDelegate{
     //SDK渲染开屏广告渲染成功回调
     public func splashAdRenderSuccess(_ splashAd: BUSplashAd) {
         LogUtil.logInstance.printLog(message: "开屏广告渲染成功")
+        if(self.hideSkip){
+            self.showSkipButton()
+        }
         self.container.addSubview(self.splashAd!.splashView!)
-//        self.showSkipButton()
         self.channel?.invokeMethod("onShow", arguments: "开屏广告加载完成")
     }
     

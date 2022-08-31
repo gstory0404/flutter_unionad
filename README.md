@@ -1,7 +1,7 @@
 # 字节跳动穿山甲广告 Flutter版本
 
 <p>
-<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.3.9-success></a>
+<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.3.10-success></a>
 </p>
 
 <img src="https://github.com/gstory0404/flutter_unionad/blob/master/image/demo.gif" width="30%">
@@ -37,7 +37,7 @@
 ## 集成步骤
 #### 1、pubspec.yaml
 ```Dart
-flutter_unionad: ^1.3.9
+flutter_unionad: ^1.3.10
 
 //体验最新版 不稳定慎用
 flutter_unionad:
@@ -177,6 +177,8 @@ FlutterUnionad.splashAdView(
           downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
           //用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，
           adLoadType: FlutterUnionadLoadType.LOAD,
+          //是否影藏跳过按钮(当影藏的时候显示自定义跳过按钮) 默认显示
+          hideSkip: false,
           callBack: FlutterUnionadSplashCallBack(
             onShow: () {
               print("开屏广告显示");

@@ -182,6 +182,8 @@ class FlutterUnionad {
   ///
   /// [timeout] 开屏广告加载超时时间,建议大于3000,这里为了冷启动第一次加载到广告并且展示,示例设置了3000ms
   ///
+  /// [hideSkip] 是否影藏跳过按钮(当影藏的时候显示自定义跳过按钮) 默认显示
+  ///
   static Widget splashAdView(
       {bool? mIsExpress,
       required String androidCodeId,
@@ -192,6 +194,7 @@ class FlutterUnionad {
       int? downloadType,
       int? adLoadType,
       int? timeout,
+      bool? hideSkip,
       FlutterUnionadSplashCallBack? callBack}) {
     return SplashAdView(
       mIsExpress: mIsExpress ?? false,
@@ -204,6 +207,7 @@ class FlutterUnionad {
           downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
       adLoadType: adLoadType ?? FlutterUnionadLoadType.LOAD,
       timeout: timeout ?? 3000,
+      hideSkip: hideSkip ?? false,
       callBack: callBack,
     );
   }

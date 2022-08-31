@@ -13,6 +13,7 @@ class SplashAdView extends StatefulWidget {
   final int downloadType;
   final int? adLoadType;
   final int? timeout;
+  final bool hideSkip;
   final FlutterUnionadSplashCallBack? callBack;
 
   const SplashAdView(
@@ -26,6 +27,7 @@ class SplashAdView extends StatefulWidget {
       required this.downloadType,
       required this.adLoadType,
       required this.timeout,
+      required this.hideSkip,
       this.callBack})
       : super(key: key);
 
@@ -70,7 +72,8 @@ class _SplashAdViewState extends State<SplashAdView> {
             "expressViewHeight": widget.expressViewHeight,
             "downloadType": widget.downloadType,
             "adLoadType": widget.adLoadType,
-            "timeout":widget.timeout,
+            "timeout": widget.timeout,
+            "hideSkip":widget.hideSkip,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),
@@ -94,7 +97,8 @@ class _SplashAdViewState extends State<SplashAdView> {
             "expressViewHeight": widget.expressViewHeight,
             "downloadType": widget.downloadType,
             "adLoadType": widget.adLoadType,
-            "timeout":widget.timeout,
+            "timeout": widget.timeout,
+            "hideSkip":widget.hideSkip,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),
