@@ -37,7 +37,7 @@ class _SplashPageState extends State<SplashPage> {
             // 期望view 宽度 dp 选填 mIsExpress=true必填
             expressViewWidth: 750,
             //期望view高度 dp 选填 mIsExpress=true必填
-            expressViewHeight: 800,
+            expressViewHeight: MediaQuery.of(context).size.height - 100,
             //控制下载APP前是否弹出二次确认弹窗
             downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
             //用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，

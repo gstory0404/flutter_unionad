@@ -14,10 +14,10 @@ class MyUtils{
             return findBestViewController(vc: vc)
         }
         return UIViewController.init()
-        }
-
+    }
+    
     class func findBestViewController(vc : UIViewController) -> UIViewController {
-
+        
         if vc.presentedViewController != nil {
             return findBestViewController(vc: vc.presentedViewController!)
         } else if vc.isKind(of:UISplitViewController.self) {

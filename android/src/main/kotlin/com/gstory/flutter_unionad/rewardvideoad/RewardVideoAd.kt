@@ -34,7 +34,6 @@ object RewardVideoAd {
     private var mIsLoaded = false //视频是否加载完成
 
     //参数
-    private var mIsExpress: Boolean = false //是否请求模板广告
     private var mCodeId: String? = null
     private var supportDeepLink: Boolean? = false
     private var expressViewWidth: Float? = 0f
@@ -50,7 +49,6 @@ object RewardVideoAd {
     fun init(context: Context, mActivity: Activity, params: Map<String?, Any?>) {
         this.mContext = context
         this.mActivity = mActivity
-        this.mIsExpress = params["mIsExpress"] as Boolean
         this.mCodeId = params["androidCodeId"] as String
         this.supportDeepLink = params["supportDeepLink"] as Boolean
         this.expressViewWidth = UIUtils.dip2px(context, UIUtils.getScreenWidthDp(context))
@@ -76,16 +74,6 @@ object RewardVideoAd {
     }
 
     private fun loadRewardVideoAd() {
-        Log.e(TAG, "mIsExpress $mIsExpress " +
-                "\nmCodeId $mCodeId " +
-                "\nsupportDeepLink $supportDeepLink " +
-                "\nexpressViewWidth $expressViewWidth " +
-                "\nexpressViewHeight $expressViewHeight " +
-                "\nrewardName $rewardName " +
-                "\nrewardAmount $rewardAmount " +
-                "\nuserID $userID " +
-                "\norientation $orientation " +
-                "\nmediaExtra $mediaExtra ")
         var loadType = when (adLoadType) {
             1 -> {
                 TTAdLoadType.LOAD
@@ -97,40 +85,22 @@ object RewardVideoAd {
                 TTAdLoadType.UNKNOWN
             }
         }
-        val adSlot: AdSlot
-        if (mIsExpress) {
-            adSlot = AdSlot.Builder()
-                    .setCodeId(mCodeId)
-                    .setSupportDeepLink(supportDeepLink!!)
-                    .setAdCount(1) //个性化模板广告需要设置期望个性化模板广告的大小,单位dp,激励视频场景，只要设置的值大于0即可
-                    .setExpressViewAcceptedSize(UIUtils.px2dip(mContext!!, expressViewWidth!!), UIUtils.px2dip(mContext!!, expressViewHeight!!))
-                    .setImageAcceptedSize(1080, 1920)
+        val adSlot = AdSlot.Builder()
+            .setCodeId(mCodeId)
+            .setSupportDeepLink(supportDeepLink!!)
+            .setAdCount(1) //个性化模板广告需要设置期望个性化模板广告的大小,单位dp,激励视频场景，只要设置的值大于0即可
+            .setExpressViewAcceptedSize(UIUtils.px2dip(mContext!!, expressViewWidth!!), UIUtils.px2dip(mContext!!, expressViewHeight!!))
+//            .setImageAcceptedSize(1080, 1920)
 //                    .setRewardName(rewardName) //奖励的名称
 //                    .setRewardAmount(rewardAmount!!) //奖励的数量
-                    .setAdLoadType(loadType) //预加载
-                    //必传参数，表来标识应用侧唯一用户；若非服务器回调模式或不需sdk透传
-                    //可设置为空字符串
-                    .setUserID(userID)
-                    .setOrientation(orientation!!) //设置期望视频播放的方向，为TTAdConstant.HORIZONTAL或TTAdConstant.VERTICAL
-                    .setMediaExtra(mediaExtra) //用户透传的信息，可不传
+            .setAdLoadType(loadType) //预加载
+            //必传参数，表来标识应用侧唯一用户；若非服务器回调模式或不需sdk透传
+            //可设置为空字符串
+            .setUserID(userID)
+            .setOrientation(orientation!!) //设置期望视频播放的方向，为TTAdConstant.HORIZONTAL或TTAdConstant.VERTICAL
+            .setMediaExtra(mediaExtra) //用户透传的信息，可不传
 //                    .setDownloadType(downloadType)
-                    .build()
-        } else {
-            adSlot = AdSlot.Builder()
-                    .setCodeId(mCodeId)
-                    .setSupportDeepLink(supportDeepLink!!)
-                    .setAdCount(1)
-//                    .setRewardName(rewardName) //奖励的名称
-//                    .setRewardAmount(rewardAmount!!) //奖励的数量
-                    .setAdLoadType(loadType) //预加载
-                    //必传参数，表来标识应用侧唯一用户；若非服务器回调模式或不需sdk透传
-                    //可设置为空字符串
-                    .setUserID(userID)
-                    .setOrientation(orientation!!) //设置期望视频播放的方向，为TTAdConstant.HORIZONTAL或TTAdConstant.VERTICAL
-                    .setMediaExtra(mediaExtra) //用户透传的信息，可不传
-//                    .setDownloadType(downloadType)
-                    .build()
-        }
+            .build()
 
         mTTAdNative.loadRewardVideoAd(adSlot, object : RewardVideoAdListener {
             override fun onError(code: Int, message: String) {

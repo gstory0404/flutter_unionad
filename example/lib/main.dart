@@ -25,6 +25,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: IndexPage(),
     );
   }
@@ -367,7 +368,6 @@ class _IndexPageState extends State<IndexPage> {
               child: new Text('激励视频'),
               onPressed: () {
                 FlutterUnionad.loadRewardVideoAd(
-                  mIsExpress: true,
                   //是否个性化 选填
                   androidCodeId: "945418088",
                   //Android 激励视频广告id  必填

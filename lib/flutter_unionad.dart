@@ -295,9 +295,7 @@ class FlutterUnionad {
     });
   }
 
-  /// # 激励视频广告预加载
-  ///
-  /// [mIsExpress] 是否使用个性化模版
+  /// # 激励视频广告预加载 （模版渲染）
   ///
   /// [androidCodeId] android 激励视频广告id 必填
   ///
@@ -312,7 +310,6 @@ class FlutterUnionad {
   /// [adLoadType]用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，[FlutterUnionadLoadType]
   ///
   static Future<bool> loadRewardVideoAd({
-    bool? mIsExpress,
     required String androidCodeId,
     required String iosCodeId,
     bool? supportDeepLink,
@@ -327,7 +324,6 @@ class FlutterUnionad {
     int? adLoadType,
   }) async {
     return await _channel.invokeMethod("loadRewardVideoAd", {
-      "mIsExpress": mIsExpress ?? false,
       "androidCodeId": androidCodeId,
       "iosCodeId": iosCodeId,
       "supportDeepLink": supportDeepLink ?? true,
