@@ -43,7 +43,7 @@ flutter_unionad: ^1.3.9
 flutter_unionad:
   git:
      url: https://github.com/gstory0404/flutter_unionad.git
-     ref: 0fa30ec431b0063b8d06c0148c8bbc51f088bcbf
+     ref: 137cbc5a9f04b25666ff9a451866fb90554f696a
 ```
 引入
 ```Dart
