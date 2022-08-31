@@ -96,8 +96,7 @@ extension SplashAdView : BUSplashAdDelegate{
     //SDK渲染开屏广告加载成功回调
     public func splashAdLoadSuccess(_ splashAd: BUSplashAd) {
         LogUtil.logInstance.printLog(message: "开屏广告加载成功回调")
-        LogUtil.logInstance.printLog(message: MyUtils.getVC().navigationController)
-        self.splashAd?.showSplashView(inRootViewController: MyUtils.getVC().navigationController!)
+        self.splashAd?.showSplashView(inRootViewController: MyUtils.getVC().navigationController ?? MyUtils.getVC())
     }
     
     //返回的错误码(error)表示广告加载失败的原因，所有错误码详情请见链接Link
