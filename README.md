@@ -17,6 +17,10 @@
 
 [更新日志](https://github.com/gstory0404/flutter_unionad/blob/master/CHANGELOG.md)
 
+## 注意事项
+⚠️ 版本更新必看，不然可能广告加载可能会出现异常
+[插件更新调整](https://github.com/gstory0404/flutter_unionad/blob/master/notice.md)
+
 ## 本地开发环境
 ```
 [✓] Flutter (Channel stable, 3.0.4, on macOS 12.5 21G72 darwin-x64, locale zh-Hans-CN)

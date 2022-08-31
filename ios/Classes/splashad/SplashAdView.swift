@@ -55,7 +55,7 @@ public class SplashAdView : NSObject,FlutterPlatformView{
         }
         let splash = BUSplashAd.init(slotID: self.mCodeId!, adSize:size)
         splash.tolerateTimeout = self.timeout ?? 3.0
-        splash.hideSkipButton = true
+        splash.hideSkipButton = false
         splash.supportCardView = false
         splash.supportZoomOutView = false
         splash.delegate = self
@@ -96,7 +96,8 @@ extension SplashAdView : BUSplashAdDelegate{
     //SDK渲染开屏广告加载成功回调
     public func splashAdLoadSuccess(_ splashAd: BUSplashAd) {
         LogUtil.logInstance.printLog(message: "开屏广告加载成功回调")
-        self.splashAd?.showSplashView(inRootViewController: MyUtils.getVC())
+        LogUtil.logInstance.printLog(message: MyUtils.getVC().navigationController)
+        self.splashAd?.showSplashView(inRootViewController: MyUtils.getVC().navigationController!)
     }
     
     //返回的错误码(error)表示广告加载失败的原因，所有错误码详情请见链接Link
@@ -110,7 +111,7 @@ extension SplashAdView : BUSplashAdDelegate{
     public func splashAdRenderSuccess(_ splashAd: BUSplashAd) {
         LogUtil.logInstance.printLog(message: "开屏广告渲染成功")
         self.container.addSubview(self.splashAd!.splashView!)
-        self.showSkipButton()
+//        self.showSkipButton()
         self.channel?.invokeMethod("onShow", arguments: "开屏广告加载完成")
     }
     

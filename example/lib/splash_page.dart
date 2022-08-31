@@ -49,7 +49,6 @@ class _SplashPageState extends State<SplashPage> {
               },
               onClick: () {
                 print("开屏广告点击");
-                Navigator.pop(context);
               },
               onFail: (error) {
                 print("开屏广告失败 $error");

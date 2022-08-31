@@ -1,9 +1,7 @@
 ## 1.3.10
 * ios升级4.7.0.8
-* ios 开屏新增跳过按钮
+* 修复ios无法点击异常 [注意事项](https://github.com/gstory0404/flutter_unionad/blob/master/notice.md)
 * 激励广告移除mIsExpress 新版本仅支持模版渲染广告
-
-
 
 ## 1.3.9
 * ios升级4.7.1.2
