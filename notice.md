@@ -33,8 +33,6 @@
 - (BOOL)application:(UIApplication *)application
     didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   [GeneratedPluginRegistrant registerWithRegistry:self];
-  // Override point for customization after application launch.
-    //将FlutterView设为根视图 嵌入导航
     FlutterViewController *controller = (FlutterViewController*)self.window.rootViewController;
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
