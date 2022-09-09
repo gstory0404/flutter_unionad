@@ -1,3 +1,7 @@
+## 1.3.12
+* ios升级4.8.0.1
+* android升级4.8.0.3
+
 ## 1.3.10
 * ios升级4.7.0.8
 * 修复ios无法点击异常 [注意事项](https://github.com/gstory0404/flutter_unionad/blob/master/notice.md)

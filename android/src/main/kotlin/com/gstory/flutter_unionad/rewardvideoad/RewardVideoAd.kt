@@ -36,23 +36,19 @@ object RewardVideoAd {
     //参数
     private var mCodeId: String? = null
     private var supportDeepLink: Boolean? = false
-    private var expressViewWidth: Float? = 0f
-    private var expressViewHeight: Float? = 0f
     private var rewardName: String? = null
     private var rewardAmount: Int? = 0
     private var userID: String? = null
     private var orientation: Int? = TTAdConstant.VERTICAL
     private var mediaExtra: String? = null
     private var downloadType: Int = 1
-    private var adLoadType : Int = 0
+    private var adLoadType: Int = 0
 
     fun init(context: Context, mActivity: Activity, params: Map<String?, Any?>) {
         this.mContext = context
         this.mActivity = mActivity
         this.mCodeId = params["androidCodeId"] as String
         this.supportDeepLink = params["supportDeepLink"] as Boolean
-        this.expressViewWidth = UIUtils.dip2px(context, UIUtils.getScreenWidthDp(context))
-        this.expressViewHeight = UIUtils.dip2px(context, UIUtils.getRealHeight(context).toFloat())
         this.rewardName = params["rewardName"] as String
         this.rewardAmount = params["rewardAmount"] as Int
         this.userID = params["userID"] as String
@@ -89,7 +85,8 @@ object RewardVideoAd {
             .setCodeId(mCodeId)
             .setSupportDeepLink(supportDeepLink!!)
             .setAdCount(1) //个性化模板广告需要设置期望个性化模板广告的大小,单位dp,激励视频场景，只要设置的值大于0即可
-            .setExpressViewAcceptedSize(UIUtils.px2dip(mContext!!, expressViewWidth!!), UIUtils.px2dip(mContext!!, expressViewHeight!!))
+            .setExpressViewAcceptedSize(
+                720f, 1080f)
 //            .setImageAcceptedSize(1080, 1920)
 //                    .setRewardName(rewardName) //奖励的名称
 //                    .setRewardAmount(rewardAmount!!) //奖励的数量
@@ -105,7 +102,11 @@ object RewardVideoAd {
         mTTAdNative.loadRewardVideoAd(adSlot, object : RewardVideoAdListener {
             override fun onError(code: Int, message: String) {
                 Log.e(TAG, "视频加载失败$code $message")
-                var map: MutableMap<String, Any?> = mutableMapOf("adType" to "rewardAd", "onAdMethod" to "onFail", "error" to "$code $message")
+                var map: MutableMap<String, Any?> = mutableMapOf(
+                    "adType" to "rewardAd",
+                    "onAdMethod" to "onFail",
+                    "error" to "$code $message"
+                )
                 FlutterUnionadEventPlugin.sendContent(map)
             }
 
@@ -116,7 +117,8 @@ object RewardVideoAd {
 
             override fun onRewardVideoCached(p0: TTRewardVideoAd?) {
                 Log.e(TAG, "rewardVideoAd video cached2")
-                var map: MutableMap<String, Any?> = mutableMapOf("adType" to "rewardAd", "onAdMethod" to "onReady")
+                var map: MutableMap<String, Any?> =
+                    mutableMapOf("adType" to "rewardAd", "onAdMethod" to "onReady")
                 FlutterUnionadEventPlugin.sendContent(map)
             }
 
@@ -125,28 +127,36 @@ object RewardVideoAd {
                 Log.e(TAG, "rewardVideoAd loaded 广告类型：${getAdType(ad.rewardVideoAdType)}")
                 mIsLoaded = false
                 mttRewardVideoAd = ad
-                mttRewardVideoAd?.setRewardAdInteractionListener(object : RewardAdInteractionListener {
+                mttRewardVideoAd?.setRewardAdInteractionListener(object :
+                    RewardAdInteractionListener {
                     override fun onAdShow() {
                         Log.e(TAG, "rewardVideoAd show")
-                        var map: MutableMap<String, Any?> = mutableMapOf("adType" to "rewardAd", "onAdMethod" to "onShow")
+                        var map: MutableMap<String, Any?> =
+                            mutableMapOf("adType" to "rewardAd", "onAdMethod" to "onShow")
                         FlutterUnionadEventPlugin.sendContent(map)
                     }
 
                     override fun onAdVideoBarClick() {
                         Log.e(TAG, "rewardVideoAd bar click")
-                        var map: MutableMap<String, Any?> = mutableMapOf("adType" to "rewardAd", "onAdMethod" to "onClick")
+                        var map: MutableMap<String, Any?> =
+                            mutableMapOf("adType" to "rewardAd", "onAdMethod" to "onClick")
                         FlutterUnionadEventPlugin.sendContent(map)
                     }
 
                     override fun onAdClose() {
                         Log.e(TAG, "rewardVideoAd close")
-                        var map: MutableMap<String, Any?> = mutableMapOf("adType" to "rewardAd", "onAdMethod" to "onClose")
+                        var map: MutableMap<String, Any?> =
+                            mutableMapOf("adType" to "rewardAd", "onAdMethod" to "onClose")
                         FlutterUnionadEventPlugin.sendContent(map)
                     }
 
                     override fun onVideoError() {
                         Log.e(TAG, "rewardVideoAd onVideoError")
-                        var map: MutableMap<String, Any?> = mutableMapOf("adType" to "rewardAd", "onAdMethod" to "onFail", "error" to "")
+                        var map: MutableMap<String, Any?> = mutableMapOf(
+                            "adType" to "rewardAd",
+                            "onAdMethod" to "onFail",
+                            "error" to ""
+                        )
                         FlutterUnionadEventPlugin.sendContent(map)
                     }
 
@@ -162,15 +172,23 @@ object RewardVideoAd {
                      * code：错误码，
                      * msg：错误信息
                      */
-                    override fun onRewardVerify(p0: Boolean, p1: Int, p2: String?, p3: Int, p4: String?) {
+                    override fun onRewardVerify(
+                        p0: Boolean,
+                        p1: Int,
+                        p2: String?,
+                        p3: Int,
+                        p4: String?
+                    ) {
                         Log.e(TAG, "verify: $p0 amount:$p1 name:$p2 p3:$p3 p4:$p4")
-                        var map: MutableMap<String, Any?> = mutableMapOf("adType" to "rewardAd",
-                                "onAdMethod" to "onVerify",
-                                "rewardVerify" to p0,
-                                "rewardAmount" to p1,
-                                "rewardName" to p2,
-                                "errorCode" to p3,
-                                "error" to p4)
+                        var map: MutableMap<String, Any?> = mutableMapOf(
+                            "adType" to "rewardAd",
+                            "onAdMethod" to "onVerify",
+                            "rewardVerify" to p0,
+                            "rewardAmount" to p1,
+                            "rewardName" to p2,
+                            "errorCode" to p3,
+                            "error" to p4
+                        )
                         FlutterUnionadEventPlugin.sendContent(map)
                     }
 
@@ -183,7 +201,8 @@ object RewardVideoAd {
                      */
                     override fun onRewardArrived(p0: Boolean, p1: Int, p2: Bundle) {
                         Log.e(TAG, "onRewardArrived: $p0 amount:$p1 name:$p2")
-                        var map: MutableMap<String, Any?> = mutableMapOf("adType" to "rewardAd",
+                        var map: MutableMap<String, Any?> = mutableMapOf(
+                            "adType" to "rewardAd",
                             "onAdMethod" to "onRewardArrived",
                             "rewardVerify" to p0,
                             "rewardType" to p1,
@@ -191,13 +210,15 @@ object RewardVideoAd {
                             "rewardName" to p2["reward_extra_key_reward_name"],
                             "propose" to p2["reward_extra_key_reward_propose"],
                             "errorCode" to p2["reward_extra_key_error_code"],
-                            "error" to p2["reward_extra_key_error_msg"])
+                            "error" to p2["reward_extra_key_error_msg"]
+                        )
                         FlutterUnionadEventPlugin.sendContent(map)
                     }
 
                     override fun onSkippedVideo() {
                         Log.e(TAG, "rewardVideoAd onSkippedVideo")
-                        var map: MutableMap<String, Any?> = mutableMapOf("adType" to "rewardAd", "onAdMethod" to "onSkip")
+                        var map: MutableMap<String, Any?> =
+                            mutableMapOf("adType" to "rewardAd", "onAdMethod" to "onSkip")
                         FlutterUnionadEventPlugin.sendContent(map)
                     }
                 })
@@ -210,12 +231,20 @@ object RewardVideoAd {
      */
     fun showAd() {
         if (mttRewardVideoAd == null) {
-            var map: MutableMap<String, Any?> = mutableMapOf("adType" to "rewardAd", "onAdMethod" to "onUnReady", "error" to "广告预加载未完成")
+            var map: MutableMap<String, Any?> = mutableMapOf(
+                "adType" to "rewardAd",
+                "onAdMethod" to "onUnReady",
+                "error" to "广告预加载未完成"
+            )
             FlutterUnionadEventPlugin.sendContent(map)
             return
         }
         mIsLoaded = true
-        mttRewardVideoAd?.showRewardVideoAd(mActivity, TTAdConstant.RitScenes.CUSTOMIZE_SCENES, "scenes_test")
+        mttRewardVideoAd?.showRewardVideoAd(
+            mActivity,
+            TTAdConstant.RitScenes.CUSTOMIZE_SCENES,
+            "scenes_test"
+        )
         mttRewardVideoAd = null
     }
 

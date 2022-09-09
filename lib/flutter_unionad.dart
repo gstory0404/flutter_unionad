@@ -307,18 +307,12 @@ class FlutterUnionad {
   ///
   /// [supportDeepLink] 是否支持 DeepLink 选填
   ///
-  /// [expressViewWidth] 期望view 宽度 dp 必填
-  ///
-  /// [expressViewHeight] 期望view高度 dp 必填
-  ///
   /// [adLoadType]用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，[FlutterUnionadLoadType]
   ///
   static Future<bool> loadRewardVideoAd({
     required String androidCodeId,
     required String iosCodeId,
     bool? supportDeepLink,
-    double? expressViewWidth,
-    double? expressViewHeight,
     required String rewardName,
     required int rewardAmount,
     required String userID,
@@ -331,8 +325,6 @@ class FlutterUnionad {
       "androidCodeId": androidCodeId,
       "iosCodeId": iosCodeId,
       "supportDeepLink": supportDeepLink ?? true,
-      "expressViewWidth": expressViewWidth ?? 750,
-      "expressViewHeight": expressViewHeight ?? 1080,
       "rewardName": rewardName,
       "rewardAmount": rewardAmount,
       "userID": userID,
