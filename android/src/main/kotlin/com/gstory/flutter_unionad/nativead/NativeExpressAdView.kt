@@ -87,7 +87,7 @@ class NativeExpressAdView(
             .setCodeId(mCodeId)
             .setSupportDeepLink(supportDeepLink!!)
             .setAdCount(expressNum) //请求广告数量为1到3条
-            .setImageAcceptedSize(640, 320) //这个参数设置即可，不影响个性化模板广告的size
+//            .setImageAcceptedSize(640, 320) //这个参数设置即可，不影响个性化模板广告的size
             .setExpressViewAcceptedSize(expressViewWidth, expressViewHeight)
 //                .setDownloadType(downloadType)
             .setAdLoadType(loadType)
