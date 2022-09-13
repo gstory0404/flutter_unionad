@@ -86,7 +86,7 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
             .setCodeId(mCodeId)
             .setSupportDeepLink(supportDeepLink!!)
             //不区分渲染方式，要求开发者同时设置setImageAcceptedSize（单位：px）和setExpressViewAcceptedSize（单位：dp ）接口，不同时设置可能会导致展示异常。
-            .setImageAcceptedSize(expressViewWidth!!.toInt(), expressViewHeight!!.toInt())
+            .setImageAcceptedSize(UIUtils.dip2px(context,expressViewWidth).toInt(), UIUtils.dip2px(context,expressViewHeight).toInt())
             .setExpressViewAcceptedSize(expressViewWidth, expressViewHeight)
 //                    .setDownloadType(downloadType)
             .setAdLoadType(loadType)
