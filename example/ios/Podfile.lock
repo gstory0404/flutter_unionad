@@ -1,17 +1,17 @@
 PODS:
-  - Ads-CN-Beta (4.8.0.1):
-    - Ads-CN-Beta/BUAdSDK (= 4.8.0.1)
-  - Ads-CN-Beta/BUAdSDK (4.8.0.1):
+  - Ads-CN-Beta (4.8.0.3):
+    - Ads-CN-Beta/BUAdSDK (= 4.8.0.3)
+  - Ads-CN-Beta/BUAdSDK (4.8.0.3):
     - Ads-CN-Beta/Dep_Accurate
-  - Ads-CN-Beta/Dep_Accurate (4.8.0.1):
+  - Ads-CN-Beta/Dep_Accurate (4.8.0.3):
     - BUAdSDK (= 0.1.0.24)
-    - BURelyFoundation/CSJ (= 0.0.3.6)
+    - BURelyFoundation/CSJ (= 0.0.3.11)
   - BUAdSDK (0.1.0.24):
     - BUAdSDK/BUAdSDK (= 0.1.0.24)
   - BUAdSDK/BUAdSDK (0.1.0.24)
-  - BURelyFoundation/AFNetworking (0.0.3.6)
-  - BURelyFoundation/BURelyFoundation (0.0.3.6)
-  - BURelyFoundation/CSJ (0.0.3.6):
+  - BURelyFoundation/AFNetworking (0.0.3.11)
+  - BURelyFoundation/BURelyFoundation (0.0.3.11)
+  - BURelyFoundation/CSJ (0.0.3.11):
     - BURelyFoundation/AFNetworking
     - BURelyFoundation/BURelyFoundation
     - BURelyFoundation/Foundation
@@ -22,24 +22,24 @@ PODS:
     - BURelyFoundation/YYModel
     - BURelyFoundation/ZFPlayer
     - BURelyFoundation/Zip
-  - BURelyFoundation/Foundation (0.0.3.6):
+  - BURelyFoundation/Foundation (0.0.3.11):
     - BURelyFoundation/NETWork
-  - BURelyFoundation/Gecko (0.0.3.6):
+  - BURelyFoundation/Gecko (0.0.3.11):
     - BURelyFoundation/Foundation
-  - BURelyFoundation/HM (0.0.3.6)
-  - BURelyFoundation/NETWork (0.0.3.6):
+  - BURelyFoundation/HM (0.0.3.11)
+  - BURelyFoundation/NETWork (0.0.3.11):
     - BURelyFoundation/AFNetworking
-  - BURelyFoundation/SDWebImage (0.0.3.6):
+  - BURelyFoundation/SDWebImage (0.0.3.11):
     - BURelyFoundation/Foundation
-  - BURelyFoundation/YYModel (0.0.3.6)
-  - BURelyFoundation/ZFPlayer (0.0.3.6):
+  - BURelyFoundation/YYModel (0.0.3.11)
+  - BURelyFoundation/ZFPlayer (0.0.3.11):
     - BURelyFoundation/Foundation
     - BURelyFoundation/Zip
-  - BURelyFoundation/Zip (0.0.3.6):
+  - BURelyFoundation/Zip (0.0.3.11):
     - BURelyFoundation/Foundation
   - Flutter (1.0.0)
   - flutter_unionad (0.0.1):
-    - Ads-CN-Beta (= 4.8.0.1)
+    - Ads-CN-Beta (= 4.8.0.3)
     - Flutter
 
 DEPENDENCIES:
@@ -59,11 +59,11 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_unionad/ios"
 
 SPEC CHECKSUMS:
-  Ads-CN-Beta: 85e2fe9daa85121b14bfe90c40ab9bc6eb45d87d
+  Ads-CN-Beta: e7276daa44d2af6a3a12ca9a4876d5520a20064c
   BUAdSDK: 5528f72f7b9b478a12743ea23af7bdb9746efc00
-  BURelyFoundation: b208aa141bb04033a1dd66dbdea114f4745f357a
+  BURelyFoundation: 0e538939a926e429e6c34569104351f52a60a843
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  flutter_unionad: 4f15869e991a7dce33cca511897f67d3d49c2747
+  flutter_unionad: 249828bfa5f6dd0d06e97d5cab57e6bdda7562c0
 
 PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3
 

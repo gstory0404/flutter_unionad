@@ -35,7 +35,7 @@ class _SplashPageState extends State<SplashPage> {
             //是否支持 DeepLink 选填
             supportDeepLink: true,
             // 期望view 宽度 dp 选填 mIsExpress=true必填
-            expressViewWidth: 750,
+            expressViewWidth: MediaQuery.of(context).size.width,
             //期望view高度 dp 选填 mIsExpress=true必填
             expressViewHeight: MediaQuery.of(context).size.height - 100,
             //控制下载APP前是否弹出二次确认弹窗
@@ -54,6 +54,7 @@ class _SplashPageState extends State<SplashPage> {
               },
               onFail: (error) {
                 print("开屏广告失败 $error");
+                Navigator.pop(context);
               },
               onFinish: () {
                 print("开屏广告倒计时结束");
