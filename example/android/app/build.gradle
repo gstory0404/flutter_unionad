@@ -54,12 +54,12 @@ android {
     }
 
     buildTypes {
-        debug {
-            signingConfig signingConfigs.config
-        }
-        release {
-            signingConfig signingConfigs.config
-        }
+//        debug {
+//            signingConfig signingConfigs.config
+//        }
+//        release {
+//            signingConfig signingConfigs.config
+//        }
     }
 }
 
