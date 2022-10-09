@@ -51,6 +51,16 @@ android 穿山甲SDK 4.3.0.8去除各广告downloadType方法，1.2.6后传入�
 插件1.2.2以后 android不再默认集成权限，需手动配置
 ```java
 
+<!--必要权限-->
+<uses-permission android:name="android.permission.INTERNET" />
+
+<!--必要权限，解决安全风险漏洞，发送和注册广播事件需要调用带有传递权限的接口-->
+<permission      android:name="${applicationId}.openadsdk.permission.TT_PANGOLIN"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="${applicationId}.openadsdk.permission.TT_PANGOLIN" /> 
+   
+
 <!--可选权限-->
 <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -64,9 +74,15 @@ android 穿山甲SDK 4.3.0.8去除各广告downloadType方法，1.2.6后传入�
 <!--请注意：无论通过何种方式提供给穿山甲用户地理位置，均需向用户声明地理位置权限将应用于穿山甲广告投放，穿山甲不强制获取地理位置信息-->
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+<!-- 如果视频广告使用textureView播放，请务必添加，否则黑屏 -->
+<uses-permission android:name="android.permission.WAKE_LOCK" />
+
+<!--demo场景用到的权限，不是必须的-->
+<uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+<uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
+
 <!-- 穿山甲3400版本新增：建议添加“query_all_package”权限，穿山甲将通过此权限在Android R系统上判定广告对应的应用是否在用户的app上安装，避免投放错误的广告，以此提高用户的广告体验。若添加此权限，需要在您的用户隐私文档中声明！ -->
 <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
-
-<!-- 如果有视频相关的广告且使用textureView播放，请务必添加，否则黑屏 -->
 
 ```
