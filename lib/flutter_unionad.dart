@@ -473,4 +473,15 @@ class FlutterUnionad {
       "alist": alist ?? true,
     });
   }
+
+  /// 获取主题模式 0正常模式 1夜间模式
+  static Future<int> getThemeStatus() async {
+    return await _channel.invokeMethod("getThemeStatus");
+  }
+
+  /// 设置主题模式 0正常模式 1夜间模式
+  static Future<bool> setThemeStatus(int themeStatus) async {
+    return await _channel
+        .invokeMethod("setThemeStatus", {"themeStatus": themeStatus});
+  }
 }

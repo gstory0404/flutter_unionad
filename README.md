@@ -1,7 +1,7 @@
 # 字节跳动穿山甲广告 Flutter版本
 
 <p>
-<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.3.15-success></a>
+<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.3.16-success></a>
 </p>
 
 <img src="https://github.com/gstory0404/flutter_unionad/blob/master/image/demo.gif" width="30%">
@@ -37,7 +37,7 @@
 ## 集成步骤
 #### 1、pubspec.yaml
 ```Dart
-flutter_unionad: ^1.3.15
+flutter_unionad: ^1.3.16
 
 //测试版本
 flutter_unionad:
@@ -50,7 +50,7 @@ flutter_unionad:
 import 'package:flutter_unionad/flutter_unionad.dart';
 ```
 #### 2、Android
-SDK([4.8.0.3](https://www.csjplatform.com/union/media/union/download/log?id=4))已配置插件中无需额外配置，只需要在android目录中AndroidManifest.xml配置
+SDK([4.8.0.8](https://www.csjplatform.com/union/media/union/download/log?id=4))已配置插件中无需额外配置，只需要在android目录中AndroidManifest.xml配置
 ```Java
 <manifest ···
     xmlns:tools="http://schemas.android.com/tools"
@@ -60,7 +60,7 @@ SDK([4.8.0.3](https://www.csjplatform.com/union/media/union/download/log?id=4))�
 ```
 
 #### 3、IOS
-SDK([4.8.0.1](https://www.csjplatform.com/union/media/union/download/log?id=16)))已配置插件中，其余根据SDK文档配置，因为使用PlatformView，在Info.plist加入
+SDK([4.9.0.1](https://www.csjplatform.com/union/media/union/download/log?id=16)))已配置插件中，其余根据SDK文档配置，因为使用PlatformView，在Info.plist加入
 ```
  <key>io.flutter.embedded_views_preview</key>
     <true/>
@@ -483,6 +483,18 @@ if (Platform.isAndroid) {
         alist: false,//是否允许SDK主动获取设备上应用安装列表的采集权限
       );
     }
+```
+
+#### 13、日间/夜间模式切换
+获取主题模式
+```dart
+// 0正常模式 1夜间模式
+ _themeStatus = await FlutterUnionad.getThemeStatus();
+```
+切换主题模式
+```dart
+// 0正常模式 1夜间模式
+await FlutterUnionad.setThemeStatus(_themeStatus);
 ```
 
 ## 常见问题

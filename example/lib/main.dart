@@ -41,6 +41,8 @@ class _IndexPageState extends State<IndexPage> {
   String? _version;
   StreamSubscription? _adViewStream;
 
+  int _themeStatus = 0;
+
   @override
   void initState() {
     super.initState();
@@ -174,6 +176,7 @@ class _IndexPageState extends State<IndexPage> {
         ]);
     print("sdk初始化 $_init");
     _version = await FlutterUnionad.getSDKVersion();
+    _themeStatus = await FlutterUnionad.getThemeStatus();
     setState(() {});
   }
 
@@ -235,6 +238,12 @@ class _IndexPageState extends State<IndexPage> {
               height: 50,
               child: Text("穿山甲SDK版本号>>>>>> v$_version"),
             ),
+            Container(
+              alignment: Alignment.center,
+              height: 50,
+              child:
+                  Text("穿山甲主题样式>>>>>> ${_themeStatus == 0 ? "正常模式" : "夜间模式"}"),
+            ),
             //修改个性化推荐
             MaterialButton(
               color: Colors.blue,
@@ -293,6 +302,17 @@ class _IndexPageState extends State<IndexPage> {
                     },
                   ),
                 );
+              },
+            ),
+            //切换主题
+            MaterialButton(
+              color: Colors.blue,
+              textColor: Colors.white,
+              child: new Text('切换主题'),
+              onPressed: () async {
+                _themeStatus = _themeStatus == 0 ? 1 : 0;
+                await FlutterUnionad.setThemeStatus(_themeStatus);
+                setState(() {});
               },
             ),
             //banner广告
@@ -385,7 +405,8 @@ class _IndexPageState extends State<IndexPage> {
                   //控制下载APP前是否弹出二次确认弹窗
                   downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
                   //视屏方向 选填
-                  mediaExtra: null, //扩展参数 选填
+                  mediaExtra: null,
+                  //扩展参数 选填
                   //用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，
                   adLoadType: FlutterUnionadLoadType.PRELOAD,
                 );

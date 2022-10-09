@@ -1,3 +1,7 @@
+## 1.3.16
+* 新增getThemeStatus 获取主题模式
+* 新增setThemeStatus 设置主题模式
+ 
 ## 1.3.15
 * ios升级4.9.0.1
 * android升级4.8.0.8

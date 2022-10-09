@@ -217,6 +217,16 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
         } else if (call.method == "showFullScreenVideoAdInteraction") {
             FullScreenVideoAdInteraction.showAd()
             result.success(true)
+            //获取主题模式
+        } else if (call.method == "getThemeStatus") {
+            val mTTAdManager = TTAdManagerHolder.get()
+            result.success(mTTAdManager.themeStatus)
+            //设置主题模式
+        } else if (call.method == "setThemeStatus") {
+            val themeStatus = call.argument<Int>("themeStatus")
+            val mTTAdManager = TTAdManagerHolder.get()
+            mTTAdManager.themeStatus = themeStatus!!
+            result.success(true)
         }
     }
 
