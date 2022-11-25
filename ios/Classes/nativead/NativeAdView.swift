@@ -10,7 +10,7 @@ import BUAdSDK
 import Flutter
 
 public class NativeAdView : NSObject,FlutterPlatformView{
-    private let container : UIView
+    private let container : ADContainerView
     private var nativeExpressAdManager : BUNativeExpressAdManager
     private var channel : FlutterMethodChannel?
     var frame: CGRect;
@@ -26,7 +26,7 @@ public class NativeAdView : NSObject,FlutterPlatformView{
     
     init(_ frame : CGRect,binaryMessenger: FlutterBinaryMessenger , id : Int64, params :Any?) {
         self.frame = frame
-        self.container = UIView(frame: frame)
+        self.container = ADContainerView(frame: frame)
         let dict = params as! NSDictionary
         self.mCodeId = dict.value(forKey: "iosCodeId") as? String
         self.mIsExpress = dict.value(forKey: "mIsExpress") as? Bool
