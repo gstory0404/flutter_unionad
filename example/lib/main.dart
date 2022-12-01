@@ -41,13 +41,12 @@ class _IndexPageState extends State<IndexPage> {
   String? _version;
   StreamSubscription? _adViewStream;
 
-  int _themeStatus = 0;
+  int _themeStatus = FlutterUnionAdTheme.NIGHT;
 
   @override
   void initState() {
     super.initState();
     _privacy();
-    // _initRegister();
     _adViewStream = FlutterUnionadStream.initAdStream(
       flutterUnionadFullVideoCallBack: FlutterUnionadFullVideoCallBack(
         onShow: () {
@@ -167,6 +166,8 @@ class _IndexPageState extends State<IndexPage> {
         supportMultiProcess: true,
         //是否开启个人性推荐 选填
         personalise: FlutterUnionadPersonalise.open,
+        //主题模式 默认FlutterUnionAdTheme.DAY,修改后需重新调用初始化
+        themeStatus: _themeStatus,
         //允许直接下载的网络状态集合 选填
         directDownloadNetworkType: [
           FlutterUnionadNetCode.NETWORK_STATE_2G,
@@ -310,9 +311,10 @@ class _IndexPageState extends State<IndexPage> {
               textColor: Colors.white,
               child: new Text('切换主题'),
               onPressed: () async {
-                _themeStatus = _themeStatus == 0 ? 1 : 0;
-                await FlutterUnionad.setThemeStatus(_themeStatus);
-                setState(() {});
+                _themeStatus = _themeStatus == FlutterUnionAdTheme.DAY
+                    ? FlutterUnionAdTheme.NIGHT
+                    : FlutterUnionAdTheme.DAY;
+                _initRegister();
               },
             ),
             //banner广告
@@ -354,30 +356,6 @@ class _IndexPageState extends State<IndexPage> {
                   new MaterialPageRoute(
                     builder: (context) => new NativeExpressAdPage(),
                   ),
-                );
-              },
-            ),
-            //插屏广告
-            MaterialButton(
-              color: Colors.blue,
-              textColor: Colors.white,
-              child: new Text('插屏广告'),
-              onPressed: () async {
-                await FlutterUnionad.interactionAd(
-                  androidCodeId: "945417892",
-                  //andrrid 插屏广告id 必填
-                  iosCodeId: "945417892",
-                  //ios 插屏广告id 必填
-                  supportDeepLink: true,
-                  //是否支持 DeepLink 选填
-                  expressViewWidth: 300.0,
-                  // 期望view 宽度 dp 必填
-                  expressViewHeight: 450.0,
-                  //期望view高度 dp 必填
-                  expressNum: 2,
-                  //一次请求广告数量 大于1小于3 必填
-                  //控制下载APP前是否弹出二次确认弹窗
-                  downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
                 );
               },
             ),

@@ -1,7 +1,7 @@
 # 字节跳动穿山甲广告 Flutter版本
 
 <p>
-<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.3.16-success></a>
+<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.3.17-success></a>
 </p>
 
 <img src="https://github.com/gstory0404/flutter_unionad/blob/master/image/demo.gif" width="30%">
@@ -37,7 +37,7 @@
 ## 集成步骤
 #### 1、pubspec.yaml
 ```Dart
-flutter_unionad: ^1.3.16
+flutter_unionad: ^1.3.17
 
 //测试版本
 flutter_unionad:
@@ -50,7 +50,7 @@ flutter_unionad:
 import 'package:flutter_unionad/flutter_unionad.dart';
 ```
 #### 2、Android
-SDK([4.8.0.8](https://www.csjplatform.com/union/media/union/download/log?id=4))已配置插件中无需额外配置，只需要在android目录中AndroidManifest.xml配置
+SDK([5.0.0.1](https://www.csjplatform.com/union/media/union/download/log?id=4))已配置插件中无需额外配置，只需要在android目录中AndroidManifest.xml配置
 ```Java
 <manifest ···
     xmlns:tools="http://schemas.android.com/tools"
@@ -60,7 +60,7 @@ SDK([4.8.0.8](https://www.csjplatform.com/union/media/union/download/log?id=4))�
 ```
 
 #### 3、IOS
-SDK([4.9.0.1](https://www.csjplatform.com/union/media/union/download/log?id=16)))已配置插件中，其余根据SDK文档配置，因为使用PlatformView，在Info.plist加入
+SDK([5.0.0.0](https://www.csjplatform.com/union/media/union/download/log?id=16)))已配置插件中，其余根据SDK文档配置，因为使用PlatformView，在Info.plist加入
 ```
  <key>io.flutter.embedded_views_preview</key>
     <true/>
@@ -92,6 +92,8 @@ await FlutterUnionad.register(
         supportMultiProcess: true,
         //是否开启个性化推荐 选填 默认开启
         personalise: FlutterUnionadPersonalise.close,
+        //主题模式 默认FlutterUnionAdTheme.DAY,修改后需重新调用初始化
+        themeStatus: FlutterUnionAdTheme.DAY,
         //允许直接下载的网络状态集合 选填
         directDownloadNetworkType: [
         FlutterUnionadNetCode.NETWORK_STATE_2G,
@@ -240,8 +242,6 @@ FlutterUnionad.nativeAdView(
     mIsExpress: true,
     //控制下载APP前是否弹出二次确认弹窗
     downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
-    //是否启用点击 仅ios生效 默认启用
-    isUserInteractionEnabled: true,
     //用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，
     adLoadType: FlutterUnionadLoadType.LOAD,
     callBack: FlutterUnionadNativeCallBack(
@@ -260,27 +260,6 @@ FlutterUnionad.nativeAdView(
     ),
 ),
 
-```
-
-#### 7、~~插屏广告~~
-
-不推荐使用，请使用新模版渲染插屏广告
-```Dart
-await FlutterUnionad.interactionAd(
-                  androidCodeId: "945417892",
-                  //andrrid 插屏广告id 必填
-                  iosCodeId: "945417892",
-                  //ios 插屏广告id 必填
-                  supportDeepLink: true,
-                  //是否支持 DeepLink 选填
-                  expressViewWidth: 300.0,
-                  // 期望view 宽度 dp 必填
-                  expressViewHeight: 450.0,
-                  //期望view高度 dp 必填
-                  expressNum: 2, //一次请求广告数量 大于1小于3 必填
-                  //控制下载APP前是否弹出二次确认弹窗
-                  downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
-                );
 ```
 
 
@@ -485,17 +464,15 @@ if (Platform.isAndroid) {
     }
 ```
 
-#### 13、日间/夜间模式切换
+#### 13、日间/夜间模式
 获取主题模式
 ```dart
 // 0正常模式 1夜间模式
  _themeStatus = await FlutterUnionad.getThemeStatus();
 ```
 切换主题模式
-```dart
-// 0正常模式 1夜间模式
-await FlutterUnionad.setThemeStatus(_themeStatus);
-```
+
+修改初始化中themeStatus参数，重新调用初始化
 
 ## 常见问题
 

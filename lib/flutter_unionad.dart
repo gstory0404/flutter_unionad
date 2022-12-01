@@ -38,6 +38,8 @@ class FlutterUnionad {
   ///
   ///[supportMultiProcess] 是否支持多进程，true支持 选填
   ///
+  ///[themeStatus] 主题模式  [FlutterUnionAdTheme] 选填
+  ///
   ///[directDownloadNetworkType] 允许直接下载的网络状态集合 选填
   ///
   ///[personalise] 是否开启个性化推荐 选填 [FlutterUnionadPersonalise.open]开启 [FlutterUnionadPersonalise.close]关闭
@@ -52,6 +54,7 @@ class FlutterUnionad {
     bool? debug,
     bool? supportMultiProcess,
     String? personalise,
+    int? themeStatus,
     List<int>? directDownloadNetworkType,
   }) async {
     return await _channel.invokeMethod("register", {
@@ -64,6 +67,7 @@ class FlutterUnionad {
       "debug": debug ?? false,
       "supportMultiProcess": supportMultiProcess ?? false,
       "personalise": personalise ?? FlutterUnionadPersonalise.open,
+      "themeStatus": themeStatus ?? FlutterUnionAdTheme.DAY,
       "directDownloadNetworkType": directDownloadNetworkType != null
           ? directDownloadNetworkType
           : [
@@ -226,8 +230,6 @@ class FlutterUnionad {
   ///
   /// [expressViewHeight] 期望view高度 dp 必填
   ///
-  /// [isUserInteractionEnabled] 是否启用点击 仅ios生效 默认启用
-  ///
   /// [adLoadType]用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，[FlutterUnionadLoadType]
   ///
   /// [FlutterUnionAdNativeCallBack] 信息流广告回调
@@ -239,9 +241,7 @@ class FlutterUnionad {
       bool? supportDeepLink,
       required double expressViewWidth,
       required double expressViewHeight,
-      required int expressNum,
       int? downloadType,
-      bool? isUserInteractionEnabled,
       int? adLoadType,
       FlutterUnionadNativeCallBack? callBack}) {
     return NativeAdView(
@@ -251,52 +251,11 @@ class FlutterUnionad {
       supportDeepLink: supportDeepLink ?? true,
       expressViewWidth: expressViewWidth,
       expressViewHeight: expressViewHeight,
-      expressNum: expressNum,
-      isUserInteractionEnabled: isUserInteractionEnabled ?? true,
       downloadType:
           downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
       adLoadType: adLoadType ?? FlutterUnionadLoadType.LOAD,
       callBack: callBack,
     );
-  }
-
-  /// # 插屏广告
-  ///
-  /// [mIsExpress] 是否使用个性化模版
-  ///
-  /// [androidCodeId] android 插屏广告id 必填
-  ///
-  /// [iosCodeId] ios 插屏广告id 必填
-  ///
-  /// [supportDeepLink] 是否支持 DeepLink 选填
-  ///
-  /// [expressViewWidth] 期望view 宽度 dp 必填
-  ///
-  /// [expressViewHeight] 期望view高度 dp 必填
-  ///
-  /// [callBack] 插屏广告回调
-  ///
-  @Deprecated("推荐使用新模板渲染插屏 loadFullScreenVideoAdInteraction")
-  static Future<bool> interactionAd({
-    bool? mIsExpress,
-    required String androidCodeId,
-    required String iosCodeId,
-    bool? supportDeepLink,
-    required double expressViewWidth,
-    required double expressViewHeight,
-    required int expressNum,
-    int? downloadType,
-  }) async {
-    return await _channel.invokeMethod("interactionAd", {
-      "mIsExpress": mIsExpress ?? false,
-      "androidCodeId": androidCodeId,
-      "iosCodeId": iosCodeId,
-      "supportDeepLink": supportDeepLink ?? true,
-      "expressViewWidth": expressViewWidth,
-      "expressViewHeight": expressViewHeight,
-      "expressNum": expressNum,
-      "downloadType": downloadType,
-    });
   }
 
   /// # 激励视频广告预加载 （模版渲染）
@@ -477,11 +436,5 @@ class FlutterUnionad {
   /// 获取主题模式 0正常模式 1夜间模式
   static Future<int> getThemeStatus() async {
     return await _channel.invokeMethod("getThemeStatus");
-  }
-
-  /// 设置主题模式 0正常模式 1夜间模式
-  static Future<bool> setThemeStatus(int themeStatus) async {
-    return await _channel
-        .invokeMethod("setThemeStatus", {"themeStatus": themeStatus});
   }
 }

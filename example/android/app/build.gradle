@@ -38,7 +38,7 @@ android {
 
     defaultConfig {
         applicationId "com.gstory.flutter_unionad_example"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

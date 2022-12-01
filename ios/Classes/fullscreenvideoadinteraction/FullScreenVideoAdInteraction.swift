@@ -2,7 +2,7 @@
 //  FullScreenVideoAdInteraction.swift
 //  flutter_unionad
 //
-//  Created by 郭维佳 on 2021/6/8.
+//  Created by gstory on 2021/6/8.
 //
 
 import Foundation

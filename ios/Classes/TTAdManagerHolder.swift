@@ -15,6 +15,7 @@ public class TTAdManagerHolder : NSObject{
         let appId = params.value(forKey: "iosAppId") as? String
         let debug = params.value(forKey: "debug") as? Bool ?? false
         let personalise = params.value(forKey: "personalise") as? String
+        let themeStatus = params.value(forKey: "themeStatus") as! NSNumber
         let userExtData = "[{\"name\":\"personal_ads_type\" ,\"value\":\"%@\"}]"
         if(appId != nil){
             let config = BUAdSDKConfiguration.init();
@@ -27,6 +28,7 @@ public class TTAdManagerHolder : NSObject{
             }
 //            config.privacyProvider = BUDPrivacyProvider.init();
             config.userExtData = NSString(format: userExtData as NSString, personalise!) as String;
+            config.themeStatus = themeStatus;
             BUAdSDKManager.start(asyncCompletionHandler: handelr)
         }
     }

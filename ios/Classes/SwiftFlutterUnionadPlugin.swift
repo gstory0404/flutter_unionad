@@ -56,7 +56,6 @@ public class SwiftFlutterUnionadPlugin: NSObject, FlutterPlugin {
         break
     //显示激励广告
     case "showRewardVideoAd":
-        let param = call.arguments as! NSDictionary
         RewardedVideoAd.instance.showRewardedVideoAd()
         result(true)
         break
@@ -67,12 +66,6 @@ public class SwiftFlutterUnionadPlugin: NSObject, FlutterPlugin {
         FullscreenVideoAd.instance.showFullscreenVideoAd(params: param)
         result(true)
         break
-        //插屏广告
-    case "interactionAd":
-        let param = call.arguments as! NSDictionary
-        InteractionAd.instance.showInteractionAd(params: param)
-        result(true)
-        break
     //  预加载新模版渲染插屏广告
     case "loadFullScreenVideoAdInteraction":
         let param = call.arguments as! NSDictionary
@@ -81,20 +74,12 @@ public class SwiftFlutterUnionadPlugin: NSObject, FlutterPlugin {
         break
         //显示新模版渲染插屏广告
     case "showFullScreenVideoAdInteraction":
-        let param = call.arguments as! NSDictionary
         FullScreenVideoAdInteraction.instance.showFullScreenVideoAdInteraction()
         result(true)
         break
         //获取主题模式
     case "getThemeStatus":
         result(BUAdSDKManager.themeStatus() == BUAdSDKThemeStatus.normal ? 0 : 1)
-        break
-        //设置主题模式
-    case "setThemeStatus":
-        let param = call.arguments as! NSDictionary
-        let themeStatus = param.value(forKey: "themeStatus") as! Int
-        BUAdSDKManager.setThemeStatus(themeStatus == 0 ? BUAdSDKThemeStatus.normal : BUAdSDKThemeStatus.night)
-        result(true)
         break
     default:
         result(FlutterMethodNotImplemented)

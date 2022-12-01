@@ -39,13 +39,9 @@ class _NativeExpressAdPageState extends State<NativeExpressAdPage> {
               expressViewWidth: 375.5,
               //期望view高度 dp 必填
               expressViewHeight: 0,
-              //一次请求广告数量 大于1小于3 必填
-              expressNum: 2,
               mIsExpress: true,
               //控制下载APP前是否弹出二次确认弹窗
               downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
-              //是否启用点击 仅ios生效 默认启用
-              isUserInteractionEnabled: true,
               //用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，
               adLoadType: FlutterUnionadLoadType.LOAD,
               callBack: FlutterUnionadNativeCallBack(
@@ -69,16 +65,6 @@ class _NativeExpressAdPageState extends State<NativeExpressAdPage> {
               supportDeepLink: true,
               expressViewWidth: 375.5,
               expressViewHeight: 0,
-              expressNum: 3,
-              isUserInteractionEnabled: false,
-            ), //个性化模板信息流广告
-            FlutterUnionad.nativeAdView(
-              androidCodeId: "945407034",
-              iosCodeId: "945407034",
-              supportDeepLink: true,
-              expressViewWidth: 270,
-              expressViewHeight:0,
-              expressNum: 3,
             ), //个性化模板信息流广告
             FlutterUnionad.nativeAdView(
               androidCodeId: "945407034",
@@ -86,8 +72,30 @@ class _NativeExpressAdPageState extends State<NativeExpressAdPage> {
               supportDeepLink: true,
               expressViewWidth: 270,
               expressViewHeight: 0,
-              expressNum: 3,
-            ),
+            ), //个性化模板信息流广告
+            Stack(
+              children: [
+                FlutterUnionad.nativeAdView(
+                  androidCodeId: "945407034",
+                  iosCodeId: "945407034",
+                  supportDeepLink: true,
+                  expressViewWidth: 270,
+                  expressViewHeight: 0,
+                ),
+                GestureDetector(
+                  child: Container(
+                    color: Colors.red,
+                    width: 400,
+                    height: 300,
+                    alignment: Alignment.center,
+                    child: Text("iOS点击穿透测试"),
+                  ),
+                  onTap: () {
+                    print("iOS点击穿透测试点击");
+                  },
+                )
+              ],
+            )
           ],
         ),
       ),

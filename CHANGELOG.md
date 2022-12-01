@@ -1,10 +1,18 @@
+## 1.3.17
+* android sdk升级5.0.0.1
+* ios sdk升级5.0.0.0
+* 移除 FlutterUnionad.interactionAd 插屏广告
+* 移除 FlutterUnionad.setThemeStatus设置主题模式，修改为在初始化FlutterUnionad.register中传入themeStatus FlutterUnionAdTheme来修改，每次修改均需重新初始化
+* 移除 FlutterUnionad.nativeAdView参数isUserInteractionEnabled，插件自动处理点击事件穿透
+* 移除 FlutterUnionad.nativeAdView参数expressNum
+
 ## 1.3.16
 * 新增getThemeStatus 获取主题模式
 * 新增setThemeStatus 设置主题模式
  
 ## 1.3.15
 * ios升级4.9.0.1
-* android升级4.8.0.8
+* android升级5.0.0.0
 
 ## 1.3.14
 * ios升级4.8.0.3

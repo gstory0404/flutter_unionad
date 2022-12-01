@@ -8,7 +8,6 @@ import androidx.annotation.NonNull
 import com.bytedance.sdk.openadsdk.TTAdSdk
 import com.gstory.flutter_unionad.fullscreenvideoAd.FullScreenVideoExpressAd
 import com.gstory.flutter_unionad.fullscreenvideoadinteraction.FullScreenVideoAdInteraction
-import com.gstory.flutter_unionad.interactionad.InteractionExpressAd
 import com.gstory.flutter_unionad.rewardvideoad.RewardVideoAd
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -83,6 +82,7 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
             var supportMultiProcess = call.argument<Boolean>("supportMultiProcess")
             val directDownloadNetworkType = call.argument<List<Int>>("directDownloadNetworkType")!!
             val personalise = call.argument<String>("personalise")
+            val themeStatus = call.argument<Int>("themeStatus")
             if (appId == null || appId.trim { it <= ' ' }.isEmpty()) {
                 Log.e("初始化", "appId can't be null")
                 result.success(false)
@@ -101,6 +101,7 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
                         supportMultiProcess!!,
                         directDownloadNetworkType,
                         personalise!!,
+                        themeStatus!!,
                         object : TTAdSdk.InitCallback {
                             override fun success() {
                                 Log.e("初始化", "成功")
@@ -150,7 +151,7 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
             result.success(3)
             //获取sdk版本号
         } else if (call.method == "getSDKVersion") {
-            var viersion = TTAdManagerHolder.get().sdkVersion
+            var viersion = TTAdSdk.getAdManager().sdkVersion
             if (TextUtils.isEmpty(viersion)) {
                 result.error("0", "获取失败", null)
             } else {
@@ -162,25 +163,6 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
             //显示激励广告
         } else if (call.method == "showRewardVideoAd") {
             RewardVideoAd.showAd()
-            //插屏广告
-        } else if (call.method == "interactionAd") {
-            val mCodeId = call.argument<String>("androidCodeId")
-            val supportDeepLink = call.argument<Boolean>("supportDeepLink")
-            var expressViewWidth = call.argument<Double>("expressViewWidth")
-            var expressViewHeight = call.argument<Double>("expressViewHeight")
-            var expressNum = call.argument<Int>("expressNum")
-            var downloadType = call.argument<Int>("downloadType")
-            InteractionExpressAd.init(
-                mActivity!!,
-                mActivity!!,
-                mCodeId,
-                supportDeepLink,
-                expressViewWidth!!,
-                expressViewHeight!!,
-                expressNum!!,
-                downloadType
-            )
-            result.success(true)
             //全屏广告
         } else if (call.method == "fullScreenVideoAd") {
             val mCodeId = call.argument<String>("androidCodeId")
@@ -219,14 +201,7 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
             result.success(true)
             //获取主题模式
         } else if (call.method == "getThemeStatus") {
-            val mTTAdManager = TTAdManagerHolder.get()
-            result.success(mTTAdManager.themeStatus)
-            //设置主题模式
-        } else if (call.method == "setThemeStatus") {
-            val themeStatus = call.argument<Int>("themeStatus")
-            val mTTAdManager = TTAdManagerHolder.get()
-            mTTAdManager.themeStatus = themeStatus!!
-            result.success(true)
+            result.success(TTAdSdk.getAdManager().themeStatus)
         }
     }
 

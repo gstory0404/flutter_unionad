@@ -15,7 +15,7 @@ object TTAdManagerHolder {
 
     fun get(): TTAdManager {
         if (!sInit) {
-            throw RuntimeException("flutter_unionad is not init, please check.")
+            throw RuntimeException("调用广告前，请先进行flutter_unionad初始化")
         }
         return TTAdSdk.getAdManager()
     }
@@ -32,6 +32,7 @@ object TTAdManagerHolder {
         supportMultiProcess: Boolean,
         directDownloadNetworkType: List<Int>,
         personalise: String,
+        themeStatus: Int,
         callback: TTAdSdk.InitCallback
     ) {
         TTAdSdk.init(
@@ -46,7 +47,8 @@ object TTAdManagerHolder {
                 debug,
                 supportMultiProcess,
                 directDownloadNetworkType,
-                personalise
+                personalise,
+                themeStatus
             ),
             object : TTAdSdk.InitCallback {
                 override fun success() {
@@ -74,7 +76,8 @@ object TTAdManagerHolder {
         debug: Boolean,
         supportMultiProcess: Boolean,
         directDownloadNetworkType: List<Int>,
-        personalise: String
+        personalise: String,
+        themeStatus: Int
     ): TTAdConfig {
         val d = IntArray(directDownloadNetworkType.size)
         for (i in directDownloadNetworkType.indices) {
@@ -92,6 +95,7 @@ object TTAdManagerHolder {
             .needClearTaskReset() //.httpStack(new MyOkStack3())//自定义网络库，demo中给出了okhttp3版本的样例，其余请自行开发或者咨询工作人员。
             .customController(controller)
             .data("[{\"name\":\"personal_ads_type\" ,\"value\":\"$personalise\"}]")
+            .themeStatus(themeStatus)
             .build()
     }
 

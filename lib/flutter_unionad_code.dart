@@ -135,8 +135,18 @@ class FlutterUnionadPersonalise {
 class FlutterUnionadLoadType {
   ///未知；
   static const int UNKNOWN = 0;
+
   ///实时
   static const int LOAD = 1;
+
   ///预览
   static const int PRELOAD = 2;
+}
+
+class FlutterUnionAdTheme {
+  ///正常
+  static const int DAY = 0;
+
+  ///夜间
+  static const int NIGHT = 1;
 }

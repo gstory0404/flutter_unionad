@@ -14,9 +14,6 @@ class FlutterunionadViewConfig {
         //NativeAdView
         const val nativeAdView = "com.gstory.flutter_unionad/NativeAdView"
 
-        //InteractionAdVie
-        const val interactionAdVie = "com.gstory.flutter_unionad/InteractionAdVie"
-
         //DrawFeedAdView
         const val drawFeedAdView = "com.gstory.flutter_unionad/DrawFeedAdView"
     }

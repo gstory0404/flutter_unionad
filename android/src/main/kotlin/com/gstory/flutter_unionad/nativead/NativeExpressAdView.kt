@@ -41,7 +41,6 @@ class NativeExpressAdView(
     var expressViewWidth: Float
     var expressViewHeight: Float
     var mHasShowDownloadActive: Boolean? = false
-    var expressNum: Int
     var downloadType: Int
     var adLoadType: Int
 
@@ -52,7 +51,6 @@ class NativeExpressAdView(
         supportDeepLink = params["supportDeepLink"] as Boolean?
         var width = params["expressViewWidth"] as Double
         var hight = params["expressViewHeight"] as Double
-        expressNum = params["expressNum"] as Int
         downloadType = params["downloadType"] as Int
         adLoadType = params["adLoadType"] as Int
         expressViewWidth = width.toFloat()
@@ -86,7 +84,7 @@ class NativeExpressAdView(
         val adSlot = AdSlot.Builder()
             .setCodeId(mCodeId)
             .setSupportDeepLink(supportDeepLink!!)
-            .setAdCount(expressNum) //请求广告数量为1到3条
+            .setAdCount(1) //请求广告数量为1到3条
 //            .setImageAcceptedSize(640, 320) //这个参数设置即可，不影响个性化模板广告的size
             .setExpressViewAcceptedSize(expressViewWidth, expressViewHeight)
 //                .setDownloadType(downloadType)

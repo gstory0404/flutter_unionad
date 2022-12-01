@@ -20,9 +20,7 @@ public class NativeAdView : NSObject,FlutterPlatformView{
     let expressViewWidth : Float?
     let expressViewHeight :Float?
     var mIsExpress :Bool? = true
-    let expressAdNum :Int64?
-    let expressTime : Int64?
-   
+
     
     init(_ frame : CGRect,binaryMessenger: FlutterBinaryMessenger , id : Int64, params :Any?) {
         self.frame = frame
@@ -33,21 +31,10 @@ public class NativeAdView : NSObject,FlutterPlatformView{
         self.supportDeepLink = dict.value(forKey: "supportDeepLink") as? Bool
         self.expressViewWidth = Float(dict.value(forKey: "expressViewWidth") as! Double)
         self.expressViewHeight = Float(dict.value(forKey: "expressViewHeight") as! Double)
-        self.expressAdNum = dict.value(forKey: "expressAdNum") as? Int64
-        self.expressTime = dict.value(forKey: "expressTime") as? Int64
         self.nativeExpressAdManager = BUNativeExpressAdManager()
         super.init()
         self.channel = FlutterMethodChannel.init(name: FlutterUnionadConfig.view.nativeAdView + "_" + String(id), binaryMessenger: binaryMessenger)
         self.loadNativeExpressAd()
-        self.channel?.setMethodCallHandler({[weak self] call, result in
-                    if call.method == "isUserInteractionEnabled" {
-                        self?.container.isUserInteractionEnabled = call.arguments as! Bool
-                        result(nil)
-                        return
-                    }
-                    result(FlutterMethodNotImplemented)
-                })
-        LogUtil.logInstance.printLog(message: id)
     }
     public func view() -> UIView {
         return self.container
