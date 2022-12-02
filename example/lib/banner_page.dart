@@ -23,6 +23,16 @@ class _BannerPageState extends State<BannerPage> {
           "banner广告",
         ),
       ),
+      drawer: Drawer(
+        child: Container(
+          color: Colors.yellow,
+          alignment: Alignment.center,
+          child: Text(
+            "Drawer测试",
+            style: TextStyle(color: Colors.black),
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         reverse: false,
@@ -54,20 +64,15 @@ class _BannerPageState extends State<BannerPage> {
               //是否启用点击
               isUserInteractionEnabled: true,
               //广告事件回调 选填
-              callBack: FlutterUnionadBannerCallBack(
-                onShow: () {
-                  print("banner广告加载完成");
-                },
-                onDislike: (message){
-                  print("banner不感兴趣 $message");
-                },
-                onFail: (error){
-                  print("banner广告加载失败 $error");
-                },
-                onClick: (){
-                  print("banner广告点击");
-                }
-              ),
+              callBack: FlutterUnionadBannerCallBack(onShow: () {
+                print("banner广告加载完成");
+              }, onDislike: (message) {
+                print("banner不感兴趣 $message");
+              }, onFail: (error) {
+                print("banner广告加载失败 $error");
+              }, onClick: () {
+                print("banner广告点击");
+              }),
             ),
             FlutterUnionad.bannerAdView(
               androidCodeId: "945481613",
@@ -88,30 +93,31 @@ class _BannerPageState extends State<BannerPage> {
               expressViewWidth: 500,
               expressViewHeight: 150,
             ),
-            FlutterUnionad.bannerAdView(
-              androidCodeId: "945410197",
-              iosCodeId: "945410197",
-              supportDeepLink: true,
-              expressAdNum: 3,
-              expressTime: 50,
-              expressViewWidth: 600,
-              expressViewHeight: 180,
-            ),
-            // MaterialButton(
-            //   color: Colors.blue,
-            //   textColor: Colors.white,
-            //   child: new Text('测试'),
-            //   onPressed: () {
-            //     Navigator.push(
-            //       context,
-            //       new MaterialPageRoute(
-            //         builder: (context) => new Center(
-            //           child: Text("123"),
-            //         ),
-            //       ),
-            //     );
-            //   },
-            // ),
+            Stack(
+              children: [
+                FlutterUnionad.bannerAdView(
+                  androidCodeId: "945410197",
+                  iosCodeId: "945410197",
+                  supportDeepLink: true,
+                  expressAdNum: 3,
+                  expressTime: 50,
+                  expressViewWidth: 600,
+                  expressViewHeight: 180,
+                ),
+                GestureDetector(
+                  child: Container(
+                    width: 300,
+                    height: 100,
+                    color: Colors.red,
+                    alignment: Alignment.center,
+                    child: Text("点击穿透测试"),
+                  ),
+                  onTap: () {
+                    print("点击穿透测试");
+                  },
+                )
+              ],
+            )
           ],
         ),
       ),
