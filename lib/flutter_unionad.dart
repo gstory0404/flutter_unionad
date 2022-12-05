@@ -130,8 +130,6 @@ class FlutterUnionad {
   ///
   /// [expressViewHeight] 期望view高度 dp 必填
   ///
-  /// [isUserInteractionEnabled] 是否启用点击 仅ios生效 默认启用
-  ///
   /// [adLoadType]用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，[FlutterUnionadLoadType]
   ///
   /// [FlutterUnionAdBannerCallBack]  banner广告回调
@@ -160,7 +158,6 @@ class FlutterUnionad {
       expressTime: expressTime ?? 30,
       downloadType:
           downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
-      isUserInteractionEnabled: isUserInteractionEnabled ?? true,
       adLoadType: adLoadType ?? FlutterUnionadLoadType.LOAD,
       callBack: callBack,
     );

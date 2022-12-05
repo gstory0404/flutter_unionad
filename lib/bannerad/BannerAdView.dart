@@ -13,7 +13,6 @@ class BannerAdView extends StatefulWidget {
   final double expressViewWidth;
   final double expressViewHeight;
   final int downloadType;
-  final bool isUserInteractionEnabled;
   final int? adLoadType;
   final FlutterUnionadBannerCallBack? callBack;
 
@@ -28,7 +27,6 @@ class BannerAdView extends StatefulWidget {
       required this.expressViewWidth,
       required this.expressViewHeight,
       required this.downloadType,
-      required this.isUserInteractionEnabled,
       required this.adLoadType,
       this.callBack})
       : super(key: key);
@@ -84,8 +82,6 @@ class _BannerAdViewState extends State<BannerAdView> {
         ),
       );
     } else if (defaultTargetPlatform == TargetPlatform.iOS) {
-      sendMsgToNative('isUserInteractionEnabled',
-          body: widget.isUserInteractionEnabled);
       return Container(
         width: _width,
         height: _height,
@@ -116,23 +112,13 @@ class _BannerAdViewState extends State<BannerAdView> {
     _channel?.setMethodCallHandler(_platformCallHandler);
   }
 
-  Future sendMsgToNative(String name, {Object? body}) async {
-    try {
-      var result = await _channel?.invokeMethod(name, body);
-      return result;
-    } on PlatformException catch (e) {
-      Future fut = Future.error(e.toString());
-      FlutterError.reportError(FlutterErrorDetails(exception: e));
-      return fut;
-    }
-  }
-
   //监听原生view传值
   Future<dynamic> _platformCallHandler(MethodCall call) async {
     switch (call.method) {
       //显示广告
       case FlutterUnionadMethod.onShow:
         Map map = call.arguments;
+        print(map);
         if (mounted) {
           setState(() {
             _isShowAd = true;

@@ -9,22 +9,40 @@ import BUAdSDK
 import Flutter
 
 public class BannerAdView : NSObject,FlutterPlatformView{
-    private var container : UIView
+    private var container : ADContainerView
     var frame: CGRect;
     private var channel : FlutterMethodChannel?
-    //广告需要的参数
-    let mCodeId :String?
-    var supportDeepLink :Bool? = true
-    let expressViewWidth : Float?
-    let expressViewHeight :Float?
-    var mIsExpress :Bool? = true
-    let expressAdNum :Int64?
-    let expressTime : Int64?
     
     init(_ frame : CGRect,binaryMessenger: FlutterBinaryMessenger , id : Int64, params :Any?) {
         self.frame = frame
-        self.container = UIView(frame: frame)
+        self.container = ADContainerView(frame: frame)
         let dict = params as! NSDictionary
+        super.init()
+        self.channel = FlutterMethodChannel.init(name: FlutterUnionadConfig.view.bannerAdView + "_" + String(id), binaryMessenger: binaryMessenger)
+        self.container = MyBannerView(frame: frame, dict: dict, methodChannel: channel!)
+    }
+    
+    public func view() -> UIView {
+        return self.container
+    }
+    
+    deinit {
+        container.removeFromSuperview()
+    }
+}
+
+class MyBannerView : ADContainerView{
+    private var channel : FlutterMethodChannel?
+    //广告需要的参数
+    var mCodeId :String?
+    var supportDeepLink :Bool? = true
+    var expressViewWidth : Float?
+    var expressViewHeight :Float?
+    var mIsExpress :Bool? = true
+    var expressAdNum :Int64?
+    var expressTime : Int64?
+    
+    init(frame: CGRect, dict:NSDictionary, methodChannel: FlutterMethodChannel) {
         self.mCodeId = dict.value(forKey: "iosCodeId") as? String
         self.mIsExpress = dict.value(forKey: "mIsExpress") as? Bool
         self.supportDeepLink = dict.value(forKey: "supportDeepLink") as? Bool
@@ -32,44 +50,32 @@ public class BannerAdView : NSObject,FlutterPlatformView{
         self.expressViewHeight = Float(dict.value(forKey: "expressViewHeight") as! Double)
         self.expressAdNum = dict.value(forKey: "expressAdNum") as? Int64
         self.expressTime = dict.value(forKey: "expressTime") as? Int64
-        super.init()
-        self.channel = FlutterMethodChannel.init(name: FlutterUnionadConfig.view.bannerAdView + "_" + String(id), binaryMessenger: binaryMessenger)
-        self.loadBannerExpressAd()
-        self.channel?.setMethodCallHandler({[weak self] call, result in
-                    if call.method == "isUserInteractionEnabled" {
-                        self?.container.isUserInteractionEnabled = call.arguments as! Bool
-                        result(nil)
-                        return
-                    }
-                    result(FlutterMethodNotImplemented)
-                })
+        self.channel = methodChannel
+        super.init(frame: frame)
+        self.loadBannerAd()
     }
-    public func view() -> UIView {
-        return self.container
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
-
-    private func loadBannerExpressAd(){
-        self.removeAllView()
+    
+    private func loadBannerAd(){
         let viewWidth:CGFloat = CGFloat(self.expressViewWidth!)
         let viewHeigh:CGFloat = CGFloat(self.expressViewHeight!)
         let size = CGSize(width: viewWidth, height: viewHeigh)
         let bannerAdView = BUNativeExpressBannerView.init(slotID: self.mCodeId!, rootViewController: MyUtils.getVC(), adSize: size, isSupportDeepLink: self.supportDeepLink!, interval: Int(self.expressTime!))
         bannerAdView.delegate = self
-        self.container = bannerAdView
+        bannerAdView.frame = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeigh)
+        bannerAdView.center = CGPoint(x: viewWidth / 2, y: viewHeigh / 2)
+        addSubview(bannerAdView)
         bannerAdView.loadAdData()
-        LogUtil.logInstance.printLog(message: "开始初始化")
     }
-    
-    private func removeAllView(){
-        self.container.removeFromSuperview()
-    }
-    
     private func disposeView() {
-        self.removeAllView()
+        removeFromSuperview()
     }
 }
 
-extension BannerAdView: BUNativeExpressBannerViewDelegate {
+extension MyBannerView: BUNativeExpressBannerViewDelegate {
     public func nativeExpressBannerAdViewDidLoad(_ bannerAdView: BUNativeExpressBannerView) {
         
     }

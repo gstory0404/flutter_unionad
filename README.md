@@ -1,7 +1,7 @@
 # 字节跳动穿山甲广告 Flutter版本
 
 <p>
-<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.3.17-success></a>
+<a href="https://pub.flutter-io.cn/packages/flutter_unionad"><img src=https://img.shields.io/badge/flutter_unionad-v1.3.18-success></a>
 </p>
 
 <img src="https://github.com/gstory0404/flutter_unionad/blob/master/image/demo.gif" width="30%">
@@ -23,21 +23,21 @@
 
 ## 本地开发环境
 ```
-[✓] Flutter (Channel stable, 3.0.4, on macOS 12.5 21G72 darwin-x64, locale zh-Hans-CN)
+[✓] Flutter (Channel stable, 3.3.6, on macOS 13.0.1 22A400 darwin-x64, locale zh-Hans-CN)
 [✓] Android toolchain - develop for Android devices (Android SDK version 33.0.0-rc1)
-[✓] Xcode - develop for iOS and macOS (Xcode 13.4.1)
+[✓] Xcode - develop for iOS and macOS (Xcode 14.1)
 [✓] Chrome - develop for the web
-[✓] Android Studio (version 2021.2)
-[✓] IntelliJ IDEA Ultimate Edition (version 2022.1.1)
-[✓] VS Code (version 1.69.2)
-[✓] Connected device (3 available)
+[✓] Android Studio (version 2021.3)
+[✓] IntelliJ IDEA Ultimate Edition (version 2022.3)
+[✓] VS Code (version 1.73.1)
+[✓] Connected device (4 available)
 [✓] HTTP Host Availability
 ```
 
 ## 集成步骤
 #### 1、pubspec.yaml
 ```Dart
-flutter_unionad: ^1.3.17
+flutter_unionad: ^1.3.18
 
 //测试版本
 flutter_unionad:

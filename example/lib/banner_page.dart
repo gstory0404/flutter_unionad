@@ -28,7 +28,7 @@ class _BannerPageState extends State<BannerPage> {
           color: Colors.yellow,
           alignment: Alignment.center,
           child: Text(
-            "Drawer测试",
+            "Drawer widget穿透测试",
             style: TextStyle(color: Colors.black),
           ),
         ),
