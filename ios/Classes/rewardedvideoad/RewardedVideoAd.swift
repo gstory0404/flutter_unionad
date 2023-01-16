@@ -49,7 +49,6 @@ public class RewardedVideoAd : NSObject{
         }
         UIApplication.shared.setStatusBarHidden(true, with: UIStatusBarAnimation.none)
         self.bURewardedVideoAd!.show(fromRootViewController: MyUtils.getVC())
-        LogUtil.logInstance.printLog(message: "激励广告加载成功")
         let map : NSDictionary = ["adType":"rewardAd",
                                   "onAdMethod":"onShow"]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
@@ -58,8 +57,16 @@ public class RewardedVideoAd : NSObject{
 
 extension RewardedVideoAd: BUNativeExpressRewardedVideoAdDelegate {
     public func nativeExpressRewardedVideoAdDidLoad(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
+        LogUtil.logInstance.printLog(message: "激励广告加载成功")
         let map : NSDictionary = ["adType":"rewardAd",
                                   "onAdMethod":"onReady"]
+        SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
+    }
+    
+    public func nativeExpressRewardedVideoAdDidDownLoadVideo(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
+        LogUtil.logInstance.printLog(message: "激励广告物料缓存成功")
+        let map : NSDictionary = ["adType":"rewardAd",
+                                  "onAdMethod":"onCache"]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
     }
     

@@ -27,13 +27,13 @@
 
 ## 本地开发环境
 ```
-[✓] Flutter (Channel stable, 3.3.6, on macOS 13.0.1 22A400 darwin-x64, locale zh-Hans-CN)
-[✓] Android toolchain - develop for Android devices (Android SDK version 33.0.0-rc1)
-[✓] Xcode - develop for iOS and macOS (Xcode 14.1)
+[✓] Flutter (Channel stable, 3.3.10, on macOS 13.1 22C65 darwin-x64, locale zh-Hans-CN)
+[✓] Android toolchain - develop for Android devices (Android SDK version 33.0.1)
+[✓] Xcode - develop for iOS and macOS (Xcode 14.2)
 [✓] Chrome - develop for the web
-[✓] Android Studio (version 2021.3)
-[✓] IntelliJ IDEA Ultimate Edition (version 2022.3)
-[✓] VS Code (version 1.73.1)
+[✓] Android Studio
+[✓] IntelliJ IDEA Ultimate Edition (version 2022.3.1)
+[✓] VS Code (version 1.74.2)
 [✓] Connected device (4 available)
 [✓] HTTP Host Availability
 ```
@@ -41,7 +41,7 @@
 ## 集成步骤
 #### 1、pubspec.yaml
 ```Dart
-flutter_unionad: ^1.3.18
+flutter_unionad: ^1.3.19
 
 //测试版本
 flutter_unionad:
@@ -54,7 +54,7 @@ flutter_unionad:
 import 'package:flutter_unionad/flutter_unionad.dart';
 ```
 #### 2、Android
-SDK([5.0.0.1](https://www.csjplatform.com/union/media/union/download/log?id=4))已配置插件中无需额外配置，只需要在android目录中AndroidManifest.xml配置
+SDK([5.1.0.2](https://www.csjplatform.com/union/media/union/download/log?id=4))已配置插件中无需额外配置，只需要在android目录中AndroidManifest.xml配置
 ```Java
 <manifest ···
     xmlns:tools="http://schemas.android.com/tools"
@@ -64,7 +64,7 @@ SDK([5.0.0.1](https://www.csjplatform.com/union/media/union/download/log?id=4))�
 ```
 
 #### 3、IOS
-SDK([5.0.0.0](https://www.csjplatform.com/union/media/union/download/log?id=16)))已配置插件中，其余根据SDK文档配置，因为使用PlatformView，在Info.plist加入
+SDK([5.1.0.2](https://www.csjplatform.com/union/media/union/download/log?id=16)))已配置插件中，其余根据SDK文档配置，因为使用PlatformView，在Info.plist加入
 ```
  <key>io.flutter.embedded_views_preview</key>
     <true/>
@@ -322,9 +322,11 @@ FlutterUnionad.loadRewardVideoAd(
         onVerify: (rewardVerify,rewardAmount,rewardName){
           print("激励广告奖励  $rewardVerify   $rewardAmount  $rewardName");
         },
-         onReady: () async{
+        onReady: () async{
           print("激励广告预加载准备就绪");
-          //显示激励广告
+        }, 
+        onCache: () async {
+          print("激励广告物料缓存成功。建议在这里进行广告展示，可保证播放流畅和展示流畅，用户体验更好。");
           await FlutterUnionad.showRewardVideoAd();
         },
         onUnReady: (){

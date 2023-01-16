@@ -88,6 +88,9 @@ class FlutterUnionadMethod {
 
   ///广告未预加载
   static const String onUnReady = "onUnReady";
+
+  ///广告物料缓存成功（激励广告生效）
+  static const String onCache = "onCache";
 }
 
 ///权限请求结果

@@ -1,3 +1,9 @@
+## 1.3.19
+* android sdk升级5.1.0.2
+* ios sdk升级5.1.0.2
+* 激励广告
+FlutterUnionadRewardAdCallBack 新增onCache（激励广告物料缓存成功。建议在这里进行广告展示，可保证播放流畅和展示流畅，用户体验更好。）
+
 ## 1.3.18
 * 修复ios banner广告点击穿透异常
 

@@ -43,6 +43,9 @@ typedef OnReady = void Function();
 ///广告预加载未完成
 typedef OnUnReady = void Function();
 
+///广告物料缓存成功
+typedef OnCache = void Function();
+
 ///广告奖励验证
 /// [isVerify] 是否成功
 /// [rewardAmount]奖励数量
@@ -61,8 +64,13 @@ typedef OnVerify = void Function(bool isVerify, int rewardAmount,
 /// [error]错误信息
 /// [propose] 建议奖励数量
 typedef OnRewardArrived = void Function(
-    bool isVerify, int rewardType, int rewardAmount,
-    String rewardName, int errorCode, String error, double propose);
+    bool isVerify,
+    int rewardType,
+    int rewardAmount,
+    String rewardName,
+    int errorCode,
+    String error,
+    double propose);
 
 ///未确定
 typedef NotDetermined = void Function();
@@ -215,6 +223,7 @@ class FlutterUnionadRewardAdCallBack {
   OnRewardArrived? onRewardArrived;
   OnReady? onReady;
   OnUnReady? onUnReady;
+  OnCache? onCache;
 
   FlutterUnionadRewardAdCallBack(
       {this.onShow,
@@ -225,7 +234,8 @@ class FlutterUnionadRewardAdCallBack {
       this.onRewardArrived,
       this.onSkip,
       this.onReady,
-      this.onUnReady});
+      this.onUnReady,
+      this.onCache});
 }
 
 ///

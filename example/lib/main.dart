@@ -130,6 +130,8 @@ class _IndexPageState extends State<IndexPage> {
         print("激励广告跳过");
       }, onReady: () async {
         print("激励广告预加载准备就绪");
+      }, onCache: () async {
+        print("激励广告物料缓存成功。建议在这里进行广告展示，可保证播放流畅和展示流畅，用户体验更好。");
         await FlutterUnionad.showRewardVideoAd();
       }, onUnReady: () {
         print("激励广告预加载未准备就绪");
