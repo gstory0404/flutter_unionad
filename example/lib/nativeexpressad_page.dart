@@ -73,29 +73,13 @@ class _NativeExpressAdPageState extends State<NativeExpressAdPage> {
               expressViewWidth: 270,
               expressViewHeight: 0,
             ), //个性化模板信息流广告
-            Stack(
-              children: [
-                FlutterUnionad.nativeAdView(
-                  androidCodeId: "945407034",
-                  iosCodeId: "945407034",
-                  supportDeepLink: true,
-                  expressViewWidth: 270,
-                  expressViewHeight: 0,
-                ),
-                GestureDetector(
-                  child: Container(
-                    color: Colors.red,
-                    width: 400,
-                    height: 300,
-                    alignment: Alignment.center,
-                    child: Text("iOS点击穿透测试"),
-                  ),
-                  onTap: () {
-                    print("iOS点击穿透测试点击");
-                  },
-                )
-              ],
-            )
+            FlutterUnionad.nativeAdView(
+              androidCodeId: "945407034",
+              iosCodeId: "945407034",
+              supportDeepLink: true,
+              expressViewWidth: 270,
+              expressViewHeight: 0,
+            ),
           ],
         ),
       ),

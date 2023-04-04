@@ -45,17 +45,16 @@ public class NativeAdView : NSObject,FlutterPlatformView{
         let viewHeigh = CGFloat(self.expressViewHeight!)
         let size = CGSize(width: viewWidth, height: viewHeigh)
         let buSlot = BUAdSlot.init()
-        buSlot.id = self.mCodeId
+        buSlot.id = self.mCodeId!
         buSlot.adType = BUAdSlotAdType.feed
         buSlot.position = BUAdSlotPosition.feed
         let bUSize = BUSize.init()
         bUSize.width = Int(viewWidth)
         bUSize.height = Int(viewHeigh)
         buSlot.imgSize = bUSize
-        buSlot.isSupportDeepLink = self.supportDeepLink!
         self.nativeExpressAdManager = BUNativeExpressAdManager.init(slot: buSlot, adSize: size)
         self.nativeExpressAdManager.delegate = self
-        self.nativeExpressAdManager.loadAd(1)
+        self.nativeExpressAdManager.loadAdData(withCount: 1)
         LogUtil.logInstance.printLog(message: "信息流开始加载")
     }
     

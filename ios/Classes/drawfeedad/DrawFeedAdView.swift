@@ -41,11 +41,9 @@ public class DrawFeedAdView : NSObject,FlutterPlatformView{
     public func loadDrawAd(){
         self.removeAllView()
         let bUadSolt = BUAdSlot.init()
-        bUadSolt.id = self.mCodeId
+        bUadSolt.id = self.mCodeId!
         bUadSolt.adType = BUAdSlotAdType.drawVideo
-        bUadSolt.isOriginAd = true
         bUadSolt.position = BUAdSlotPosition.top
-        bUadSolt.isSupportDeepLink = self.supportDeepLink!
         let size : BUSize = BUSize.init()
         if(self.expressViewWidth == 0 || self.expressViewHeight == 0){
             size.width = Int(MyUtils.getScreenSize().width)
@@ -59,7 +57,7 @@ public class DrawFeedAdView : NSObject,FlutterPlatformView{
         self.nativeExpressAdManager = BUNativeExpressAdManager.init(slot: bUadSolt, adSize: adSize)
         self.nativeExpressAdManager.adslot = bUadSolt
         self.nativeExpressAdManager.delegate = self;
-        self.nativeExpressAdManager.loadAd(1)
+        self.nativeExpressAdManager.loadAdData(withCount: 1)
     }
     
     private func removeAllView(){

@@ -23,16 +23,6 @@ class _BannerPageState extends State<BannerPage> {
           "banner广告",
         ),
       ),
-      drawer: Drawer(
-        child: Container(
-          color: Colors.yellow,
-          alignment: Alignment.center,
-          child: Text(
-            "Drawer widget穿透测试",
-            style: TextStyle(color: Colors.black),
-          ),
-        ),
-      ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         reverse: false,
@@ -93,31 +83,15 @@ class _BannerPageState extends State<BannerPage> {
               expressViewWidth: 500,
               expressViewHeight: 150,
             ),
-            Stack(
-              children: [
-                FlutterUnionad.bannerAdView(
-                  androidCodeId: "945410197",
-                  iosCodeId: "945410197",
-                  supportDeepLink: true,
-                  expressAdNum: 3,
-                  expressTime: 50,
-                  expressViewWidth: 600,
-                  expressViewHeight: 180,
-                ),
-                GestureDetector(
-                  child: Container(
-                    width: 300,
-                    height: 100,
-                    color: Colors.red,
-                    alignment: Alignment.center,
-                    child: Text("点击穿透测试"),
-                  ),
-                  onTap: () {
-                    print("点击穿透测试");
-                  },
-                )
-              ],
-            )
+            FlutterUnionad.bannerAdView(
+              androidCodeId: "945410197",
+              iosCodeId: "945410197",
+              supportDeepLink: true,
+              expressAdNum: 3,
+              expressTime: 50,
+              expressViewWidth: 600,
+              expressViewHeight: 180,
+            ),
           ],
         ),
       ),

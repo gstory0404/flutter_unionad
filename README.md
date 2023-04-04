@@ -27,13 +27,13 @@
 
 ## 本地开发环境
 ```
-[✓] Flutter (Channel stable, 3.3.10, on macOS 13.1 22C65 darwin-x64, locale zh-Hans-CN)
+[✓] Flutter (Channel stable, 3.7.7, on macOS 13.2.1 22D68 darwin-x64, locale zh-Hans-CN)
 [✓] Android toolchain - develop for Android devices (Android SDK version 33.0.1)
-[✓] Xcode - develop for iOS and macOS (Xcode 14.2)
+[✓] Xcode - develop for iOS and macOS (Xcode 14.3)
 [✓] Chrome - develop for the web
-[✓] Android Studio
-[✓] IntelliJ IDEA Ultimate Edition (version 2022.3.1)
-[✓] VS Code (version 1.74.2)
+[✓] Android Studio (version 2022.1)
+[✓] IntelliJ IDEA Ultimate Edition (version 2023.1)
+[✓] VS Code (version 1.76.2)
 [✓] Connected device (4 available)
 [✓] HTTP Host Availability
 ```
@@ -41,7 +41,7 @@
 ## 集成步骤
 #### 1、pubspec.yaml
 ```Dart
-flutter_unionad: ^1.3.19
+flutter_unionad: ^latest
 
 //测试版本
 flutter_unionad:
@@ -54,7 +54,7 @@ flutter_unionad:
 import 'package:flutter_unionad/flutter_unionad.dart';
 ```
 #### 2、Android
-SDK([5.1.0.2](https://www.csjplatform.com/union/media/union/download/log?id=4))已配置插件中无需额外配置，只需要在android目录中AndroidManifest.xml配置
+SDK([5.2.0.5](https://www.csjplatform.com/union/media/union/download/log?id=4))已配置插件中无需额外配置，只需要在android目录中AndroidManifest.xml配置
 ```Java
 <manifest ···
     xmlns:tools="http://schemas.android.com/tools"
@@ -64,7 +64,7 @@ SDK([5.1.0.2](https://www.csjplatform.com/union/media/union/download/log?id=4))�
 ```
 
 #### 3、IOS
-SDK([5.1.0.2](https://www.csjplatform.com/union/media/union/download/log?id=16)))已配置插件中，其余根据SDK文档配置，因为使用PlatformView，在Info.plist加入
+SDK([5.2.0.1](https://www.csjplatform.com/union/media/union/download/log?id=16)))已配置插件中，其余根据SDK文档配置，因为使用PlatformView，在Info.plist加入
 ```
  <key>io.flutter.embedded_views_preview</key>
     <true/>

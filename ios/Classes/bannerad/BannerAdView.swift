@@ -63,7 +63,7 @@ class MyBannerView : ADContainerView{
         let viewWidth:CGFloat = CGFloat(self.expressViewWidth!)
         let viewHeigh:CGFloat = CGFloat(self.expressViewHeight!)
         let size = CGSize(width: viewWidth, height: viewHeigh)
-        let bannerAdView = BUNativeExpressBannerView.init(slotID: self.mCodeId!, rootViewController: MyUtils.getVC(), adSize: size, isSupportDeepLink: self.supportDeepLink!, interval: Int(self.expressTime!))
+        let bannerAdView = BUNativeExpressBannerView.init(slotID: self.mCodeId!, rootViewController: MyUtils.getVC(), adSize: size, interval: Int(self.expressTime!))
         bannerAdView.delegate = self
         bannerAdView.frame = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeigh)
         bannerAdView.center = CGPoint(x: viewWidth / 2, y: viewHeigh / 2)
