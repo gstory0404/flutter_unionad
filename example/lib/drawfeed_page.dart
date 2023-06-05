@@ -18,7 +18,6 @@ class _DrawFeedPageState extends State<DrawFeedPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        brightness: Brightness.dark,
         centerTitle: true,
         title: Text(
           "draw视频广告",

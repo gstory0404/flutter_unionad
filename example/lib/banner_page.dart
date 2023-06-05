@@ -17,7 +17,6 @@ class _BannerPageState extends State<BannerPage> {
     print("banner广告");
     return Scaffold(
       appBar: AppBar(
-        brightness: Brightness.dark,
         centerTitle: true,
         title: Text(
           "banner广告",

@@ -15,7 +15,6 @@ class _NativeExpressAdPageState extends State<NativeExpressAdPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        brightness: Brightness.dark,
         centerTitle: true,
         title: Text(
           "个性化模板信息流广告",
