@@ -1,3 +1,8 @@
+## 1.3.22
+* android sdk升级5.4.0.3
+* ios sdk升级5.4.0.2
+* andorid kt版本升级1.6.10，gradle插件7.1.2
+
 ## 1.3.21
 * android sdk升级5.3.0.5
 * ios sdk升级5.4.0.0

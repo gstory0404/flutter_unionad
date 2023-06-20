@@ -2,14 +2,14 @@ group 'com.gstory.flutter_unionad'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.5.20'
+    ext.kotlin_version = '1.6.10'
     repositories {
         google()
         jcenter()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath 'com.android.tools.build:gradle:7.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -58,7 +58,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.appcompat:appcompat:1.3.1"
 //    implementation 'com.pangle.cn:ads-sdk:+'
-    implementation 'com.pangle.cn:ads-sdk-pro:5.3.0.5'
+    implementation 'com.pangle.cn:ads-sdk-pro:5.4.0.3'
 //    implementation(name: 'open_ad_sdk_5.2.0.5', ext: 'aar')
 //    implementation(name: 'tools_release', ext: 'aar')
 }

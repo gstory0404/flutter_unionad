@@ -54,7 +54,7 @@ flutter_unionad:
 import 'package:flutter_unionad/flutter_unionad.dart';
 ```
 #### 2、Android
-SDK([5.2.0.5](https://www.csjplatform.com/union/media/union/download/log?id=4))已配置插件中无需额外配置，只需要在android目录中AndroidManifest.xml配置
+[SDK](https://www.csjplatform.com/union/media/union/download/log?id=4)已配置插件中无需额外配置，只需要在android目录中AndroidManifest.xml配置
 ```Java
 <manifest ···
     xmlns:tools="http://schemas.android.com/tools"
@@ -64,7 +64,7 @@ SDK([5.2.0.5](https://www.csjplatform.com/union/media/union/download/log?id=4))�
 ```
 
 #### 3、IOS
-SDK([5.2.0.1](https://www.csjplatform.com/union/media/union/download/log?id=16)))已配置插件中，其余根据SDK文档配置，因为使用PlatformView，在Info.plist加入
+[SDK](https://www.csjplatform.com/union/media/union/download/log?id=16)已配置插件中，其余根据SDK文档配置，因为使用PlatformView，在Info.plist加入
 ```
  <key>io.flutter.embedded_views_preview</key>
     <true/>
