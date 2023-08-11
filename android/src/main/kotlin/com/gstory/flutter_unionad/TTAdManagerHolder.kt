@@ -109,7 +109,9 @@ object TTAdManagerHolder {
         isCanUseWifiState: Boolean,
         isCanUseWriteExternal: Boolean,
         oaid: String,
-        alist: Boolean
+        alist: Boolean,
+        isCanUseAndroidId:Boolean,
+        isCanUsePermissionRecordAudio:Boolean
     ) {
         Log.e("===>", "${TTAdConstant.IS_P}")
         controller = object : TTCustomController() {
@@ -143,6 +145,14 @@ object TTAdManagerHolder {
 
             override fun alist(): Boolean {
                 return alist
+            }
+
+            override fun isCanUseAndroidId(): Boolean {
+                return isCanUseAndroidId
+            }
+
+            override fun isCanUsePermissionRecordAudio(): Boolean {
+                return isCanUsePermissionRecordAudio
             }
         }
     }

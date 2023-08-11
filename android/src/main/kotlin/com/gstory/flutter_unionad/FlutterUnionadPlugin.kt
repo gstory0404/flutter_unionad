@@ -132,6 +132,9 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
             val isCanUseWriteExternal = call.argument<Boolean>("isCanUseWriteExternal")
             val oaid = call.argument<String>("oaid")
             val alist = call.argument<Boolean>("alist")
+            val isCanUseAndroidId = call.argument<Boolean>("isCanUseAndroidId")
+            val isCanUsePermissionRecordAudio =
+                call.argument<Boolean>("isCanUsePermissionRecordAudio")
             TTAdManagerHolder.privacyConfig(
                 isCanUseLocation!!,
                 lat!!,
@@ -141,7 +144,9 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
                 isCanUseWifiState!!,
                 isCanUseWriteExternal!!,
                 oaid!!,
-                alist!!
+                alist!!,
+                isCanUseAndroidId!!,
+                isCanUsePermissionRecordAudio!!
             )
             result.success(true)
             //请求权限
