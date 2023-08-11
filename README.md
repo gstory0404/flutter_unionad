@@ -471,6 +471,8 @@ if (Platform.isAndroid) {
         isCanUseWriteExternal: false,//是否允许SDK主动使用WRITE_EXTERNAL_STORAGE权限
         oaid: "111",//开发者可以传入oaid
         alist: false,//是否允许SDK主动获取设备上应用安装列表的采集权限
+        isCanUseAndroidId: false, //是否允许SDK主动获取ANDROID_ID
+        isCanUsePermissionRecordAudio: false,//是否允许SDK在申明和授权了的情况下使用录音权限
       );
     }
 ```

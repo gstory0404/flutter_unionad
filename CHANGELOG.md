@@ -1,3 +1,8 @@
+## 1.3.24
+FlutterUnionad.andridPrivacy隐私权限设置新增： 
+- isCanUseAndroidId 是否允许SDK主动获取ANDROID_ID
+- isCanUsePermissionRecordAudio 是否允许SDK在申明和授权了的情况下使用录音权限
+
 ## 1.3.23
 * android sdk升级5.4.1.6
 * ios sdk升级5.5.0.3

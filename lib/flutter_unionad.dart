@@ -416,7 +416,9 @@ class FlutterUnionad {
       bool? isCanUseWifiState,
       bool? isCanUseWriteExternal,
       String? oaid,
-      bool? alist}) async {
+      bool? alist,
+      bool? isCanUseAndroidId,
+      bool? isCanUsePermissionRecordAudio}) async {
     return await _channel.invokeMethod("andridPrivacy", {
       "isCanUseLocation": isCanUseLocation ?? true,
       "lat": lat ?? 0.0,
@@ -427,6 +429,8 @@ class FlutterUnionad {
       "isCanUseWriteExternal": isCanUseWriteExternal ?? true,
       "oaid": oaid ?? "",
       "alist": alist ?? true,
+      "isCanUseAndroidId": isCanUseAndroidId ?? true,
+      "isCanUsePermissionRecordAudio": isCanUsePermissionRecordAudio ?? true,
     });
   }
 

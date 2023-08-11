@@ -205,6 +205,10 @@ class _IndexPageState extends State<IndexPage> {
         //开发者可以传入oaid
         //是否允许SDK主动获取设备上应用安装列表的采集权限
         alist: false,
+        //是否允许SDK主动获取ANDROID_ID
+        isCanUseAndroidId: false,
+        //是否允许SDK在申明和授权了的情况下使用录音权限
+        isCanUsePermissionRecordAudio: false,
       );
     }
     _initRegister();
