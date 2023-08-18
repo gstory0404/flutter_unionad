@@ -1,3 +1,8 @@
+## 1.3.25
+* fix bug
+* android sdk升级5.5.1.2
+* ios sdk升级5.6.0.0
+
 ## 1.3.24
 FlutterUnionad.andridPrivacy隐私权限设置新增： 
 - isCanUseAndroidId 是否允许SDK主动获取ANDROID_ID

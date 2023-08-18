@@ -92,7 +92,6 @@ object TTAdManagerHolder {
             .debug(debug) //测试阶段打开，可以通过日志排查问题，上线时去除该调用
             .directDownloadNetworkType(*d) //允许直接下载的网络状态集合
             .supportMultiProcess(supportMultiProcess) //是否支持多进程
-            .needClearTaskReset() //.httpStack(new MyOkStack3())//自定义网络库，demo中给出了okhttp3版本的样例，其余请自行开发或者咨询工作人员。
             .customController(controller)
             .data("[{\"name\":\"personal_ads_type\" ,\"value\":\"$personalise\"}]")
             .themeStatus(themeStatus)
@@ -113,7 +112,6 @@ object TTAdManagerHolder {
         isCanUseAndroidId:Boolean,
         isCanUsePermissionRecordAudio:Boolean
     ) {
-        Log.e("===>", "${TTAdConstant.IS_P}")
         controller = object : TTCustomController() {
             override fun isCanUseLocation(): Boolean {
                 return isCanUseLocation
