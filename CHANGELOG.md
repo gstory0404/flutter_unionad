@@ -1,3 +1,7 @@
+## 1.3.26
+* android sdk升级5.6.0.7
+* ios sdk升级5.7.0.1
+
 ## 1.3.25
 * fix bug
 * android sdk升级5.5.1.2

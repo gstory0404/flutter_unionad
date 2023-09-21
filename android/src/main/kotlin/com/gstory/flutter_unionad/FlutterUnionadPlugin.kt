@@ -77,7 +77,6 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
             val useTextureView = call.argument<Boolean>("useTextureView")
             val appName = call.argument<String>("appName")
             var allowShowNotify = call.argument<Boolean>("allowShowNotify")
-            var allowShowPageWhenScreenLock = call.argument<Boolean>("allowShowPageWhenScreenLock")
             var debug = call.argument<Boolean>("debug")
             var supportMultiProcess = call.argument<Boolean>("supportMultiProcess")
             val directDownloadNetworkType = call.argument<List<Int>>("directDownloadNetworkType")!!
@@ -96,7 +95,6 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
                         useTextureView!!,
                         appName,
                         allowShowNotify!!,
-                        allowShowPageWhenScreenLock!!,
                         debug!!,
                         supportMultiProcess!!,
                         directDownloadNetworkType,

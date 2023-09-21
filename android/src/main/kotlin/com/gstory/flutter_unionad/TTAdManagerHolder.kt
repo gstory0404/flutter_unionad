@@ -27,7 +27,6 @@ object TTAdManagerHolder {
         useTextureView: Boolean,
         appName: String,
         allowShowNotify: Boolean,
-        allowShowPageWhenScreenLock: Boolean,
         debug: Boolean,
         supportMultiProcess: Boolean,
         directDownloadNetworkType: List<Int>,
@@ -35,35 +34,31 @@ object TTAdManagerHolder {
         themeStatus: Int,
         callback: TTAdSdk.InitCallback
     ) {
-        TTAdSdk.init(
-            context,
+        TTAdSdk.init(context,
             buildConfig(
                 context,
                 appId,
                 useTextureView,
                 appName,
                 allowShowNotify,
-                allowShowPageWhenScreenLock,
                 debug,
                 supportMultiProcess,
                 directDownloadNetworkType,
                 personalise,
                 themeStatus
-            ),
-            object : TTAdSdk.InitCallback {
-                override fun success() {
-                    sInit = true
-                    callback.success()
-                }
-
-                override fun fail(p0: Int, p1: String?) {
-                    sInit = false
-                    callback.fail(p0, p1)
-                }
-
+            ))
+        TTAdSdk.start(object : TTAdSdk.Callback{
+            override fun success() {
+                sInit = true
+                callback.success()
             }
 
-        )
+            override fun fail(p0: Int, p1: String?) {
+                sInit = false
+                callback.fail(p0, p1)
+            }
+
+        })
     }
 
     private fun buildConfig(
@@ -72,7 +67,6 @@ object TTAdManagerHolder {
         useTextureView: Boolean,
         appName: String,
         allowShowNotify: Boolean,
-        allowShowPageWhenScreenLock: Boolean,
         debug: Boolean,
         supportMultiProcess: Boolean,
         directDownloadNetworkType: List<Int>,

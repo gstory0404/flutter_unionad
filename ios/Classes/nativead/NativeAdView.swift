@@ -124,7 +124,7 @@ extension NativeAdView : BUNativeExpressAdViewDelegate{
         self.channel?.invokeMethod("onFail", arguments: error?.localizedDescription)
     }
     
-    public func nativeExpressAdViewPlayerDidPlayFinish(_ nativeExpressAdView: BUNativeExpressAdView, error: Error) {
+    public func nativeExpressAdViewPlayerDidPlayFinish(_ nativeExpressAdView: BUNativeExpressAdView, error: Error?) {
         LogUtil.logInstance.printLog(message: "nativeExpressAdViewPlayerDidPlayFinish")
     }
     

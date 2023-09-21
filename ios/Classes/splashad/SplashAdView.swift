@@ -156,7 +156,7 @@ extension SplashAdView : BUSplashAdDelegate{
     }
     
     //视频广告播放完毕回调
-    public func splashVideoAdDidPlayFinish(_ splashAd: BUSplashAd, didFailWithError error: Error) {
+    public func splashVideoAdDidPlayFinish(_ splashAd: BUSplashAd, didFailWithError error: Error?) {
        
     }
     
