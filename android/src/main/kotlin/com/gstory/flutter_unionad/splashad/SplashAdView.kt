@@ -93,7 +93,8 @@ internal class SplashAdView(var context: Context, var messenger: BinaryMessenger
             .build()
         //step4:请求广告，调用开屏广告异步请求接口，对请求回调的广告作渲染处理
         mTTAdNative.loadSplashAd(adSlot,object : TTAdNative.CSJSplashAdListener{
-            override fun onSplashLoadSuccess() {
+
+            override fun onSplashLoadSuccess(p0: CSJSplashAd?) {
                 Log.e(TAG, "开屏广告加载成功")
             }
 
