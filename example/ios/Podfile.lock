@@ -1,10 +1,10 @@
 PODS:
-  - Ads-CN-Beta (5.8.0.7):
-    - Ads-CN-Beta/BUAdSDK (= 5.8.0.7)
-  - Ads-CN-Beta/BUAdSDK (5.8.0.7)
+  - Ads-CN-Beta (5.9.0.4):
+    - Ads-CN-Beta/BUAdSDK (= 5.9.0.4)
+  - Ads-CN-Beta/BUAdSDK (5.9.0.4)
   - Flutter (1.0.0)
   - flutter_unionad (0.0.1):
-    - Ads-CN-Beta (= 5.8.0.7)
+    - Ads-CN-Beta (= 5.9.0.4)
     - Flutter
 
 DEPENDENCIES:
@@ -22,10 +22,10 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_unionad/ios"
 
 SPEC CHECKSUMS:
-  Ads-CN-Beta: 10f45519e756d384f213484a0ddb28dc03ad5016
-  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  flutter_unionad: 431a65308b154a93486f58e9b9b6bc308cc79ccc
+  Ads-CN-Beta: 3bf0a7dfecc004410462219e4257443cbdad3c15
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  flutter_unionad: 4e63e6c5ceb2e4f0c024fd7d39e698295972439c
 
-PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3
+PODFILE CHECKSUM: 4e8f8b2be68aeea4c0d5beb6ff1e79fface1d048
 
 COCOAPODS: 1.11.3

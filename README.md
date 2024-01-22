@@ -31,17 +31,17 @@
 
 ## 本地开发环境
 ```
-[✓] Flutter (Channel stable, 3.10.6, on macOS 13.5.2 22G91 darwin-x64, locale
-    zh-Hans-CN)
+[✓] Flutter (Channel stable, 3.16.6, on macOS 14.2.1 23C71 darwin-x64, locale zh-Hans-CN)
 [✓] Android toolchain - develop for Android devices (Android SDK version 33.0.1)
-[✓] Xcode - develop for iOS and macOS (Xcode 15.0)
+[✓] Xcode - develop for iOS and macOS (Xcode 15.2)
 [✓] Chrome - develop for the web
 [✓] Android Studio (version 2022.1)
-[✓] Android Studio (version 2022.3)
-[✓] IntelliJ IDEA Ultimate Edition (version 2023.2.2)
-[✓] VS Code (version 1.82.2)
+[✓] Android Studio (version 2023.1)
+[✓] IntelliJ IDEA Ultimate Edition (version 2023.3.2)
+[✓] VS Code (version 1.85.2)
 [✓] Connected device (4 available)
 [✓] Network resources
+
 ```
 
 ## 集成步骤

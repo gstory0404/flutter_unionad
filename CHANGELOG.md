@@ -1,3 +1,7 @@
+## 1.3.28
+* android sdk升级5.9.0.6
+* ios sdk升级5.9.0.4
+
 ## 1.3.27
 * android sdk升级5.8.0.8
 * ios sdk升级5.8.0.7
