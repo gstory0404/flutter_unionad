@@ -14,20 +14,26 @@ public class TTAdManagerHolder : NSObject{
     public func initTTSDK(params : NSDictionary,handelr:@escaping BUCompletionHandler){
         let appId = params.value(forKey: "iosAppId") as? String
         let debug = params.value(forKey: "debug") as? Bool ?? false
-        let personalise = params.value(forKey: "personalise") as? String
+        let useMediation = params.value(forKey: "useMediation") as? Bool ?? false
         let themeStatus = params.value(forKey: "themeStatus") as! NSNumber
-        let userExtData = "[{\"name\":\"personal_ads_type\" ,\"value\":\"%@\"}]"
+        //ios合规设置
+        let iosPrivacy = params.value(forKey: "iosPrivacy") as! NSDictionary
+        let limitPersonalAds = iosPrivacy.value(forKey: "limitPersonalAds") as! NSNumber
+        let limitProgrammaticAds = iosPrivacy.value(forKey: "limitProgrammaticAds") as! NSNumber
+        let forbiddenCAID = iosPrivacy.value(forKey: "forbiddenCAID") as! NSNumber
         if(appId != nil){
             let config = BUAdSDKConfiguration.init();
             config.appID = appId ?? "";
+            config.useMediation = useMediation; //是否使用聚合
             if(debug){
                 config.debugLog = 1;
             }else{
                 config.debugLog = 0;
             }
-//            config.privacyProvider = BUDPrivacyProvider.init();
-            config.userExtData = NSString(format: userExtData as NSString, personalise!) as String;
-            config.themeStatus = themeStatus;
+            config.mediation.limitPersonalAds = limitPersonalAds; //限制个性化广告（聚合维度功能）
+            config.mediation.limitProgrammaticAds = limitProgrammaticAds; // 不限制程序化广告（聚合维度功能）
+            config.mediation.forbiddenCAID = forbiddenCAID; //不禁止CAID（聚合维度功能）
+            config.themeStatus = themeStatus; //主题
             BUAdSDKManager.start(asyncCompletionHandler: handelr)
         }
     }

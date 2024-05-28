@@ -3,35 +3,47 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_unionad/flutter_unionad.dart';
 
-class NativeAdView extends StatefulWidget {
-  final bool mIsExpress;
-  final String androidCodeId;
-  final String iosCodeId;
-  final bool supportDeepLink;
-  final double expressViewWidth;
-  final double expressViewHeight;
-  final int downloadType;
-  final int? adLoadType;
-  final FlutterUnionadNativeCallBack? callBack;
+class FlutterUnionadNativeAdView extends StatefulWidget {
+  String androidCodeId;
+  String iosCodeId;
+  bool? supportDeepLink;
+  double width;
+  double height;
+  FlutterUnionadNativeCallBack? callBack;
 
-  const NativeAdView(
+  /// # 信息流广告
+  ///
+  /// [androidCodeId] android 信息流广告id 必填
+  ///
+  /// [iosCodeId] ios 信息流广告id 必填
+  ///
+  /// [supportDeepLink] 是否支持 DeepLink 选填
+  ///
+  /// [width] 期望view 宽度 dp 必填
+  ///
+  /// [height] 期望view高度 dp 必填
+  ///
+  ///
+  /// [FlutterUnionAdNativeCallBack] 信息流广告回调
+  ///
+  FlutterUnionadNativeAdView(
       {Key? key,
-      required this.mIsExpress,
       required this.androidCodeId,
       required this.iosCodeId,
       required this.supportDeepLink,
-      required this.expressViewWidth,
-      required this.expressViewHeight,
-      required this.downloadType,
-      required this.adLoadType,
+      required this.width,
+      required this.height,
       this.callBack})
       : super(key: key);
 
   @override
-  _NativeAdViewState createState() => _NativeAdViewState();
+  _NativeAdViewState createState() {
+    supportDeepLink = supportDeepLink ?? true;
+    return _NativeAdViewState();
+  }
 }
 
-class _NativeAdViewState extends State<NativeAdView> {
+class _NativeAdViewState extends State<FlutterUnionadNativeAdView> {
   String _viewType = "com.gstory.flutter_unionad/NativeAdView";
 
   MethodChannel? _channel;
@@ -47,8 +59,8 @@ class _NativeAdViewState extends State<NativeAdView> {
   void initState() {
     super.initState();
     _isShowAd = true;
-    _width = widget.expressViewWidth;
-    _height = widget.expressViewHeight;
+    _width = widget.width;
+    _height = widget.height;
   }
 
   @override
@@ -63,13 +75,10 @@ class _NativeAdViewState extends State<NativeAdView> {
         child: AndroidView(
           viewType: _viewType,
           creationParams: {
-            "mIsExpress": widget.mIsExpress,
             "androidCodeId": widget.androidCodeId,
             "supportDeepLink": widget.supportDeepLink,
-            "expressViewWidth": widget.expressViewWidth,
-            "expressViewHeight": widget.expressViewHeight,
-            "downloadType": widget.downloadType,
-            "adLoadType": widget.adLoadType,
+            "width": widget.width,
+            "height": widget.height,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),
@@ -82,12 +91,10 @@ class _NativeAdViewState extends State<NativeAdView> {
         child: UiKitView(
           viewType: _viewType,
           creationParams: {
-            "mIsExpress": widget.mIsExpress,
             "iosCodeId": widget.iosCodeId,
             "supportDeepLink": widget.supportDeepLink,
-            "expressViewWidth": widget.expressViewWidth,
-            "expressViewHeight": widget.expressViewHeight,
-            "downloadType": widget.downloadType,
+            "width": widget.width,
+            "height": widget.height,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),

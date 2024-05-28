@@ -18,8 +18,8 @@
   flutter_unioad是一款集成了穿山甲Android和iOSSDK的Flutter插件,方便直接调用穿山甲SDK方法开发，已支持null safety,[体验demo](https://www.pgyer.com/j7YB)，可通过[GTAds](https://github.com/gstory0404/GTAds)实现多个广告平台接入、统一管理。
   
 ## 官方文档
-* [Android](https://partner.oceanengine.com/union/media/union/download/detail?id=4&osType=android)
-* [IOS](https://partner.oceanengine.com/union/media/union/download/detail?id=16&osType=ios)
+* [Android](https://www.csjplatform.com/union/media/union/download/detail?id=147&osType=android&locale=zh-CN&backPath=/union/media/union/download/pangle)
+* [IOS](https://www.csjplatform.com/union/media/union/download/detail?id=148&osType=ios&locale=zh-CN&backPath=/union/media/union/download/pangle)
 
 ## 版本更新
 
@@ -29,19 +29,19 @@
 ⚠️ 版本更新必看，不然可能广告加载可能会出现异常
 [插件更新调整](https://github.com/gstory0404/flutter_unionad/blob/master/notice.md)
 
+⚠️ 由于融合SDK与旧版部分api不兼容，[2.0.0](https://github.com/gstory0404/flutter_unionad/blob/master/notice.md)改动较大,更新后注意查看文档说明
+
 ## 本地开发环境
 ```
-[✓] Flutter (Channel stable, 3.16.6, on macOS 14.2.1 23C71 darwin-x64, locale zh-Hans-CN)
+[✓] Flutter (Channel stable, 3.22.1, on macOS 14.5 23F79 darwin-x64, locale zh-Hans-CN)
 [✓] Android toolchain - develop for Android devices (Android SDK version 33.0.1)
 [✓] Xcode - develop for iOS and macOS (Xcode 15.2)
 [✓] Chrome - develop for the web
 [✓] Android Studio (version 2022.1)
-[✓] Android Studio (version 2023.1)
-[✓] IntelliJ IDEA Ultimate Edition (version 2023.3.2)
-[✓] VS Code (version 1.85.2)
-[✓] Connected device (4 available)
+[✓] IntelliJ IDEA Ultimate Edition (version 2024.1.2)
+[✓] VS Code (version 1.89.1)
+[✓] Connected device (3 available)
 [✓] Network resources
-
 ```
 
 ## 集成步骤
@@ -78,34 +78,77 @@ import 'package:flutter_unionad/flutter_unionad.dart';
 ⚠️如果要修改个性化，重新调用初始化方法
 ```Dart
 await FlutterUnionad.register(
-        //穿山甲广告 Android appid 必填
-        androidAppId: "5098580",
-        //穿山甲广告 ios appid 必填
-        iosAppId: "5098580",
-        //使用TextureView控件播放视频,默认为SurfaceView,当有SurfaceView冲突的场景，可以使用TextureView 选填
-        useTextureView: true,
-        //appname 必填
-        appName: "unionad_test",
-        //是否允许sdk展示通知栏提示 选填
-        allowShowNotify: true,
-        //是否在锁屏场景支持展示广告落地页 选填
-        allowShowPageWhenScreenLock: true,
-        //是否显示debug日志
-        debug: true,
-        //是否支持多进程，true支持 选填
-        supportMultiProcess: true,
-        //是否开启个性化推荐 选填 默认开启
-        personalise: FlutterUnionadPersonalise.close,
-        //主题模式 默认FlutterUnionAdTheme.DAY,修改后需重新调用初始化
-        themeStatus: FlutterUnionAdTheme.DAY,
-        //允许直接下载的网络状态集合 选填
-        directDownloadNetworkType: [
-        FlutterUnionadNetCode.NETWORK_STATE_2G,
-        FlutterUnionadNetCode.NETWORK_STATE_3G,
-        FlutterUnionadNetCode.NETWORK_STATE_4G,
-        FlutterUnionadNetCode.NETWORK_STATE_WIFI
-        ]
+    //穿山甲广告 Android appid 必填
+    androidAppId: "5098580",
+    //穿山甲广告 ios appid 必填
+    iosAppId: "5098580",
+    //appname 必填
+    appName: "unionad_test",
+    //使用聚合功能一定要打开此开关，否则不会请求聚合广告，默认这个值为false
+    useMediation: true,
+    //是否为计费用户 选填
+    paid: false,
+    //用户画像的关键词列表 选填
+    keywords: "",
+    //使用TextureView控件播放视频,默认为SurfaceView,当有SurfaceView冲突的场景，可以使用TextureView 选填
+    useTextureView: true,
+    //是否允许sdk展示通知栏提示 选填
+    allowShowNotify: true,
+    //是否显示debug日志
+    debug: true,
+    //是否支持多进程 选填
+    supportMultiProcess: false,
+    //主题模式 默认FlutterUnionAdTheme.DAY,修改后需重新调用初始化
+    themeStatus: _themeStatus,
+    //允许直接下载的网络状态集合 选填
+    directDownloadNetworkType: [
+    FlutterUnionadNetCode.NETWORK_STATE_2G,
+    FlutterUnionadNetCode.NETWORK_STATE_3G,
+    FlutterUnionadNetCode.NETWORK_STATE_4G,
+    FlutterUnionadNetCode.NETWORK_STATE_WIFI
+    ],
+    androidPrivacy: AndroidPrivacy(
+        //是否允许SDK主动使用地理位置信息 true可以获取，false禁止获取。默认为true
+        isCanUseLocation: false,
+        //当isCanUseLocation=false时，可传入地理位置信息，穿山甲sdk使用您传入的地理位置信息lat
+        lat: 0.0,
+        //当isCanUseLocation=false时，可传入地理位置信息，穿山甲sdk使用您传入的地理位置信息lon
+        lon: 0.0,
+        // 是否允许SDK主动使用手机硬件参数，如：imei
+        isCanUsePhoneState: false,
+        //当isCanUsePhoneState=false时，可传入imei信息，穿山甲sdk使用您传入的imei信息
+        imei: "",
+        // 是否允许SDK主动使用ACCESS_WIFI_STATE权限
+        isCanUseWifiState: false,
+        // 当isCanUseWifiState=false时，可传入Mac地址信息
+        macAddress: "",
+        // 是否允许SDK主动使用WRITE_EXTERNAL_STORAGE权限
+        isCanUseWriteExternal: false,
+        // 开发者可以传入oaid
+        oaid: "b69cd3cf68900323",
+        // 是否允许SDK主动获取设备上应用安装列表的采集权限
+        alist: false,
+        // 是否能获取android ID
+        isCanUseAndroidId: false,
+        // 开发者可以传入android ID
+        androidId: "",
+        // 是否允许SDK在申明和授权了的情况下使用录音权限
+        isCanUsePermissionRecordAudio: false,
+        // 是否限制个性化推荐接口
+        isLimitPersonalAds: false,
+        // 是否启用程序化广告推荐 true启用 false不启用
+        isProgrammaticRecommend: false,
+    ),
+    iosPrivacy: IOSPrivacy(
+        //允许个性化广告
+        limitPersonalAds: false,
+        //允许程序化广告
+        limitProgrammaticAds: false,
+        //允许CAID
+        forbiddenCAID: false,
+    )
 );
+
 ```
 #### 2、获取SDK版本
 ```Dart
@@ -140,114 +183,86 @@ IOS 版本14及以上获取ATT权限，根据返回结果具体操作业务逻�
 
 #### 4、开屏广告
 ```Dart
-FlutterUnionad.splashAdView(
-          //是否使用个性化模版  设定widget宽高
-          mIsExpress: true,
-          //android 开屏广告广告id 必填
-          androidCodeId: "887367774",
-          //ios 开屏广告广告id 必填
-          iosCodeId: "887367774",
-          //是否支持 DeepLink 选填
-          supportDeepLink: true,
-          // 期望view 宽度 dp 选填 mIsExpress=true必填
-          expressViewWidth: 750,
-          //期望view高度 dp 选填 mIsExpress=true必填
-          expressViewHeight: 800,
-          //控制下载APP前是否弹出二次确认弹窗
-          downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
-          //用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，
-          adLoadType: FlutterUnionadLoadType.LOAD,
-          //是否影藏跳过按钮(当影藏的时候显示自定义跳过按钮) 默认显示
-          hideSkip: false,
-          callBack: FlutterUnionadSplashCallBack(
-            onShow: () {
-              print("开屏广告显示");
-            },
-            onClick: () {
-              print("开屏广告点击");
-              Navigator.pop(context);
-            },
-            onFail: (error) {
-              print("开屏广告失败 $error");
-            },
-            onFinish: () {
-              print("开屏广告倒计时结束");
-              Navigator.pop(context);
-            },
-            onSkip: () {
-              print("开屏广告跳过");
-              Navigator.pop(context);
-            },
-            onTimeOut: () {
-              print("开屏广告超时");
-            },
-          ),
-        ),
+FlutterUnionadSplashAdView(
+    //android 开屏广告广告id 必填 889033013 102729400
+    androidCodeId: "102729400",
+    //ios 开屏广告广告id 必填
+    iosCodeId: "102729400",
+    //是否支持 DeepLink 选填
+    supportDeepLink: true,
+    // 期望view 宽度 dp 选填
+    width: MediaQuery.of(context).size.width,
+    //期望view高度 dp 选填
+    height: MediaQuery.of(context).size.height - 100,
+    //是否影藏跳过按钮(当影藏的时候显示自定义跳过按钮) 默认显示
+    hideSkip: false,
+    //超时时间
+    timeout: 3000,
+    callBack: FlutterUnionadSplashCallBack(
+        onShow: () {
+            print("开屏广告显示");
+            setState(() => _offstage = false);
+        },
+        onClick: () {
+            print("开屏广告点击");
+        },
+        onFail: (error) {
+            print("开屏广告失败 $error");
+            Navigator.pop(context);
+        },
+        onFinish: () {
+            print("开屏广告倒计时结束");
+            Navigator.pop(context);
+        },
+        onSkip: () {
+            print("开屏广告跳过");
+            Navigator.pop(context);
+        },
+        onTimeOut: () {
+            print("开屏广告超时");
+        },
+    ),
+),
 ```
 #### 5、banner广告
 ```Dart
-FlutterUnionad.bannerAdView(
-              //andrrid banner广告id 必填
-              androidCodeId: "945410197",
-              //ios banner广告id 必填
-              iosCodeId: "945410197",
-              //是否使用个性化模版
-              mIsExpress: true,
-              //是否支持 DeepLink 选填
-              supportDeepLink: true,
-              //一次请求广告数量 大于1小于3 必填
-              expressAdNum: 3,
-              //轮播间隔事件 30-120秒  选填
-              expressTime: 30,
-              // 期望view 宽度 dp 必填
-              expressViewWidth: 600.5,
-              //期望view高度 dp 必填
-              expressViewHeight: 120.5,
-              //控制下载APP前是否弹出二次确认弹窗
-              downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
-             //用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，
-              adLoadType: FlutterUnionadLoadType.LOAD,
-              //是否启用点击 仅ios生效 默认启用
-              isUserInteractionEnabled: true,
-              //广告事件回调 选填
-              callBack: FlutterUnionadBannerCallBack(
-                onShow: () {
-                  print("banner广告加载完成");
-                },
-                onDislike: (message){
-                  print("banner不感兴趣 $message");
-                },
-                onFail: (error){
-                  print("banner广告加载失败 $error");
-                },
-                onClick: (){
-                  print("banner广告点击");
-                }
-              ),
-            ),
+FlutterUnionadBannerView(
+    //andrrid banner广告id 必填
+    androidCodeId: "102735527",
+    //ios banner广告id 必填
+    iosCodeId: "102735527",
+    // 期望view 宽度 dp 必填
+    width: 600.5,
+    //期望view高度 dp 必填
+    height: 120.5,
+    //广告事件回调 选填
+    callBack: FlutterUnionadBannerCallBack(onShow: () {
+            print("banner广告加载完成");
+        }, onDislike: (message) {
+            print("banner不感兴趣 $message");
+        }, onFail: (error) {
+            print("banner广告加载失败 $error");
+        }, onClick: () {
+            print("banner广告点击");
+        },
+    ),
+),
 ```
 
 #### 6、信息流广告
 ```dart
 //个性化模板信息流广告
-FlutterUnionad.nativeAdView(
+FlutterUnionadNativeAdView(
     //android 信息流广告id 必填
-    androidCodeId: "945417699",
+    androidCodeId: "102730271",
     //ios banner广告id 必填
-    iosCodeId: "945417699",
+    iosCodeId: "102730271",
     //是否支持 DeepLink 选填
     supportDeepLink: true,
     // 期望view 宽度 dp 必填
-    expressViewWidth: 375.5,
+    width: 375.5,
     //期望view高度 dp 必填
-    expressViewHeight: 0,
-    //一次请求广告数量 大于1小于3 必填
-    expressNum: 2,
-    mIsExpress: true,
-    //控制下载APP前是否弹出二次确认弹窗
-    downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
-    //用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，
-    adLoadType: FlutterUnionadLoadType.LOAD,
+    height: 0,
     callBack: FlutterUnionadNativeCallBack(
         onShow: () {
             print("信息流广告显示");
@@ -271,28 +286,22 @@ FlutterUnionad.nativeAdView(
 预加载激励视频广告
 ```Dart
 FlutterUnionad.loadRewardVideoAd(
-                  mIsExpress: true,
-                  //是否个性化 选填
-                  androidCodeId: "945418088",
-                  //Android 激励视频广告id  必填
-                  iosCodeId: "945418088",
-                  //ios 激励视频广告id  必填
-                  supportDeepLink: true,
-                  //是否支持 DeepLink 选填
-                  rewardName: "100金币",
-                  //奖励名称 选填
-                  rewardAmount: 100,
-                  //奖励数量 选填
-                  userID: "123",
-                  //  用户id 选填
-                  orientation: FlutterUnionadOrientation.VERTICAL,
-                  //控制下载APP前是否弹出二次确认弹窗
-                  downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
-                  //视屏方向 选填
-                  mediaExtra: null, //扩展参数 选填
-                  //用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，
-                  adLoadType: FlutterUnionadLoadType.PRELOAD,
-                );
+    //是否个性化 选填
+    androidCodeId: "102733764",
+    //Android 激励视频广告id  必填
+    iosCodeId: "102733764",
+    //ios 激励视频广告id  必填
+    rewardName: "200金币",
+    //奖励名称 选填
+    rewardAmount: 200,
+    //奖励数量 选填
+    userID: "123",
+    //  用户id 选填
+    orientation: FlutterUnionadOrientation.VERTICAL,
+    //视屏方向 选填
+    mediaExtra: null,
+    //扩展参数 选填
+);
 ```
 显示激励视频广告
 ```dart
@@ -343,73 +352,50 @@ FlutterUnionad.loadRewardVideoAd(
 ```
 #### 9、draw视频广告
 ```Dart
-FlutterUnionad.drawFeedAdView(
-                androidCodeId: "945426252",
-                // Android draw视屏广告id 必填
-                iosCodeId: "945426252",
-                //ios draw视屏广告id 必填
-                supportDeepLink: true,
-                //是否支持 DeepLink 选填
-                expressViewWidth: 600.5,
-                // 期望view 宽度 dp 必填
-                expressViewHeight: 800.5,
-                //控制下载APP前是否弹出二次确认弹窗
-                downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
-                //用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，
-                adLoadType: FlutterUnionadLoadType.LOAD,
-                //期望view高度 dp 必填
-                callBack: FlutterUnionadDrawFeedCallBack(
-                    onShow: () {
-                      print("draw广告显示");
-                    },
-                    onFail: (error) {
-                      print("draw广告加载失败 $error");
-                    },
-                    onClick: () {
-                      print("draw广告点击");
-                    },
-                    onDislike: (message) {
-                      print("draw点击不喜欢 $message");
-                    },
-                    onVideoPlay: () {
-                      print("draw视频播放");
-                    },
-                    onVideoPause: () {
-                      print("draw视频暂停");
-                    },
-                    onVideoStop: () {
-                      print("draw视频结束");
-                    }),
-              ),
+FlutterUnionadDrawFeedAdView(
+    androidCodeId: "102734241",
+    iosCodeId: "102734241",
+    //是否支持 DeepLink 选填
+    width: 600.5,
+    // 期望view 宽度 dp 必填
+    height: 800.5,
+    callBack: FlutterUnionadDrawFeedCallBack(
+        onShow: () {
+            print("draw广告显示");
+        },
+        onFail: (error) {
+            print("draw广告加载失败 $error");
+        },
+        onClick: () {
+            print("draw广告点击");
+        },
+        onDislike: (message) {
+            print("draw点击不喜欢 $message");
+        },
+        onVideoPlay: () {
+            print("draw视频播放");
+        },
+        onVideoPause: () {
+            print("draw视频暂停");
+        },
+        onVideoStop: () {
+            print("draw视频结束");
+        },
+    ),
+);
 ```
 
-#### 10、~~全屏视频广告~~
-
-不推荐使用，请使用新模版渲染插屏广告
-```Dart
-FlutterUnionad.fullScreenVideoAd(
-                  androidCodeId: "945491318", //android 全屏广告id 必填
-                  iosCodeId: "945491318", //ios 全屏广告id 必填
-                  supportDeepLink: true, //是否支持 DeepLink 选填
-                  orientation: FlutterUnionadOrientation.VERTICAL, //视屏方向 选填
-                  //控制下载APP前是否弹出二次确认弹窗
-                  downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
-                );
-```
-
-#### 11、新模版渲染插屏广告  分为全屏和插屏
+#### 11、新模版渲染插屏广告 分为全屏和插屏
 预加载新模版渲染插屏广告
 ```dart
 FlutterUnionad.loadFullScreenVideoAdInteraction(
-                  androidCodeId: "946201351", //android 全屏广告id 必填
-                  iosCodeId: "946201351", //ios 全屏广告id 必填
-                  supportDeepLink: true, //是否支持 DeepLink 选填
-                  orientation: FlutterUnionadOrientation.VERTICAL, //视屏方向 选填
-                  //控制下载APP前是否弹出二次确认弹窗
-                  downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
-                  //用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，
-                  adLoadType: FlutterUnionadLoadType.PRELOAD,
-                );
+    //android 全屏广告id 必填
+    androidCodeId: "102735530",
+    //ios 全屏广告id 必填
+    iosCodeId: "102735530",
+    //视屏方向 选填
+    orientation: FlutterUnionadOrientation.VERTICAL,
+);
 ```
 
 显示新模版渲染插屏广告
@@ -450,26 +436,6 @@ FlutterUnionad.FlutterUnionadStream.initAdStream(
               },
             ),
     );
-```
-
-#### 12、Android隐私权限控制
-注：必须在FlutterUnionad.register初始化前使用才生效
-```dart
-if (Platform.isAndroid) {
-      await FlutterUnionad.andridPrivacy(
-        isCanUseLocation: false, //是否允许SDK主动使用地理位置信息 true可以获取，false禁止获取。默认为true
-        lat: 1.0,//当isCanUseLocation=false时，可传入地理位置信息，穿山甲sdk使用您传入的地理位置信息lat
-        lon: 1.0,//当isCanUseLocation=false时，可传入地理位置信息，穿山甲sdk使用您传入的地理位置信息lon
-        isCanUsePhoneState: false,//是否允许SDK主动使用手机硬件参数，如：imei
-        imei: "123",//当isCanUsePhoneState=false时，可传入imei信息，穿山甲sdk使用您传入的imei信息
-        isCanUseWifiState: false,//是否允许SDK主动使用ACCESS_WIFI_STATE权限
-        isCanUseWriteExternal: false,//是否允许SDK主动使用WRITE_EXTERNAL_STORAGE权限
-        oaid: "111",//开发者可以传入oaid
-        alist: false,//是否允许SDK主动获取设备上应用安装列表的采集权限
-        isCanUseAndroidId: false, //是否允许SDK主动获取ANDROID_ID
-        isCanUsePermissionRecordAudio: false,//是否允许SDK在申明和授权了的情况下使用录音权限
-      );
-    }
 ```
 
 #### 13、日间/夜间模式

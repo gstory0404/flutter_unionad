@@ -15,20 +15,16 @@ public class DrawFeedAdView : NSObject,FlutterPlatformView{
     var frame: CGRect;
     //广告需要的参数
     let mCodeId :String?
-    var supportDeepLink :Bool? = true
-    let expressViewWidth : Float?
-    let expressViewHeight :Float?
-    var mIsExpress :Bool? = true
+    var viewWidth : Float?
+    var viewHeight :Float?
     
     init(_ frame : CGRect,binaryMessenger: FlutterBinaryMessenger , id : Int64, params :Any?) {
         self.frame = frame
         self.container = UIView(frame: frame)
         let dict = params as! NSDictionary
         self.mCodeId = dict.value(forKey: "iosCodeId") as? String
-        self.mIsExpress = dict.value(forKey: "mIsExpress") as? Bool
-        self.supportDeepLink = dict.value(forKey: "supportDeepLink") as? Bool
-        self.expressViewWidth = Float(dict.value(forKey: "expressViewWidth") as! Double)
-        self.expressViewHeight = Float(dict.value(forKey: "expressViewHeight") as! Double)
+        self.viewWidth = Float(dict.value(forKey: "width") as! Double)
+        self.viewHeight = Float(dict.value(forKey: "height") as! Double)
         nativeExpressAdManager = BUNativeExpressAdManager()
         super.init()
         self.channel = FlutterMethodChannel.init(name: FlutterUnionadConfig.view.drawFeedAdView + "_" + String(id), binaryMessenger: binaryMessenger)
@@ -42,20 +38,10 @@ public class DrawFeedAdView : NSObject,FlutterPlatformView{
         self.removeAllView()
         let bUadSolt = BUAdSlot.init()
         bUadSolt.id = self.mCodeId!
-        bUadSolt.adType = BUAdSlotAdType.drawVideo
-        bUadSolt.position = BUAdSlotPosition.top
-        let size : BUSize = BUSize.init()
-        if(self.expressViewWidth == 0 || self.expressViewHeight == 0){
-            size.width = Int(MyUtils.getScreenSize().width)
-            size.height = Int(MyUtils.getScreenSize().height)
-        }else{
-            size.width = Int(self.expressViewWidth!)
-            size.height = Int(self.expressViewHeight!)
-        }
-        bUadSolt.imgSize = size
-        let adSize = CGSize(width: Int(MyUtils.getScreenSize().width), height: Int(MyUtils.getScreenSize().height))
-        self.nativeExpressAdManager = BUNativeExpressAdManager.init(slot: bUadSolt, adSize: adSize)
-        self.nativeExpressAdManager.adslot = bUadSolt
+        let adSize = CGSizeMake(CGFloat(self.viewWidth!),CGFloat(self.viewHeight!))
+        bUadSolt.adSize = adSize
+        bUadSolt.mediation.mutedIfCan = false; // 静音 聚合功能
+        self.nativeExpressAdManager = BUNativeExpressAdManager.init(slot: bUadSolt, adSize:  adSize)
         self.nativeExpressAdManager.delegate = self;
         self.nativeExpressAdManager.loadAdData(withCount: 1)
     }

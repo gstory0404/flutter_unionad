@@ -6,11 +6,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_unionad/flutter_unionad.dart';
 import 'package:flutter_unionad/flutter_unionad.dart';
-import 'package:flutter_unionad/flutter_unionad_stream.dart';
 import 'package:flutter_unionad_example/banner_page.dart';
 import 'package:flutter_unionad_example/drawfeed_page.dart';
-import 'package:flutter_unionad_example/nativeexpressad_page.dart';
 import 'package:flutter_unionad_example/splash_page.dart';
+
+import 'native_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -46,7 +46,7 @@ class _IndexPageState extends State<IndexPage> {
   @override
   void initState() {
     super.initState();
-    _privacy();
+    _initRegister();
     _adViewStream = FlutterUnionadStream.initAdStream(
       flutterUnionadFullVideoCallBack: FlutterUnionadFullVideoCallBack(
         onShow: () {
@@ -154,20 +154,22 @@ class _IndexPageState extends State<IndexPage> {
         androidAppId: "5098580",
         //穿山甲广告 ios appid 必填
         iosAppId: "5098580",
-        //使用TextureView控件播放视频,默认为SurfaceView,当有SurfaceView冲突的场景，可以使用TextureView 选填
-        useTextureView: true,
         //appname 必填
         appName: "unionad_test",
+        //使用聚合功能一定要打开此开关，否则不会请求聚合广告，默认这个值为false
+        useMediation: true,
+        //是否为计费用户 选填
+        paid: false,
+        //用户画像的关键词列表 选填
+        keywords: "",
+        //使用TextureView控件播放视频,默认为SurfaceView,当有SurfaceView冲突的场景，可以使用TextureView 选填
+        useTextureView: true,
         //是否允许sdk展示通知栏提示 选填
         allowShowNotify: true,
-        //是否在锁屏场景支持展示广告落地页 选填
-        allowShowPageWhenScreenLock: true,
         //是否显示debug日志
         debug: true,
-        //是否支持多进程，true支持 选填
-        supportMultiProcess: true,
-        //是否开启个人性推荐 选填
-        personalise: FlutterUnionadPersonalise.open,
+        //是否支持多进程 选填
+        supportMultiProcess: false,
         //主题模式 默认FlutterUnionAdTheme.DAY,修改后需重新调用初始化
         themeStatus: _themeStatus,
         //允许直接下载的网络状态集合 选填
@@ -176,42 +178,51 @@ class _IndexPageState extends State<IndexPage> {
           FlutterUnionadNetCode.NETWORK_STATE_3G,
           FlutterUnionadNetCode.NETWORK_STATE_4G,
           FlutterUnionadNetCode.NETWORK_STATE_WIFI
-        ]);
+        ],
+        androidPrivacy: AndroidPrivacy(
+          //是否允许SDK主动使用地理位置信息 true可以获取，false禁止获取。默认为true
+          isCanUseLocation: false,
+          //当isCanUseLocation=false时，可传入地理位置信息，穿山甲sdk使用您传入的地理位置信息lat
+          lat: 0.0,
+          //当isCanUseLocation=false时，可传入地理位置信息，穿山甲sdk使用您传入的地理位置信息lon
+          lon: 0.0,
+          // 是否允许SDK主动使用手机硬件参数，如：imei
+          isCanUsePhoneState: false,
+          //当isCanUsePhoneState=false时，可传入imei信息，穿山甲sdk使用您传入的imei信息
+          imei: "",
+          // 是否允许SDK主动使用ACCESS_WIFI_STATE权限
+          isCanUseWifiState: false,
+          // 当isCanUseWifiState=false时，可传入Mac地址信息
+          macAddress: "",
+          // 是否允许SDK主动使用WRITE_EXTERNAL_STORAGE权限
+          isCanUseWriteExternal: false,
+          // 开发者可以传入oaid
+          oaid: "b69cd3cf68900323",
+          // 是否允许SDK主动获取设备上应用安装列表的采集权限
+          alist: false,
+          // 是否能获取android ID
+          isCanUseAndroidId: false,
+          // 开发者可以传入android ID
+          androidId: "",
+          // 是否允许SDK在申明和授权了的情况下使用录音权限
+          isCanUsePermissionRecordAudio: false,
+          // 是否限制个性化推荐接口
+          isLimitPersonalAds: false,
+          // 是否启用程序化广告推荐 true启用 false不启用
+          isProgrammaticRecommend: false,
+        ),
+        iosPrivacy: IOSPrivacy(
+          //允许个性化广告
+          limitPersonalAds: false,
+          //允许程序化广告
+          limitProgrammaticAds: false,
+          //允许CAID
+          forbiddenCAID: false,
+        ));
     print("sdk初始化 $_init");
     _version = await FlutterUnionad.getSDKVersion();
     _themeStatus = await FlutterUnionad.getThemeStatus();
     setState(() {});
-  }
-
-  //隐私权限
-  void _privacy() async {
-    if (Platform.isAndroid) {
-      await FlutterUnionad.andridPrivacy(
-        isCanUseLocation: false,
-        //是否允许SDK主动使用地理位置信息 true可以获取，false禁止获取。默认为true
-        lat: 1.0,
-        //当isCanUseLocation=false时，可传入地理位置信息，穿山甲sdk使用您传入的地理位置信息lat
-        lon: 1.0,
-        //当isCanUseLocation=false时，可传入地理位置信息，穿山甲sdk使用您传入的地理位置信息lon
-        isCanUsePhoneState: false,
-        //是否允许SDK主动使用手机硬件参数，如：imei
-        imei: "123",
-        //当isCanUsePhoneState=false时，可传入imei信息，穿山甲sdk使用您传入的imei信息
-        isCanUseWifiState: false,
-        //是否允许SDK主动使用ACCESS_WIFI_STATE权限
-        isCanUseWriteExternal: false,
-        //是否允许SDK主动使用WRITE_EXTERNAL_STORAGE权限
-        oaid: "111",
-        //开发者可以传入oaid
-        //是否允许SDK主动获取设备上应用安装列表的采集权限
-        alist: false,
-        //是否允许SDK主动获取ANDROID_ID
-        isCanUseAndroidId: false,
-        //是否允许SDK在申明和授权了的情况下使用录音权限
-        isCanUsePermissionRecordAudio: false,
-      );
-    }
-    _initRegister();
   }
 
   @override
@@ -244,48 +255,6 @@ class _IndexPageState extends State<IndexPage> {
               alignment: Alignment.center,
               height: 50,
               child: Text("穿山甲SDK版本号>>>>>> v$_version"),
-            ),
-            Container(
-              alignment: Alignment.center,
-              height: 50,
-              child:
-                  Text("穿山甲主题样式>>>>>> ${_themeStatus == 0 ? "正常模式" : "夜间模式"}"),
-            ),
-            //修改个性化推荐
-            MaterialButton(
-              color: Colors.blue,
-              textColor: Colors.white,
-              child: new Text('修改个性化推荐'),
-              onPressed: () async {
-                _init = await FlutterUnionad.register(
-                    //穿山甲广告 Android appid 必填
-                    androidAppId: "5098580",
-                    //穿山甲广告 ios appid 必填
-                    iosAppId: "5098580",
-                    //使用TextureView控件播放视频,默认为SurfaceView,当有SurfaceView冲突的场景，可以使用TextureView 选填
-                    useTextureView: true,
-                    //appname 必填
-                    appName: "unionad_test",
-                    //是否允许sdk展示通知栏提示 选填
-                    allowShowNotify: true,
-                    //是否在锁屏场景支持展示广告落地页 选填
-                    allowShowPageWhenScreenLock: true,
-                    //是否显示debug日志
-                    debug: true,
-                    //是否支持多进程，true支持 选填
-                    supportMultiProcess: true,
-                    //是否开启个性化推荐 选填
-                    personalise: FlutterUnionadPersonalise.close,
-                    //允许直接下载的网络状态集合 选填
-                    directDownloadNetworkType: [
-                      FlutterUnionadNetCode.NETWORK_STATE_2G,
-                      FlutterUnionadNetCode.NETWORK_STATE_3G,
-                      FlutterUnionadNetCode.NETWORK_STATE_4G,
-                      FlutterUnionadNetCode.NETWORK_STATE_WIFI
-                    ]);
-                print("sdk初始化 $_init");
-                setState(() {});
-              },
             ),
             //请求权限
             MaterialButton(
@@ -360,7 +329,7 @@ class _IndexPageState extends State<IndexPage> {
                 Navigator.push(
                   context,
                   new MaterialPageRoute(
-                    builder: (context) => new NativeExpressAdPage(),
+                    builder: (context) => new NativeAdPage(),
                   ),
                 );
               },
@@ -373,12 +342,10 @@ class _IndexPageState extends State<IndexPage> {
               onPressed: () {
                 FlutterUnionad.loadRewardVideoAd(
                   //是否个性化 选填
-                  androidCodeId: "945418088",
+                  androidCodeId: "102733764",
                   //Android 激励视频广告id  必填
-                  iosCodeId: "945418088",
+                  iosCodeId: "102733764",
                   //ios 激励视频广告id  必填
-                  supportDeepLink: true,
-                  //是否支持 DeepLink 选填
                   rewardName: "200金币",
                   //奖励名称 选填
                   rewardAmount: 200,
@@ -386,13 +353,9 @@ class _IndexPageState extends State<IndexPage> {
                   userID: "123",
                   //  用户id 选填
                   orientation: FlutterUnionadOrientation.VERTICAL,
-                  //控制下载APP前是否弹出二次确认弹窗
-                  downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
                   //视屏方向 选填
                   mediaExtra: null,
                   //扩展参数 选填
-                  //用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，
-                  adLoadType: FlutterUnionadLoadType.PRELOAD,
                 );
               },
             ),
@@ -410,26 +373,6 @@ class _IndexPageState extends State<IndexPage> {
                 );
               },
             ),
-            //个性化全屏广告
-            MaterialButton(
-              color: Colors.blue,
-              textColor: Colors.white,
-              child: new Text('全屏广告'),
-              onPressed: () {
-                FlutterUnionad.fullScreenVideoAd(
-                  androidCodeId: "945491318",
-                  //android 全屏广告id 必填
-                  iosCodeId: "945491318",
-                  //ios 全屏广告id 必填
-                  supportDeepLink: true,
-                  //是否支持 DeepLink 选填
-                  orientation: FlutterUnionadOrientation.VERTICAL,
-                  //视屏方向 选填
-                  //控制下载APP前是否弹出二次确认弹窗
-                  downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
-                );
-              },
-            ),
             //新模板渲染插屏广告
             MaterialButton(
               color: Colors.blue,
@@ -438,17 +381,11 @@ class _IndexPageState extends State<IndexPage> {
               onPressed: () {
                 FlutterUnionad.loadFullScreenVideoAdInteraction(
                   //android 全屏广告id 必填
-                  androidCodeId: "946201351",
+                  androidCodeId: "102735530",
                   //ios 全屏广告id 必填
-                  iosCodeId: "946201351",
-                  //是否支持 DeepLink 选填
-                  supportDeepLink: true,
+                  iosCodeId: "102735530",
                   //视屏方向 选填
                   orientation: FlutterUnionadOrientation.VERTICAL,
-                  //控制下载APP前是否弹出二次确认弹窗
-                  downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
-                  //用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，
-                  adLoadType: FlutterUnionadLoadType.PRELOAD,
                 );
               },
             ),

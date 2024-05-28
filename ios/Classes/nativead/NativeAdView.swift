@@ -16,10 +16,8 @@ public class NativeAdView : NSObject,FlutterPlatformView{
     var frame: CGRect;
     //广告需要的参数
     let mCodeId :String?
-    var supportDeepLink :Bool? = true
-    let expressViewWidth : Float?
-    let expressViewHeight :Float?
-    var mIsExpress :Bool? = true
+    var viewWidth : Float?
+    var viewHeight :Float?
 
     
     init(_ frame : CGRect,binaryMessenger: FlutterBinaryMessenger , id : Int64, params :Any?) {
@@ -27,10 +25,8 @@ public class NativeAdView : NSObject,FlutterPlatformView{
         self.container = ADContainerView(frame: frame)
         let dict = params as! NSDictionary
         self.mCodeId = dict.value(forKey: "iosCodeId") as? String
-        self.mIsExpress = dict.value(forKey: "mIsExpress") as? Bool
-        self.supportDeepLink = dict.value(forKey: "supportDeepLink") as? Bool
-        self.expressViewWidth = Float(dict.value(forKey: "expressViewWidth") as! Double)
-        self.expressViewHeight = Float(dict.value(forKey: "expressViewHeight") as! Double)
+        self.viewWidth = Float(dict.value(forKey: "width") as! Double)
+        self.viewHeight = Float(dict.value(forKey: "height") as! Double)
         self.nativeExpressAdManager = BUNativeExpressAdManager()
         super.init()
         self.channel = FlutterMethodChannel.init(name: FlutterUnionadConfig.view.nativeAdView + "_" + String(id), binaryMessenger: binaryMessenger)
@@ -41,16 +37,16 @@ public class NativeAdView : NSObject,FlutterPlatformView{
     }
     
     private func loadNativeExpressAd(){
-        let viewWidth = CGFloat(self.expressViewWidth!)
-        let viewHeigh = CGFloat(self.expressViewHeight!)
-        let size = CGSize(width: viewWidth, height: viewHeigh)
+        let width = CGFloat(self.viewWidth!)
+        let heigh = CGFloat(self.viewHeight!)
+        let size = CGSize(width: width, height: heigh)
         let buSlot = BUAdSlot.init()
         buSlot.id = self.mCodeId!
         buSlot.adType = BUAdSlotAdType.feed
         buSlot.position = BUAdSlotPosition.feed
         let bUSize = BUSize.init()
-        bUSize.width = Int(viewWidth)
-        bUSize.height = Int(viewHeigh)
+        bUSize.width = Int(width)
+        bUSize.height = Int(heigh)
         buSlot.imgSize = bUSize
         self.nativeExpressAdManager = BUNativeExpressAdManager.init(slot: buSlot, adSize: size)
         self.nativeExpressAdManager.delegate = self

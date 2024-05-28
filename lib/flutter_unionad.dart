@@ -1,6 +1,9 @@
 export 'package:flutter_unionad/flutter_unionad_code.dart';
 export 'package:flutter_unionad/flutter_unionad_stream.dart';
 
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -8,9 +11,13 @@ import 'bannerad/BannerAdView.dart';
 import 'drawfeedad/DrawFeedAdView.dart';
 import 'flutter_unionad_code.dart';
 import 'nativead/NativeAdView.dart';
-import 'splashad/SplashAdView.dart';
+// import 'splashad/SplashAdView.dart';
 
 part 'package:flutter_unionad/flutter_unionad_callback.dart';
+
+part 'package:flutter_unionad/flutter_unionad_privacy.dart';
+
+part 'package:flutter_unionad/splashad/SplashAdView.dart';
 
 /// 描述：字节跳动 穿山甲广告flutter版
 /// @author guozi
@@ -28,11 +35,15 @@ class FlutterUnionad {
   ///
   ///[useTextureView] 使用TextureView控件播放视频,默认为SurfaceView,当有SurfaceView冲突的场景，可以使用TextureView 选填
   ///
-  ///[appname] 必填
+  ///[appname] app名称 选填
+  ///
+  ///[useMediation] 使用聚合功能一定要打开此开关，否则不会请求聚合广告，默认这个值为false
+  ///
+  ///[paid] 是否为计费用户 选填
+  ///
+  ///[keywords] 用户画像的关键词列表 选填
   ///
   ///[allowShowNotify] 是否允许sdk展示通知栏提示 选填
-  ///
-  ///[allowShowPageWhenScreenLock] 是否在锁屏场景支持展示广告落地页 选填
   ///
   ///[debug] 是否显示debug日志
   ///
@@ -42,31 +53,36 @@ class FlutterUnionad {
   ///
   ///[directDownloadNetworkType] 允许直接下载的网络状态集合 选填
   ///
-  ///[personalise] 是否开启个性化推荐 选填 [FlutterUnionadPersonalise.open]开启 [FlutterUnionadPersonalise.close]关闭
+  /// [androidPrivacy] Android隐私信息控制配置
   ///
+  /// [iosPrivacy] ios隐私信息控制配置
   static Future<bool> register({
     required String iosAppId,
     required String androidAppId,
+    String? appName,
+    bool? useMediation,
+    bool? paid,
+    String? keywords,
     bool? useTextureView,
-    required String appName,
     bool? allowShowNotify,
-    bool? allowShowPageWhenScreenLock,
     bool? debug,
     bool? supportMultiProcess,
-    String? personalise,
     int? themeStatus,
     List<int>? directDownloadNetworkType,
+    AndroidPrivacy? androidPrivacy,
+    IOSPrivacy? iosPrivacy,
   }) async {
     return await _channel.invokeMethod("register", {
       "iosAppId": iosAppId,
       "androidAppId": androidAppId,
+      "appName": appName ?? "",
+      "paid": paid ?? false,
+      "useMediation": useMediation ?? false,
+      "keywords": keywords ?? "",
       "useTextureView": useTextureView ?? false,
-      "appName": appName,
       "allowShowNotify": allowShowNotify ?? true,
-      "allowShowPageWhenScreenLock": allowShowPageWhenScreenLock ?? false,
       "debug": debug ?? false,
       "supportMultiProcess": supportMultiProcess ?? false,
-      "personalise": personalise ?? FlutterUnionadPersonalise.open,
       "themeStatus": themeStatus ?? FlutterUnionAdTheme.DAY,
       "directDownloadNetworkType": directDownloadNetworkType != null
           ? directDownloadNetworkType
@@ -76,7 +92,12 @@ class FlutterUnionad {
               FlutterUnionadNetCode.NETWORK_STATE_3G,
               FlutterUnionadNetCode.NETWORK_STATE_4G,
               FlutterUnionadNetCode.NETWORK_STATE_WIFI
-            ]
+            ],
+      "androidPrivacy": androidPrivacy == null
+          ? AndroidPrivacy().toMap()
+          : androidPrivacy.toMap(),
+      "iosPrivacy":
+          iosPrivacy == null ? IOSPrivacy().toMap() : iosPrivacy.toMap()
     });
   }
 
@@ -134,12 +155,13 @@ class FlutterUnionad {
   ///
   /// [FlutterUnionAdBannerCallBack]  banner广告回调
   ///
+  /// @Deprecated("推荐使用[FlutterUnionadBannerView],后续版本可能会移除改api")
   static Widget bannerAdView(
       {bool? mIsExpress,
       required String androidCodeId,
       required String iosCodeId,
       bool? supportDeepLink,
-      required int expressAdNum,
+      int? expressAdNum,
       int? expressTime,
       required double? expressViewWidth,
       required double? expressViewHeight,
@@ -147,18 +169,11 @@ class FlutterUnionad {
       bool? isUserInteractionEnabled,
       int? adLoadType,
       FlutterUnionadBannerCallBack? callBack}) {
-    return BannerAdView(
-      mIsExpress: mIsExpress ?? false,
+    return FlutterUnionadBannerView(
       androidCodeId: androidCodeId,
       iosCodeId: iosCodeId,
-      supportDeepLink: supportDeepLink ?? true,
-      expressViewWidth: expressViewWidth ?? 0,
-      expressViewHeight: expressViewHeight ?? 0,
-      expressAdNum: expressAdNum,
-      expressTime: expressTime ?? 30,
-      downloadType:
-          downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
-      adLoadType: adLoadType ?? FlutterUnionadLoadType.LOAD,
+      width: expressViewWidth ?? 0,
+      height: expressViewHeight ?? 0,
       callBack: callBack,
     );
   }
@@ -197,16 +212,12 @@ class FlutterUnionad {
       int? timeout,
       bool? hideSkip,
       FlutterUnionadSplashCallBack? callBack}) {
-    return SplashAdView(
-      mIsExpress: mIsExpress ?? false,
+    return FlutterUnionadSplashAdView(
       androidCodeId: androidCodeId,
       iosCodeId: iosCodeId,
       supportDeepLink: supportDeepLink ?? true,
-      expressViewWidth: expressViewWidth ?? 0.0,
-      expressViewHeight: expressViewHeight ?? 0.0,
-      downloadType:
-          downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
-      adLoadType: adLoadType ?? FlutterUnionadLoadType.LOAD,
+      width: expressViewWidth ?? 0.0,
+      height: expressViewHeight ?? 0.0,
       timeout: timeout ?? 3000,
       hideSkip: hideSkip ?? false,
       callBack: callBack,
@@ -241,16 +252,12 @@ class FlutterUnionad {
       int? downloadType,
       int? adLoadType,
       FlutterUnionadNativeCallBack? callBack}) {
-    return NativeAdView(
-      mIsExpress: mIsExpress ?? false,
+    return FlutterUnionadNativeAdView(
       androidCodeId: androidCodeId,
       iosCodeId: iosCodeId,
       supportDeepLink: supportDeepLink ?? true,
-      expressViewWidth: expressViewWidth,
-      expressViewHeight: expressViewHeight,
-      downloadType:
-          downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
-      adLoadType: adLoadType ?? FlutterUnionadLoadType.LOAD,
+      width: expressViewWidth,
+      height: expressViewHeight,
       callBack: callBack,
     );
   }
@@ -268,27 +275,20 @@ class FlutterUnionad {
   static Future<bool> loadRewardVideoAd({
     required String androidCodeId,
     required String iosCodeId,
-    bool? supportDeepLink,
     required String rewardName,
     required int rewardAmount,
     required String userID,
     int? orientation,
     String? mediaExtra,
-    int? downloadType,
-    int? adLoadType,
   }) async {
     return await _channel.invokeMethod("loadRewardVideoAd", {
       "androidCodeId": androidCodeId,
       "iosCodeId": iosCodeId,
-      "supportDeepLink": supportDeepLink ?? true,
       "rewardName": rewardName,
       "rewardAmount": rewardAmount,
       "userID": userID,
       "orientation": orientation ?? 0,
       "mediaExtra": mediaExtra ?? "",
-      "downloadType":
-          downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
-      "adLoadType": adLoadType ?? FlutterUnionadLoadType.LOAD,
     });
   }
 
@@ -326,39 +326,13 @@ class FlutterUnionad {
     int? adLoadType,
     FlutterUnionadDrawFeedCallBack? callBack,
   }) {
-    return DrawFeedAdView(
-      mIsExpress: mIsExpress ?? false,
+    return FlutterUnionadDrawFeedAdView(
       androidCodeId: androidCodeId,
       iosCodeId: iosCodeId,
-      supportDeepLink: supportDeepLink ?? true,
-      expressViewWidth: expressViewWidth,
-      expressViewHeight: expressViewHeight,
-      downloadType:
-          downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
-      adLoadType: adLoadType ?? FlutterUnionadLoadType.LOAD,
+      width: expressViewWidth,
+      height: expressViewHeight,
       callBack: callBack,
     );
-  }
-
-  ///个性化模板全屏广告
-  @Deprecated("推荐使用新模板渲染插屏 loadFullScreenVideoAdInteraction")
-  static Future<bool> fullScreenVideoAd({
-    bool? mIsExpress,
-    required String androidCodeId,
-    required String iosCodeId,
-    bool? supportDeepLink,
-    int? orientation,
-    int? downloadType,
-  }) async {
-    return await _channel.invokeMethod("fullScreenVideoAd", {
-      "mIsExpress": mIsExpress ?? false,
-      "androidCodeId": androidCodeId,
-      "iosCodeId": iosCodeId,
-      "supportDeepLink": supportDeepLink ?? true,
-      "orientation": orientation ?? FlutterUnionadOrientation.VERTICAL,
-      "downloadType":
-          downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
-    });
   }
 
   /// # 预加载新模板渲染插屏
@@ -366,72 +340,18 @@ class FlutterUnionad {
   static Future<bool> loadFullScreenVideoAdInteraction({
     required String androidCodeId,
     required String iosCodeId,
-    bool? supportDeepLink,
     int? orientation,
-    int? downloadType,
-    int? adLoadType,
   }) async {
     return await _channel.invokeMethod("loadFullScreenVideoAdInteraction", {
       "androidCodeId": androidCodeId,
       "iosCodeId": iosCodeId,
-      "supportDeepLink": supportDeepLink ?? true,
       "orientation": orientation ?? FlutterUnionadOrientation.VERTICAL,
-      "downloadType":
-          downloadType ?? FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
-      "adLoadType": adLoadType ?? FlutterUnionadLoadType.PRELOAD
     });
   }
 
   ///显示新模板渲染插屏 分为全屏和插屏，全屏和插屏场景下开发者都可以选择投放的广告类型，分别为图片+视频、仅视频、仅图片。
   static Future<bool> showFullScreenVideoAdInteraction() async {
     return await _channel.invokeMethod("showFullScreenVideoAdInteraction", {});
-  }
-
-  ///隐私信息控制开关 只有android起效
-  ///
-  ///isCanUseLocation 是否允许SDK主动使用地理位置信息 true可以获取，false禁止获取。默认为true
-  ///
-  ///lat 当isCanUseLocation=false时，可传入地理位置信息，穿山甲sdk使用您传入的地理位置信息lat
-  ///
-  ///lon 当isCanUseLocation=false时，可传入地理位置信息，穿山甲sdk使用您传入的地理位置信息lon
-  ///
-  ///isCanUsePhoneState 是否允许SDK主动使用手机硬件参数，如：imei
-  ///
-  ///imei 当isCanUsePhoneState=false时，可传入imei信息，穿山甲sdk使用您传入的imei信息
-  ///
-  ///isCanUseWifiState 是否允许SDK主动使用ACCESS_WIFI_STATE权限
-  ///
-  ///isCanUseWriteExternal 是否允许SDK主动使用WRITE_EXTERNAL_STORAGE权限
-  ///
-  ///oaid 开发者可以传入oaid
-  ///
-  ///alist 是否允许SDK主动获取设备上应用安装列表的采集权限
-  ///
-  static Future<bool> andridPrivacy(
-      {bool? isCanUseLocation,
-      double? lat,
-      double? lon,
-      bool? isCanUsePhoneState,
-      String? imei,
-      bool? isCanUseWifiState,
-      bool? isCanUseWriteExternal,
-      String? oaid,
-      bool? alist,
-      bool? isCanUseAndroidId,
-      bool? isCanUsePermissionRecordAudio}) async {
-    return await _channel.invokeMethod("andridPrivacy", {
-      "isCanUseLocation": isCanUseLocation ?? true,
-      "lat": lat ?? 0.0,
-      "lon": lon ?? 0.0,
-      "isCanUsePhoneState": isCanUsePhoneState ?? true,
-      "imei": imei ?? "",
-      "isCanUseWifiState": isCanUseWifiState ?? true,
-      "isCanUseWriteExternal": isCanUseWriteExternal ?? true,
-      "oaid": oaid ?? "",
-      "alist": alist ?? true,
-      "isCanUseAndroidId": isCanUseAndroidId ?? true,
-      "isCanUsePermissionRecordAudio": isCanUsePermissionRecordAudio ?? true,
-    });
   }
 
   /// 获取主题模式 0正常模式 1夜间模式

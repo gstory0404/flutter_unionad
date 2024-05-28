@@ -6,7 +6,6 @@ import android.text.TextUtils
 import android.util.Log
 import androidx.annotation.NonNull
 import com.bytedance.sdk.openadsdk.TTAdSdk
-import com.gstory.flutter_unionad.fullscreenvideoAd.FullScreenVideoExpressAd
 import com.gstory.flutter_unionad.fullscreenvideoadinteraction.FullScreenVideoAdInteraction
 import com.gstory.flutter_unionad.rewardvideoad.RewardVideoAd
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -73,80 +72,31 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         //注册初始化
         if (call.method == "register") {
-            val appId = call.argument<String>("androidAppId")
-            val useTextureView = call.argument<Boolean>("useTextureView")
-            val appName = call.argument<String>("appName")
-            var allowShowNotify = call.argument<Boolean>("allowShowNotify")
-            var debug = call.argument<Boolean>("debug")
-            var supportMultiProcess = call.argument<Boolean>("supportMultiProcess")
-            val directDownloadNetworkType = call.argument<List<Int>>("directDownloadNetworkType")!!
-            val personalise = call.argument<String>("personalise")
-            val themeStatus = call.argument<Int>("themeStatus")
+            var arguments = call.arguments as Map<String?, Any?>
+            val appId = arguments["androidAppId"] as String?
             if (appId == null || appId.trim { it <= ' ' }.isEmpty()) {
                 Log.e("初始化", "appId can't be null")
                 result.success(false)
             } else {
-                if (appName == null || appName.trim { it <= ' ' }.isEmpty()) {
-                    Log.e("初始化", "appName can't be null")
-                    result.success(false)
-                } else {
-                    TTAdManagerHolder.init(applicationContext!!,
-                        appId,
-                        useTextureView!!,
-                        appName,
-                        allowShowNotify!!,
-                        debug!!,
-                        supportMultiProcess!!,
-                        directDownloadNetworkType,
-                        personalise!!,
-                        themeStatus!!,
-                        object : TTAdSdk.InitCallback {
-                            override fun success() {
-                                Log.e("初始化", "成功")
-                                mActivity?.runOnUiThread(Runnable {
-                                    result.success(true)
-                                })
-                            }
-
-                            override fun fail(p0: Int, p1: String?) {
-                                Log.e("初始化", "失败 $p0  $p1")
-                                mActivity?.runOnUiThread(Runnable {
-                                    result.success(false)
-                                })
-                            }
+                TTAdManagerHolder.init(applicationContext!!,
+                    arguments,
+                    object : TTAdSdk.Callback {
+                        override fun success() {
+                            Log.e("初始化", "成功")
+                            mActivity?.runOnUiThread(Runnable {
+                                result.success(true)
+                            })
                         }
-                    )
-                }
+
+                        override fun fail(p0: Int, p1: String?) {
+                            Log.e("初始化", "失败 $p0  $p1")
+                            mActivity?.runOnUiThread(Runnable {
+                                result.success(false)
+                            })
+                        }
+                    }
+                )
             }
-            //隐私信息控制开关
-        } else if (call.method == "andridPrivacy") {
-            var arguments = call.arguments as Map<String?, Any?>
-            val isCanUseLocation = call.argument<Boolean>("isCanUseLocation")
-            val lat = call.argument<Double>("lat")
-            val lon = call.argument<Double>("lon")
-            val isCanUsePhoneState = call.argument<Boolean>("isCanUsePhoneState")
-            val imei = call.argument<String>("imei")
-            val isCanUseWifiState = call.argument<Boolean>("isCanUseWifiState")
-            val isCanUseWriteExternal = call.argument<Boolean>("isCanUseWriteExternal")
-            val oaid = call.argument<String>("oaid")
-            val alist = call.argument<Boolean>("alist")
-            val isCanUseAndroidId = call.argument<Boolean>("isCanUseAndroidId")
-            val isCanUsePermissionRecordAudio =
-                call.argument<Boolean>("isCanUsePermissionRecordAudio")
-            TTAdManagerHolder.privacyConfig(
-                isCanUseLocation!!,
-                lat!!,
-                lon!!,
-                isCanUsePhoneState!!,
-                imei!!,
-                isCanUseWifiState!!,
-                isCanUseWriteExternal!!,
-                oaid!!,
-                alist!!,
-                isCanUseAndroidId!!,
-                isCanUsePermissionRecordAudio!!
-            )
-            result.success(true)
             //请求权限
         } else if (call.method == "requestPermissionIfNecessary") {
             val mTTAdManager = TTAdManagerHolder.get()
@@ -166,36 +116,15 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
             //显示激励广告
         } else if (call.method == "showRewardVideoAd") {
             RewardVideoAd.showAd()
-            //全屏广告
-        } else if (call.method == "fullScreenVideoAd") {
-            val mCodeId = call.argument<String>("androidCodeId")
-            val supportDeepLink = call.argument<Boolean>("supportDeepLink")
-            val orientation = call.argument<Int>("orientation")
-            val downloadType = call.argument<Int>("downloadType")
-            FullScreenVideoExpressAd.init(
-                mActivity!!,
-                mActivity!!,
-                mCodeId,
-                supportDeepLink,
-                orientation!!,
-                downloadType
-            )
-            result.success(true)
             //预加载插屏广告 全屏插屏二合一
         } else if (call.method == "loadFullScreenVideoAdInteraction") {
             val mCodeId = call.argument<String>("androidCodeId")
-            val supportDeepLink = call.argument<Boolean>("supportDeepLink")
             val orientation = call.argument<Int>("orientation")
-            val downloadType = call.argument<Int>("downloadType")
-            val adLoadType = call.argument<Int>("adLoadType")
             FullScreenVideoAdInteraction.init(
                 mActivity!!,
                 mActivity!!,
                 mCodeId,
-                supportDeepLink,
                 orientation!!,
-                downloadType!!,
-                adLoadType
             )
             result.success(true)
             //显示插屏广告 全屏插屏二合一

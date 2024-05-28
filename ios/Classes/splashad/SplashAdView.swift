@@ -15,11 +15,9 @@ public class SplashAdView : NSObject,FlutterPlatformView{
     private var channel : FlutterMethodChannel?
     //广告需要的参数
     let mCodeId :String?
-    var supportDeepLink :Bool? = true
-    let width : Float?
-    let height :Float?
+    var viewWidth : Float?
+    var viewHeight :Float?
     var hideSkip :Bool = false
-    var adLoadType : Int? = 0
     var timeout : Double? = 3.0
     var splashAd:BUSplashAd?
     
@@ -30,10 +28,8 @@ public class SplashAdView : NSObject,FlutterPlatformView{
         let dict = params as! NSDictionary
         self.mCodeId = dict.value(forKey: "iosCodeId") as? String
         self.hideSkip = dict.value(forKey: "hideSkip") as! Bool
-        self.supportDeepLink = dict.value(forKey: "supportDeepLink") as? Bool
-        self.width = Float(dict.value(forKey: "expressViewWidth") as! Double)
-        self.height = Float(dict.value(forKey: "expressViewHeight") as! Double)
-        self.adLoadType = dict.value(forKey: "adLoadType") as? Int
+        self.viewWidth = Float(dict.value(forKey: "width") as! Double)
+        self.viewHeight = Float(dict.value(forKey: "height") as! Double)
         self.timeout = (dict.value(forKey: "timeout") as! Double) / 1000
         super.init()
         self.channel = FlutterMethodChannel.init(name: FlutterUnionadConfig.view.splashAdView + "_" + String(id), binaryMessenger: binaryMessenger)
@@ -48,10 +44,10 @@ public class SplashAdView : NSObject,FlutterPlatformView{
         self.container.removeFromSuperview()
         let size : CGSize
         self.splashAd?.removeSplashView()
-        if(self.width == 0 || self.height == 0){
+        if(self.viewWidth == 0 || self.viewHeight == 0){
             size = CGSize(width: MyUtils.getScreenSize().width, height: MyUtils.getScreenSize().height)
         }else{
-            size = CGSize(width: CGFloat(self.width!), height: CGFloat(self.height!))
+            size = CGSize(width: CGFloat(self.viewWidth!), height: CGFloat(self.viewHeight!))
         }
         let splash = BUSplashAd.init(slotID: self.mCodeId!, adSize:size)
         splash.tolerateTimeout = self.timeout ?? 3.0

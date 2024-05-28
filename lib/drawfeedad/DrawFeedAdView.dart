@@ -4,27 +4,19 @@ import 'package:flutter/services.dart';
 import 'package:flutter_unionad/flutter_unionad.dart';
 import 'package:flutter_unionad/flutter_unionad_code.dart';
 
-class DrawFeedAdView extends StatefulWidget {
-  final bool mIsExpress;
+class FlutterUnionadDrawFeedAdView extends StatefulWidget {
   final String androidCodeId;
   final String iosCodeId;
-  final bool supportDeepLink;
-  final double expressViewWidth;
-  final double expressViewHeight;
-  final int downloadType;
-  final int adLoadType;
+  final double width;
+  final double height;
   final FlutterUnionadDrawFeedCallBack? callBack;
 
-  const DrawFeedAdView(
+  const FlutterUnionadDrawFeedAdView(
       {Key? key,
-      required this.mIsExpress,
       required this.androidCodeId,
       required this.iosCodeId,
-      required this.supportDeepLink,
-      required this.expressViewWidth,
-      required this.expressViewHeight,
-      required this.downloadType,
-      required this.adLoadType,
+      required this.width,
+      required this.height,
       this.callBack})
       : super(key: key);
 
@@ -32,7 +24,7 @@ class DrawFeedAdView extends StatefulWidget {
   _DrawFeedAdViewState createState() => _DrawFeedAdViewState();
 }
 
-class _DrawFeedAdViewState extends State<DrawFeedAdView> {
+class _DrawFeedAdViewState extends State<FlutterUnionadDrawFeedAdView> {
   String _viewType = "com.gstory.flutter_unionad/DrawFeedAdView";
 
   MethodChannel? _channel;
@@ -48,8 +40,8 @@ class _DrawFeedAdViewState extends State<DrawFeedAdView> {
   void initState() {
     super.initState();
     _isShowAd = true;
-    _width = widget.expressViewWidth;
-    _height = widget.expressViewHeight;
+    _width = widget.width;
+    _height = widget.height;
   }
 
   @override
@@ -64,13 +56,9 @@ class _DrawFeedAdViewState extends State<DrawFeedAdView> {
         child: AndroidView(
           viewType: _viewType,
           creationParams: {
-            "mIsExpress": widget.mIsExpress,
             "androidCodeId": widget.androidCodeId,
-            "supportDeepLink": widget.supportDeepLink,
-            "expressViewWidth": widget.expressViewWidth,
-            "expressViewHeight": widget.expressViewHeight,
-            "downloadType": widget.downloadType,
-            "adLoadType": widget.adLoadType,
+            "width": widget.width,
+            "height": widget.height,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),
@@ -83,12 +71,9 @@ class _DrawFeedAdViewState extends State<DrawFeedAdView> {
         child: UiKitView(
           viewType: _viewType,
           creationParams: {
-            "mIsExpress": widget.mIsExpress,
             "iosCodeId": widget.iosCodeId,
-            "supportDeepLink": widget.supportDeepLink,
-            "expressViewWidth": widget.expressViewWidth,
-            "expressViewHeight": widget.expressViewHeight,
-            "downloadType": widget.downloadType,
+            "width": widget.width,
+            "height": widget.height,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),

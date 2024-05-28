@@ -1,41 +1,62 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_unionad/flutter_unionad.dart';
+part of 'package:flutter_unionad/flutter_unionad.dart';
 
-class SplashAdView extends StatefulWidget {
-  final bool mIsExpress;
-  final String androidCodeId;
-  final String iosCodeId;
-  final bool supportDeepLink;
-  final double expressViewWidth;
-  final double expressViewHeight;
-  final int downloadType;
-  final int? adLoadType;
-  final int? timeout;
-  final bool hideSkip;
-  final FlutterUnionadSplashCallBack? callBack;
+// import 'package:flutter/foundation.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter/services.dart';
+// import 'package:flutter_unionad/flutter_unionad.dart';
 
-  const SplashAdView(
+class FlutterUnionadSplashAdView extends StatefulWidget {
+  String androidCodeId;
+  String iosCodeId;
+  bool? supportDeepLink;
+  double? width;
+  double? height;
+  int? timeout;
+  bool? hideSkip;
+  FlutterUnionadSplashCallBack? callBack;
+
+  /// # 开屏广告
+  ///
+  /// [androidCodeId] android 开屏广告广告id 必填
+  ///
+  /// [iosCodeId] ios 开屏广告广告id 必填
+  ///
+  /// [supportDeepLink] 是否支持 DeepLink 选填
+  ///
+  /// [width] 期望view 宽度 dp 选填 mIsExpress=true必填
+  ///
+  /// [height] 期望view高度 dp 选填 mIsExpress=true必填
+  ///
+  /// [FlutterUnionAdSplashCallBack] 开屏广告回调
+  ///
+  /// [timeout] 开屏广告加载超时时间,建议大于3000,这里为了冷启动第一次加载到广告并且展示,示例设置了3000ms
+  ///
+  /// [hideSkip] 是否影藏跳过按钮(当影藏的时候显示自定义跳过按钮) 默认显示
+  ///
+  /// [callBack] 广告回调[FlutterUnionadSplashCallBack]
+  ///
+  FlutterUnionadSplashAdView(
       {Key? key,
-      required this.mIsExpress,
       required this.androidCodeId,
       required this.iosCodeId,
-      required this.supportDeepLink,
-      required this.expressViewWidth,
-      required this.expressViewHeight,
-      required this.downloadType,
-      required this.adLoadType,
-      required this.timeout,
-      required this.hideSkip,
+      this.supportDeepLink,
+      this.width,
+      this.height,
+      this.timeout,
+      this.hideSkip,
       this.callBack})
       : super(key: key);
 
   @override
-  _SplashAdViewState createState() => _SplashAdViewState();
+  _SplashAdViewState createState() {
+    supportDeepLink = supportDeepLink ?? true;
+    timeout = timeout ?? 3000;
+    hideSkip = hideSkip ?? false;
+    return _SplashAdViewState();
+  }
 }
 
-class _SplashAdViewState extends State<SplashAdView> {
+class _SplashAdViewState extends State<FlutterUnionadSplashAdView> {
   String _viewType = "com.gstory.flutter_unionad/SplashAdView";
 
   MethodChannel? _channel;
@@ -56,24 +77,17 @@ class _SplashAdViewState extends State<SplashAdView> {
     }
     if (defaultTargetPlatform == TargetPlatform.android) {
       return Container(
-        width: widget.mIsExpress
-            ? widget.expressViewWidth
-            : MediaQuery.of(context).size.width,
-        height: widget.mIsExpress
-            ? widget.expressViewHeight
-            : MediaQuery.of(context).size.height,
+        width: widget.width ?? MediaQuery.of(context).size.width,
+        height: widget.height ?? MediaQuery.of(context).size.height,
         child: AndroidView(
           viewType: _viewType,
           creationParams: {
-            "mIsExpress": widget.mIsExpress,
             "androidCodeId": widget.androidCodeId,
             "supportDeepLink": widget.supportDeepLink,
-            "expressViewWidth": widget.expressViewWidth,
-            "expressViewHeight": widget.expressViewHeight,
-            "downloadType": widget.downloadType,
-            "adLoadType": widget.adLoadType,
+            "width": widget.width ?? MediaQuery.of(context).size.width,
+            "height": widget.height ?? MediaQuery.of(context).size.height,
             "timeout": widget.timeout,
-            "hideSkip":widget.hideSkip,
+            "hideSkip": widget.hideSkip,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),
@@ -81,24 +95,17 @@ class _SplashAdViewState extends State<SplashAdView> {
       );
     } else if (defaultTargetPlatform == TargetPlatform.iOS) {
       return Container(
-        width: widget.mIsExpress
-            ? widget.expressViewWidth
-            : MediaQuery.of(context).size.width,
-        height: widget.mIsExpress
-            ? widget.expressViewHeight
-            : MediaQuery.of(context).size.height,
+        width: widget.width ?? MediaQuery.of(context).size.width,
+        height: widget.height ?? MediaQuery.of(context).size.height,
         child: UiKitView(
           viewType: _viewType,
           creationParams: {
-            "mIsExpress": widget.mIsExpress,
             "iosCodeId": widget.iosCodeId,
             "supportDeepLink": widget.supportDeepLink,
-            "expressViewWidth": widget.expressViewWidth,
-            "expressViewHeight": widget.expressViewHeight,
-            "downloadType": widget.downloadType,
-            "adLoadType": widget.adLoadType,
+            "width": widget.width ?? MediaQuery.of(context).size.width,
+            "height": widget.height ?? MediaQuery.of(context).size.height,
             "timeout": widget.timeout,
-            "hideSkip":widget.hideSkip,
+            "hideSkip": widget.hideSkip,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),

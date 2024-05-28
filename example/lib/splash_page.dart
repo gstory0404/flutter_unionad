@@ -25,25 +25,21 @@ class _SplashPageState extends State<SplashPage> {
       children: [
         Offstage(
           offstage: _offstage,
-          child: FlutterUnionad.splashAdView(
-            //是否使用个性化模版  设定widget宽高
-            mIsExpress: true,
-            //android 开屏广告广告id 必填
-            androidCodeId: "887367774",
+          child: FlutterUnionadSplashAdView(
+            //android 开屏广告广告id 必填 889033013 102729400
+            androidCodeId: "102729400",
             //ios 开屏广告广告id 必填
-            iosCodeId: "887367774",
+            iosCodeId: "102729400",
             //是否支持 DeepLink 选填
             supportDeepLink: true,
-            // 期望view 宽度 dp 选填 mIsExpress=true必填
-            expressViewWidth: MediaQuery.of(context).size.width,
-            //期望view高度 dp 选填 mIsExpress=true必填
-            expressViewHeight: MediaQuery.of(context).size.height - 100,
-            //控制下载APP前是否弹出二次确认弹窗
-            downloadType: FlutterUnionadDownLoadType.DOWNLOAD_TYPE_POPUP,
-            //用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，
-            adLoadType: FlutterUnionadLoadType.LOAD,
+            // 期望view 宽度 dp 选填
+            width: MediaQuery.of(context).size.width,
+            //期望view高度 dp 选填
+            height: MediaQuery.of(context).size.height - 100,
             //是否影藏跳过按钮(当影藏的时候显示自定义跳过按钮) 默认显示
             hideSkip: false,
+            //超时时间
+            timeout: 3000,
             callBack: FlutterUnionadSplashCallBack(
               onShow: () {
                 print("开屏广告显示");

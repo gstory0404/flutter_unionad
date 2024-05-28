@@ -35,21 +35,13 @@ class MyBannerView : ADContainerView{
     private var channel : FlutterMethodChannel?
     //广告需要的参数
     var mCodeId :String?
-    var supportDeepLink :Bool? = true
-    var expressViewWidth : Float?
-    var expressViewHeight :Float?
-    var mIsExpress :Bool? = true
-    var expressAdNum :Int64?
-    var expressTime : Int64?
+    var viewWidth : Float?
+    var viewHeight :Float?
     
     init(frame: CGRect, dict:NSDictionary, methodChannel: FlutterMethodChannel) {
         self.mCodeId = dict.value(forKey: "iosCodeId") as? String
-        self.mIsExpress = dict.value(forKey: "mIsExpress") as? Bool
-        self.supportDeepLink = dict.value(forKey: "supportDeepLink") as? Bool
-        self.expressViewWidth = Float(dict.value(forKey: "expressViewWidth") as! Double)
-        self.expressViewHeight = Float(dict.value(forKey: "expressViewHeight") as! Double)
-        self.expressAdNum = dict.value(forKey: "expressAdNum") as? Int64
-        self.expressTime = dict.value(forKey: "expressTime") as? Int64
+        self.viewWidth = Float(dict.value(forKey: "width") as! Double)
+        self.viewHeight = Float(dict.value(forKey: "height") as! Double)
         self.channel = methodChannel
         super.init(frame: frame)
         self.loadBannerAd()
@@ -60,16 +52,22 @@ class MyBannerView : ADContainerView{
     }
     
     private func loadBannerAd(){
-        let viewWidth:CGFloat = CGFloat(self.expressViewWidth!)
-        let viewHeigh:CGFloat = CGFloat(self.expressViewHeight!)
-        let size = CGSize(width: viewWidth, height: viewHeigh)
-        let bannerAdView = BUNativeExpressBannerView.init(slotID: self.mCodeId!, rootViewController: MyUtils.getVC(), adSize: size, interval: Int(self.expressTime!))
+        let width:CGFloat = CGFloat(self.viewWidth!)
+        let heigh:CGFloat = CGFloat(self.viewHeight!)
+        let size = CGSize(width: width, height: heigh)
+        let bannerAdView = BUNativeExpressBannerView.init(slotID: self.mCodeId!, rootViewController: MyUtils.getVC(), adSize: size)
         bannerAdView.delegate = self
-        bannerAdView.frame = CGRect(x: 0, y: 0, width: viewWidth, height: viewHeigh)
-        bannerAdView.center = CGPoint(x: viewWidth / 2, y: viewHeigh / 2)
+        bannerAdView.frame = CGRect(x: 0, y: 0, width: width, height: heigh)
+        bannerAdView.center = CGPoint(x: width / 2, y: heigh / 2)
         addSubview(bannerAdView)
         bannerAdView.loadAdData()
     }
+    
+    private func queryEcpm(){
+//        let info = bannerAdView
+    }
+    
+    
     private func disposeView() {
         removeFromSuperview()
     }

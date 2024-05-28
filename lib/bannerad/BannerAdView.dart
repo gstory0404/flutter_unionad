@@ -3,31 +3,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_unionad/flutter_unionad.dart';
 
-class BannerAdView extends StatefulWidget {
-  final bool mIsExpress;
+class FlutterUnionadBannerView extends StatefulWidget {
   final String androidCodeId;
   final String iosCodeId;
-  final bool supportDeepLink;
-  final int expressAdNum;
-  final int expressTime;
-  final double expressViewWidth;
-  final double expressViewHeight;
-  final int downloadType;
-  final int? adLoadType;
+  final double width;
+  final double height;
   final FlutterUnionadBannerCallBack? callBack;
 
-  const BannerAdView(
+  /// # banner广告
+  ///
+  /// [androidCodeId] andrrid banner广告id 必填
+  ///
+  /// [iosCodeId] ios banner广告id 必填
+  ///
+  /// [width] 期望view宽度 dp 必填
+  ///
+  /// [height] 期望view高度 dp 必填
+  ///
+  /// [FlutterUnionAdBannerCallBack]  banner广告回调
+  ///
+  FlutterUnionadBannerView(
       {Key? key,
-      required this.mIsExpress,
       required this.androidCodeId,
       required this.iosCodeId,
-      required this.supportDeepLink,
-      required this.expressAdNum,
-      required this.expressTime,
-      required this.expressViewWidth,
-      required this.expressViewHeight,
-      required this.downloadType,
-      required this.adLoadType,
+      required this.width,
+      required this.height,
       this.callBack})
       : super(key: key);
 
@@ -35,7 +35,7 @@ class BannerAdView extends StatefulWidget {
   _BannerAdViewState createState() => _BannerAdViewState();
 }
 
-class _BannerAdViewState extends State<BannerAdView> {
+class _BannerAdViewState extends State<FlutterUnionadBannerView> {
   String _viewType = "com.gstory.flutter_unionad/BannerAdView";
 
   MethodChannel? _channel;
@@ -51,8 +51,8 @@ class _BannerAdViewState extends State<BannerAdView> {
   void initState() {
     super.initState();
     _isShowAd = true;
-    _width = widget.expressViewWidth;
-    _height = widget.expressViewHeight;
+    _width = widget.width;
+    _height = widget.height;
   }
 
   @override
@@ -67,15 +67,9 @@ class _BannerAdViewState extends State<BannerAdView> {
         child: AndroidView(
           viewType: _viewType,
           creationParams: {
-            "mIsExpress": widget.mIsExpress,
             "androidCodeId": widget.androidCodeId,
-            "supportDeepLink": widget.supportDeepLink,
-            "expressViewWidth": widget.expressViewWidth,
-            "expressViewHeight": widget.expressViewHeight,
-            "expressAdNum": widget.expressAdNum,
-            "expressTime": widget.expressTime,
-            "downloadType": widget.downloadType,
-            "adLoadType": widget.adLoadType,
+            "width": widget.width,
+            "height": widget.height,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),
@@ -88,14 +82,9 @@ class _BannerAdViewState extends State<BannerAdView> {
         child: UiKitView(
           viewType: _viewType,
           creationParams: {
-            "mIsExpress": widget.mIsExpress,
             "iosCodeId": widget.iosCodeId,
-            "supportDeepLink": widget.supportDeepLink,
-            "expressViewWidth": widget.expressViewWidth,
-            "expressViewHeight": widget.expressViewHeight,
-            "expressAdNum": widget.expressAdNum,
-            "expressTime": widget.expressTime,
-            "downloadType": widget.downloadType,
+            "width": widget.width,
+            "height": widget.height,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),

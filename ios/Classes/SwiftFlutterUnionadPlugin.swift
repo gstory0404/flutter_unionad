@@ -59,13 +59,6 @@ public class SwiftFlutterUnionadPlugin: NSObject, FlutterPlugin {
         RewardedVideoAd.instance.showRewardedVideoAd()
         result(true)
         break
-            //加载全屏广告
-    case "fullScreenVideoAd":
-        print(call.arguments!)
-        let param = call.arguments as! NSDictionary
-        FullscreenVideoAd.instance.showFullscreenVideoAd(params: param)
-        result(true)
-        break
     //  预加载新模版渲染插屏广告
     case "loadFullScreenVideoAdInteraction":
         let param = call.arguments as! NSDictionary
