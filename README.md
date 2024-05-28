@@ -29,7 +29,7 @@
 ⚠️ 版本更新必看，不然可能广告加载可能会出现异常
 [插件更新调整](https://github.com/gstory0404/flutter_unionad/blob/master/notice.md)
 
-⚠️ 由于融合SDK与旧版部分api不兼容，[2.0.0](https://github.com/gstory0404/flutter_unionad/blob/master/notice.md)改动较大,更新后注意查看文档说明
+⚠️ 由于融合SDK与旧版部分api不兼容，[2.0.0](https://github.com/gstory0404/flutter_unionad/blob/master/CHANGELOG.md)改动较大,更新后注意查看文档说明
 
 ## 本地开发环境
 ```
