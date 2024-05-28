@@ -157,6 +157,8 @@ class _IndexPageState extends State<IndexPage> {
         //appname 必填
         appName: "unionad_test",
         //使用聚合功能一定要打开此开关，否则不会请求聚合广告，默认这个值为false
+        //true使用GroMore下的广告位
+        //false使用广告变现下的广告位
         useMediation: true,
         //是否为计费用户 选填
         paid: false,
