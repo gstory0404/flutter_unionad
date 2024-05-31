@@ -1,3 +1,14 @@
+# 2.0.0
+* android、ios切换为融合sdk
+* FlutterUnionad.register新增androidPrivacy、iosPrivacy隐私权限配置，移除FlutterUnionad.andridPrivacy
+* 移除fullScreenVideoAd全屏广告，使用新版插全屏广告
+* 新增FlutterUnionadBannerView横幅广告，旧版FlutterUnionad.bannerAdView后续会移除
+* 新增FlutterUnionadDrawFeedAdView Draw视频广告广告，旧版FlutterUnionad.drawFeedAdView后续会移除
+* 新增FlutterUnionadNativeAdView信息流广告，旧版FlutterUnionad.nativeAdView后续会移除
+* 新增FlutterUnionadSplashAdView开屏广告，旧版FlutterUnionad.splashAdView后续会移除
+* 部分配置参数调整，参考文档
+* 新版本支持ADN聚合，插件默认仅集成穿山甲，其他ADN广告参考官方文档集成
+
 # 1.3.10
  插件1.3.10以后ios必须添加以下，不然开屏广告无法点击
 - swift
