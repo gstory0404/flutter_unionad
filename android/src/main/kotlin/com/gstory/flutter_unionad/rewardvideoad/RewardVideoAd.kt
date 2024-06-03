@@ -74,6 +74,7 @@ object RewardVideoAd {
                     .setExtraObject(MediationConstant.ADN_UNITY, mediaExtra)
                     .build()
             )
+            .setMediaExtra(mediaExtra) //用户透传的信息，可不传
             .build()
         val mTTAdNative = TTAdSdk.getAdManager().createAdNative(mActivity)
         mTTAdNative.loadRewardVideoAd(adSlot, object : RewardVideoAdListener {
