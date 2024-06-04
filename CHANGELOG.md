@@ -1,3 +1,6 @@
+## 2.0.1
+* 修复gromore激励广告透传参数无效异常
+
 ## 2.0.0 
 * android、ios切换为融合sdk
 * FlutterUnionad.register新增androidPrivacy、iosPrivacy隐私权限配置，移除FlutterUnionad.andridPrivacy
