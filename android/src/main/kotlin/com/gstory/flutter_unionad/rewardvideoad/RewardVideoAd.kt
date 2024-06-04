@@ -65,6 +65,7 @@ object RewardVideoAd {
                     .setRewardName(rewardName) //奖励的名称
                     .setRewardAmount(rewardAmount!!) //奖励的数量
                     .setExtraObject(MediationConstant.ADN_PANGLE, mediaExtra)//服务端奖励验证透传参数
+                    .setExtraObject(MediationConstant.KEY_GROMORE_EXTRA, mediaExtra)
                     .setExtraObject(MediationConstant.ADN_GDT, mediaExtra)
                     .setExtraObject(MediationConstant.ADN_BAIDU, mediaExtra)
                     .setExtraObject(MediationConstant.ADN_KS, mediaExtra)
