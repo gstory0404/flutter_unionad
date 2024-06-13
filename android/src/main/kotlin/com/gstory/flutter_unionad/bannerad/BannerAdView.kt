@@ -114,6 +114,7 @@ internal class BannerAdView(
         bindDislike()
         mContainer.removeAllViews()
         expressAdView = mBannerAd?.expressAdView
+        mBannerAd?.render()
         mContainer.addView(expressAdView)
     }
 
