@@ -62,7 +62,7 @@ dependencies {
 //    implementation(name: 'open_ad_sdk_5.9.0.6', ext: 'aar')
 //    implementation(name: 'tools_release', ext: 'aar')
 
-    implementation "com.pangle.cn:mediation-sdk:6.1.2.5"  //融合SDK
+    implementation "com.pangle.cn:mediation-sdk:6.2.1.7"  //融合SDK
 //    implementation "com.pangle.cn:mediation-ks-adapter:3.3.57.0"//ks adapter
 //    implementation "com.pangle.cn:mediation-gdt-adapter:4.562.1432.0" //gdt adapter
 //    implementation "com.pangle.cn:mediation-admob-adapter:17.2.0.54"//admob adapter

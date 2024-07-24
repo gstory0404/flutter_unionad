@@ -32,7 +32,6 @@ object TTAdManagerHolder {
         val useMediation = arguments["useMediation"] as Boolean
         val paid = arguments["paid"] as Boolean
         val keywords = arguments["keywords"] as String
-        val useTextureView = arguments["useTextureView"] as Boolean
         var allowShowNotify = arguments["allowShowNotify"] as Boolean
         var debug = arguments["debug"] as Boolean
         var supportMultiProcess = arguments["supportMultiProcess"] as Boolean
@@ -53,7 +52,6 @@ object TTAdManagerHolder {
                 .useMediation(useMediation)//使用聚合功能一定要打开此开关，否则不会请求聚合广告，默认这个值为false
                 .paid(paid)//是否为计费用户
                 .keywords(keywords) //用户画像的关键词列表
-                .useTextureView(useTextureView) //使用TextureView控件播放视频,默认为SurfaceView,当有SurfaceView冲突的场景，可以使用TextureView
                 .allowShowNotify(allowShowNotify) //是否允许SDK弹出通知
                 .debug(debug) //测试阶段打开，可以通过日志排查问题，上线时去除该调用
                 .directDownloadNetworkType(*d) //允许直接下载的网络状态集合

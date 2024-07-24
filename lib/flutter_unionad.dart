@@ -33,8 +33,6 @@ class FlutterUnionad {
   ///
   ///[androidAppId] 穿山甲广告 ios appid 必填
   ///
-  ///[useTextureView] 使用TextureView控件播放视频,默认为SurfaceView,当有SurfaceView冲突的场景，可以使用TextureView 选填
-  ///
   ///[appname] app名称 选填
   ///
   ///[useMediation] 使用聚合功能一定要打开此开关，否则不会请求聚合广告，默认这个值为false
@@ -81,7 +79,6 @@ class FlutterUnionad {
       "paid": paid ?? false,
       "useMediation": useMediation ?? false,
       "keywords": keywords ?? "",
-      "useTextureView": useTextureView ?? false,
       "allowShowNotify": allowShowNotify ?? true,
       "debug": debug ?? false,
       "supportMultiProcess": supportMultiProcess ?? false,

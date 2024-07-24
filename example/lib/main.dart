@@ -164,8 +164,6 @@ class _IndexPageState extends State<IndexPage> {
         paid: false,
         //用户画像的关键词列表 选填
         keywords: "",
-        //使用TextureView控件播放视频,默认为SurfaceView,当有SurfaceView冲突的场景，可以使用TextureView 选填
-        useTextureView: true,
         //是否允许sdk展示通知栏提示 选填
         allowShowNotify: true,
         //是否显示debug日志
