@@ -206,7 +206,7 @@ object RewardVideoAd {
                     "onAdMethod" to "onRewardArrived",
                     "rewardVerify" to isRewardValid,
                     "rewardType" to rewardType,
-                    "rewardAmount" to if(extraInfo["reward_extra_key_reward_amount"] is Int) extraInfo["reward_extra_key_reward_amount"] else (extraInfo["reward_extra_key_reward_amount"] as Float).toInt(),
+                    "rewardAmount" to if(extraInfo["reward_extra_key_reward_amount"] is Integer) extraInfo["reward_extra_key_reward_amount"] else (extraInfo["reward_extra_key_reward_amount"] as Float).toInt(),
                     "rewardName" to extraInfo["reward_extra_key_reward_name"],
                     "propose" to extraInfo["reward_extra_key_reward_propose"],
                     "errorCode" to extraInfo["reward_extra_key_error_code"],
