@@ -1,3 +1,6 @@
+## 2.0.5
+* fix bug
+
 ## 2.0.4
 * Android SDK升级6.2.1.7
 * iOS SDK升级6.3.0.1
