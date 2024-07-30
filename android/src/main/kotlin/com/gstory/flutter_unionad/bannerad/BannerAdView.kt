@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.TextView
 import com.bytedance.sdk.openadsdk.*
 import com.bytedance.sdk.openadsdk.TTAdNative.NativeExpressAdListener
 import com.bytedance.sdk.openadsdk.TTNativeExpressAd.ExpressAdInteractionListener
@@ -18,6 +19,7 @@ import com.gstory.flutter_unionad.UIUtils
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.platform.PlatformView
+import java.util.logging.Logger
 
 
 /**
@@ -74,9 +76,9 @@ internal class BannerAdView(
                 MediationAdSlot.Builder()
                     .setMediationNativeToBannerListener(object : MediationNativeToBannerListener() {
                         // Banner混出自渲染信息流时使用，将信息流素材渲染成View返回
-                        override fun getMediationBannerViewFromNativeAd(p0: IMediationNativeAdInfo?): View? {
-                            return super.getMediationBannerViewFromNativeAd(p0)
-                        }
+//                        override fun getMediationBannerViewFromNativeAd(p0: IMediationNativeAdInfo?): View? {
+//                            return super.getMediationBannerViewFromNativeAd(p0)
+//                        }
                     })
                     .build()
             )
@@ -105,32 +107,34 @@ internal class BannerAdView(
     /**
      * 广告加载成功后，设置监听器，展示广告
      */
-    var expressAdView: View? = null
+    var bannerAdView: View? = null
     private fun showBannerAd() {
         //广告事件
-        // TODO暂时有问题 设置setExpressInteractionListener后会出现异常广告view为空
-//        bindAdListener()
+        // TODO暂时有问题 设置setExpressInteractionListener onAdShow后会出现异常广告view为空
+        bindAdListener()
         //dislike设置
         bindDislike()
         mContainer.removeAllViews()
-        expressAdView = mBannerAd?.expressAdView
-        mBannerAd?.render()
-        mContainer.addView(expressAdView)
+        bannerAdView = mBannerAd?.expressAdView
+        if (bannerAdView != null) mBannerAd?.render()
+        mContainer.addView(bannerAdView)
     }
 
     private fun bindAdListener() {
-//        var viewWidth = 0.0f
-//        var viewHeight = 0.0f
-        mBannerAd?.setExpressInteractionListener(object : ExpressAdInteractionListener {
-            override fun onAdClicked(view: View, type: Int) {
+        mBannerAd?.setExpressInteractionListener(object : TTNativeExpressAd.AdInteractionListener {
+            override fun onAdClicked(p0: View?, p1: Int) {
                 Log.e(TAG, "广告点击")
                 channel?.invokeMethod("onClick", "")
             }
 
-            override fun onAdShow(view: View, type: Int) {
-                Log.e(TAG, "广告显示")
+            override fun onAdShow(p0: View?, p1: Int) {
+                Log.e(TAG, "广告显示${bannerAdView?.measuredWidth} = ${bannerAdView?.measuredHeight}")
+                var width = bannerAdView?.measuredWidth?.toFloat()
+                    ?.let { UIUtils.px2dip(context, it) } ?: viewWidth
+                var height = bannerAdView?.measuredHeight?.toFloat()
+                    ?.let { UIUtils.px2dip(context, it) } ?: viewHeight
                 var map: MutableMap<String, Any?> =
-                    mutableMapOf("width" to viewWidth, "height" to viewHeight)
+                    mutableMapOf("width" to width, "height" to height)
                 channel?.invokeMethod("onShow", map)
             }
 
@@ -139,12 +143,37 @@ internal class BannerAdView(
                 channel?.invokeMethod("onFail", msg)
             }
 
-            override fun onRenderSuccess(view: View, width: Float, height: Float) {
-                Log.e(TAG, "渲染成功")
-//                viewWidth = width
-//                viewHeight = height
+            override fun onRenderSuccess(p0: View?, p1: Float, p2: Float) {
+                Log.e(TAG, "渲染成功 ${bannerAdView?.width} = ${bannerAdView?.height}")
             }
+
+            override fun onAdDismiss() {
+                Log.e(TAG, "关闭")
+            }
+
         })
+//        mBannerAd?.setExpressInteractionListener(object : ExpressAdInteractionListener {
+//            override fun onAdClicked(view: View, type: Int) {
+//                Log.e(TAG, "广告点击")
+//                channel?.invokeMethod("onClick", "")
+//            }
+//
+//            override fun onAdShow(view: View, type: Int) {
+//                Log.e(TAG, "广告显示")
+//                var map: MutableMap<String, Any?> =
+//                    mutableMapOf("width" to viewWidth, "height" to viewHeight)
+//                channel?.invokeMethod("onShow", map)
+//            }
+//
+//            override fun onRenderFail(view: View, msg: String, code: Int) {
+//                Log.e(TAG, "render fail: $code   $msg")
+//                channel?.invokeMethod("onFail", msg)
+//            }
+//
+//            override fun onRenderSuccess(view: View, width: Float, height: Float) {
+//                Log.e(TAG, "渲染成功")
+//            }
+//        })
     }
 
     /**
