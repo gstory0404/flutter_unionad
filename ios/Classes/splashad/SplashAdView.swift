@@ -49,19 +49,17 @@ public class SplashAdView : NSObject,FlutterPlatformView{
         }else{
             size = CGSize(width: CGFloat(self.viewWidth!), height: CGFloat(self.viewHeight!))
         }
-        let splash = BUSplashAd.init(slotID: self.mCodeId!, adSize:size)
-        splash.tolerateTimeout = self.timeout ?? 3.0
-        splash.hideSkipButton = self.hideSkip
-        splash.supportCardView = false
-        splash.supportZoomOutView = false
-        splash.delegate = self
-        self.splashAd = splash;
+        let slot = BUAdSlot.init()
+        slot.id = self.mCodeId!
+        self.splashAd = BUSplashAd.init(slot: slot, adSize: size)
+        self.splashAd?.delegate = self
         self.splashAd?.loadData()
+    
     }
     
     private func disposeView() {
         self.container.removeFromSuperview()
-        self.splashAd?.removeSplashView()
+        self.splashAd?.mediation?.destoryAd()
         self.splashAd = nil;
     }
     
@@ -92,7 +90,7 @@ extension SplashAdView : BUSplashAdDelegate{
     //SDK渲染开屏广告加载成功回调
     public func splashAdLoadSuccess(_ splashAd: BUSplashAd) {
         LogUtil.logInstance.printLog(message: "开屏广告加载成功回调")
-        self.splashAd?.showSplashView(inRootViewController: MyUtils.getVC().navigationController ?? MyUtils.getVC())
+//        self.splashAd?.showSplashView(inRootViewController: MyUtils.getVC().navigationController ?? MyUtils.getVC())
     }
     
     //返回的错误码(error)表示广告加载失败的原因，所有错误码详情请见链接Link
@@ -108,7 +106,7 @@ extension SplashAdView : BUSplashAdDelegate{
         if(self.hideSkip){
             self.showSkipButton()
         }
-        self.container.addSubview(self.splashAd!.splashView!)
+        self.splashAd?.showSplashView(inRootViewController: MyUtils.getVC().navigationController ?? MyUtils.getVC())
         self.channel?.invokeMethod("onShow", arguments: "开屏广告加载完成")
     }
     
