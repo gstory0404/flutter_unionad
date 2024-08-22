@@ -35,7 +35,7 @@ class FlutterUnionad {
   ///
   ///[appname] app名称 选填
   ///
-  ///[useMediation] 使用聚合功能一定要打开此开关，否则不会请求聚合广告，默认这个值为false
+  ///[useMediation] 使用聚合功能一定要打开此开关，否则不会请求聚合广告，默认这个值为true
   ///    true使用GroMore下的广告位
   //     false使用广告变现下的广告位
   ///
@@ -77,7 +77,7 @@ class FlutterUnionad {
       "androidAppId": androidAppId,
       "appName": appName ?? "",
       "paid": paid ?? false,
-      "useMediation": useMediation ?? false,
+      "useMediation": useMediation ?? true,
       "keywords": keywords ?? "",
       "allowShowNotify": allowShowNotify ?? true,
       "debug": debug ?? false,
