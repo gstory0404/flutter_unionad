@@ -1,3 +1,8 @@
+## 2.0.9
+* 修复打包AAPT: error: resource android:attr/lStar not found异常
+* android sdk升级6.4.0.9
+* ios sdk升级6.4.0.9
+
 ## 2.0.8
 * Android SDK升级6.3.1.4
 * iOS SDK升级6.4.0.1
