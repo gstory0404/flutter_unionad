@@ -31,6 +31,8 @@
 
 ⚠️ 由于融合SDK与旧版部分api不兼容，[2.0.0](https://github.com/gstory0404/flutter_unionad/blob/master/CHANGELOG.md)改动较大,更新后注意查看文档说明
 
+⚠️ 用gromore来创建广告位，使用gromore id来展示广告
+
 ## 本地开发环境
 ```
 [✓] Flutter (Channel stable, 3.22.1, on macOS 14.5 23F79 darwin-x64, locale zh-Hans-CN)

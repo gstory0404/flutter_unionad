@@ -31,6 +31,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
+    namespace = "com.gstory.flutter_unionad"
     compileSdkVersion 31
 
     sourceSets {
