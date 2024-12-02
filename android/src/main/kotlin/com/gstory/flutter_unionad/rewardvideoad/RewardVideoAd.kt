@@ -143,12 +143,12 @@ object RewardVideoAd {
 
             override fun onVideoError() {
                 Log.e(TAG, "rewardVideoAd onVideoError")
-                var map: MutableMap<String, Any?> = mutableMapOf(
-                    "adType" to "rewardAd",
-                    "onAdMethod" to "onFail",
-                    "error" to ""
-                )
-                FlutterUnionadEventPlugin.sendContent(map)
+//                var map: MutableMap<String, Any?> = mutableMapOf(
+//                    "adType" to "rewardAd",
+//                    "onAdMethod" to "onFail",
+//                    "error" to ""
+//                )
+//                FlutterUnionadEventPlugin.sendContent(map)
             }
 
             override fun onVideoComplete() {
