@@ -119,9 +119,6 @@ class _DrawFeedAdViewState extends State<FlutterUnionadDrawFeedAdView> {
       case FlutterUnionadMethod.onClick:
         widget.callBack?.onClick!();
         break;
-      case FlutterUnionadMethod.onDislike:
-        widget.callBack?.onDislike!(call.arguments);
-        break;
       case FlutterUnionadMethod.onVideoPlay:
         widget.callBack?.onVideoPlay!();
         break;
