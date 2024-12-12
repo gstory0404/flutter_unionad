@@ -59,6 +59,7 @@ class FlutterUnionad {
   static Future<bool> register({
     required String iosAppId,
     required String androidAppId,
+    String? ohosAppId,
     String? appName,
     bool? useMediation,
     bool? paid,
@@ -75,6 +76,7 @@ class FlutterUnionad {
     return await _channel.invokeMethod("register", {
       "iosAppId": iosAppId,
       "androidAppId": androidAppId,
+      "ohosAppId": ohosAppId,
       "appName": appName ?? "",
       "paid": paid ?? false,
       "useMediation": useMediation ?? true,
@@ -274,6 +276,7 @@ class FlutterUnionad {
   static Future<bool> loadRewardVideoAd({
     required String androidCodeId,
     required String iosCodeId,
+    String? ohosCodeId,
     required String rewardName,
     required int rewardAmount,
     required String userID,
@@ -283,6 +286,7 @@ class FlutterUnionad {
     return await _channel.invokeMethod("loadRewardVideoAd", {
       "androidCodeId": androidCodeId,
       "iosCodeId": iosCodeId,
+      "ohosCodeId": ohosCodeId,
       "rewardName": rewardName,
       "rewardAmount": rewardAmount,
       "userID": userID,
