@@ -152,10 +152,16 @@ export default class FlutterUnionadPlugin implements FlutterPlugin, MethodCallHa
         },
         onRewardArrived: (isVerify, rewardType, extraInfo) => {
           console.error("verify: $p0 amount:$p1 name:$p2 p3:$p3 p4:$p4")
-          let map: Map<string, Any> =
-            new Map([["adType", "rewardAd"], ["onAdMethod", "onClose"], ["rewardVerify", isVerify], ["rewardAmount", 0],
-              ["rewardName", "0"], ["errorCode", 0], ["error", ""]]);
-          ;
+          let map: Record<string, Any> = {
+            "adType": "rewardAd",
+            "onAdMethod": "onVerify",
+            "rewardVerify": isVerify,
+            "rewardAmount": 0,
+            "rewardName": "0",
+            "errorCode": 0,
+            "error": "",
+          };
+
           FlutterUnionadEventPlugin.sendContent(map)
         }
       }

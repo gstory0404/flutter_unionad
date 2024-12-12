@@ -21,7 +21,7 @@ export default class FlutterUnionadEventPlugin implements FlutterPlugin, StreamH
   private static eventSink: EventSink | null = null;
   private static context: Context | null = null;
 
-  static sendContent(content: Map<string, Any>) {
+  static sendContent(content: Record<string, Any>) {
     FlutterUnionadEventPlugin.eventSink?.success(content)
   }
 
