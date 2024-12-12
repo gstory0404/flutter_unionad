@@ -1,6 +1,7 @@
 import {
   AbilityAware,
   AbilityPluginBinding,
+  Any,
   FlutterPlugin,
   FlutterPluginBinding,
   MethodCall,
@@ -19,6 +20,7 @@ import {
   SDKConfigBuilder
 } from '@csj/openadsdk';
 import { UIAbility } from '@kit.AbilityKit';
+import FlutterUnionadEventPlugin from 'flutter_unionad/src/main/ets/components/plugin/FlutterUnionadEventPlugin';
 
 /** FlutterUnionadPlugin **/
 export default class FlutterUnionadPlugin implements FlutterPlugin, MethodCallHandler, AbilityAware {
@@ -101,17 +103,26 @@ export default class FlutterUnionadPlugin implements FlutterPlugin, MethodCallHa
       }
       let mLoadListener: RewardAdLoadListener = {
         onAdLoaded: (rewardAd: CSJRewardAd) => {
-          // 广告基础信息加载完成
+          console.error("rewardVideoAd loaded 广告类型：${getAdType(ad.rewardVideoAdType)}")
+          FlutterUnionadEventPlugin.sendContent(
+            new Map([["adType", "rewardAd"], ["onAdMethod", "onReady"]])
+          );
+          // 广告基础信息加载完成x
           if (this.uiAbility != null) {
             rewardAd.setInteractionListener(adInteractionListener)
             rewardAd.showRewardAd(this.uiAbility.context.windowStage)
           }
         },
         onAdCached: (rewardAd: CSJRewardAd) => {
-          // 广告基础信息与素材缓存完成
+          console.error("rewardVideoAd video cached2")
+          let map: Map<string, Any> = new Map([["adType", "rewardAd"], ["onAdMethod", "onCache"],]);
+          FlutterUnionadEventPlugin.sendContent(map)
         },
         onError: (code: number, message: string) => {
-          console.log("onError,code:"+code+",message:"+message)
+          console.error("视频加载失败" + code + message);
+          let map: Map<string, Any> =
+            new Map([["adType", "rewardAd"], ["onAdMethod", "onFail"], ["error", code + message],]);
+          FlutterUnionadEventPlugin.sendContent(map);
         }
       }
       this.adCreator.loadRewardAd(adSlot, mLoadListener)
