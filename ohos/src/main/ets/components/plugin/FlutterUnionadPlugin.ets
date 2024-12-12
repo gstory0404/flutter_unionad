@@ -20,7 +20,7 @@ import {
   SDKConfigBuilder
 } from '@csj/openadsdk';
 import { UIAbility } from '@kit.AbilityKit';
-import FlutterUnionadEventPlugin from 'flutter_unionad/src/main/ets/components/plugin/FlutterUnionadEventPlugin';
+import FlutterUnionadEventPlugin from './FlutterUnionadEventPlugin';
 
 /** FlutterUnionadPlugin **/
 export default class FlutterUnionadPlugin implements FlutterPlugin, MethodCallHandler, AbilityAware {
