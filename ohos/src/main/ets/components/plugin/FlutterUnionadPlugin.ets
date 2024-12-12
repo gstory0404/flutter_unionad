@@ -105,15 +105,10 @@ export default class FlutterUnionadPlugin implements FlutterPlugin, MethodCallHa
       let mLoadListener: RewardAdLoadListener = {
         onAdLoaded: (rewardAd: CSJRewardAd) => {
           console.error("rewardVideoAd loaded 广告类型：${getAdType(ad.rewardVideoAdType)}")
+          this.rewardAd = rewardAd;
           FlutterUnionadEventPlugin.sendContent(
             new Map([["adType", "rewardAd"], ["onAdMethod", "onReady"]])
           );
-          this.rewardAd = rewardAd;
-          // 广告基础信息加载完成x
-          if (this.uiAbility != null) {
-            rewardAd.setInteractionListener(adInteractionListener)
-            rewardAd.showRewardAd(this.uiAbility.context.windowStage)
-          }
         },
         onAdCached: (rewardAd: CSJRewardAd) => {
           console.error("rewardVideoAd video cached2")
