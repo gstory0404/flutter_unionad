@@ -221,7 +221,9 @@ class _IndexPageState extends State<IndexPage> {
         ));
     print("sdk初始化 $_init");
     _version = await FlutterUnionad.getSDKVersion();
+    print("sdk初始化 1");
     _themeStatus = await FlutterUnionad.getThemeStatus();
+    print("sdk初始化 12");
     setState(() {});
   }
 
