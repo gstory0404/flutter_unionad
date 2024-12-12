@@ -5,5 +5,7 @@
   "main": "",
   "author": "",
   "license": "",
-  "dependencies": {}
+  "dependencies": {
+    "flutter_unionad": "file:../har/flutter_unionad.har"
+  }
 }

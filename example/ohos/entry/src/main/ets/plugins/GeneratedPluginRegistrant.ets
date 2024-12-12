@@ -1,4 +1,5 @@
 import { FlutterEngine, Log } from '@ohos/flutter_ohos';
+import FlutterUnionadPlugin from 'flutter_unionad';
 
 /**
  * Generated file. Do not edit.
@@ -12,6 +13,7 @@ export class GeneratedPluginRegistrant {
 
   static registerWith(flutterEngine: FlutterEngine) {
     try {
+      flutterEngine.getPlugins()?.add(new FlutterUnionadPlugin());
     } catch (e) {
       Log.e(
         TAG,
