@@ -15,7 +15,7 @@
   },
   "overrides": {
     "@ohos/flutter_ohos": "file:./har/flutter.har",
-    "flutter_unionad": "file:./har/flutter_unionad.har",
+    "flutter_unionad": "../../ohos",
     "@ohos/flutter_module": "file:./entry"
   }
 }

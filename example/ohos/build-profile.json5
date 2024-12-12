@@ -41,6 +41,18 @@
           ]
         }
       ]
+    },
+    {
+      "name": "flutter_unionad",
+      "srcPath": "../../ohos",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
     }
   ]
 }

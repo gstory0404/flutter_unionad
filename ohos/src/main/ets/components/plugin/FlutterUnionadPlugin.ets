@@ -28,6 +28,7 @@ export default class FlutterUnionadPlugin implements FlutterPlugin, MethodCallHa
   private applicationContext: Context | null = null;
   private uiAbility: UIAbility | null = null;
   private adCreator = CSJAdSdk.getAdCreator();
+  private rewardAd: CSJRewardAd | null = null;
 
   constructor() {
   }
@@ -107,6 +108,7 @@ export default class FlutterUnionadPlugin implements FlutterPlugin, MethodCallHa
           FlutterUnionadEventPlugin.sendContent(
             new Map([["adType", "rewardAd"], ["onAdMethod", "onReady"]])
           );
+          this.rewardAd = rewardAd;
           // 广告基础信息加载完成x
           if (this.uiAbility != null) {
             rewardAd.setInteractionListener(adInteractionListener)
@@ -126,6 +128,47 @@ export default class FlutterUnionadPlugin implements FlutterPlugin, MethodCallHa
         }
       }
       this.adCreator.loadRewardAd(adSlot, mLoadListener)
+      result.success(true)
+    } else if (call.method == "showRewardVideoAd") {
+      let ohosCodeId: string = call.args.get("ohosCodeId");
+      let adInteractionListener: RewardAdInteractionListener = {
+        onShow: () => {
+          console.error("rewardVideoAd show")
+          let map: Map<string, Any> = new Map([["adType", "rewardAd"], ["onAdMethod", "onShow"]]);
+          FlutterUnionadEventPlugin.sendContent(map)
+        },
+        onSkip: () => {
+          console.error("rewardVideoAd onSkippedVideo")
+          let map: Map<string, Any> = new Map([["adType", "rewardAd"], ["onAdMethod", "onSkip"]]);
+          FlutterUnionadEventPlugin.sendContent(map)
+        },
+        onClick: () => {
+          console.error("rewardVideoAd bar click")
+          let map: Map<string, Any> = new Map([["adType", "rewardAd"], ["onAdMethod", "onClick"]]);
+          FlutterUnionadEventPlugin.sendContent(map)
+        },
+        onComplete: () => {
+          console.error("rewardVideoAd complete")
+        },
+        onClose: () => {
+          console.error("rewardVideoAd close")
+          let map: Map<string, Any> = new Map([["adType", "rewardAd"], ["onAdMethod", "onClose"]]);
+          FlutterUnionadEventPlugin.sendContent(map)
+        },
+        onRewardArrived: (isVerify, rewardType, extraInfo) => {
+          console.error("verify: $p0 amount:$p1 name:$p2 p3:$p3 p4:$p4")
+          let map: Map<string, Any> =
+            new Map([["adType", "rewardAd"], ["onAdMethod", "onClose"], ["rewardVerify", isVerify], ["rewardAmount", 0],
+              ["rewardName", "0"], ["errorCode", 0], ["error", ""]]);
+          ;
+          FlutterUnionadEventPlugin.sendContent(map)
+        }
+      }
+      // 广告基础信息加载完成x
+      if (this.uiAbility != null) {
+        this.rewardAd?.setInteractionListener(adInteractionListener)
+        this.rewardAd?.showRewardAd(this.uiAbility.context.windowStage)
+      }
       result.success(true)
     } else {
       result.notImplemented()
