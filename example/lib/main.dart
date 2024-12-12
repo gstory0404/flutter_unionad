@@ -154,6 +154,7 @@ class _IndexPageState extends State<IndexPage> {
         androidAppId: "5098580",
         //穿山甲广告 ios appid 必填
         iosAppId: "5098580",
+        ohosAppId: "5638354",
         //appname 必填
         appName: "unionad_test",
         //使用聚合功能一定要打开此开关，否则不会请求聚合广告，默认这个值为false
@@ -345,6 +346,7 @@ class _IndexPageState extends State<IndexPage> {
                   androidCodeId: "102733764",
                   //Android 激励视频广告id  必填
                   iosCodeId: "102733764",
+                  ohosCodeId: '962519282',
                   //ios 激励视频广告id  必填
                   rewardName: "200金币",
                   //奖励名称 选填
