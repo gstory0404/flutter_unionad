@@ -41,6 +41,7 @@ export default class FlutterUnionadPlugin implements FlutterPlugin, MethodCallHa
     this.channel = new MethodChannel(binding.getBinaryMessenger(), "flutter_unionad");
     this.channel.setMethodCallHandler(this)
     this.applicationContext = binding.getApplicationContext();
+    new FlutterUnionadEventPlugin().onAttachedToEngine(binding);
   }
 
   onDetachedFromEngine(binding: FlutterPluginBinding): void {
@@ -88,20 +89,6 @@ export default class FlutterUnionadPlugin implements FlutterPlugin, MethodCallHa
         .setCodeId(ohosCodeId)
         .setAdLoadType(AdLoadType.LOAD)// .setMediaExtra(mediaExtra)
         .build()
-      let adInteractionListener: RewardAdInteractionListener = {
-        onShow: () => {
-        },
-        onSkip: () => {
-        },
-        onClick: () => {
-        },
-        onComplete: () => {
-        },
-        onClose: () => {
-        },
-        onRewardArrived: (isVerify, rewardType, extraInfo) => {
-        }
-      }
       let mLoadListener: RewardAdLoadListener = {
         onAdLoaded: (rewardAd: CSJRewardAd) => {
           console.error("rewardVideoAd loaded 广告类型：${getAdType(ad.rewardVideoAdType)}")
@@ -125,7 +112,6 @@ export default class FlutterUnionadPlugin implements FlutterPlugin, MethodCallHa
       this.adCreator.loadRewardAd(adSlot, mLoadListener)
       result.success(true)
     } else if (call.method == "showRewardVideoAd") {
-      let ohosCodeId: string = call.args.get("ohosCodeId");
       let adInteractionListener: RewardAdInteractionListener = {
         onShow: () => {
           console.error("rewardVideoAd show")
