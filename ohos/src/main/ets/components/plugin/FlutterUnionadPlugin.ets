@@ -99,13 +99,16 @@ export default class FlutterUnionadPlugin implements FlutterPlugin, MethodCallHa
         },
         onAdCached: (rewardAd: CSJRewardAd) => {
           console.error("rewardVideoAd video cached2")
-          let map: Map<string, Any> = new Map([["adType", "rewardAd"], ["onAdMethod", "onCache"],]);
+          let map: Record<string, Any> = {
+            "adType": "rewardAd", "onAdMethod": "onCache"
+          };
           FlutterUnionadEventPlugin.sendContent(map)
         },
         onError: (code: number, message: string) => {
           console.error("视频加载失败" + code + message);
-          let map: Map<string, Any> =
-            new Map([["adType", "rewardAd"], ["onAdMethod", "onFail"], ["error", code + message],]);
+          let map: Record<string, Any> = {
+            "adType": "rewardAd", "onAdMethod": "onFail", "error": code + message
+          };
           FlutterUnionadEventPlugin.sendContent(map);
         }
       }
@@ -115,17 +118,23 @@ export default class FlutterUnionadPlugin implements FlutterPlugin, MethodCallHa
       let adInteractionListener: RewardAdInteractionListener = {
         onShow: () => {
           console.error("rewardVideoAd show")
-          let map: Map<string, Any> = new Map([["adType", "rewardAd"], ["onAdMethod", "onShow"]]);
+          let map: Record<string, Any> = {
+            "adType": "rewardAd", "onAdMethod": "onShow"
+          };
           FlutterUnionadEventPlugin.sendContent(map)
         },
         onSkip: () => {
           console.error("rewardVideoAd onSkippedVideo")
-          let map: Map<string, Any> = new Map([["adType", "rewardAd"], ["onAdMethod", "onSkip"]]);
+          let map: Record<string, Any> = {
+            "adType": "rewardAd", "onAdMethod": "onSkip"
+          };
           FlutterUnionadEventPlugin.sendContent(map)
         },
         onClick: () => {
           console.error("rewardVideoAd bar click")
-          let map: Map<string, Any> = new Map([["adType", "rewardAd"], ["onAdMethod", "onClick"]]);
+          let map: Record<string, Any> = {
+            "adType": "rewardAd", "onAdMethod": "onClick"
+          };
           FlutterUnionadEventPlugin.sendContent(map)
         },
         onComplete: () => {
@@ -133,7 +142,9 @@ export default class FlutterUnionadPlugin implements FlutterPlugin, MethodCallHa
         },
         onClose: () => {
           console.error("rewardVideoAd close")
-          let map: Map<string, Any> = new Map([["adType", "rewardAd"], ["onAdMethod", "onClose"]]);
+          let map: Record<string, Any> = {
+            "adType": "rewardAd", "onAdMethod": "onClose"
+          };
           FlutterUnionadEventPlugin.sendContent(map)
         },
         onRewardArrived: (isVerify, rewardType, extraInfo) => {
