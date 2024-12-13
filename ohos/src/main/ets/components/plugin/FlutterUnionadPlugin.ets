@@ -73,7 +73,7 @@ export default class FlutterUnionadPlugin implements FlutterPlugin, MethodCallHa
         .build()
 
       // 初始化SDK
-      CSJAdSdk.init(this.applicationContext, config) //context类型必须为UIAbility，否则可能存在展示异常场景
+      CSJAdSdk.init(this.uiAbility?.context, config) //context类型必须为UIAbility，否则可能存在展示异常场景
 
       // 启动SDK
       CSJAdSdk.start();
