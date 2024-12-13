@@ -1,0 +1,10 @@
+{
+  "module": {
+    "name": "flutter_unionad",
+    "type": "har",
+    "deviceTypes": [
+      "default",
+      "tablet"
+    ]
+  }
+}
