@@ -1,3 +1,8 @@
+## 2.1.0
+* android sdk升级6.6.0.7
+* ios sdk升级6.6.0.5
+* 新增OpenHarmonyOS支持，感谢@[zhangruiyu](https://github.com/zhangruiyu)的[pr](https://github.com/gstory0404/flutter_unionad/pull/142)，目前仅支持激励视频广告
+
 ## 2.0.13
 * android高版本兼容
 

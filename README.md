@@ -21,6 +21,7 @@
 ## 官方文档
 * [Android](https://www.csjplatform.com/union/media/union/download/detail?id=147&osType=android&locale=zh-CN&backPath=/union/media/union/download/pangle)
 * [IOS](https://www.csjplatform.com/union/media/union/download/detail?id=148&osType=ios&locale=zh-CN&backPath=/union/media/union/download/pangle)
+* [OpenHarmonyOS]()
 
 ## 版本更新
 
