@@ -1,0 +1,58 @@
+{
+  "app": {
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "/Users/housemao/.ohos/config/default_ohos_nqAToKei4RqYzVE_W0Qrtmgpl2bZulOSs9f_TUqDO8o=.cer",
+          "storePassword": "0000001B6DA162590C5A9FC04251F74F7B849886605913978E14D4A617300CC2DC5380DDD0AF50CB93C5DA",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B4BB625CF5EDA5D263BEDB85069F698A8A89D55B8A3F4E15F0AE3177C47F6FFF33FC2A31F138535",
+          "profile": "/Users/housemao/.ohos/config/default_ohos_nqAToKei4RqYzVE_W0Qrtmgpl2bZulOSs9f_TUqDO8o=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/Users/housemao/.ohos/config/default_ohos_nqAToKei4RqYzVE_W0Qrtmgpl2bZulOSs9f_TUqDO8o=.p12"
+        }
+      }
+    ],
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "compatibleSdkVersion": "5.0.0(12)",
+        "runtimeOS": "HarmonyOS",
+        "buildOption": {
+          "strictMode": {
+            "useNormalizedOHMUrl": true
+          }
+        }
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "flutter_unionad",
+      "srcPath": "../../ohos",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}

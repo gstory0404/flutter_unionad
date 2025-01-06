@@ -1,0 +1,21 @@
+{
+  "modelVersion": "5.0.0",
+  "name": "example",
+  "version": "1.0.0",
+  "description": "Please describe the basic information.",
+  "main": "",
+  "author": "",
+  "license": "",
+  "dependencies": {
+    "@csj/openadsdk": "6.6.0",
+    "@ohos/flutter_ohos": "file:./har/flutter.har"
+  },
+  "devDependencies": {
+    "@ohos/hypium": "1.0.6"
+  },
+  "overrides": {
+    "@ohos/flutter_ohos": "file:./har/flutter.har",
+    "flutter_unionad": "../../ohos",
+    "@ohos/flutter_module": "file:./entry"
+  }
+}
