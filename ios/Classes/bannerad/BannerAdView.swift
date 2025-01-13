@@ -92,7 +92,11 @@ extension MyBannerView: BUNativeExpressBannerViewDelegate {
 
     public func nativeExpressBannerAdView(_ bannerAdView: BUNativeExpressBannerView, dislikeWithReason filterwords: [BUDislikeWords]?) {
         LogUtil.logInstance.printLog(message:"点击了不感兴趣")
-        self.channel?.invokeMethod("onDislike", arguments: filterwords?[0].name)
+        if(filterwords != nil && !filterwords!.isEmpty){
+            self.channel?.invokeMethod("onDislike", arguments: filterwords?[0].name)
+        }else{
+            self.channel?.invokeMethod("onDislike", arguments: "")
+        }
         self.disposeView()
     }
     

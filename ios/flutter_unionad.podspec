@@ -18,8 +18,8 @@ A new flutter plugin project.
   s.dependency 'Flutter'
   s.platform = :ios, '9.0'
 #  s.dependency 'Ads-CN','5.4.1.1''
-  s.dependency 'Ads-CN-Beta/BUAdSDK','6.6.0.5'
-  s.dependency 'Ads-CN-Beta/CSJMediation','6.6.0.5'
+  s.dependency 'Ads-CN-Beta/BUAdSDK','6.7.0.0'
+  s.dependency 'Ads-CN-Beta/CSJMediation','6.7.0.0'
 # .framework文件
 #  s.vendored_frameworks = 'SDK/BUAdSDK.framework','SDK/BURelyFoundation.framework','SDK/CSJAdSDK.framework'
 # .a文件

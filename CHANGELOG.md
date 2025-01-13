@@ -1,3 +1,7 @@
+## 2.1.1
+* ios sdk升级6.7.0.0
+* 修复iOS onDislike回调数组可能为空导致的奔溃异常
+
 ## 2.1.0
 * android sdk升级6.6.0.7
 * ios sdk升级6.6.0.5

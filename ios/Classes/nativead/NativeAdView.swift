@@ -93,7 +93,11 @@ extension NativeAdView : BUNativeExpressAdViewDelegate{
     public func nativeExpressAdView(_ nativeExpressAdView: BUNativeExpressAdView, dislikeWithReason filterWords: [BUDislikeWords]) {
         self.disposeView()
         LogUtil.logInstance.printLog(message: "nativeExpressAdView")
-        self.channel?.invokeMethod("onDislike", arguments: filterWords[0].name)
+        if(!filterWords.isEmpty){
+            self.channel?.invokeMethod("onDislike", arguments: filterWords[0].name)
+        }else{
+            self.channel?.invokeMethod("onDislike", arguments: "")
+        }
     }
     
     public func nativeExpressAdView(_ nativeExpressAdView: BUNativeExpressAdView, stateDidChanged playerState: BUPlayerPlayState) {
