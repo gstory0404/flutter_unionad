@@ -1,7 +1,7 @@
 import { Any, EventChannel, FlutterPlugin, FlutterPluginBinding } from '@ohos/flutter_ohos';
 
 import { EventSink, StreamHandler, } from '@ohos/flutter_ohos/src/main/ets/plugin/common/EventChannel';
-import FlutterunionadViewConfig from './FlutterunionadViewConfig';
+import FlutterunionadViewConfig from '../FlutterunionadViewConfig';
 
 export default class FlutterUnionadEventPlugin implements FlutterPlugin, StreamHandler {
   onListen(args: Any, events: EventSink): void {
