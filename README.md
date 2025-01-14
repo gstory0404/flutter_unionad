@@ -73,6 +73,11 @@ import 'package:flutter_unionad/flutter_unionad.dart';
     <true/>
 ```
 
+#### 4、鸿蒙next
+##### 需要把下面这个文件拷贝到你的鸿蒙项目根目录下
+[.ohpmrc](example/ohos/.ohpmrc)
+
+
 
 ## 使用
 
