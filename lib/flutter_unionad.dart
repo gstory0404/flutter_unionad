@@ -349,6 +349,7 @@ class FlutterUnionad {
     return await _channel.invokeMethod("loadFullScreenVideoAdInteraction", {
       "androidCodeId": androidCodeId,
       "iosCodeId": iosCodeId,
+      "ohosCodeId": ohosCodeId,
       "orientation": orientation ?? FlutterUnionadOrientation.VERTICAL,
     });
   }

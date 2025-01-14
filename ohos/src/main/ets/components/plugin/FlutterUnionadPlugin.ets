@@ -21,7 +21,7 @@ import {
 } from '@csj/openadsdk';
 import { UIAbility } from '@kit.AbilityKit';
 import FlutterUnionadEventPlugin from './FlutterUnionadEventPlugin';
-import FullScreenVideoAdInteraction from 'flutter_unionad/src/main/ets/components/plugin/FullScreenVideoAdInteraction';
+import FullScreenVideoAdInteraction from './FullScreenVideoAdInteraction';
 
 /** FlutterUnionadPlugin **/
 export default class FlutterUnionadPlugin implements FlutterPlugin, MethodCallHandler, AbilityAware {
