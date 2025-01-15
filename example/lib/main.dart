@@ -386,6 +386,7 @@ class _IndexPageState extends State<IndexPage> {
                   androidCodeId: "102735530",
                   //ios 全屏广告id 必填
                   iosCodeId: "102735530",
+                  ohosCodeId: "963135369",
                   //视屏方向 选填
                   orientation: FlutterUnionadOrientation.VERTICAL,
                 );

@@ -343,11 +343,13 @@ class FlutterUnionad {
   static Future<bool> loadFullScreenVideoAdInteraction({
     required String androidCodeId,
     required String iosCodeId,
+    String? ohosCodeId,
     int? orientation,
   }) async {
     return await _channel.invokeMethod("loadFullScreenVideoAdInteraction", {
       "androidCodeId": androidCodeId,
       "iosCodeId": iosCodeId,
+      "ohosCodeId": ohosCodeId,
       "orientation": orientation ?? FlutterUnionadOrientation.VERTICAL,
     });
   }

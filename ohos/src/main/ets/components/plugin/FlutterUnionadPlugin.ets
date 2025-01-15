@@ -21,6 +21,7 @@ import {
 } from '@csj/openadsdk';
 import { UIAbility } from '@kit.AbilityKit';
 import FlutterUnionadEventPlugin from './FlutterUnionadEventPlugin';
+import FullScreenVideoAdInteraction from './FullScreenVideoAdInteraction';
 
 /** FlutterUnionadPlugin **/
 export default class FlutterUnionadPlugin implements FlutterPlugin, MethodCallHandler, AbilityAware {
@@ -167,6 +168,20 @@ export default class FlutterUnionadPlugin implements FlutterPlugin, MethodCallHa
         this.rewardAd?.setInteractionListener(adInteractionListener)
         this.rewardAd?.showRewardAd(this.uiAbility.context.windowStage)
       }
+      result.success(true)
+    } else if (call.method == "loadFullScreenVideoAdInteraction") {
+      let ohosCodeId: string = call.args.get("ohosCodeId");
+      let orientation: number = call.args.get("orientation");
+      FullScreenVideoAdInteraction.init(
+        this.applicationContext!,
+        this.uiAbility!.context.windowStage,
+        ohosCodeId,
+        orientation!!,
+      )
+      result.success(true)
+      //显示插屏广告 全屏插屏二合一
+    } else if (call.method == "showFullScreenVideoAdInteraction") {
+      FullScreenVideoAdInteraction.showAd()
       result.success(true)
     } else {
       result.notImplemented()
