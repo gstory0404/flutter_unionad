@@ -7,7 +7,6 @@
   "author": "",
   "license": "",
   "dependencies": {
-    "@csj/openadsdk": "6.6.0",
     "@ohos/flutter_ohos": "file:./har/flutter.har"
   },
   "devDependencies": {
