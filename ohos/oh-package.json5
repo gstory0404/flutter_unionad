@@ -6,7 +6,7 @@
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
-    "@csj/openadsdk": "6.6.0",
+    "@csj/openadsdk": "6.7.0",
     "@ohos/flutter_ohos": "file:./har/flutter.har"
   }
 }
