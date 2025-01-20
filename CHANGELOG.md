@@ -1,3 +1,7 @@
+## 2.1.2
+* ios sdk升级6.7.0.1
+* ohos sdk升级6.7.0,增加插屏广告,感谢@[zhangruiyu](https://github.com/zhangruiyu)的[pr](https://github.com/gstory0404/flutter_unionad/pull/149)
+
 ## 2.1.1
 * ios sdk升级6.7.0.0
 * 修复iOS onDislike回调数组可能为空导致的奔溃异常
