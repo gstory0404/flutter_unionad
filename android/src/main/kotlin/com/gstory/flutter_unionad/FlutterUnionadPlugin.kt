@@ -15,12 +15,12 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import io.flutter.plugin.common.PluginRegistry.Registrar
 
 
 /** FlutterUnionadPlugin */
-public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
+class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
 
+    private var channelName = "flutter_unionad"
     private lateinit var channel: MethodChannel
     private var applicationContext: Context? = null
     private var mActivity: Activity? = null
@@ -56,17 +56,6 @@ public class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAw
     override fun onDetachedFromActivity() {
         mActivity = null
         Log.e("FlutterUnionadPlugin->", "onDetachedFromActivity")
-    }
-
-
-    companion object {
-        private var channelName = "flutter_unionad"
-
-        @JvmStatic
-        fun registerWith(registrar: Registrar) {
-            val channel = MethodChannel(registrar.messenger(), channelName)
-            channel.setMethodCallHandler(FlutterUnionadPlugin())
-        }
     }
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {

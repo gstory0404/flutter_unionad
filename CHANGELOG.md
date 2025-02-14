@@ -1,4 +1,8 @@
 ## 2.1.2
+* ios sdk升级6.7.0.2
+* 修复flutter 3.29.0中安卓移除Registrar
+
+## 2.1.2
 * ios sdk升级6.7.0.1
 * ohos sdk升级6.7.0,增加插屏广告,感谢@[zhangruiyu](https://github.com/zhangruiyu)的[pr](https://github.com/gstory0404/flutter_unionad/pull/149)
 
