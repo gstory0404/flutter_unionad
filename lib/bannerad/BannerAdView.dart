@@ -108,12 +108,11 @@ class _BannerAdViewState extends State<FlutterUnionadBannerView> {
       case FlutterUnionadMethod.onShow:
         Map map = call.arguments;
         print(map);
+        _isShowAd = true;
+        _width = (map["width"]).toDouble();
+        _height = (map["height"]).toDouble();
         if (mounted) {
-          setState(() {
-            _isShowAd = true;
-            _width = (map["width"]).toDouble();
-            _height = (map["height"]).toDouble();
-          });
+          setState(() {});
         }
         widget.callBack?.onShow!();
         break;
