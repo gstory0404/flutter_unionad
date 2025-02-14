@@ -42,6 +42,7 @@ class _BannerAdViewState extends State<FlutterUnionadBannerView> {
 
   //广告是否显示
   bool _isShowAd = true;
+  late StatefulWidget _bannerView;
 
   //宽高
   double _width = 0;
@@ -53,6 +54,35 @@ class _BannerAdViewState extends State<FlutterUnionadBannerView> {
     _isShowAd = true;
     _width = widget.width;
     _height = widget.height;
+    _bannerView = _loadBannerView();
+  }
+
+  _loadBannerView(){
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      return AndroidView(
+        viewType: _viewType,
+        creationParams: {
+          "androidCodeId": widget.androidCodeId,
+          "width": widget.width,
+          "height": widget.height,
+        },
+        onPlatformViewCreated: _registerChannel,
+        creationParamsCodec: const StandardMessageCodec(),
+      );
+    } else if (defaultTargetPlatform == TargetPlatform.iOS) {
+      return  UiKitView(
+        viewType: _viewType,
+        creationParams: {
+          "iosCodeId": widget.iosCodeId,
+          "width": widget.width,
+          "height": widget.height,
+        },
+        onPlatformViewCreated: _registerChannel,
+        creationParamsCodec: const StandardMessageCodec(),
+      );
+    } else {
+      return Container();
+    }
   }
 
   @override
@@ -60,39 +90,11 @@ class _BannerAdViewState extends State<FlutterUnionadBannerView> {
     if (!_isShowAd) {
       return Container();
     }
-    if (defaultTargetPlatform == TargetPlatform.android) {
-      return Container(
-        width: _width,
-        height: _height,
-        child: AndroidView(
-          viewType: _viewType,
-          creationParams: {
-            "androidCodeId": widget.androidCodeId,
-            "width": widget.width,
-            "height": widget.height,
-          },
-          onPlatformViewCreated: _registerChannel,
-          creationParamsCodec: const StandardMessageCodec(),
-        ),
-      );
-    } else if (defaultTargetPlatform == TargetPlatform.iOS) {
-      return Container(
-        width: _width,
-        height: _height,
-        child: UiKitView(
-          viewType: _viewType,
-          creationParams: {
-            "iosCodeId": widget.iosCodeId,
-            "width": widget.width,
-            "height": widget.height,
-          },
-          onPlatformViewCreated: _registerChannel,
-          creationParamsCodec: const StandardMessageCodec(),
-        ),
-      );
-    } else {
-      return Container();
-    }
+    return Container(
+      width: _width,
+      height: _height,
+      child: _bannerView,
+    );
   }
 
   //注册cannel
