@@ -24,11 +24,11 @@ class FlutterUnionadBannerView extends StatefulWidget {
   ///
   FlutterUnionadBannerView(
       {Key? key,
-      required this.androidCodeId,
-      required this.iosCodeId,
-      required this.width,
-      required this.height,
-      this.callBack})
+        required this.androidCodeId,
+        required this.iosCodeId,
+        required this.width,
+        required this.height,
+        this.callBack})
       : super(key: key);
 
   @override
@@ -42,7 +42,6 @@ class _BannerAdViewState extends State<FlutterUnionadBannerView> {
 
   //广告是否显示
   bool _isShowAd = true;
-  late StatefulWidget _bannerView;
 
   //宽高
   double _width = 0;
@@ -54,35 +53,6 @@ class _BannerAdViewState extends State<FlutterUnionadBannerView> {
     _isShowAd = true;
     _width = widget.width;
     _height = widget.height;
-    _bannerView = _loadBannerView();
-  }
-
-  _loadBannerView(){
-    if (defaultTargetPlatform == TargetPlatform.android) {
-      return AndroidView(
-        viewType: _viewType,
-        creationParams: {
-          "androidCodeId": widget.androidCodeId,
-          "width": widget.width,
-          "height": widget.height,
-        },
-        onPlatformViewCreated: _registerChannel,
-        creationParamsCodec: const StandardMessageCodec(),
-      );
-    } else if (defaultTargetPlatform == TargetPlatform.iOS) {
-      return  UiKitView(
-        viewType: _viewType,
-        creationParams: {
-          "iosCodeId": widget.iosCodeId,
-          "width": widget.width,
-          "height": widget.height,
-        },
-        onPlatformViewCreated: _registerChannel,
-        creationParamsCodec: const StandardMessageCodec(),
-      );
-    } else {
-      return Container();
-    }
   }
 
   @override
@@ -90,11 +60,39 @@ class _BannerAdViewState extends State<FlutterUnionadBannerView> {
     if (!_isShowAd) {
       return Container();
     }
-    return Container(
-      width: _width,
-      height: _height,
-      child: _bannerView,
-    );
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      return Container(
+        width: _width,
+        height: _height,
+        child: AndroidView(
+          viewType: _viewType,
+          creationParams: {
+            "androidCodeId": widget.androidCodeId,
+            "width": widget.width,
+            "height": widget.height,
+          },
+          onPlatformViewCreated: _registerChannel,
+          creationParamsCodec: const StandardMessageCodec(),
+        ),
+      );
+    } else if (defaultTargetPlatform == TargetPlatform.iOS) {
+      return Container(
+        width: _width,
+        height: _height,
+        child: UiKitView(
+          viewType: _viewType,
+          creationParams: {
+            "iosCodeId": widget.iosCodeId,
+            "width": widget.width,
+            "height": widget.height,
+          },
+          onPlatformViewCreated: _registerChannel,
+          creationParamsCodec: const StandardMessageCodec(),
+        ),
+      );
+    } else {
+      return Container();
+    }
   }
 
   //注册cannel
@@ -106,19 +104,20 @@ class _BannerAdViewState extends State<FlutterUnionadBannerView> {
   //监听原生view传值
   Future<dynamic> _platformCallHandler(MethodCall call) async {
     switch (call.method) {
-      //显示广告
+    //显示广告
       case FlutterUnionadMethod.onShow:
         Map map = call.arguments;
         print(map);
-        _isShowAd = true;
-        _width = (map["width"]).toDouble();
-        _height = (map["height"]).toDouble();
         if (mounted) {
-          setState(() {});
+          setState(() {
+            _isShowAd = true;
+            _width = (map["width"]).toDouble();
+            _height = (map["height"]).toDouble();
+          });
         }
         widget.callBack?.onShow!();
         break;
-      //广告加载失败
+    //广告加载失败
       case FlutterUnionadMethod.onFail:
         if (mounted) {
           setState(() {
@@ -127,7 +126,7 @@ class _BannerAdViewState extends State<FlutterUnionadBannerView> {
         }
         widget.callBack?.onFail!(call.arguments);
         break;
-      //广告不感兴趣
+    //广告不感兴趣
       case FlutterUnionadMethod.onDislike:
         if (mounted) {
           setState(() {
