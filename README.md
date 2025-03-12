@@ -457,6 +457,26 @@ FlutterUnionad.FlutterUnionadStream.initAdStream(
 
 修改初始化中themeStatus参数，重新调用初始化
 
+#### 14 ecpm说明
+```
+/// [adnName] ADN的名称，与平台配置一致，自定义ADN时为ADN唯一标识
+/// [customAdnName] 自定义ADN的名称，与平台配置一致，非自定义ADN为nil
+/// [slotID] 代码位
+/// [levelTag] 价格标签，多阶底价下有效
+/// [ecpm] 返回价格，nil为无权限
+/// [biddingType] 广告类型
+/// [errorMsg] 额外错误信息,一般为空(扩展字段)
+/// [requestID] adn提供的真实广告加载ID，可为空
+/// [creativeID] adn提供的真实广告创意ID，可为空
+/// [adRitType] 广告位类型
+/// [segmentId] 流量分组ID
+/// [abtestId] AB实验分组ID
+/// [channel] 渠道名称
+/// [subChannel] 子渠道名称
+/// [scenarioId] 场景ID
+/// [subRitType] 混用类型，banner/fullVideo/rewardVideo/feed/draw/interstitial
+```
+
 ## 常见问题
 
 [常见问题](https://github.com/gstory0404/flutter_unionad/blob/master/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98.md)

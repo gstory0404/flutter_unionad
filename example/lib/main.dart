@@ -88,34 +88,27 @@ class _IndexPageState extends State<IndexPage> {
       ),
       // 新模板渲染插屏广告回调
       flutterUnionadNewInteractionCallBack:
-          FlutterUnionadNewInteractionCallBack(
-        onShow: () {
-          print("新模板渲染插屏广告显示");
-        },
-        onSkip: () {
-          print("新模板渲染插屏广告跳过");
-        },
-        onClick: () {
-          print("新模板渲染插屏广告点击");
-        },
-        onFinish: () {
-          print("新模板渲染插屏广告结束");
-        },
-        onFail: (error) {
-          print("新模板渲染插屏广告错误 $error");
-        },
-        onClose: () {
-          print("新模板渲染插屏广告关闭");
-        },
-        onReady: () async {
-          print("新模板渲染插屏广告预加载准备就绪");
-          //显示新模板渲染插屏
-          await FlutterUnionad.showFullScreenVideoAdInteraction();
-        },
-        onUnReady: () {
-          print("新模板渲染插屏广告预加载未准备就绪");
-        },
-      ),
+          FlutterUnionadNewInteractionCallBack(onShow: () {
+        print("新模板渲染插屏广告显示");
+      }, onSkip: () {
+        print("新模板渲染插屏广告跳过");
+      }, onClick: () {
+        print("新模板渲染插屏广告点击");
+      }, onFinish: () {
+        print("新模板渲染插屏广告结束");
+      }, onFail: (error) {
+        print("新模板渲染插屏广告错误 $error");
+      }, onClose: () {
+        print("新模板渲染插屏广告关闭");
+      }, onReady: () async {
+        print("新模板渲染插屏广告预加载准备就绪");
+        //显示新模板渲染插屏
+        await FlutterUnionad.showFullScreenVideoAdInteraction();
+      }, onUnReady: () {
+        print("新模板渲染插屏广告预加载未准备就绪");
+      }, onEcpm: (info) {
+        print("新模板渲染插屏广告ecpm $info");
+      }),
       //激励广告
       flutterUnionadRewardAdCallBack: FlutterUnionadRewardAdCallBack(
           onShow: () {
@@ -143,6 +136,8 @@ class _IndexPageState extends State<IndexPage> {
         print(
             "阶段激励广告奖励  验证结果=$rewardVerify 奖励类型<FlutterUnionadRewardType>=$rewardType 奖励=$rewardAmount"
             "奖励名称$rewardName 错误码=$errorCode 错误$error 建议奖励$propose");
+      }, onEcpm: (info) {
+        print("激励广告 ecpm: $info");
       }),
     );
   }

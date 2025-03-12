@@ -124,10 +124,11 @@ class _SplashAdViewState extends State<FlutterUnionadSplashAdView> {
 
   //监听原生view传值
   Future<dynamic> _platformCallHandler(MethodCall call) async {
+    // print("${call.method} : ${call.arguments}");
     switch (call.method) {
       //显示广告
       case FlutterUnionadMethod.onShow:
-        if (widget.callBack != null) {
+        if (widget.callBack != null && widget.callBack?.onShow != null) {
           widget.callBack?.onShow!();
         }
         break;
@@ -138,25 +139,25 @@ class _SplashAdViewState extends State<FlutterUnionadSplashAdView> {
             _isShowAd = false;
           });
         }
-        if (widget.callBack != null) {
+        if (widget.callBack != null && widget.callBack?.onFail != null) {
           widget.callBack?.onFail!(call.arguments);
         }
         break;
       //开屏广告点击
       case FlutterUnionadMethod.onClick:
-        if (widget.callBack != null) {
+        if (widget.callBack != null && widget.callBack?.onClick != null) {
           widget.callBack?.onClick!();
         }
         break;
       //开屏广告跳过
       case FlutterUnionadMethod.onSkip:
-        if (widget.callBack != null) {
+        if (widget.callBack != null && widget.callBack?.onSkip != null) {
           widget.callBack?.onSkip!();
         }
         break;
       //开屏广告倒计时结束
       case FlutterUnionadMethod.onFinish:
-        if (widget.callBack != null) {
+        if (widget.callBack != null && widget.callBack?.onFinish != null) {
           widget.callBack?.onFinish!();
         }
         break;
@@ -167,8 +168,14 @@ class _SplashAdViewState extends State<FlutterUnionadSplashAdView> {
             _isShowAd = false;
           });
         }
-        if (widget.callBack != null) {
-          widget.callBack?.onTimeOut!();
+        if (widget.callBack != null && widget.callBack?.onTimeOut != null) {
+          widget.callBack?.onTimeOut?.call();
+        }
+        break;
+      //开屏广告ecpm
+      case FlutterUnionadMethod.onEcpm:
+        if (widget.callBack != null && widget.callBack?.onEcpm != null) {
+          widget.callBack?.onEcpm!(call.arguments);
         }
         break;
     }

@@ -107,12 +107,13 @@ class _BannerAdViewState extends State<FlutterUnionadBannerView> {
     //显示广告
       case FlutterUnionadMethod.onShow:
         Map map = call.arguments;
-        print(map);
         if (mounted) {
           setState(() {
             _isShowAd = true;
-            _width = (map["width"]).toDouble();
-            _height = (map["height"]).toDouble();
+            if(map["width"] > 0){
+              _width = (map["width"]).toDouble();
+              _height = (map["height"]).toDouble();
+            }
           });
         }
         widget.callBack?.onShow!();
@@ -139,6 +140,12 @@ class _BannerAdViewState extends State<FlutterUnionadBannerView> {
         break;
       case FlutterUnionadMethod.onClick:
         widget.callBack?.onClick!();
+        break;
+       //开屏广告ecpm
+      case FlutterUnionadMethod.onEcpm:
+        if (widget.callBack != null) {
+          widget.callBack?.onEcpm!(call.arguments);
+        }
         break;
     }
   }

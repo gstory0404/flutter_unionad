@@ -76,6 +76,12 @@ extension FullScreenVideoAdInteraction : BUNativeExpressFullscreenVideoAdDelegat
         let map : NSDictionary = ["adType":"fullScreenVideoAdInteraction",
                                   "onAdMethod":"onShow"]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
+        let ecpmInfo : BUMRitInfo? = self.bUNativeExpressFullscreenVideoAd?.mediation?.getShowEcpmInfo();
+        let ecpmMap : NSDictionary = ["adType":"fullScreenVideoAdInteraction",
+                                  "onAdMethod":"onEcpm",
+                                  "info":ecpmInfo?.toDictionary()]
+        LogUtil.logInstance.printLog(message: "ecpm : \(ecpmMap)")
+        SwiftFlutterUnionadPlugin.event!.sendEvent(event: ecpmMap)
     }
     
     //点击跳过

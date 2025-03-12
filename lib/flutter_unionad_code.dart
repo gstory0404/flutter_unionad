@@ -91,6 +91,12 @@ class FlutterUnionadMethod {
 
   ///广告物料缓存成功（激励广告生效）
   static const String onCache = "onCache";
+
+  ///ecpm获取
+  static const String onEcpm = "onEcpm";
+
+  ///ecpm获取
+  static const String ecpmInfo = "info";
 }
 
 ///权限请求结果

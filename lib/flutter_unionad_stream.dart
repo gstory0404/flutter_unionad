@@ -3,8 +3,6 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter_unionad/flutter_unionad.dart';
 
-import 'flutter_unionad_code.dart';
-
 /// @Author: gstory
 /// @CreateDate: 2021/5/25 7:45 下午
 /// @Description: 广告结果监听
@@ -23,7 +21,6 @@ class FlutterUnionadStream {
     StreamSubscription _adStream =
         adEventEvent.receiveBroadcastStream().listen((data) {
       switch (data[FlutterUnionadType.adType]) {
-
         ///全屏广告
         case FlutterUnionadType.fullVideoAd:
           switch (data[FlutterUnionadMethod.onAdMethod]) {
@@ -134,6 +131,21 @@ class FlutterUnionadStream {
                 flutterUnionadNewInteractionCallBack?.onUnReady!();
               }
               break;
+            case FlutterUnionadMethod.onEcpm:
+              if (flutterUnionadNewInteractionCallBack?.onEcpm != null) {
+                if (data[FlutterUnionadMethod.ecpmInfo] == null) {
+                  flutterUnionadNewInteractionCallBack?.onEcpm!(null);
+                } else {
+                  Map<Object?, Object?> info =
+                      data[FlutterUnionadMethod.ecpmInfo];
+                  Map<String, dynamic> map = {};
+                  info.forEach((key, value) {
+                    map["$key"] = value;
+                  });
+                  flutterUnionadNewInteractionCallBack?.onEcpm!(map);
+                }
+              }
+              break;
           }
           break;
 
@@ -200,6 +212,21 @@ class FlutterUnionadStream {
             case FlutterUnionadMethod.onCache:
               if (flutterUnionadRewardAdCallBack?.onCache != null) {
                 flutterUnionadRewardAdCallBack?.onCache!();
+              }
+              break;
+            case FlutterUnionadMethod.onEcpm:
+              if (flutterUnionadRewardAdCallBack?.onEcpm != null) {
+                if (data[FlutterUnionadMethod.ecpmInfo] == null) {
+                  flutterUnionadRewardAdCallBack?.onEcpm!(null);
+                } else {
+                  Map<Object?, Object?> info =
+                      data[FlutterUnionadMethod.ecpmInfo];
+                  Map<String, dynamic> map = {};
+                  info.forEach((key, value) {
+                    map["$key"] = value;
+                  });
+                  flutterUnionadRewardAdCallBack?.onEcpm!(map);
+                }
               }
               break;
           }

@@ -83,6 +83,13 @@ public class SplashAdView : NSObject,FlutterPlatformView{
         self.channel?.invokeMethod("onSkip", arguments: "开屏广告跳过")
         self.disposeView()
      }
+    
+    //获取ecpm
+    func queryECPM(){
+        let ecpmInfo : BUMRitInfo? = self.splashAd?.mediation?.getShowEcpmInfo();
+        LogUtil.logInstance.printLog(message:"ecpm获取成功：\(ecpmInfo?.toDictionary())");
+        self.channel?.invokeMethod("onEcpm", arguments: ecpmInfo?.toDictionary())
+    }
 }
 
 extension SplashAdView : BUSplashAdDelegate{
@@ -108,6 +115,7 @@ extension SplashAdView : BUSplashAdDelegate{
         }
         self.splashAd?.showSplashView(inRootViewController: MyUtils.getVC().navigationController ?? MyUtils.getVC())
         self.channel?.invokeMethod("onShow", arguments: "开屏广告加载完成")
+        self.queryECPM()
     }
     
     //SDK渲染开屏广告渲染失败回调

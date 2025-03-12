@@ -38,7 +38,9 @@ class _NativeExpressAdPageState extends State<NativeAdPage> {
               // 期望view 宽度 dp 必填
               width: 375.5,
               //期望view高度 dp 必填
-              height: 0,
+              height: 100,
+              //是否静音
+              isMuted: false,
               callBack: FlutterUnionadNativeCallBack(
                 onShow: () {
                   print("信息流广告显示");
@@ -51,6 +53,9 @@ class _NativeExpressAdPageState extends State<NativeAdPage> {
                 },
                 onClick: () {
                   print("信息流广告点击");
+                },
+                onEcpm: (info) {
+                  print("信息流广告ecpm $info");
                 },
               ),
             ),

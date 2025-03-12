@@ -63,6 +63,9 @@ class _SplashPageState extends State<SplashPage> {
               onTimeOut: () {
                 print("开屏广告超时");
               },
+              onEcpm: (info){
+                print("开屏广告获取ecpm:$info");
+              }
             ),
           ),
         ),

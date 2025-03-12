@@ -1,20 +1,23 @@
 package com.gstory.flutter_unionad.fullscreenvideoadinteraction
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.util.Log
-import com.bytedance.sdk.openadsdk.*
+import com.bytedance.sdk.openadsdk.AdSlot
+import com.bytedance.sdk.openadsdk.TTAdNative
+import com.bytedance.sdk.openadsdk.TTAdSdk
+import com.bytedance.sdk.openadsdk.TTFullScreenVideoAd
 import com.bytedance.sdk.openadsdk.mediation.ad.MediationAdSlot
+import com.gstory.flutter_unionad.EcpmUtil
 import com.gstory.flutter_unionad.FlutterUnionadEventPlugin
-import com.gstory.flutter_unionad.TTAdManagerHolder
-import com.gstory.flutter_unionad.UIUtils
-import com.gstory.flutter_unionad.rewardvideoad.RewardVideoAd
 
 /**
  * @Description:
  * @Author: gstory0404@gmail
  * @CreateDate: 2020/8/21 15:48
  */
+@SuppressLint("StaticFieldLeak")
 object FullScreenVideoAdInteraction {
     private var TAG = "FullScreenVideoExpressAd"
     var mContext: Context? = null
@@ -69,7 +72,6 @@ object FullScreenVideoAdInteraction {
                     "adType" to "fullScreenVideoAdInteraction", "onAdMethod" to "onReady"
                 )
                 FlutterUnionadEventPlugin.sendContent(map)
-                queryEcpm()
             }
 
             override fun onFullScreenVideoCached() {
@@ -96,10 +98,19 @@ object FullScreenVideoAdInteraction {
             TTFullScreenVideoAd.FullScreenVideoAdInteractionListener {
             override fun onAdShow() {
                 Log.e(TAG, "fullScreenVideoAdInteraction show")
-                var map: MutableMap<String, Any?> = mutableMapOf(
-                    "adType" to "fullScreenVideoAdInteraction", "onAdMethod" to "onShow"
+                FlutterUnionadEventPlugin.sendContent(
+                    mutableMapOf(
+                        "adType" to "fullScreenVideoAdInteraction", "onAdMethod" to "onShow"
+                    )
                 )
-                FlutterUnionadEventPlugin.sendContent(map)
+                Log.d(TAG, "ecpm ${EcpmUtil.toMap(mttFullVideoAd?.mediationManager?.showEcpm)}")
+                FlutterUnionadEventPlugin.sendContent(
+                    mutableMapOf(
+                        "adType" to "fullScreenVideoAdInteraction",
+                        "onAdMethod" to "onEcpm",
+                        "info" to EcpmUtil.toMap(mttFullVideoAd?.mediationManager?.showEcpm)
+                    )
+                )
             }
 
             override fun onAdVideoBarClick() {
@@ -135,32 +146,5 @@ object FullScreenVideoAdInteraction {
             }
         })
         mttFullVideoAd?.showFullScreenVideoAd(mActivity)
-    }
-
-    /**
-     * 获取ecpm
-     */
-    private fun queryEcpm() {
-        var ecpmInfo = mttFullVideoAd?.mediationManager?.showEcpm
-        if (ecpmInfo != null) {
-            Log.d(
-                TAG, "广告 ecpm: \n" +
-                        "SdkName: " + ecpmInfo.sdkName + ",\n" +
-                        "CustomSdkName: " + ecpmInfo.customSdkName + ",\n" +
-                        "SlotId: " + ecpmInfo.slotId + ",\n" +
-                        // 单位：分
-                        "Ecpm: " + ecpmInfo.ecpm + ",\n" +
-                        "ReqBiddingType: " + ecpmInfo.reqBiddingType + ",\n" +
-                        "ErrorMsg: " + ecpmInfo.errorMsg + ",\n" +
-                        "RequestId: " + ecpmInfo.requestId + ",\n" +
-                        "RitType: " + ecpmInfo.ritType + ",\n" +
-                        "AbTestId: " + ecpmInfo.abTestId + ",\n" +
-                        "ScenarioId: " + ecpmInfo.scenarioId + ",\n" +
-                        "SegmentId: " + ecpmInfo.segmentId + ",\n" +
-                        "Channel: " + ecpmInfo.channel + ",\n" +
-                        "SubChannel: " + ecpmInfo.subChannel + ",\n" +
-                        "customData: " + ecpmInfo.customData
-            )
-        }
     }
 }

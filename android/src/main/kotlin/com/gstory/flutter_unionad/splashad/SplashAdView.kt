@@ -5,9 +5,13 @@ import android.content.Context
 import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
-import com.bytedance.sdk.openadsdk.*
+import com.bytedance.sdk.openadsdk.AdSlot
+import com.bytedance.sdk.openadsdk.CSJAdError
+import com.bytedance.sdk.openadsdk.CSJSplashAd
+import com.bytedance.sdk.openadsdk.TTAdNative
+import com.bytedance.sdk.openadsdk.TTAdSdk
+import com.gstory.flutter_unionad.EcpmUtil
 import com.gstory.flutter_unionad.FlutterunionadViewConfig
-import com.gstory.flutter_unionad.TTAdManagerHolder
 import com.gstory.flutter_unionad.UIUtils
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodChannel
@@ -88,7 +92,6 @@ internal class SplashAdView(var context: Context, var activity: Activity, privat
                     return
                 }
                 mSplashAd = ad
-                queryEcpm()
                 showSplashAd()
             }
 
@@ -105,6 +108,10 @@ internal class SplashAdView(var context: Context, var activity: Activity, privat
             override fun onSplashAdShow(p0: CSJSplashAd?) {
                 Log.e(TAG, "开屏广告展示")
                 channel?.invokeMethod("onShow","开屏广告展示")
+                //获取ecpm
+                var ecpmMap = EcpmUtil.toMap(mSplashAd?.mediationManager?.showEcpm)
+                Log.d(TAG, "开屏广告ecpm: $ecpmMap")
+                channel?.invokeMethod("onEcpm", ecpmMap)
             }
 
             override fun onSplashAdClick(p0: CSJSplashAd?) {
@@ -124,33 +131,6 @@ internal class SplashAdView(var context: Context, var activity: Activity, privat
         })
         mContainer?.removeAllViews()
         mContainer?.addView(mSplashAd?.splashView)
-    }
-
-    /**
-     * 获取ecpm
-     */
-    private fun queryEcpm(){
-        var ecpmInfo = mSplashAd?.mediationManager?.showEcpm
-        if (ecpmInfo != null) {
-            Log.e(
-                TAG, "ecpm: \n" +
-                        "SdkName: " + ecpmInfo.sdkName + ",\n" +
-                        "CustomSdkName: " + ecpmInfo.customSdkName + ",\n" +
-                        "SlotId: " + ecpmInfo.slotId + ",\n" +
-                        // 单位：分
-                        "Ecpm: " + ecpmInfo.ecpm + ",\n" +
-                        "ReqBiddingType: " + ecpmInfo.reqBiddingType + ",\n" +
-                        "ErrorMsg: " + ecpmInfo.errorMsg + ",\n" +
-                        "RequestId: " + ecpmInfo.requestId + ",\n" +
-                        "RitType: " + ecpmInfo.ritType + ",\n" +
-                        "AbTestId: " + ecpmInfo.abTestId + ",\n" +
-                        "ScenarioId: " + ecpmInfo.scenarioId + ",\n" +
-                        "SegmentId: " + ecpmInfo.segmentId + ",\n" +
-                        "Channel: " + ecpmInfo.channel + ",\n" +
-                        "SubChannel: " + ecpmInfo.subChannel + ",\n" +
-                        "customData: " + ecpmInfo.customData
-            )
-        }
     }
 
     override fun dispose() {

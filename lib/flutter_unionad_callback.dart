@@ -46,6 +46,9 @@ typedef OnUnReady = void Function();
 ///广告物料缓存成功
 typedef OnCache = void Function();
 
+///ecpm获取
+typedef OnEcpm = void Function(Map<String, dynamic>? info);
+
 ///广告奖励验证
 /// [isVerify] 是否成功
 /// [rewardAmount]奖励数量
@@ -92,9 +95,15 @@ class FlutterUnionadBannerCallBack {
   OnFail? onFail;
   OnDislike? onDislike;
   OnClick? onClick;
+  OnEcpm? onEcpm;
 
-  FlutterUnionadBannerCallBack(
-      {this.onShow, this.onFail, this.onDislike, this.onClick});
+  FlutterUnionadBannerCallBack({
+    this.onShow,
+    this.onFail,
+    this.onDislike,
+    this.onClick,
+    this.onEcpm,
+  });
 }
 
 ///
@@ -108,15 +117,18 @@ class FlutterUnionadDrawFeedCallBack {
   OnVideoPlay? onVideoPlay;
   OnVideoPause? onVideoPause;
   OnVideoStop? onVideoStop;
+  OnEcpm? onEcpm;
 
-  FlutterUnionadDrawFeedCallBack(
-      {this.onShow,
-      this.onFail,
-      this.onClick,
-      this.onDislike,
-      this.onVideoPlay,
-      this.onVideoPause,
-      this.onVideoStop});
+  FlutterUnionadDrawFeedCallBack({
+    this.onShow,
+    this.onFail,
+    this.onClick,
+    this.onDislike,
+    this.onVideoPlay,
+    this.onVideoPause,
+    this.onVideoStop,
+    this.onEcpm,
+  });
 }
 
 ///
@@ -127,9 +139,15 @@ class FlutterUnionadNativeCallBack {
   OnFail? onFail;
   OnDislike? onDislike;
   OnClick? onClick;
+  OnEcpm? onEcpm;
 
-  FlutterUnionadNativeCallBack(
-      {this.onShow, this.onFail, this.onDislike, this.onClick});
+  FlutterUnionadNativeCallBack({
+    this.onShow,
+    this.onFail,
+    this.onDislike,
+    this.onClick,
+    this.onEcpm,
+  });
 }
 
 ///
@@ -142,14 +160,17 @@ class FlutterUnionadSplashCallBack {
   OnFinish? onFinish;
   OnSkip? onSkip;
   OnTimeOut? onTimeOut;
+  OnEcpm? onEcpm;
 
-  FlutterUnionadSplashCallBack(
-      {this.onShow,
-      this.onFail,
-      this.onClick,
-      this.onFinish,
-      this.onSkip,
-      this.onTimeOut});
+  FlutterUnionadSplashCallBack({
+    this.onShow,
+    this.onFail,
+    this.onClick,
+    this.onFinish,
+    this.onSkip,
+    this.onTimeOut,
+    this.onEcpm,
+  });
 }
 
 ///
@@ -163,13 +184,14 @@ class FlutterUnionadFullVideoCallBack {
   OnFail? onFail;
   OnFinish? onFinish;
 
-  FlutterUnionadFullVideoCallBack(
-      {this.onShow,
-      this.onClick,
-      this.onSkip,
-      this.onClose,
-      this.onFail,
-      this.onFinish});
+  FlutterUnionadFullVideoCallBack({
+    this.onShow,
+    this.onClick,
+    this.onSkip,
+    this.onClose,
+    this.onFail,
+    this.onFinish,
+  });
 }
 
 ///
@@ -184,16 +206,19 @@ class FlutterUnionadNewInteractionCallBack {
   OnFinish? onFinish;
   OnReady? onReady;
   OnUnReady? onUnReady;
+  OnEcpm? onEcpm;
 
-  FlutterUnionadNewInteractionCallBack(
-      {this.onShow,
-      this.onClick,
-      this.onSkip,
-      this.onClose,
-      this.onFail,
-      this.onFinish,
-      this.onReady,
-      this.onUnReady});
+  FlutterUnionadNewInteractionCallBack({
+    this.onShow,
+    this.onClick,
+    this.onSkip,
+    this.onClose,
+    this.onFail,
+    this.onFinish,
+    this.onReady,
+    this.onUnReady,
+    this.onEcpm,
+  });
 }
 
 ///
@@ -206,8 +231,13 @@ class FlutterUnionadInteractionCallBack {
   OnClose? onClose;
   OnFail? onFail;
 
-  FlutterUnionadInteractionCallBack(
-      {this.onShow, this.onClick, this.onDislike, this.onClose, this.onFail});
+  FlutterUnionadInteractionCallBack({
+    this.onShow,
+    this.onClick,
+    this.onDislike,
+    this.onClose,
+    this.onFail,
+  });
 }
 
 ///
@@ -224,18 +254,21 @@ class FlutterUnionadRewardAdCallBack {
   OnReady? onReady;
   OnUnReady? onUnReady;
   OnCache? onCache;
+  OnEcpm? onEcpm;
 
-  FlutterUnionadRewardAdCallBack(
-      {this.onShow,
-      this.onClick,
-      this.onClose,
-      this.onFail,
-      this.onVerify,
-      this.onRewardArrived,
-      this.onSkip,
-      this.onReady,
-      this.onUnReady,
-      this.onCache});
+  FlutterUnionadRewardAdCallBack({
+    this.onShow,
+    this.onClick,
+    this.onClose,
+    this.onFail,
+    this.onVerify,
+    this.onRewardArrived,
+    this.onSkip,
+    this.onReady,
+    this.onUnReady,
+    this.onCache,
+    this.onEcpm,
+  });
 }
 
 ///

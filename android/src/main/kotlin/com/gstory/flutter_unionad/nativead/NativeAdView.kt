@@ -9,6 +9,7 @@ import com.bytedance.sdk.openadsdk.*
 import com.bytedance.sdk.openadsdk.TTAdDislike.DislikeInteractionCallback
 import com.bytedance.sdk.openadsdk.mediation.ad.MediationAdSlot
 import com.bytedance.sdk.openadsdk.mediation.ad.MediationExpressRenderListener
+import com.gstory.flutter_unionad.EcpmUtil
 import com.gstory.flutter_unionad.FlutterunionadViewConfig
 import com.gstory.flutter_unionad.TTAdManagerHolder
 import com.gstory.flutter_unionad.UIUtils
@@ -38,7 +39,7 @@ class NativeAdView(
     var supportDeepLink: Boolean? = true
     var viewWidth: Float
     var viewHeight: Float
-
+    var isMuted: Boolean? = true
     private var channel: MethodChannel?
 
     init {
@@ -46,6 +47,7 @@ class NativeAdView(
         supportDeepLink = params["supportDeepLink"] as Boolean?
         var width = params["width"] as Double
         var height = params["height"] as Double
+        isMuted = params["isMuted"] as Boolean
         viewWidth = width.toFloat()
         viewHeight = height.toFloat()
         mContainer = FrameLayout(context)
@@ -71,6 +73,7 @@ class NativeAdView(
             )
             .setMediationAdSlot(
                 MediationAdSlot.Builder()
+                    .setMuted(isMuted!!)
                     .build()
             )
             .build()
@@ -89,7 +92,6 @@ class NativeAdView(
                     return
                 }
                 mNativeAd = ads[0]
-                queryEcpm()
                 //展示第一条广告
                 showAd()
             }
@@ -130,6 +132,10 @@ class NativeAdView(
                 var map: MutableMap<String, Any?> =
                     mutableMapOf("width" to p1, "height" to p2)
                 channel?.invokeMethod("onShow", map)
+                //获取ecpm·
+                var ecpmMap = EcpmUtil.toMap(mNativeAd?.mediationManager?.showEcpm)
+                Log.d(TAG, "ecpm: $ecpmMap")
+                channel?.invokeMethod("onEcpm", ecpmMap)
             }
 
             override fun onRenderFail(p0: View?, p1: String?, p2: Int) {
@@ -175,34 +181,6 @@ class NativeAdView(
 
         })
     }
-
-    /**
-     * 获取ecpm
-     */
-    private fun queryEcpm() {
-        var ecpmInfo = mNativeAd?.mediationManager?.showEcpm
-        if (ecpmInfo != null) {
-            Log.e(
-                TAG, "信息流广告 ecpm: \n" +
-                        "SdkName: " + ecpmInfo.sdkName + ",\n" +
-                        "CustomSdkName: " + ecpmInfo.customSdkName + ",\n" +
-                        "SlotId: " + ecpmInfo.slotId + ",\n" +
-                        // 单位：分
-                        "Ecpm: " + ecpmInfo.ecpm + ",\n" +
-                        "ReqBiddingType: " + ecpmInfo.reqBiddingType + ",\n" +
-                        "ErrorMsg: " + ecpmInfo.errorMsg + ",\n" +
-                        "RequestId: " + ecpmInfo.requestId + ",\n" +
-                        "RitType: " + ecpmInfo.ritType + ",\n" +
-                        "AbTestId: " + ecpmInfo.abTestId + ",\n" +
-                        "ScenarioId: " + ecpmInfo.scenarioId + ",\n" +
-                        "SegmentId: " + ecpmInfo.segmentId + ",\n" +
-                        "Channel: " + ecpmInfo.channel + ",\n" +
-                        "SubChannel: " + ecpmInfo.subChannel + ",\n" +
-                        "customData: " + ecpmInfo.customData
-            )
-        }
-    }
-
 
     override fun dispose() {
         Log.e(TAG, "广告释放")

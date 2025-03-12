@@ -6,8 +6,11 @@ import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import com.bytedance.sdk.openadsdk.*
+import com.bytedance.sdk.openadsdk.mediation.MediationConstant
+import com.bytedance.sdk.openadsdk.mediation.ad.MediationAdSlot
 import com.bytedance.sdk.openadsdk.mediation.ad.MediationExpressRenderListener
 import com.bytedance.sdk.openadsdk.mediation.manager.MediationNativeManager
+import com.gstory.flutter_unionad.EcpmUtil
 import com.gstory.flutter_unionad.FlutterunionadViewConfig
 import com.gstory.flutter_unionad.UIUtils
 import io.flutter.plugin.common.BinaryMessenger
@@ -30,17 +33,21 @@ internal class DrawFeedAdView(
     private val TAG = "DrawFeedAdView"
     private var mDrawFeedAd: TTDrawFeedAd? = null
     private var mContainer: FrameLayout? = null
+
     //广告所需参数
     private var mCodeId: String?
     var supportDeepLink: Boolean? = true
     var viewWidth: Float
     var viewHeight: Float
+    var isMuted: Boolean? = true
     private var channel: MethodChannel?
+
     init {
         mCodeId = params["androidCodeId"] as String?
         supportDeepLink = params["supportDeepLink"] as Boolean?
         var width = params["width"] as Double
         var height = params["height"] as Double
+        isMuted = params["isMuted"] as Boolean
         viewWidth = width.toFloat()
         viewHeight = height.toFloat()
         mContainer = FrameLayout(activity)
@@ -59,6 +66,11 @@ internal class DrawFeedAdView(
         val adSlot = AdSlot.Builder()
             .setCodeId(mCodeId) //广告位id
             .setAdCount(1) //请求广告数量为1到3条
+            .setMediationAdSlot(
+                MediationAdSlot.Builder()
+                    .setMuted(isMuted!!)
+                    .build()
+            )
             .setImageAcceptedSize(
                 UIUtils.dip2px(context, viewWidth).toInt(),
                 UIUtils.dip2px(context, viewHeight).toInt()
@@ -77,7 +89,6 @@ internal class DrawFeedAdView(
                     return
                 }
                 mDrawFeedAd = ads[0]
-                queryEcpm()
                 showDrawFeedAd()
             }
         })
@@ -111,6 +122,10 @@ internal class DrawFeedAdView(
                 var map: MutableMap<String, Any?> =
                     mutableMapOf("width" to p1, "height" to p2)
                 channel?.invokeMethod("onShow", map)
+                //获取ecpm·
+                var ecpmMap = EcpmUtil.toMap(mDrawFeedAd?.mediationManager?.showEcpm)
+                Log.d(TAG, "ecpm: $ecpmMap")
+                channel?.invokeMethod("onEcpm", ecpmMap)
             }
 
             override fun onRenderFail(p0: View?, p1: String?, p2: Int) {
@@ -128,33 +143,6 @@ internal class DrawFeedAdView(
             }
 
         })
-    }
-
-    /**
-     * 获取ecpm
-     */
-    private fun queryEcpm() {
-        var ecpmInfo = mDrawFeedAd?.mediationManager?.showEcpm
-        if (ecpmInfo != null) {
-            Log.e(
-                TAG, "信息流广告 ecpm: \n" +
-                        "SdkName: " + ecpmInfo.sdkName + ",\n" +
-                        "CustomSdkName: " + ecpmInfo.customSdkName + ",\n" +
-                        "SlotId: " + ecpmInfo.slotId + ",\n" +
-                        // 单位：分
-                        "Ecpm: " + ecpmInfo.ecpm + ",\n" +
-                        "ReqBiddingType: " + ecpmInfo.reqBiddingType + ",\n" +
-                        "ErrorMsg: " + ecpmInfo.errorMsg + ",\n" +
-                        "RequestId: " + ecpmInfo.requestId + ",\n" +
-                        "RitType: " + ecpmInfo.ritType + ",\n" +
-                        "AbTestId: " + ecpmInfo.abTestId + ",\n" +
-                        "ScenarioId: " + ecpmInfo.scenarioId + ",\n" +
-                        "SegmentId: " + ecpmInfo.segmentId + ",\n" +
-                        "Channel: " + ecpmInfo.channel + ",\n" +
-                        "SubChannel: " + ecpmInfo.subChannel + ",\n" +
-                        "customData: " + ecpmInfo.customData
-            )
-        }
     }
 
     override fun dispose() {

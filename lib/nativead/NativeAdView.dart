@@ -9,6 +9,7 @@ class FlutterUnionadNativeAdView extends StatefulWidget {
   bool? supportDeepLink;
   double width;
   double height;
+  final bool isMuted;
   FlutterUnionadNativeCallBack? callBack;
 
   /// # 信息流广告
@@ -23,6 +24,7 @@ class FlutterUnionadNativeAdView extends StatefulWidget {
   ///
   /// [height] 期望view高度 dp 必填
   ///
+  /// [isMuted] 是否静音
   ///
   /// [FlutterUnionAdNativeCallBack] 信息流广告回调
   ///
@@ -33,6 +35,7 @@ class FlutterUnionadNativeAdView extends StatefulWidget {
       required this.supportDeepLink,
       required this.width,
       required this.height,
+      this.isMuted = true,
       this.callBack})
       : super(key: key);
 
@@ -79,6 +82,7 @@ class _NativeAdViewState extends State<FlutterUnionadNativeAdView> {
             "supportDeepLink": widget.supportDeepLink,
             "width": widget.width,
             "height": widget.height,
+            "isMuted": widget.isMuted,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),
@@ -95,6 +99,7 @@ class _NativeAdViewState extends State<FlutterUnionadNativeAdView> {
             "supportDeepLink": widget.supportDeepLink,
             "width": widget.width,
             "height": widget.height,
+            "isMuted": widget.isMuted,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),
@@ -120,8 +125,10 @@ class _NativeAdViewState extends State<FlutterUnionadNativeAdView> {
         if (mounted) {
           setState(() {
             _isShowAd = true;
-            _width = (map["width"]).toDouble();
-            _height = (map["height"]).toDouble();
+            if (map["width"] > 0) {
+              _width = (map["width"]).toDouble();
+              _height = (map["height"]).toDouble();
+            }
           });
         }
         widget.callBack?.onShow!();
@@ -147,6 +154,10 @@ class _NativeAdViewState extends State<FlutterUnionadNativeAdView> {
       //点击
       case FlutterUnionadMethod.onClick:
         widget.callBack?.onClick!();
+        break;
+      //ecpm
+      case FlutterUnionadMethod.onEcpm:
+        widget.callBack?.onEcpm!(call.arguments);
         break;
     }
   }

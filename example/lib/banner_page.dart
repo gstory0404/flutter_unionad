@@ -40,15 +40,23 @@ class _BannerPageState extends State<BannerPage> {
               //期望view高度 dp 必填
               height: 120.5,
               //广告事件回调 选填
-              callBack: FlutterUnionadBannerCallBack(onShow: () {
-                print("banner广告加载完成");
-              }, onDislike: (message) {
-                print("banner不感兴趣 $message");
-              }, onFail: (error) {
-                print("banner广告加载失败 $error");
-              }, onClick: () {
-                print("banner广告点击");
-              }),
+              callBack: FlutterUnionadBannerCallBack(
+                onShow: () {
+                  print("banner广告加载完成");
+                },
+                onDislike: (message) {
+                  print("banner不感兴趣 $message");
+                },
+                onFail: (error) {
+                  print("banner广告加载失败 $error");
+                },
+                onClick: () {
+                  print("banner广告点击");
+                },
+                onEcpm: (info){
+                  print("banner广告ecpm:$info");
+                }
+              ),
             ),
             FlutterUnionad.bannerAdView(
               androidCodeId: "102735527",
@@ -56,34 +64,21 @@ class _BannerPageState extends State<BannerPage> {
               expressViewWidth: 600,
               expressViewHeight: 200,
               //广告事件回调 选填
-              callBack: FlutterUnionadBannerCallBack(onShow: () {
-                print("banner广告加载完成");
-              }, onDislike: (message) {
-                print("banner不感兴趣 $message");
-              }, onFail: (error) {
-                print("banner广告加载失败 $error");
-              }, onClick: () {
-                print("banner广告点击");
-              }),
+              callBack: FlutterUnionadBannerCallBack(
+                onShow: () {
+                  print("banner广告加载完成");
+                },
+                onDislike: (message) {
+                  print("banner不感兴趣 $message");
+                },
+                onFail: (error) {
+                  print("banner广告加载失败 $error");
+                },
+                onClick: () {
+                  print("banner广告点击");
+                },
+              ),
             )
-            // FlutterUnionadBannerView(
-            //   androidCodeId: "102735527",
-            //   iosCodeId: "102735527",
-            //   width: 600,
-            //   height: 200,
-            // ),
-            // FlutterUnionadBannerView(
-            //   androidCodeId: "102735527",
-            //   iosCodeId: "102735527",
-            //   width: 500,
-            //   height: 150,
-            // ),
-            // FlutterUnionadBannerView(
-            //   androidCodeId: "102735527",
-            //   iosCodeId: "102735527",
-            //   width: 600,
-            //   height: 180,
-            // ),
           ],
         ),
       ),

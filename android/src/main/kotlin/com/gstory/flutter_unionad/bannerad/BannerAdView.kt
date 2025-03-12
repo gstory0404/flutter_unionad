@@ -5,21 +5,16 @@ import android.content.Context
 import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
-import android.widget.TextView
 import com.bytedance.sdk.openadsdk.*
 import com.bytedance.sdk.openadsdk.TTAdNative.NativeExpressAdListener
-import com.bytedance.sdk.openadsdk.TTNativeExpressAd.ExpressAdInteractionListener
-import com.bytedance.sdk.openadsdk.mediation.ad.IMediationNativeAdInfo
 import com.bytedance.sdk.openadsdk.mediation.ad.MediationAdSlot
 import com.bytedance.sdk.openadsdk.mediation.ad.MediationNativeToBannerListener
+import com.gstory.flutter_unionad.EcpmUtil
 import com.gstory.flutter_unionad.FlutterunionadViewConfig
-import com.gstory.flutter_unionad.TTAdManagerHolder
-import com.gstory.flutter_unionad.TTAdManagerHolder.get
 import com.gstory.flutter_unionad.UIUtils
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.platform.PlatformView
-import java.util.logging.Logger
 
 
 /**
@@ -98,7 +93,6 @@ internal class BannerAdView(
                 }
                 Log.e(TAG, "广告拉取成功 ${ads.size}")
                 mBannerAd = ads[0]
-                queryEcpm()
                 showBannerAd()
             }
         })
@@ -145,6 +139,10 @@ internal class BannerAdView(
 
             override fun onRenderSuccess(p0: View?, p1: Float, p2: Float) {
                 Log.e(TAG, "渲染成功 ${bannerAdView?.width} = ${bannerAdView?.height}")
+                //获取ecpm·
+                var ecpmMap = EcpmUtil.toMap(mBannerAd?.mediationManager?.showEcpm)
+                Log.d(TAG, "ecpm: $ecpmMap")
+                channel?.invokeMethod("onEcpm", ecpmMap)
             }
 
             override fun onAdDismiss() {
@@ -199,33 +197,6 @@ internal class BannerAdView(
                 Log.e(TAG, "显示dislike弹窗")
             }
         })
-    }
-
-    /**
-     * 获取ecpm
-     */
-    private fun queryEcpm() {
-        val ecpmInfo = mBannerAd?.mediationManager?.showEcpm
-        if (ecpmInfo != null) {
-            Log.e(
-                TAG, "信息流广告 ecpm: \n" +
-                        "SdkName: " + ecpmInfo.sdkName + ",\n" +
-                        "CustomSdkName: " + ecpmInfo.customSdkName + ",\n" +
-                        "SlotId: " + ecpmInfo.slotId + ",\n" +
-                        // 单位：分
-                        "Ecpm: " + ecpmInfo.ecpm + ",\n" +
-                        "ReqBiddingType: " + ecpmInfo.reqBiddingType + ",\n" +
-                        "ErrorMsg: " + ecpmInfo.errorMsg + ",\n" +
-                        "RequestId: " + ecpmInfo.requestId + ",\n" +
-                        "RitType: " + ecpmInfo.ritType + ",\n" +
-                        "AbTestId: " + ecpmInfo.abTestId + ",\n" +
-                        "ScenarioId: " + ecpmInfo.scenarioId + ",\n" +
-                        "SegmentId: " + ecpmInfo.segmentId + ",\n" +
-                        "Channel: " + ecpmInfo.channel + ",\n" +
-                        "SubChannel: " + ecpmInfo.subChannel + ",\n" +
-                        "customData: " + ecpmInfo.customData
-            )
-        }
     }
 
     override fun dispose() {

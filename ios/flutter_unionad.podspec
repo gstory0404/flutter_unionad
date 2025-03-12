@@ -17,9 +17,38 @@ A new flutter plugin project.
   s.static_framework = true
   s.dependency 'Flutter'
   s.platform = :ios, '9.0'
-#  s.dependency 'Ads-CN','5.4.1.1''
-  s.dependency 'Ads-CN-Beta/BUAdSDK','6.7.0.2'
-  s.dependency 'Ads-CN-Beta/CSJMediation','6.7.0.2'
+  s.dependency 'Ads-CN-Beta/BUAdSDK','6.7.0.3'
+  s.dependency 'Ads-CN-Beta/CSJMediation','6.7.0.3'
+# 引入融合Adapters(推荐使用自动拉取adapter工具，此处无需引入)
+# pod 'GMGdtAdapter-Beta', '4.15.10.1'
+# pod 'GMBaiduAdapter-Beta', '5.370.2'
+# pod 'GMKsAdapter-Beta', '3.3.71.1'
+# pod 'GMSigmobAdapter-Beta', '4.15.3.1'
+# pod 'GMMintegralAdapter-Beta', '7.7.3.1'
+# pod 'GMAdmobAdapter-Beta', '10.0.0.0'
+# pod 'GMUnityAdapter-Beta', '4.3.0.0'
+# # 引入使用到的ADN SDK，开发者请按需引入
+# pod 'GDTMobSDK', '4.15.10'
+# pod 'BaiduMobAdSDK', '5.370'
+# pod 'KSAdSDK', '3.3.71'
+# pod 'SigmobAd-iOS', '4.15.3'
+# pod 'MintegralAdSDK', '7.7.3', :subspecs => [
+#   'SplashAd',
+#   'InterstitialAd',
+#   'NewInterstitialAd',
+#   'InterstitialVideoAd',
+#   'RewardVideoAd',
+#   'NativeAd',
+#   'NativeAdvancedAd',
+#   'BannerAd',
+#   'BidNativeAd',
+#   'BidNewInterstitialAd',
+#   'BidInterstitialVideoAd',
+#   'BidRewardVideoAd'
+# ]
+#                 pod 'Google-Mobile-Ads-SDK', '10.0.0'
+# pod 'UnityAds', '4.3.0'
+
 # .framework文件
 #  s.vendored_frameworks = 'SDK/BUAdSDK.framework','SDK/BURelyFoundation.framework','SDK/CSJAdSDK.framework'
 # .a文件

@@ -31,9 +31,11 @@ class _DrawFeedPageState extends State<DrawFeedPage> {
                 androidCodeId: "102734241",
                 iosCodeId: "102734241",
                 //是否支持 DeepLink 选填
-                width: 600.5,
+                width: MediaQuery.of(context).size.width,
                 // 期望view 宽度 dp 必填
                 height: 800.5,
+                //是否静音
+                isMuted: false,
                 callBack: FlutterUnionadDrawFeedCallBack(
                   onShow: () {
                     print("draw广告显示");
@@ -55,6 +57,9 @@ class _DrawFeedPageState extends State<DrawFeedPage> {
                   },
                   onVideoStop: () {
                     print("draw视频结束");
+                  },
+                  onEcpm: (info) {
+                    print("draw视频ecpm $info");
                   },
                 ),
               );

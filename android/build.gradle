@@ -69,10 +69,10 @@ dependencies {
     implementation "androidx.appcompat:appcompat:1.3.1"
 //    implementation 'com.pangle.cn:ads-sdk:+'
 //    implementation 'com.pangle.cn:ads-sdk-pro:6.4.1.5'
-//    implementation(name: 'open_ad_sdk_6.5.0.2', ext: 'aar')
+    implementation(name: 'open_ad_sdk_6.7.0.6', ext: 'aar')
 //    implementation(name: 'tools_release', ext: 'aar')
 
-    implementation "com.pangle.cn:mediation-sdk:6.6.0.7"  //融合SDK
+//    implementation "com.pangle.cn:mediation-sdk:6.7.0.6"  //融合SDK
 //    implementation "com.pangle.cn:mediation-ks-adapter:3.3.67.0"//ks adapter
 //    implementation "com.pangle.cn:mediation-gdt-adapter:4.591.1461.1" //gdt adapter
 //    implementation "com.pangle.cn:mediation-admob-adapter:17.2.0.62"//admob adapter
@@ -82,4 +82,49 @@ dependencies {
 //    implementation "com.pangle.cn:mediation-sigmob-adapter:4.19.4.0"//sigmob adapter
 //    // wind-sdk 和 common版本必须匹配使用，不然可能存在兼容性问题
 //    implementation "com.pangle.cn:mediation-unity-adapter:4.3.0.29"//unity adapter
+
+//    //ks
+//    implementation(name: "mediation_ks_adapter_3.3.71.3.0", ext: 'aar')
+//    implementation(name: "kssdk-ad-3.3.71.3", ext: 'aar')
+//
+//    //admob
+//    implementation(name: "mediation_admob_adapter_17.2.0.65", ext: 'aar')
+//    implementation("com.google.android.gms:play-services-ads:17.2.0") {
+//        exclude group: 'com.android.support'
+//    }
+//
+//    //baidu
+//    implementation(name: "mediation_baidu_adapter_9.37.3", ext: 'aar')
+//    implementation(name: "Baidu_MobAds_SDK_v9.37", ext: 'aar')
+//
+//    //gdt
+//    implementation(name: "mediation_gdt_adapter_4.611.1481.0", ext: 'aar')
+//    implementation(name: "GDTSDK.unionNormal.4.611.1481", ext: 'aar')
+//
+//    //mintegral
+//    implementation "mediation_mintegral_adapter_16.6.57.8", ext: 'aar')
+//    implementation(name: "mbridge_videojs_16.6.57", ext: 'aar')
+//    implementation(name: "mbridge_mbjscommon_16.6.57", ext: 'aar')
+//    implementation(name: "mbridge_playercommon_16.6.57", ext: 'aar')
+//    implementation(name: "mbridge_reward_16.6.57", ext: 'aar')
+//    implementation(name: "mbridge_videocommon_16.6.57", ext: 'aar')
+//    implementation(name: "mbridge_chinasame_16.6.57", ext: 'aar')
+//    implementation(name: "mbridge_interstitialvideo_16.6.57", ext: 'aar')
+//    implementation(name: "mbridge_mbnative_16.6.57", ext: 'aar')
+//    implementation(name: "mbridge_nativeex_16.6.57", ext: 'aar')
+//    implementation(name: "mbridge_mbnativeadvanced_16.6.57", ext: 'aar')
+//    implementation(name: "mbridge_interstitial_16.6.57", ext: 'aar')
+//    implementation(name: "mbridge_mbbanner_16.6.57", ext: 'aar')
+//    implementation(name: "mbridge_mbsplash_16.6.57", ext: 'aar')
+//    implementation(name: "mbridge_mbbid_16.6.57", ext: 'aar')
+//    implementation(name: "mbridge_newinterstitial_16.6.57", ext: 'aar')
+//
+//    //sigmob
+//    implementation(name: "mediation_sigmob_adapter_4.19.5.1", ext: 'aar')
+//    implementation(name: "windAd-4.19.5", ext: 'aar')
+//    implementation(name: "windAd-common-1.7.2", ext: 'aar') // wind-sdk 和 common版本必须匹配使用，不然可能存在兼容性问题
+//
+//    //unity
+//    implementation(name: "mediation_unity_adapter_4.3.0.32", ext: 'aar')
+//    implementation(name: "unity-ads-4.3.0", ext: 'aar')
 }

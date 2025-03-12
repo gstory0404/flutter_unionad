@@ -63,11 +63,6 @@ class MyBannerView : ADContainerView{
         bannerAdView.loadAdData()
     }
     
-    private func queryEcpm(){
-//        let info = bannerAdView
-    }
-    
-    
     private func disposeView() {
         removeFromSuperview()
     }
@@ -105,6 +100,10 @@ extension MyBannerView: BUNativeExpressBannerViewDelegate {
         let map : NSDictionary = ["width":bannerAdView.frame.size.width,
                                   "height":bannerAdView.frame.size.height]
         self.channel?.invokeMethod("onShow", arguments: map)
+        let ecpmInfo : BUMRitInfo? = bannerAdView.mediation?.getShowEcpmInfo();
+        LogUtil.logInstance.printLog(message:"ecpm获取成功：\(ecpmInfo?.toDictionary())");
+        self.channel?.invokeMethod("onEcpm", arguments: ecpmInfo?.toDictionary())
+
     }
     
     public func nativeExpressBannerAdViewDidClick(_ bannerAdView: BUNativeExpressBannerView) {

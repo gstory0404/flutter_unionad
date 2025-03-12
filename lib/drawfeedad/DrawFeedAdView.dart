@@ -2,13 +2,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_unionad/flutter_unionad.dart';
-import 'package:flutter_unionad/flutter_unionad_code.dart';
 
 class FlutterUnionadDrawFeedAdView extends StatefulWidget {
   final String androidCodeId;
   final String iosCodeId;
   final double width;
   final double height;
+  final bool isMuted;
   final FlutterUnionadDrawFeedCallBack? callBack;
 
   const FlutterUnionadDrawFeedAdView(
@@ -17,6 +17,7 @@ class FlutterUnionadDrawFeedAdView extends StatefulWidget {
       required this.iosCodeId,
       required this.width,
       required this.height,
+      this.isMuted = true,
       this.callBack})
       : super(key: key);
 
@@ -59,6 +60,7 @@ class _DrawFeedAdViewState extends State<FlutterUnionadDrawFeedAdView> {
             "androidCodeId": widget.androidCodeId,
             "width": widget.width,
             "height": widget.height,
+            "isMuted": widget.isMuted,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),
@@ -74,6 +76,7 @@ class _DrawFeedAdViewState extends State<FlutterUnionadDrawFeedAdView> {
             "iosCodeId": widget.iosCodeId,
             "width": widget.width,
             "height": widget.height,
+            "isMuted": widget.isMuted,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),
@@ -99,8 +102,10 @@ class _DrawFeedAdViewState extends State<FlutterUnionadDrawFeedAdView> {
         if (mounted) {
           setState(() {
             _isShowAd = true;
-            _width = (map["width"]).toDouble();
-            _height = (map["height"]).toDouble();
+            if(map["width"] > 0){
+              _width = (map["width"]).toDouble();
+              _height = (map["height"]).toDouble();
+            }
           });
         }
         if (widget.callBack != null) {
@@ -127,6 +132,9 @@ class _DrawFeedAdViewState extends State<FlutterUnionadDrawFeedAdView> {
         break;
       case FlutterUnionadMethod.onVideoStop:
         widget.callBack?.onVideoStop!();
+        break;
+      case FlutterUnionadMethod.onEcpm:
+        widget.callBack?.onEcpm!(call.arguments);
         break;
     }
   }

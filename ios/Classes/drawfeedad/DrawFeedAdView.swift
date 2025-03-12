@@ -17,6 +17,7 @@ public class DrawFeedAdView : NSObject,FlutterPlatformView{
     let mCodeId :String?
     var viewWidth : Float?
     var viewHeight :Float?
+    var isMuted :Bool?
     
     init(_ frame : CGRect,binaryMessenger: FlutterBinaryMessenger , id : Int64, params :Any?) {
         self.frame = frame
@@ -25,6 +26,7 @@ public class DrawFeedAdView : NSObject,FlutterPlatformView{
         self.mCodeId = dict.value(forKey: "iosCodeId") as? String
         self.viewWidth = Float(dict.value(forKey: "width") as! Double)
         self.viewHeight = Float(dict.value(forKey: "height") as! Double)
+        self.isMuted = dict.value(forKey: "isMuted") as! Bool
         nativeExpressAdManager = BUNativeExpressAdManager()
         super.init()
         self.channel = FlutterMethodChannel.init(name: FlutterUnionadConfig.view.drawFeedAdView + "_" + String(id), binaryMessenger: binaryMessenger)
@@ -40,7 +42,7 @@ public class DrawFeedAdView : NSObject,FlutterPlatformView{
         bUadSolt.id = self.mCodeId!
         let adSize = CGSizeMake(CGFloat(self.viewWidth!),CGFloat(self.viewHeight!))
         bUadSolt.adSize = adSize
-        bUadSolt.mediation.mutedIfCan = false; // 静音 聚合功能
+        bUadSolt.mediation.mutedIfCan = self.isMuted!; // 静音 聚合功能
         self.nativeExpressAdManager = BUNativeExpressAdManager.init(slot: bUadSolt, adSize:  adSize)
         self.nativeExpressAdManager.delegate = self;
         self.nativeExpressAdManager.loadAdData(withCount: 1)
@@ -68,6 +70,10 @@ extension DrawFeedAdView : BUNativeExpressAdViewDelegate{
             let map : NSDictionary = ["width":view.frame.size.width,
                                       "height":view.frame.size.height]
             self.channel?.invokeMethod("onShow", arguments: map)
+            let ecpmInfo : BUMRitInfo? = view.mediation?.getShowEcpmInfo();
+            LogUtil.logInstance.printLog(message:"ecpm获取成功：\(ecpmInfo?.toDictionary())");
+            self.channel?.invokeMethod("onEcpm", arguments: ecpmInfo?.toDictionary())
+
         }
     }
     

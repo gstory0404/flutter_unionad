@@ -52,6 +52,12 @@ public class RewardedVideoAd : NSObject{
         let map : NSDictionary = ["adType":"rewardAd",
                                   "onAdMethod":"onShow"]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
+        let ecpmInfo : BUMRitInfo? = self.bURewardedVideoAd?.mediation?.getShowEcpmInfo();
+        let ecpmMap : NSDictionary = ["adType":"rewardAd",
+                                  "onAdMethod":"onEcpm",
+                                  "info":ecpmInfo?.toDictionary()]
+        LogUtil.logInstance.printLog(message: "ecpm : \(ecpmMap)")
+        SwiftFlutterUnionadPlugin.event!.sendEvent(event: ecpmMap)
     }
 }
 
