@@ -18,6 +18,7 @@ public class SplashAdView : NSObject,FlutterPlatformView{
     var viewWidth : Float?
     var viewHeight :Float?
     var hideSkip :Bool = false
+    var isShake :Bool = false
     var timeout : Double? = 3.0
     var splashAd:BUSplashAd?
     
@@ -28,6 +29,7 @@ public class SplashAdView : NSObject,FlutterPlatformView{
         let dict = params as! NSDictionary
         self.mCodeId = dict.value(forKey: "iosCodeId") as? String
         self.hideSkip = dict.value(forKey: "hideSkip") as! Bool
+        self.isShake = dict.value(forKey: "isShake") as! Bool
         self.viewWidth = Float(dict.value(forKey: "width") as! Double)
         self.viewHeight = Float(dict.value(forKey: "height") as! Double)
         self.timeout = (dict.value(forKey: "timeout") as! Double) / 1000

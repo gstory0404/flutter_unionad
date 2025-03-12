@@ -13,6 +13,7 @@ class FlutterUnionadSplashAdView extends StatefulWidget {
   double? height;
   int? timeout;
   bool? hideSkip;
+  bool? isShake;
   FlutterUnionadSplashCallBack? callBack;
 
   /// # 开屏广告
@@ -33,19 +34,22 @@ class FlutterUnionadSplashAdView extends StatefulWidget {
   ///
   /// [hideSkip] 是否影藏跳过按钮(当影藏的时候显示自定义跳过按钮) 默认显示
   ///
+  /// [isShake] 开屏摇一摇开关
+  ///
   /// [callBack] 广告回调[FlutterUnionadSplashCallBack]
   ///
-  FlutterUnionadSplashAdView(
-      {Key? key,
-      required this.androidCodeId,
-      required this.iosCodeId,
-      this.supportDeepLink,
-      this.width,
-      this.height,
-      this.timeout,
-      this.hideSkip,
-      this.callBack})
-      : super(key: key);
+  FlutterUnionadSplashAdView({
+    Key? key,
+    required this.androidCodeId,
+    required this.iosCodeId,
+    this.supportDeepLink,
+    this.width,
+    this.height,
+    this.timeout,
+    this.hideSkip,
+    this.callBack,
+    this.isShake = false,
+  }) : super(key: key);
 
   @override
   _SplashAdViewState createState() {
@@ -88,6 +92,7 @@ class _SplashAdViewState extends State<FlutterUnionadSplashAdView> {
             "height": widget.height ?? MediaQuery.of(context).size.height,
             "timeout": widget.timeout,
             "hideSkip": widget.hideSkip,
+            "isShake": widget.isShake,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),
@@ -106,6 +111,7 @@ class _SplashAdViewState extends State<FlutterUnionadSplashAdView> {
             "height": widget.height ?? MediaQuery.of(context).size.height,
             "timeout": widget.timeout,
             "hideSkip": widget.hideSkip,
+            "isShake": widget.isShake,
           },
           onPlatformViewCreated: _registerChannel,
           creationParamsCodec: const StandardMessageCodec(),

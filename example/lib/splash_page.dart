@@ -40,6 +40,8 @@ class _SplashPageState extends State<SplashPage> {
             hideSkip: false,
             //超时时间
             timeout: 3000,
+            //是否摇一摇
+            isShake: true,
             callBack: FlutterUnionadSplashCallBack(
               onShow: () {
                 print("开屏广告显示");

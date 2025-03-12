@@ -10,6 +10,7 @@ import com.bytedance.sdk.openadsdk.CSJAdError
 import com.bytedance.sdk.openadsdk.CSJSplashAd
 import com.bytedance.sdk.openadsdk.TTAdNative
 import com.bytedance.sdk.openadsdk.TTAdSdk
+import com.bytedance.sdk.openadsdk.mediation.ad.MediationAdSlot
 import com.gstory.flutter_unionad.EcpmUtil
 import com.gstory.flutter_unionad.FlutterunionadViewConfig
 import com.gstory.flutter_unionad.UIUtils
@@ -23,23 +24,31 @@ import io.flutter.plugin.platform.PlatformView
  * @Author: gstory0404@gmail
  * @CreateDate: 2020/8/19 10:34
  */
-internal class SplashAdView(var context: Context, var activity: Activity, private var messenger: BinaryMessenger, id: Int, params: Map<String?, Any?>) : PlatformView {
+internal class SplashAdView(
+    var context: Context,
+    var activity: Activity,
+    private var messenger: BinaryMessenger,
+    id: Int,
+    params: Map<String?, Any?>
+) : PlatformView {
     private val TAG = "SplashAdView"
     private var mContainer: FrameLayout? = null
-    private var mSplashAd : CSJSplashAd? = null
+    private var mSplashAd: CSJSplashAd? = null
 
     //广告所需参数
     private val mCodeId: String?
     private var supportDeepLink: Boolean? = true
+    private var isShake: Boolean? = true
     private var viewWidth: Float
     private var viewHeight: Float
-    private var timeout : Int = 3000
+    private var timeout: Int = 3000
 
-    private var channel : MethodChannel?
+    private var channel: MethodChannel?
 
     init {
         mCodeId = params["androidCodeId"] as String?
         supportDeepLink = params["supportDeepLink"] as Boolean?
+        isShake = params["isShake"] as Boolean?
         var width = params["width"] as Double
         var height = params["height"] as Double
         timeout = params["timeout"] as Int
@@ -54,7 +63,7 @@ internal class SplashAdView(var context: Context, var activity: Activity, privat
             viewHeight = height.toFloat()
         }
         mContainer = FrameLayout(context)
-        channel = MethodChannel(messenger, FlutterunionadViewConfig.splashAdView+"_"+id)
+        channel = MethodChannel(messenger, FlutterunionadViewConfig.splashAdView + "_" + id)
         loadSplashAd()
     }
 
@@ -71,10 +80,18 @@ internal class SplashAdView(var context: Context, var activity: Activity, privat
             .setCodeId(mCodeId)
             .setSupportDeepLink(supportDeepLink!!)
             //不区分渲染方式，要求开发者同时设置setImageAcceptedSize（单位：px）和setExpressViewAcceptedSize（单位：dp ）接口，不同时设置可能会导致展示异常。
-            .setImageAcceptedSize(UIUtils.dip2px(context,viewWidth).toInt(), UIUtils.dip2px(context,viewHeight).toInt())
+            .setImageAcceptedSize(
+                UIUtils.dip2px(context, viewWidth).toInt(),
+                UIUtils.dip2px(context, viewHeight).toInt()
+            )
+            .setMediationAdSlot(
+                MediationAdSlot.Builder()
+                    .setSplashShakeButton(isShake!!) //开屏摇一摇开关
+                    .build()
+            )
             .build()
         //step4:请求广告，调用开屏广告异步请求接口，对请求回调的广告作渲染处理
-        mTTAdNative.loadSplashAd(adSlot,object : TTAdNative.CSJSplashAdListener{
+        mTTAdNative.loadSplashAd(adSlot, object : TTAdNative.CSJSplashAdListener {
 
             override fun onSplashLoadSuccess(p0: CSJSplashAd?) {
                 Log.e(TAG, "开屏广告加载成功")
@@ -82,13 +99,13 @@ internal class SplashAdView(var context: Context, var activity: Activity, privat
 
             override fun onSplashLoadFail(p0: CSJAdError?) {
                 Log.e(TAG, p0?.msg.toString())
-                channel?.invokeMethod("onFail",p0?.msg.toString())
+                channel?.invokeMethod("onFail", p0?.msg.toString())
             }
 
             override fun onSplashRenderSuccess(ad: CSJSplashAd?) {
                 Log.e(TAG, "开屏广告渲染成功")
                 if (ad == null) {
-                    channel?.invokeMethod("onFail","拉去广告失败")
+                    channel?.invokeMethod("onFail", "拉去广告失败")
                     return
                 }
                 mSplashAd = ad
@@ -97,17 +114,17 @@ internal class SplashAdView(var context: Context, var activity: Activity, privat
 
             override fun onSplashRenderFail(p0: CSJSplashAd?, p1: CSJAdError?) {
                 Log.e(TAG, p1?.msg.toString())
-                channel?.invokeMethod("onFail",p1?.msg.toString())
+                channel?.invokeMethod("onFail", p1?.msg.toString())
             }
 
-        },timeout)
+        }, timeout)
     }
 
-    private fun showSplashAd(){
-        mSplashAd?.setSplashAdListener(object :CSJSplashAd.SplashAdListener{
+    private fun showSplashAd() {
+        mSplashAd?.setSplashAdListener(object : CSJSplashAd.SplashAdListener {
             override fun onSplashAdShow(p0: CSJSplashAd?) {
                 Log.e(TAG, "开屏广告展示")
-                channel?.invokeMethod("onShow","开屏广告展示")
+                channel?.invokeMethod("onShow", "开屏广告展示")
                 //获取ecpm
                 var ecpmMap = EcpmUtil.toMap(mSplashAd?.mediationManager?.showEcpm)
                 Log.d(TAG, "开屏广告ecpm: $ecpmMap")
@@ -116,15 +133,15 @@ internal class SplashAdView(var context: Context, var activity: Activity, privat
 
             override fun onSplashAdClick(p0: CSJSplashAd?) {
                 Log.e(TAG, "开屏广告点击")
-                channel?.invokeMethod("onClick","开屏广告点击")
+                channel?.invokeMethod("onClick", "开屏广告点击")
             }
 
             override fun onSplashAdClose(p0: CSJSplashAd?, closeType: Int) {
                 Log.e(TAG, "开屏广告结束$closeType")
                 //closeType 1跳过 2倒计时结束
-                if(closeType == 1){
-                    channel?.invokeMethod("onSkip","开屏广告跳过")
-                }else {
+                if (closeType == 1) {
+                    channel?.invokeMethod("onSkip", "开屏广告跳过")
+                } else {
                     channel?.invokeMethod("onFinish", "开屏广告倒计时结束")
                 }
             }

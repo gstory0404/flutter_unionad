@@ -73,6 +73,7 @@ class FlutterUnionadEcpm {
     data['segmentId'] = this.segmentId;
     data['abtestId'] = this.abtestId;
     data['channel'] = this.channel;
+    data['channel'] = this.channel;
     data['sub_channel'] = this.subChannel;
     data['scenarioId'] = this.scenarioId;
     data['subRitType'] = this.subRitType;
