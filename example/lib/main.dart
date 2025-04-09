@@ -337,22 +337,23 @@ class _IndexPageState extends State<IndexPage> {
               child: new Text('激励视频'),
               onPressed: () {
                 FlutterUnionad.loadRewardVideoAd(
-                  //是否个性化 选填
-                  androidCodeId: "102733764",
                   //Android 激励视频广告id  必填
+                  androidCodeId: "102733764",
+                  //ios 激励视频广告id  必填
                   iosCodeId: "102733764",
                   ohosCodeId: '962519282',
-                  //ios 激励视频广告id  必填
-                  rewardName: "200金币",
                   //奖励名称 选填
-                  rewardAmount: 200,
+                  rewardName: "200金币",
                   //奖励数量 选填
-                  userID: "123",
+                  rewardAmount: 200,
                   //  用户id 选填
-                  orientation: FlutterUnionadOrientation.VERTICAL,
+                  userID: "123",
                   //视屏方向 选填
-                  mediaExtra: null,
+                  orientation: FlutterUnionadOrientation.VERTICAL,
                   //扩展参数 选填
+                  mediaExtra: null,
+                  //是否静音
+                  mutedIfCan: false,
                 );
               },
             ),

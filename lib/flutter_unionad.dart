@@ -266,9 +266,19 @@ class FlutterUnionad {
   ///
   /// [iosCodeId] ios 激励视频广告id 必填
   ///
-  /// [supportDeepLink] 是否支持 DeepLink 选填
+  /// [ohosCodeId] 鸿蒙 激励视频广告id 必填
   ///
-  /// [adLoadType]用于标注此次的广告请求用途为预加载（当做缓存）还是实时加载，[FlutterUnionadLoadType]
+  /// [rewardName] 奖励名称 必填
+  ///
+  /// [rewardAmount] 奖励数量 必填
+  ///
+  /// [userID] 用户id 必填
+  ///
+  /// [orientation] 屏幕方向 0竖屏 1横屏
+  ///
+  /// [mediaExtra] 透传扩展字段
+  ///
+  /// [mutedIfCan] 是否静音
   ///
   static Future<bool> loadRewardVideoAd({
     required String androidCodeId,
@@ -279,6 +289,7 @@ class FlutterUnionad {
     required String userID,
     int? orientation,
     String? mediaExtra,
+    bool? mutedIfCan,
   }) async {
     return await _channel.invokeMethod("loadRewardVideoAd", {
       "androidCodeId": androidCodeId,
@@ -289,6 +300,7 @@ class FlutterUnionad {
       "userID": userID,
       "orientation": orientation ?? 0,
       "mediaExtra": mediaExtra ?? "",
+      "mutedIfCan": mutedIfCan ?? true,
     });
   }
 

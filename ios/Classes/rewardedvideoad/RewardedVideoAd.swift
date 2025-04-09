@@ -24,6 +24,7 @@ public class RewardedVideoAd : NSObject{
         let rewardName = params.value(forKey: "rewardName") as? String
         let rewardAmount = params.value(forKey: "rewardAmount") as? Int
         let mediaExtra = params.value(forKey: "mediaExtra") as? String
+        let mutedIfCan = params.value(forKey: "mutedIfCan") as? Bool
         self.rewardModel = BURewardedVideoModel()
         self.rewardModel!.userId = userID
         if rewardName != nil {
@@ -35,7 +36,10 @@ public class RewardedVideoAd : NSObject{
         if mediaExtra != nil {
             self.rewardModel!.extra = mediaExtra
         }
-        self.bURewardedVideoAd = BUNativeExpressRewardedVideoAd(slotID: mCodeId!, rewardedVideoModel: self.rewardModel!)
+        var adslot = BUAdSlot.init()
+        adslot.id = mCodeId!
+        adslot.mediation.mutedIfCan = mutedIfCan! // 是否静音
+        self.bURewardedVideoAd = BUNativeExpressRewardedVideoAd.init(slot: adslot, rewardedVideoModel: self.rewardModel!)
         self.bURewardedVideoAd!.delegate = self
         self.bURewardedVideoAd!.loadData()
     }

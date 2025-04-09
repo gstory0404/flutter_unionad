@@ -39,6 +39,7 @@ object RewardVideoAd {
     private var userID: String? = null
     private var orientation: Int? = TTAdConstant.VERTICAL
     private var mediaExtra: String? = null
+    private var mutedIfCan: Boolean = true
 
     fun init(context: Context, mActivity: Activity, params: Map<String?, Any?>) {
         this.mContext = context
@@ -47,6 +48,7 @@ object RewardVideoAd {
         this.rewardName = params["rewardName"] as String
         this.rewardAmount = params["rewardAmount"] as Int
         this.userID = params["userID"] as String
+        this.mutedIfCan = params["mutedIfCan"] as Boolean
         if (params["orientation"] == null) {
             orientation = 0
         } else {
@@ -78,6 +80,7 @@ object RewardVideoAd {
                     .setExtraObject(MediationConstant.ADN_ADMOB, mediaExtra)
                     .setExtraObject(MediationConstant.ADN_SIGMOB, mediaExtra)
                     .setExtraObject(MediationConstant.ADN_UNITY, mediaExtra)
+                    .setMuted(mutedIfCan)
                     .build()
             )
             .setMediaExtra(mediaExtra) //用户透传的信息，可不传
