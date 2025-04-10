@@ -259,7 +259,6 @@ object RewardVideoAd {
             TTAdConstant.RitScenes.CUSTOMIZE_SCENES,
             "scenes_test"
         )
-        mttRewardVideoAd = null
     }
 
     private fun getAdType(type: Int): String? {
