@@ -9,7 +9,7 @@ import Foundation
 import BUAdSDK
 import Flutter
 
-public class NativeAdView : NSObject,FlutterPlatformView{
+public class NativeAdView : NSObject,FlutterPlatformView, BUCustomEventProtocol{
     private let container : ADContainerView
     private var nativeExpressAdManager : BUNativeExpressAdManager
     private var channel : FlutterMethodChannel?

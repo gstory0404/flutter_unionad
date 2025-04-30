@@ -8,7 +8,7 @@ import Foundation
 import BUAdSDK
 import Flutter
 
-public class DrawFeedAdView : NSObject,FlutterPlatformView{
+public class DrawFeedAdView : NSObject,FlutterPlatformView, BUCustomEventProtocol{
     private var container : UIView
     private var nativeExpressAdManager : BUNativeExpressAdManager
     private var channel : FlutterMethodChannel?

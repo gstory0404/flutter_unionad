@@ -32,7 +32,7 @@ public class TTAdManagerHolder : NSObject{
             }
             config.mediation.limitPersonalAds = limitPersonalAds; //限制个性化广告（聚合维度功能）
             config.mediation.limitProgrammaticAds = limitProgrammaticAds; // 不限制程序化广告（聚合维度功能）
-            config.mediation.forbiddenCAID = forbiddenCAID; //不禁止CAID（聚合维度功能）
+//            config.mediation.forbiddenCAID = forbiddenCAID; //不禁止CAID（聚合维度功能）
             config.themeStatus = themeStatus; //主题
             BUAdSDKManager.start(asyncCompletionHandler: handelr)
         }
