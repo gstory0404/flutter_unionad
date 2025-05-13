@@ -73,7 +73,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "2.1.7"
+    version: "2.1.8"
   leak_tracker:
     dependency: transitive
     description:
