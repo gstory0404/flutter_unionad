@@ -35,6 +35,10 @@
 
 ⚠️ 用gromore来创建广告位，使用gromore id来展示广告
 
+
+<img src="https://raw.githubusercontent.com/gstory0404/flutter_unionad/refs/heads/master/adspic.png" width="30%">
+
+
 ## 本地开发环境
 ```
 [✓] Flutter (Channel stable, 3.22.1, on macOS 14.5 23F79 darwin-x64, locale zh-Hans-CN)
