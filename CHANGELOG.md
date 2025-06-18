@@ -1,3 +1,7 @@
+## 2.1.10
+* android sdk升级6.9.1.5
+* 新增android oaid获取次数限制开关
+
 ## 2.1.9
 * android sdk升级6.8.4.0
 * ios sdk升级6.9.0.7

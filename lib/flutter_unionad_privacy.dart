@@ -21,6 +21,7 @@ class AndroidPrivacy {
   bool? isCanUsePermissionRecordAudio;
   bool? isLimitPersonalAds;
   bool? isProgrammaticRecommend;
+  Map<String,dynamic>? userPrivacyConfig;
 
   ///
   ///Android隐私信息控制配置
@@ -71,6 +72,7 @@ class AndroidPrivacy {
     this.isCanUsePermissionRecordAudio,
     this.isLimitPersonalAds,
     this.isProgrammaticRecommend,
+    this.userPrivacyConfig,
   });
 
   Map<String, dynamic> toMap() {
@@ -91,6 +93,7 @@ class AndroidPrivacy {
         this.isCanUsePermissionRecordAudio ?? false;
     data['isLimitPersonalAds'] = this.isLimitPersonalAds ?? false;
     data['isProgrammaticRecommend'] = this.isProgrammaticRecommend ?? false;
+    data['userPrivacyConfig'] = this.userPrivacyConfig ?? {};
     return data;
   }
 }

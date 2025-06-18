@@ -1,8 +1,11 @@
 package com.gstory.flutter_unionad
 
 import android.content.Context
-import android.util.Log
-import com.bytedance.sdk.openadsdk.*
+import com.bytedance.sdk.openadsdk.TTAdConfig
+import com.bytedance.sdk.openadsdk.TTAdManager
+import com.bytedance.sdk.openadsdk.TTAdSdk
+import com.bytedance.sdk.openadsdk.TTCustomController
+import com.bytedance.sdk.openadsdk.TTLocation
 import com.bytedance.sdk.openadsdk.mediation.init.IMediationPrivacyConfig
 import com.bytedance.sdk.openadsdk.mediation.init.MediationPrivacyConfig
 
@@ -39,6 +42,7 @@ object TTAdManagerHolder {
         val themeStatus = arguments["themeStatus"] as Int
         //隐私管理
         val androidPrivacy = arguments["androidPrivacy"] as Map<String?, Any?>
+        val userPrivacyConfig = androidPrivacy["userPrivacyConfig"] as Map<String, Any>
 
         val d = IntArray(directDownloadNetworkType.size)
         for (i in directDownloadNetworkType.indices) {
@@ -136,6 +140,9 @@ object TTAdManagerHolder {
                                 return androidPrivacy["isProgrammaticRecommend"] as Boolean
                             }
                         }
+                    }
+                    override fun userPrivacyConfig(): Map<String, Any> {
+                        return userPrivacyConfig
                     }
                 })
                 .themeStatus(themeStatus)

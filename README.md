@@ -151,6 +151,10 @@ await FlutterUnionad.register(
         isLimitPersonalAds: false,
         // 是否启用程序化广告推荐 true启用 false不启用
         isProgrammaticRecommend: false,
+        userPrivacyConfig: {
+        //控制QQ真g获取频率，"0"表示关闭，“1"或者其他值表示打开。
+        "mcod":"0"
+        }
     ),
     iosPrivacy: IOSPrivacy(
         //允许个性化广告
