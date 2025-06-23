@@ -21,6 +21,7 @@ public class TTAdManagerHolder : NSObject{
         let limitPersonalAds = iosPrivacy.value(forKey: "limitPersonalAds") as! NSNumber
         let limitProgrammaticAds = iosPrivacy.value(forKey: "limitProgrammaticAds") as! NSNumber
         let forbiddenCAID = iosPrivacy.value(forKey: "forbiddenCAID") as! NSNumber
+        let localConfig = params.value(forKey: "localConfig") as? String
         if(appId != nil){
             let config = BUAdSDKConfiguration.init();
             config.appID = appId ?? "";
@@ -32,6 +33,9 @@ public class TTAdManagerHolder : NSObject{
             }
             config.mediation.limitPersonalAds = limitPersonalAds; //限制个性化广告（聚合维度功能）
             config.mediation.limitProgrammaticAds = limitProgrammaticAds; // 不限制程序化广告（聚合维度功能）
+            if(localConfig != nil && !localConfig!.isEmpty){
+                config.mediation.advanceSDKConfigPath = Bundle.path(forResource: localConfig, ofType: "json", inDirectory: "")
+            }
 //            config.mediation.forbiddenCAID = forbiddenCAID; //不禁止CAID（聚合维度功能）
             config.themeStatus = themeStatus; //主题
             BUAdSDKManager.start(asyncCompletionHandler: handelr)

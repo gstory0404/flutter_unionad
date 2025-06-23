@@ -145,37 +145,37 @@ class _IndexPageState extends State<IndexPage> {
   //注册
   void _initRegister() async {
     _init = await FlutterUnionad.register(
-        //穿山甲广告 Android appid 必填
-        androidAppId: "5098580",
-        //穿山甲广告 ios appid 必填
-        iosAppId: "5098580",
-        ohosAppId: "5638354",
-        //appname 必填
-        appName: "unionad_test",
-        //使用聚合功能一定要打开此开关，否则不会请求聚合广告，默认这个值为false
-        //true使用GroMore下的广告位
-        //false使用广告变现下的广告位
-        useMediation: true,
-        //是否为计费用户 选填
-        paid: false,
-        //用户画像的关键词列表 选填
-        keywords: "",
-        //是否允许sdk展示通知栏提示 选填
-        allowShowNotify: true,
-        //是否显示debug日志
-        debug: true,
-        //是否支持多进程 选填
-        supportMultiProcess: false,
-        //主题模式 默认FlutterUnionAdTheme.DAY,修改后需重新调用初始化
-        themeStatus: _themeStatus,
-        //允许直接下载的网络状态集合 选填
-        directDownloadNetworkType: [
-          FlutterUnionadNetCode.NETWORK_STATE_2G,
-          FlutterUnionadNetCode.NETWORK_STATE_3G,
-          FlutterUnionadNetCode.NETWORK_STATE_4G,
-          FlutterUnionadNetCode.NETWORK_STATE_WIFI
-        ],
-        androidPrivacy: AndroidPrivacy(
+      //穿山甲广告 Android appid 必填
+      androidAppId: "5098580",
+      //穿山甲广告 ios appid 必填
+      iosAppId: "5098580",
+      ohosAppId: "5638354",
+      //appname 必填
+      appName: "unionad_test",
+      //使用聚合功能一定要打开此开关，否则不会请求聚合广告，默认这个值为false
+      //true使用GroMore下的广告位
+      //false使用广告变现下的广告位
+      useMediation: true,
+      //是否为计费用户 选填
+      paid: false,
+      //用户画像的关键词列表 选填
+      keywords: "",
+      //是否允许sdk展示通知栏提示 选填
+      allowShowNotify: true,
+      //是否显示debug日志
+      debug: true,
+      //是否支持多进程 选填
+      supportMultiProcess: false,
+      //主题模式 默认FlutterUnionAdTheme.DAY,修改后需重新调用初始化
+      themeStatus: _themeStatus,
+      //允许直接下载的网络状态集合 选填
+      directDownloadNetworkType: [
+        FlutterUnionadNetCode.NETWORK_STATE_2G,
+        FlutterUnionadNetCode.NETWORK_STATE_3G,
+        FlutterUnionadNetCode.NETWORK_STATE_4G,
+        FlutterUnionadNetCode.NETWORK_STATE_WIFI
+      ],
+      androidPrivacy: AndroidPrivacy(
           //是否允许SDK主动使用地理位置信息 true可以获取，false禁止获取。默认为true
           isCanUseLocation: false,
           //当isCanUseLocation=false时，可传入地理位置信息，穿山甲sdk使用您传入的地理位置信息lat
@@ -208,17 +208,21 @@ class _IndexPageState extends State<IndexPage> {
           isProgrammaticRecommend: false,
           userPrivacyConfig: {
             //控制QQ真g获取频率，"0"表示关闭，“1"或者其他值表示打开。
-            "mcod":"0"
-          }
-        ),
-        iosPrivacy: IOSPrivacy(
-          //允许个性化广告
-          limitPersonalAds: false,
-          //允许程序化广告
-          limitProgrammaticAds: false,
-          //允许CAID
-          forbiddenCAID: false,
-        ));
+            "mcod": "0"
+          }),
+      iosPrivacy: IOSPrivacy(
+        //允许个性化广告
+        limitPersonalAds: false,
+        //允许程序化广告
+        limitProgrammaticAds: false,
+        //允许CAID
+        forbiddenCAID: false,
+      ),
+      //配置拉取失败时导入本地配置 https://www.csjplatform.com/supportcenter/5885
+      //android导入/android/app/src/main/assets/下，文件必须为json文件，传入文件名
+      //ios导入/ios/下，文件必须为json文件，传入文件名
+      localConfig: "site_config_5098580",
+    );
     print("sdk初始化 $_init");
     _version = await FlutterUnionad.getSDKVersion();
     _themeStatus = await FlutterUnionad.getThemeStatus();

@@ -152,8 +152,8 @@ await FlutterUnionad.register(
         // 是否启用程序化广告推荐 true启用 false不启用
         isProgrammaticRecommend: false,
         userPrivacyConfig: {
-        //控制oaid获取频率，"0"表示关闭，“1"或者其他值表示打开。
-        "mcod":"0"
+            //控制oaid获取频率，"0"表示关闭，“1"或者其他值表示打开。
+            "mcod":"0"
         }
     ),
     iosPrivacy: IOSPrivacy(
@@ -163,7 +163,11 @@ await FlutterUnionad.register(
         limitProgrammaticAds: false,
         //允许CAID
         forbiddenCAID: false,
-    )
+    ),
+    //配置拉取失败时导入本地配置 https://www.csjplatform.com/supportcenter/5885
+    //android导入/android/app/src/main/assets/下，文件必须为json文件，传入文件名
+    //ios导入/ios/下，文件必须为json文件，传入文件名
+    localConfig: "site_config_5098580",
 );
 
 ```

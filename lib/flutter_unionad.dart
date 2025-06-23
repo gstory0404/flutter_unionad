@@ -13,7 +13,9 @@ export 'package:flutter_unionad/flutter_unionad_stream.dart';
 // import 'splashad/SplashAdView.dart';
 
 part 'package:flutter_unionad/flutter_unionad_callback.dart';
+
 part 'package:flutter_unionad/flutter_unionad_privacy.dart';
+
 part 'package:flutter_unionad/splashad/SplashAdView.dart';
 
 /// 描述：字节跳动 穿山甲广告flutter版
@@ -53,6 +55,10 @@ class FlutterUnionad {
   /// [androidPrivacy] Android隐私信息控制配置
   ///
   /// [iosPrivacy] ios隐私信息控制配置
+  ///
+  /// [localConfig] 配置拉取失败时导入本地配置 https://www.csjplatform.com/supportcenter/5885
+  /// android导入/android/app/src/main/assets/下，文件必须为json文件，传入文件名
+  /// ios导入/ios/下，文件必须为json文件，传入文件名
   static Future<bool> register({
     required String iosAppId,
     required String androidAppId,
@@ -69,6 +75,7 @@ class FlutterUnionad {
     List<int>? directDownloadNetworkType,
     AndroidPrivacy? androidPrivacy,
     IOSPrivacy? iosPrivacy,
+    String? localConfig,
   }) async {
     return await _channel.invokeMethod("register", {
       "iosAppId": iosAppId,
@@ -95,7 +102,8 @@ class FlutterUnionad {
           ? AndroidPrivacy().toMap()
           : androidPrivacy.toMap(),
       "iosPrivacy":
-          iosPrivacy == null ? IOSPrivacy().toMap() : iosPrivacy.toMap()
+          iosPrivacy == null ? IOSPrivacy().toMap() : iosPrivacy.toMap(),
+      "localConfig": localConfig ?? ""
     });
   }
 
