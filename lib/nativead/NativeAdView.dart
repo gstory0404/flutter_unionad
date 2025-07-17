@@ -131,7 +131,7 @@ class _NativeAdViewState extends State<FlutterUnionadNativeAdView> {
             }
           });
         }
-        widget.callBack?.onShow!();
+        widget.callBack?.onShow?.call();
         break;
       //广告加载失败
       case FlutterUnionadMethod.onFail:
@@ -140,7 +140,7 @@ class _NativeAdViewState extends State<FlutterUnionadNativeAdView> {
             _isShowAd = false;
           });
         }
-        widget.callBack?.onFail!(call.arguments);
+        widget.callBack?.onFail?.call(call.arguments);
         break;
       //广告不感兴趣
       case FlutterUnionadMethod.onDislike:
@@ -149,15 +149,15 @@ class _NativeAdViewState extends State<FlutterUnionadNativeAdView> {
             _isShowAd = false;
           });
         }
-        widget.callBack?.onDislike!(call.arguments);
+        widget.callBack?.onDislike?.call(call.arguments);
         break;
       //点击
       case FlutterUnionadMethod.onClick:
-        widget.callBack?.onClick!();
+        widget.callBack?.onClick?.call();
         break;
       //ecpm
       case FlutterUnionadMethod.onEcpm:
-        widget.callBack?.onEcpm!(call.arguments);
+        widget.callBack?.onEcpm?.call(call.arguments.cast<String, dynamic>());
         break;
     }
   }

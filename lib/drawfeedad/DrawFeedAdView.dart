@@ -108,33 +108,29 @@ class _DrawFeedAdViewState extends State<FlutterUnionadDrawFeedAdView> {
             }
           });
         }
-        if (widget.callBack != null) {
-          widget.callBack?.onShow!();
-        }
+        widget.callBack?.onShow?.call();
         break;
       //广告加载失败
       case FlutterUnionadMethod.onFail:
-        if (widget.callBack != null) {
-          widget.callBack?.onFail!(call.arguments);
-        }
+        widget.callBack?.onFail?.call(call.arguments);
         setState(() {
           _isShowAd = false;
         });
         break;
       case FlutterUnionadMethod.onClick:
-        widget.callBack?.onClick!();
+        widget.callBack?.onClick?.call();
         break;
       case FlutterUnionadMethod.onVideoPlay:
-        widget.callBack?.onVideoPlay!();
+        widget.callBack?.onVideoPlay?.call();
         break;
       case FlutterUnionadMethod.onVideoPause:
-        widget.callBack?.onVideoPause!();
+        widget.callBack?.onVideoPause?.call();
         break;
       case FlutterUnionadMethod.onVideoStop:
-        widget.callBack?.onVideoStop!();
+        widget.callBack?.onVideoStop?.call();
         break;
       case FlutterUnionadMethod.onEcpm:
-        widget.callBack?.onEcpm!(call.arguments);
+        widget.callBack?.onEcpm?.call(call.arguments.cast<String, dynamic>());
         break;
     }
   }

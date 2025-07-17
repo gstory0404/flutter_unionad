@@ -111,7 +111,7 @@ internal class BannerAdView(
         mContainer.removeAllViews()
         bannerAdView = mBannerAd?.expressAdView
         if (bannerAdView != null) mBannerAd?.render()
-        mContainer.addView(bannerAdView)
+        if (bannerAdView != null) mContainer.addView(bannerAdView)
     }
 
     private fun bindAdListener() {
@@ -130,6 +130,10 @@ internal class BannerAdView(
                 var map: MutableMap<String, Any?> =
                     mutableMapOf("width" to width, "height" to height)
                 channel?.invokeMethod("onShow", map)
+                //获取ecpm·
+                var ecpmMap = EcpmUtil.toMap(mBannerAd?.mediationManager?.showEcpm)
+                Log.d(TAG, "ecpm: $ecpmMap")
+                channel?.invokeMethod("onEcpm", ecpmMap)
             }
 
             override fun onRenderFail(view: View, msg: String, code: Int) {
@@ -139,10 +143,6 @@ internal class BannerAdView(
 
             override fun onRenderSuccess(p0: View?, p1: Float, p2: Float) {
                 Log.e(TAG, "渲染成功 ${bannerAdView?.width} = ${bannerAdView?.height}")
-                //获取ecpm·
-                var ecpmMap = EcpmUtil.toMap(mBannerAd?.mediationManager?.showEcpm)
-                Log.d(TAG, "ecpm: $ecpmMap")
-                channel?.invokeMethod("onEcpm", ecpmMap)
             }
 
             override fun onAdDismiss() {

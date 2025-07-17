@@ -92,59 +92,32 @@ class FlutterUnionadStream {
         case FlutterUnionadType.fullScreenVideoAdInteraction:
           switch (data[FlutterUnionadMethod.onAdMethod]) {
             case FlutterUnionadMethod.onShow:
-              if (flutterUnionadNewInteractionCallBack?.onShow != null) {
-                flutterUnionadNewInteractionCallBack?.onShow!();
-              }
+              flutterUnionadNewInteractionCallBack?.onShow?.call();
               break;
             case FlutterUnionadMethod.onClose:
-              if (flutterUnionadNewInteractionCallBack?.onClose != null) {
-                flutterUnionadNewInteractionCallBack?.onClose!();
-              }
+              flutterUnionadNewInteractionCallBack?.onClose?.call();
               break;
             case FlutterUnionadMethod.onFail:
-              if (flutterUnionadNewInteractionCallBack?.onFail != null) {
-                flutterUnionadNewInteractionCallBack?.onFail!(data["error"]);
-              }
+              flutterUnionadNewInteractionCallBack?.onFail?.call(data["error"]);
               break;
             case FlutterUnionadMethod.onClick:
-              if (flutterUnionadNewInteractionCallBack?.onClick != null) {
-                flutterUnionadNewInteractionCallBack?.onClick!();
-              }
+              flutterUnionadNewInteractionCallBack?.onClick?.call();
               break;
             case FlutterUnionadMethod.onSkip:
-              if (flutterUnionadNewInteractionCallBack?.onSkip != null) {
-                flutterUnionadNewInteractionCallBack?.onSkip!();
-              }
+              flutterUnionadNewInteractionCallBack?.onSkip?.call();
               break;
             case FlutterUnionadMethod.onFinish:
-              if (flutterUnionadNewInteractionCallBack?.onFinish != null) {
-                flutterUnionadNewInteractionCallBack?.onFinish!();
-              }
+              flutterUnionadNewInteractionCallBack?.onFinish?.call();
               break;
             case FlutterUnionadMethod.onReady:
-              if (flutterUnionadNewInteractionCallBack?.onReady != null) {
-                flutterUnionadNewInteractionCallBack?.onReady!();
-              }
+              flutterUnionadNewInteractionCallBack?.onReady?.call();
               break;
             case FlutterUnionadMethod.onUnReady:
-              if (flutterUnionadNewInteractionCallBack?.onUnReady != null) {
-                flutterUnionadNewInteractionCallBack?.onUnReady!();
-              }
+              flutterUnionadNewInteractionCallBack?.onUnReady?.call();
               break;
             case FlutterUnionadMethod.onEcpm:
-              if (flutterUnionadNewInteractionCallBack?.onEcpm != null) {
-                if (data[FlutterUnionadMethod.ecpmInfo] == null) {
-                  flutterUnionadNewInteractionCallBack?.onEcpm!(null);
-                } else {
-                  Map<Object?, Object?> info =
-                      data[FlutterUnionadMethod.ecpmInfo];
-                  Map<String, dynamic> map = {};
-                  info.forEach((key, value) {
-                    map["$key"] = value;
-                  });
-                  flutterUnionadNewInteractionCallBack?.onEcpm!(map);
-                }
-              }
+              flutterUnionadNewInteractionCallBack?.onEcpm?.call(
+                  data[FlutterUnionadMethod.ecpmInfo]?.cast<String, dynamic>());
               break;
           }
           break;
@@ -153,81 +126,50 @@ class FlutterUnionadStream {
         case FlutterUnionadType.rewardAd:
           switch (data[FlutterUnionadMethod.onAdMethod]) {
             case FlutterUnionadMethod.onShow:
-              if (flutterUnionadRewardAdCallBack?.onShow != null) {
-                flutterUnionadRewardAdCallBack?.onShow!();
-              }
+              flutterUnionadRewardAdCallBack?.onShow?.call();
               break;
             case FlutterUnionadMethod.onSkip:
-              if (flutterUnionadRewardAdCallBack?.onSkip != null) {
-                flutterUnionadRewardAdCallBack?.onSkip!();
-              }
+              flutterUnionadRewardAdCallBack?.onSkip?.call();
               break;
             case FlutterUnionadMethod.onClose:
-              if (flutterUnionadRewardAdCallBack?.onClose != null) {
-                flutterUnionadRewardAdCallBack?.onClose!();
-              }
+              flutterUnionadRewardAdCallBack?.onClose?.call();
               break;
             case FlutterUnionadMethod.onFail:
-              if (flutterUnionadRewardAdCallBack?.onFail != null) {
-                flutterUnionadRewardAdCallBack?.onFail!(data["error"]);
-              }
+              flutterUnionadRewardAdCallBack?.onFail?.call(data["error"]);
               break;
             case FlutterUnionadMethod.onClick:
-              if (flutterUnionadRewardAdCallBack?.onClick != null) {
-                flutterUnionadRewardAdCallBack?.onClick!();
-              }
+              flutterUnionadRewardAdCallBack?.onClick?.call();
               break;
             case FlutterUnionadMethod.onVerify:
-              if (flutterUnionadRewardAdCallBack?.onVerify != null) {
-                flutterUnionadRewardAdCallBack?.onVerify!(
-                    data["rewardVerify"],
-                    data["rewardAmount"] ?? 0,
-                    data["rewardName"] ?? "",
-                    data["errorCode"] ?? 0,
-                    data["error"] ?? "");
-              }
+              flutterUnionadRewardAdCallBack?.onVerify?.call(
+                  data["rewardVerify"],
+                  data["rewardAmount"] ?? 0,
+                  data["rewardName"] ?? "",
+                  data["errorCode"] ?? 0,
+                  data["error"] ?? "");
               break;
             case FlutterUnionadMethod.onRewardArrived:
-              if (flutterUnionadRewardAdCallBack?.onRewardArrived != null) {
-                flutterUnionadRewardAdCallBack?.onRewardArrived!(
-                    data["rewardVerify"],
-                    data["rewardType"],
-                    data["rewardAmount"] ?? 0,
-                    data["rewardName"] ?? "",
-                    data["errorCode"] ?? 0,
-                    data["error"] ?? "",
-                    data["propose"] ?? 1);
-              }
+              flutterUnionadRewardAdCallBack?.onRewardArrived?.call(
+                  data["rewardVerify"],
+                  data["rewardType"],
+                  data["rewardAmount"] ?? 0,
+                  data["rewardName"] ?? "",
+                  data["errorCode"] ?? 0,
+                  data["error"] ?? "",
+                  data["propose"] ?? 1);
               break;
             case FlutterUnionadMethod.onReady:
-              if (flutterUnionadRewardAdCallBack?.onReady != null) {
-                flutterUnionadRewardAdCallBack?.onReady!();
-              }
+              flutterUnionadRewardAdCallBack?.onReady?.call();
               break;
             case FlutterUnionadMethod.onUnReady:
-              if (flutterUnionadRewardAdCallBack?.onUnReady != null) {
-                flutterUnionadRewardAdCallBack?.onUnReady!();
-              }
+              flutterUnionadRewardAdCallBack?.onUnReady?.call();
               break;
             case FlutterUnionadMethod.onCache:
-              if (flutterUnionadRewardAdCallBack?.onCache != null) {
-                flutterUnionadRewardAdCallBack?.onCache!();
-              }
+              flutterUnionadRewardAdCallBack?.onCache?.call();
               break;
             case FlutterUnionadMethod.onEcpm:
-              if (flutterUnionadRewardAdCallBack?.onEcpm != null) {
-                if (data[FlutterUnionadMethod.ecpmInfo] == null) {
-                  flutterUnionadRewardAdCallBack?.onEcpm!(null);
-                } else {
-                  Map<Object?, Object?> info =
-                      data[FlutterUnionadMethod.ecpmInfo];
-                  Map<String, dynamic> map = {};
-                  info.forEach((key, value) {
-                    map["$key"] = value;
-                  });
-                  flutterUnionadRewardAdCallBack?.onEcpm!(map);
-                }
-              }
+              flutterUnionadRewardAdCallBack?.onEcpm?.call(
+                  data[FlutterUnionadMethod.ecpmInfo]?.cast<String, dynamic>());
               break;
           }
       }

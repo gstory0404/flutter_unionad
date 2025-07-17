@@ -103,7 +103,6 @@ extension MyBannerView: BUNativeExpressBannerViewDelegate {
         let ecpmInfo : BUMRitInfo? = bannerAdView.mediation?.getShowEcpmInfo();
         LogUtil.logInstance.printLog(message:"ecpm获取成功：\(ecpmInfo?.toDictionary())");
         self.channel?.invokeMethod("onEcpm", arguments: ecpmInfo?.toDictionary())
-
     }
     
     public func nativeExpressBannerAdViewDidClick(_ bannerAdView: BUNativeExpressBannerView) {

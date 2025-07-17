@@ -91,9 +91,6 @@ extension NativeAdView : BUNativeExpressAdViewDelegate{
                                   "height":nativeExpressAdView.frame.size.height]
         self.channel?.invokeMethod("onShow", arguments: map)
         LogUtil.logInstance.printLog(message: "nativeExpressAdViewRenderSuccess")
-        let ecpmInfo : BUMRitInfo? = nativeExpressAdView.mediation?.getShowEcpmInfo();
-        LogUtil.logInstance.printLog(message:"ecpm获取成功：\(ecpmInfo?.toDictionary())");
-        self.channel?.invokeMethod("onEcpm", arguments: ecpmInfo?.toDictionary())
     }
     //点击不感兴趣
     public func nativeExpressAdView(_ nativeExpressAdView: BUNativeExpressAdView, dislikeWithReason filterWords: [BUDislikeWords]) {
@@ -112,6 +109,9 @@ extension NativeAdView : BUNativeExpressAdViewDelegate{
     
     public func nativeExpressAdViewWillShow(_ nativeExpressAdView: BUNativeExpressAdView) {
         LogUtil.logInstance.printLog(message: "nativeExpressAdViewWillShow")
+        let ecpmInfo : BUMRitInfo? = nativeExpressAdView.mediation?.getShowEcpmInfo();
+        LogUtil.logInstance.printLog(message:"ecpm获取成功：\(ecpmInfo?.toDictionary())");
+        self.channel?.invokeMethod("onEcpm", arguments: ecpmInfo?.toDictionary())
     }
     
     public func nativeExpressAdViewDidClick(_ nativeExpressAdView: BUNativeExpressAdView) {

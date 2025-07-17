@@ -24,11 +24,11 @@ class FlutterUnionadBannerView extends StatefulWidget {
   ///
   FlutterUnionadBannerView(
       {Key? key,
-        required this.androidCodeId,
-        required this.iosCodeId,
-        required this.width,
-        required this.height,
-        this.callBack})
+      required this.androidCodeId,
+      required this.iosCodeId,
+      required this.width,
+      required this.height,
+      this.callBack})
       : super(key: key);
 
   @override
@@ -104,48 +104,44 @@ class _BannerAdViewState extends State<FlutterUnionadBannerView> {
   //监听原生view传值
   Future<dynamic> _platformCallHandler(MethodCall call) async {
     switch (call.method) {
-    //显示广告
+      //显示广告
       case FlutterUnionadMethod.onShow:
         Map map = call.arguments;
         if (mounted) {
           setState(() {
             _isShowAd = true;
-            if(map["width"] > 0){
+            if (map["width"] > 0) {
               _width = (map["width"]).toDouble();
               _height = (map["height"]).toDouble();
             }
           });
         }
-        widget.callBack?.onShow!();
+        widget.callBack?.onShow?.call();
         break;
-    //广告加载失败
+      //广告加载失败
       case FlutterUnionadMethod.onFail:
         if (mounted) {
           setState(() {
             _isShowAd = false;
           });
         }
-        widget.callBack?.onFail!(call.arguments);
+        widget.callBack?.onFail?.call(call.arguments);
         break;
-    //广告不感兴趣
+      //广告不感兴趣
       case FlutterUnionadMethod.onDislike:
         if (mounted) {
           setState(() {
             _isShowAd = false;
           });
         }
-        if (widget.callBack != null) {
-          widget.callBack?.onDislike!(call.arguments);
-        }
+        widget.callBack?.onDislike?.call(call.arguments);
         break;
       case FlutterUnionadMethod.onClick:
-        widget.callBack?.onClick!();
+        widget.callBack?.onClick?.call();
         break;
-       //开屏广告ecpm
+      //开屏广告ecpm
       case FlutterUnionadMethod.onEcpm:
-        if (widget.callBack != null) {
-          widget.callBack?.onEcpm!(call.arguments);
-        }
+        widget.callBack?.onEcpm?.call(call.arguments.cast<String, dynamic>());
         break;
     }
   }
