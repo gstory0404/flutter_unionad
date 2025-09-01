@@ -137,7 +137,7 @@ class _IndexPageState extends State<IndexPage> {
             "阶段激励广告奖励  验证结果=$rewardVerify 奖励类型<FlutterUnionadRewardType>=$rewardType 奖励=$rewardAmount"
             "奖励名称$rewardName 错误码=$errorCode 错误$error 建议奖励$propose");
       }, onEcpm: (info) {
-        print("激励广告 ecpm: $info");
+        print("激励广告ecpm: $info");
       }),
     );
   }

@@ -69,7 +69,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:1.3.1"
 //    implementation 'com.pangle.cn:ads-sdk:+'
 //    implementation 'com.pangle.cn:ads-sdk-pro:6.4.1.5'
-    implementation(name: 'open_ad_sdk_7.0.1.2', ext: 'aar')
+    implementation(name: 'open_ad_sdk_7.1.0.5', ext: 'aar')
 //    implementation(name: 'tools_release', ext: 'aar')
 
 //    implementation "com.pangle.cn:mediation-sdk:6.7.0.6"  //融合SDK

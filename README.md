@@ -35,6 +35,8 @@
 
 ⚠️ 用gromore来创建广告位，使用gromore id来展示广告
 
+⚠️ 如需需要集成聚合其他广告SDK，需要根据当前插件使用的版本引入对应版本的Adapter库，[离线SDK](https://www.123865.com/s/3tw0Td-HTRkh)，根据官方文档进行配置
+
 
 <img src="https://raw.githubusercontent.com/gstory0404/flutter_unionad/refs/heads/master/adspic.png" width="30%">
 
