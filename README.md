@@ -70,14 +70,20 @@ import 'package:flutter_unionad/flutter_unionad.dart';
     xmlns:tools="http://schemas.android.com/tools"
     ···>
   <application
+        android:usesCleartextTraffic="true"
         tools:replace="android:label">
 ```
 
 #### 3、IOS
 [SDK](https://www.csjplatform.com/union/media/union/download/log?id=16)已配置插件中，其余根据SDK文档配置，因为使用PlatformView，在Info.plist加入
 ```
- <key>io.flutter.embedded_views_preview</key>
+<key>io.flutter.embedded_views_preview</key>
     <true/>
+<key>NSAppTransportSecurity</key>
+<dict>
+    <key>NSAllowsArbitraryLoads</key>
+    <true/>
+</dict>
 ```
 
 #### 4、鸿蒙next
