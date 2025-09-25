@@ -1,3 +1,7 @@
+## 2.2.1
+* android sdk升级7.1.3.2
+* ios sdk升级7.2.0.0
+
 ## 2.2.0
 * android sdk升级7.1.0.5
 * ios sdk升级7.1.0.3
