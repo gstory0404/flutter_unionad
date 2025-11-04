@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_unionad/flutter_unionad.dart';
 
+import 'ad_config.dart';
+
 /// 描述：开屏广告页
 /// @author guozi
 /// @e-mail gstory0404@gmail.com
@@ -27,9 +29,9 @@ class _SplashPageState extends State<SplashPage> {
           offstage: _offstage,
           child: FlutterUnionadSplashAdView(
             //android 开屏广告广告id 必填 889033013 102729400
-            androidCodeId: "102729400",
+            androidCodeId: SplashAdCode.android,
             //ios 开屏广告广告id 必填
-            iosCodeId: "102729400",
+            iosCodeId: SplashAdCode.ios,
             //是否支持 DeepLink 选填
             supportDeepLink: true,
             // 期望view 宽度 dp 选填

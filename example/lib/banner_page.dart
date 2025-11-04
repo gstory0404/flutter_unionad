@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_unionad/bannerad/BannerAdView.dart';
 import 'package:flutter_unionad/flutter_unionad.dart';
 
+import 'ad_config.dart';
+
 /// 描述：
 /// @author guozi
 /// @e-mail gstory0404@gmail.com
@@ -32,9 +34,9 @@ class _BannerPageState extends State<BannerPage> {
             //banner广告
             FlutterUnionadBannerView(
               //andrrid banner广告id 必填
-              androidCodeId: "102735527",
+              androidCodeId: BannerAdCode.android,
               //ios banner广告id 必填
-              iosCodeId: "102735527",
+              iosCodeId: BannerAdCode.ios,
               // 期望view 宽度 dp 必填
               width: 600.5,
               //期望view高度 dp 必填
@@ -53,8 +55,10 @@ class _BannerPageState extends State<BannerPage> {
               }),
             ),
             FlutterUnionad.bannerAdView(
-              androidCodeId: "102735527",
-              iosCodeId: "102735527",
+              //andrrid banner广告id 必填
+              androidCodeId: BannerAdCode.android,
+              //ios banner广告id 必填
+              iosCodeId: BannerAdCode.ios,
               expressViewWidth: 600,
               expressViewHeight: 200,
               //广告事件回调 选填

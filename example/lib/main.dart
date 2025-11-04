@@ -10,6 +10,7 @@ import 'package:flutter_unionad_example/banner_page.dart';
 import 'package:flutter_unionad_example/drawfeed_page.dart';
 import 'package:flutter_unionad_example/splash_page.dart';
 
+import 'ad_config.dart';
 import 'native_page.dart';
 
 void main() {
@@ -146,10 +147,10 @@ class _IndexPageState extends State<IndexPage> {
   void _initRegister() async {
     _init = await FlutterUnionad.register(
       //穿山甲广告 Android appid 必填
-      androidAppId: "5098580",
+      androidAppId: AppIdCode.android,
       //穿山甲广告 ios appid 必填
-      iosAppId: "5098580",
-      ohosAppId: "5638354",
+      iosAppId: AppIdCode.ios,
+      ohosAppId: AppIdCode.ohos,
       //appname 必填
       appName: "unionad_test",
       //使用聚合功能一定要打开此开关，否则不会请求聚合广告，默认这个值为false
@@ -346,10 +347,10 @@ class _IndexPageState extends State<IndexPage> {
               onPressed: () {
                 FlutterUnionad.loadRewardVideoAd(
                   //Android 激励视频广告id  必填
-                  androidCodeId: "102733764",
+                  androidCodeId: RewardVideoAdCode.android,
                   //ios 激励视频广告id  必填
-                  iosCodeId: "102733764",
-                  ohosCodeId: '962519282',
+                  iosCodeId: RewardVideoAdCode.ios,
+                  ohosCodeId: RewardVideoAdCode.ohos,
                   //奖励名称 选填
                   rewardName: "200金币",
                   //奖励数量 选填
@@ -387,10 +388,10 @@ class _IndexPageState extends State<IndexPage> {
               onPressed: () {
                 FlutterUnionad.loadFullScreenVideoAdInteraction(
                   //android 全屏广告id 必填
-                  androidCodeId: "102735530",
+                  androidCodeId: FullScreenVideoAdCode.android,
                   //ios 全屏广告id 必填
-                  iosCodeId: "102735530",
-                  ohosCodeId: "963135369",
+                  iosCodeId: FullScreenVideoAdCode.ios,
+                  ohosCodeId: FullScreenVideoAdCode.ohos,
                   //视屏方向 选填
                   orientation: FlutterUnionadOrientation.VERTICAL,
                 );
