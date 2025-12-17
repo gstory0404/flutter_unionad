@@ -13,9 +13,8 @@ export 'package:flutter_unionad/flutter_unionad_stream.dart';
 // import 'splashad/SplashAdView.dart';
 
 part 'package:flutter_unionad/flutter_unionad_callback.dart';
-
 part 'package:flutter_unionad/flutter_unionad_privacy.dart';
-
+part 'package:flutter_unionad/flutter_unionad_user_info.dart';
 part 'package:flutter_unionad/splashad/SplashAdView.dart';
 
 /// 描述：字节跳动 穿山甲广告flutter版
@@ -75,6 +74,7 @@ class FlutterUnionad {
     List<int>? directDownloadNetworkType,
     AndroidPrivacy? androidPrivacy,
     IOSPrivacy? iosPrivacy,
+    UnionadUserInfo? userInfo,
     String? localConfig,
   }) async {
     return await _channel.invokeMethod("register", {
@@ -103,7 +103,9 @@ class FlutterUnionad {
           : androidPrivacy.toMap(),
       "iosPrivacy":
           iosPrivacy == null ? IOSPrivacy().toMap() : iosPrivacy.toMap(),
-      "localConfig": localConfig ?? ""
+      "userInfo":
+          userInfo == null ? UnionadUserInfo().toMap() : userInfo.toMap(),
+      "localConfig": localConfig ?? "",
     });
   }
 

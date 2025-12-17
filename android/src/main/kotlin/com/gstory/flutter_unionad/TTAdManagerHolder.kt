@@ -10,9 +10,9 @@ import com.bytedance.sdk.openadsdk.TTLocation
 import com.bytedance.sdk.openadsdk.mediation.init.IMediationPrivacyConfig
 import com.bytedance.sdk.openadsdk.mediation.init.MediationConfig
 import com.bytedance.sdk.openadsdk.mediation.init.MediationPrivacyConfig
+import com.bytedance.sdk.openadsdk.mediation.init.MediationConfigUserInfoForSegment
 import org.json.JSONException
 import org.json.JSONObject
-
 
 
 /**
@@ -54,11 +54,30 @@ object TTAdManagerHolder {
         for (i in directDownloadNetworkType.indices) {
             d[i] = directDownloadNetworkType[i]
         }
+        // 流量分组
+        val userInfoMap = arguments["userInfo"] as Map<String, Any>
+//        Log.e("test=====>", "$userInfoMap")
+        var userInfo = MediationConfigUserInfoForSegment()
+        userInfo.userId = userInfoMap["userId"] as String
+        userInfo.age = userInfoMap["age"] as Int
+        userInfo.channel = userInfoMap["channel"] as String
+        userInfo.subChannel = userInfoMap["subChannel"] as String
+        userInfo.userValueGroup = userInfoMap["userValueGroup"] as String
+        var gender = userInfoMap["gender"] as Int
+        if (gender == 0) {
+            userInfo.gender = MediationConfigUserInfoForSegment.GENDER_FEMALE
+        } else if (gender == 1) {
+            userInfo.gender = MediationConfigUserInfoForSegment.GENDER_MALE
+        } else {
+            userInfo.gender = MediationConfigUserInfoForSegment.GENDER_UNKNOWN
+        }
+        userInfo.customInfos = userInfoMap["customInfos"] as Map<String, String>
+        //本地配置
         var configJsonObj: JSONObject? = null
-        if(localConfig.isNotEmpty()){
+        if (localConfig.isNotEmpty()) {
             try {
-                val json = FileUtils.loadJSONFromAsset(context,"$localConfig.json")
-                Log.e("本地配置=> ",json)
+                val json = FileUtils.loadJSONFromAsset(context, "$localConfig.json")
+                Log.e("本地配置=> ", json)
                 configJsonObj = JSONObject(json)
             } catch (e: JSONException) {
             }
@@ -76,6 +95,7 @@ object TTAdManagerHolder {
             .setMediationConfig(
                 MediationConfig.Builder()
                     .setCustomLocalConfig(configJsonObj)
+                    .setMediationConfigUserInfoForSegment(userInfo)
                     .build()
             )
             .customController(object : TTCustomController() {
@@ -166,7 +186,7 @@ object TTAdManagerHolder {
             })
             .themeStatus(themeStatus)
             .build()
-        TTAdSdk.init(context,adConfig)
+        TTAdSdk.init(context, adConfig)
         TTAdSdk.start(object : TTAdSdk.Callback {
             override fun success() {
                 sInit = true

@@ -14,12 +14,12 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-        <provider
-            android:name="com.bytedance.sdk.openadsdk.multipro.TTMultiProvider"
-            android:authorities="${applicationId}.TTMultiProvider"
-            android:exported="false" />
-        <activity
-            android:name=".rewardvideoad.RewardVideoAd"
-            android:theme="@android:style/Theme.Black.NoTitleBar"/>
+<!--        <provider-->
+<!--            android:name="com.bytedance.sdk.openadsdk.multipro.TTMultiProvider"-->
+<!--            android:authorities="${applicationId}.TTMultiProvider"-->
+<!--            android:exported="false" />-->
+<!--        <activity-->
+<!--            android:name=".rewardvideoad.RewardVideoAd"-->
+<!--            android:theme="@android:style/Theme.Black.NoTitleBar"/>-->
     </application>
 </manifest>
