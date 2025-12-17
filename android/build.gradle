@@ -5,7 +5,8 @@ buildscript {
     ext.kotlin_version = '1.6.10'
     repositories {
         google()
-        jcenter()
+//        jcenter()
+        mavenCentral()
     }
 
     dependencies {
@@ -17,7 +18,8 @@ buildscript {
 rootProject.allprojects {
     repositories {
         google()
-        jcenter()
+//        jcenter()
+        mavenCentral()
         flatDir {
             dirs project(':flutter_unionad').file('libs')
         }
