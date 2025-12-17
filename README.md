@@ -176,23 +176,24 @@ await FlutterUnionad.register(
     ),
     //流量分组
     userInfo: UnionadUserInfo(
-    //设备ID。由开发者定义并传入聚合SDK，后续M支持基于设备ID维度统计数据、或针对个别设备进行测试
-    userId: "unionad_123",
-    //年龄
-    age: 19,
-    //性别 0女 1男 2未知 3不使用
-    gender: 2,
-    //渠道。建议使用以下字符规则：大小写字母数字和下划线[A-Za-z0-9_]
-    channel: "flutter",
-    //子渠道。建议使用以下字符规则：大小写字母数字和下划线[A-Za-z0-9_]
-    subChannel: "flutter_unionad",
-    //分组
-    userValueGroup: "QQ",
-    //自定义参数 Map<String, String>
-    customInfos: {
-        "QQ": "123",
-        "WeChat": "456",
-    }),
+        //设备ID。由开发者定义并传入聚合SDK，后续M支持基于设备ID维度统计数据、或针对个别设备进行测试
+        userId: "unionad_123",
+        //年龄
+        age: 19,
+        //性别 0女 1男 2未知 3不使用
+        gender: 2,
+        //渠道。建议使用以下字符规则：大小写字母数字和下划线[A-Za-z0-9_]
+        channel: "flutter",
+        //子渠道。建议使用以下字符规则：大小写字母数字和下划线[A-Za-z0-9_]
+        subChannel: "flutter_unionad",
+        //分组
+        userValueGroup: "QQ",
+        //自定义参数 Map<String, String>
+        customInfos: {
+            "QQ": "123",
+            "WeChat": "456",
+        }
+    ),
     //配置拉取失败时导入本地配置 https://www.csjplatform.com/supportcenter/5885
     //android导入/android/app/src/main/assets/下，文件必须为json文件，传入文件名
     //ios导入/ios/下，文件必须为json文件，传入文件名
