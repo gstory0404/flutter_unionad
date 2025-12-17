@@ -1,13 +1,19 @@
 import { Params } from '@ohos/flutter_ohos/src/main/ets/plugin/platform/PlatformView';
 import { AdSlotBuilder, CSJAdSdk, CSJNativeExpressAd, ExpressAdInteractionListener, NativeExpressAdListener, AdSlot } from '@csj/openadsdk';
 import { MethodChannel, Any } from '@ohos/flutter_ohos';
+import { NodeController } from '@kit.ArkUI';
 import BannerView from './BannerView';
 import { ArrayList } from '@kit.ArkTS';
 
 @Component
 export struct BannerNativeView {
   @Prop params: Params;
-  @State bannerAd?: CSJNativeExpressAd = undefined
+  // 广告对象引用（用于生命周期管理）
+  private bannerAd?: CSJNativeExpressAd = undefined
+  // ⚠️ 关键：单独存储广告组件的 NodeController，避免重复调用 getAdComponent()
+  @State bannerAdComponent?: NodeController = undefined
+  // 控制广告是否显示
+  @State isShowAd: boolean = false
   bannerView: BannerView = this.params.platformView as BannerView
   mCodeId: string = ''
   acceptWidth: number = 0;
@@ -16,8 +22,9 @@ export struct BannerNativeView {
 
   build() {
     Row() {
-      if (this.bannerAd && this.mAdSlot) {
-        NodeContainer(this.bannerAd.getAdComponent())
+      // 使用缓存的 bannerAdComponent 而不是每次调用 getAdComponent()
+      if (this.bannerAdComponent && this.mAdSlot && this.isShowAd) {
+        NodeContainer(this.bannerAdComponent)
           .width(this.mAdSlot.getAcceptWidth())
           .height(this.mAdSlot.getAcceptHeight())
           .alignSelf(ItemAlign.Center)
@@ -61,40 +68,57 @@ export struct BannerNativeView {
   }
 
   private showAd(bannerAd: CSJNativeExpressAd) {
+    // 设置广告交互监听器
     bannerAd.setExpressInteractionListener({
       onAdClicked: (type: number) => {
-        console.log("BannerView==onAdClicked......");
-        //this.channel?.invokeMethod("onClick", "Banner广告点击")
+        //console.log("BannerView==onAdClicked......");
         this.bannerView.sendMsg("onClick", "Banner广告点击")
       },
 
       onAdShow: (type: number) => {
-
+        //console.log("BannerView==onAdShow......");
       },
 
       onRenderFail: (code: number, msg: string) => {
-        console.log("BannerView==onRenderFail...code=" + code + ",msg=" + msg);
-        //this.channel?.invokeMethod("onFail", `${code}, ${msg}`)
+        //console.log("BannerView==onRenderFail...code=" + code + ",msg=" + msg);
         this.bannerView.sendMsg("onFail", `${code}, ${msg}`)
+        // 渲染失败，隐藏广告并清空引用
+        this.isShowAd = false;
+        this.bannerAdComponent = undefined;
         this.bannerAd = undefined;
       },
 
       onRenderSuccess: (width: number, height: number) => {
         //console.log("BannerView==onRenderSuccess......width=" + width + ",height=" + height);
+        // ⚠️ 关键：渲染成功后，保存广告对象和组件引用
         this.bannerAd = bannerAd;
-        //console.log("BannerView==onAdShow......");
+        // 只在渲染成功后获取一次 AdComponent，避免重复调用
+        this.bannerAdComponent = bannerAd.getAdComponent();
+        this.isShowAd = true;
+        
+        // 发送 onShow 回调
         let map: Record<string, Any> = {
           "width": width, "height": height
         };
-        //this.channel?.invokeMethod("onShow", map)
         this.bannerView.sendMsg("onShow", map)
       }
     })
 
+    // 设置 dislike 回调
     this.setDislikeCallback(bannerAd);
+    // 设置轮播间隔时间 30秒
     bannerAd.setSlideIntervalTime(30 * 1000)
-    // 渲染广告
+    // 开始渲染广告
     bannerAd.render(this.getUIContext())
+  }
+
+  // 组件销毁时释放广告资源
+  aboutToDisappear(): void {
+    if (this.bannerAd) {
+      this.bannerAd.destroy();
+      this.bannerAd = undefined;
+      this.bannerAdComponent = undefined;
+    }
   }
 
   private setDislikeCallback(ad: CSJNativeExpressAd) {
@@ -113,9 +137,13 @@ export struct BannerNativeView {
        */
       onSelected: (position: number, value: string, enforceRemove: boolean) => {
         //console.log("BannerView==dislike......onSelected:position=" + position + ",value:" + value + ",enforce=" + enforceRemove);
-        //this.channel?.invokeMethod("onDislike", value);
         this.bannerView.sendMsg("onDislike", value);
-        this.bannerAd = undefined;
+        // 根据 enforceRemove 决定是否隐藏广告（与官方 demo 一致）
+        this.isShowAd = !enforceRemove;
+        if (enforceRemove) {
+          this.bannerAdComponent = undefined;
+          this.bannerAd = undefined;
+        }
       },
 
       /**
