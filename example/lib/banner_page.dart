@@ -32,27 +32,30 @@ class _BannerPageState extends State<BannerPage> {
         child: Column(
           children: [
             //banner广告
-            FlutterUnionadBannerView(
-              //andrrid banner广告id 必填
-              androidCodeId: BannerAdCode.android,
-              //ios banner广告id 必填
-              iosCodeId: BannerAdCode.ios,
-              // 期望view 宽度 dp 必填
-              width: 600.5,
-              //期望view高度 dp 必填
-              height: 120.5,
-              //广告事件回调 选填
-              callBack: FlutterUnionadBannerCallBack(onShow: () {
-                print("banner广告加载完成");
-              }, onDislike: (message) {
-                print("banner不感兴趣 $message");
-              }, onFail: (error) {
-                print("banner广告加载失败 $error");
-              }, onClick: () {
-                print("banner广告点击");
-              }, onEcpm: (info) {
-                print("banner广告ecpm:$info");
-              }),
+            Container(
+              color: Colors.red,
+              child: FlutterUnionadBannerView(
+                //andrrid banner广告id 必填
+                androidCodeId: BannerAdCode.android,
+                //ios banner广告id 必填
+                iosCodeId: BannerAdCode.ios,
+                // 期望view 宽度 dp 必填
+                width: 600.5,
+                //期望view高度 dp 必填
+                height: 120.5,
+                //广告事件回调 选填
+                callBack: FlutterUnionadBannerCallBack(onShow: () {
+                  print("banner广告加载完成");
+                }, onDislike: (message) {
+                  print("banner不感兴趣 $message");
+                }, onFail: (error) {
+                  print("banner广告加载失败 $error");
+                }, onClick: () {
+                  print("banner广告点击");
+                }, onEcpm: (info) {
+                  print("banner广告ecpm:$info");
+                }),
+              ),
             ),
             FlutterUnionad.bannerAdView(
               //andrrid banner广告id 必填
