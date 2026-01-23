@@ -1,3 +1,7 @@
+## 2.2.4
+* android sdk升级7.4.0.7
+* ios sdk升级7.4.0.1
+
 ## 2.2.3
 * android sdk升级7.3.0.7
 * ios sdk升级7.3.0.4
