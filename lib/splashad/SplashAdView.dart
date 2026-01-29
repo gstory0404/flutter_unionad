@@ -8,7 +8,6 @@ part of 'package:flutter_unionad/flutter_unionad.dart';
 class FlutterUnionadSplashAdView extends StatefulWidget {
   String androidCodeId;
   String iosCodeId;
-  String? ohosId;
   bool? supportDeepLink;
   double? width;
   double? height;
@@ -43,7 +42,6 @@ class FlutterUnionadSplashAdView extends StatefulWidget {
     Key? key,
     required this.androidCodeId,
     required this.iosCodeId,
-    this.ohosId,
     this.supportDeepLink,
     this.width,
     this.height,
@@ -119,27 +117,8 @@ class _SplashAdViewState extends State<FlutterUnionadSplashAdView> {
           creationParamsCodec: const StandardMessageCodec(),
         ),
       );
-    } else if (defaultTargetPlatform == TargetPlatform.ohos) {
-      return Container(
-        width: widget.width ?? MediaQuery.of(context).size.width,
-        height: widget.height ?? MediaQuery.of(context).size.height,
-        child: OhosView(
-          viewType: _viewType,
-          creationParams: {
-            "ohosId": widget.ohosId,
-            "supportDeepLink": widget.supportDeepLink,
-            "width": widget.width ?? MediaQuery.of(context).size.width,
-            "height": widget.height ?? MediaQuery.of(context).size.height,
-            "timeout": widget.timeout,
-            "hideSkip": widget.hideSkip,
-            "isShake": widget.isShake,
-          },
-          onPlatformViewCreated: _registerChannel,
-          creationParamsCodec: const StandardMessageCodec(),
-        ),
-      );
-    }else {
-    return Container();
+    } else {
+      return Container();
     }
   }
 
@@ -151,7 +130,7 @@ class _SplashAdViewState extends State<FlutterUnionadSplashAdView> {
 
   //监听原生view传值
   Future<dynamic> _platformCallHandler(MethodCall call) async {
-     //debugPrint("FlutterUnionadSplashAdView=> ${call.method} : ${call.arguments}");
+    // debugPrint("开屏广告: ${call.method}  ${call.arguments}");
     switch (call.method) {
       //显示广告
       case FlutterUnionadMethod.onShow:

@@ -95,6 +95,7 @@ class _DrawFeedAdViewState extends State<FlutterUnionadDrawFeedAdView> {
 
   //监听原生view传值
   Future<dynamic> _platformCallHandler(MethodCall call) async {
+    // debugPrint("DrawFeed广告: ${call.method}  ${call.arguments}");
     switch (call.method) {
       //显示广告
       case FlutterUnionadMethod.onShow:
@@ -102,7 +103,7 @@ class _DrawFeedAdViewState extends State<FlutterUnionadDrawFeedAdView> {
         if (mounted) {
           setState(() {
             _isShowAd = true;
-            if(map["width"] > 0){
+            if (map["width"] > 0) {
               _width = (map["width"]).toDouble();
               _height = (map["height"]).toDouble();
             }
