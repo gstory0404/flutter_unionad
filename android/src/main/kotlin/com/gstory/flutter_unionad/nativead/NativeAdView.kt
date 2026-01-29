@@ -109,7 +109,7 @@ class NativeAdView(
                 bindAdListener()
                 mNativeAd?.render(); // 调用render方法进行渲染，在onRenderSuccess中展示广告
             } else {
-                Log.e(TAG, "自渲染信息流广告 暂不支持")
+                Log.e(TAG, "广告暂不支持")
                 channel?.invokeMethod("onFail", "自渲染信息流广告 暂不支持")
             }
         }
@@ -127,15 +127,13 @@ class NativeAdView(
                 p2: Float,
                 p3: Boolean
             ) {
+                Log.e(TAG, "广告渲染成功")
                 mContainer?.removeAllViews()
                 mContainer?.addView(mNativeAd?.adView)
-                var map: MutableMap<String, Any?> =
-                    mutableMapOf("width" to p1, "height" to p2)
-                channel?.invokeMethod("onShow", map)
             }
 
             override fun onRenderFail(p0: View?, p1: String?, p2: Int) {
-                Log.e(TAG, "ExpressView render fail:" + System.currentTimeMillis())
+                Log.e(TAG, "广告渲染失败:" + System.currentTimeMillis())
                 channel?.invokeMethod("onFail", p1)
             }
 
@@ -145,7 +143,13 @@ class NativeAdView(
             }
 
             override fun onAdShow() {
-                Log.e(TAG, "广告展示")
+                Log.e(TAG, "广告展示 ${mNativeAd?.adView?.width}x${mNativeAd?.adView?.height}")
+                var map: MutableMap<String, Any?> =
+                    mutableMapOf(
+                        "width" to (mNativeAd?.adView?.width ?: viewWidth),
+                        "height" to (mNativeAd?.adView?.height ?: viewHeight)
+                    )
+                channel?.invokeMethod("onShow", map)
                 //获取ecpm·
                 var ecpmMap = EcpmUtil.toMap(mNativeAd?.mediationManager?.showEcpm)
                 Log.d(TAG, "ecpm: $ecpmMap")
