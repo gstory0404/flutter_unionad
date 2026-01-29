@@ -103,6 +103,7 @@ class _BannerAdViewState extends State<FlutterUnionadBannerView> {
 
   //监听原生view传值
   Future<dynamic> _platformCallHandler(MethodCall call) async {
+    // debugPrint("横幅广告: ${call.method}  ${call.arguments}");
     switch (call.method) {
       //显示广告
       case FlutterUnionadMethod.onShow:
