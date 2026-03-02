@@ -10,13 +10,14 @@ import BUAdSDK
 
 public class RewardedVideoAd : NSObject{
     public static let instance = RewardedVideoAd()
-    
+
     var mCodeId :String?
     //激励广告参数
     private var rewardModel :BURewardedVideoModel?
-    
+
     private var bURewardedVideoAd :BUNativeExpressRewardedVideoAd?
-    
+    private var hasSentShowEvent = false
+
     public func loadRewardedVideoAd(params : NSDictionary) {
         LogUtil.logInstance.printLog(message: params)
         let mCodeId = params.value(forKey: "iosCodeId") as? String
@@ -41,9 +42,10 @@ public class RewardedVideoAd : NSObject{
         adslot.mediation.mutedIfCan = mutedIfCan! // 是否静音
         self.bURewardedVideoAd = BUNativeExpressRewardedVideoAd.init(slot: adslot, rewardedVideoModel: self.rewardModel!)
         self.bURewardedVideoAd!.delegate = self
+        self.hasSentShowEvent = false
         self.bURewardedVideoAd!.loadData()
     }
-    
+
     public func showRewardedVideoAd(){
         if(self.bURewardedVideoAd == nil){
             let map : NSDictionary = ["adType":"rewardAd",
@@ -51,15 +53,25 @@ public class RewardedVideoAd : NSObject{
             SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
             return
         }
-        UIApplication.shared.setStatusBarHidden(true, with: UIStatusBarAnimation.none)
         self.bURewardedVideoAd!.show(fromRootViewController: MyUtils.getVC())
-        let map : NSDictionary = ["adType":"rewardAd",
-                                  "onAdMethod":"onShow"]
-        SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
-        let ecpmInfo : BUMRitInfo? = self.bURewardedVideoAd?.mediation?.getShowEcpmInfo();
+    }
+
+    private func emitShowAndEcpmIfNeeded(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd?) {
+        if hasSentShowEvent {
+            return
+        }
+        hasSentShowEvent = true
+
+        UIApplication.shared.setStatusBarHidden(true, with: UIStatusBarAnimation.none)
+
+        let showMap : NSDictionary = ["adType":"rewardAd",
+                                      "onAdMethod":"onShow"]
+        SwiftFlutterUnionadPlugin.event!.sendEvent(event: showMap)
+
+        let ecpmInfo : BUMRitInfo? = rewardedVideoAd?.mediation?.getShowEcpmInfo()
         let ecpmMap : NSDictionary = ["adType":"rewardAd",
-                                  "onAdMethod":"onEcpm",
-                                  "info":ecpmInfo?.toDictionary()]
+                                      "onAdMethod":"onEcpm",
+                                      "info":ecpmInfo?.toDictionary()]
         LogUtil.logInstance.printLog(message: "ecpm : \(ecpmMap)")
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: ecpmMap)
     }
@@ -72,23 +84,31 @@ extension RewardedVideoAd: BUNativeExpressRewardedVideoAdDelegate {
                                   "onAdMethod":"onReady"]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
     }
-    
+
     public func nativeExpressRewardedVideoAdDidDownLoadVideo(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
         LogUtil.logInstance.printLog(message: "激励广告物料缓存成功")
         let map : NSDictionary = ["adType":"rewardAd",
                                   "onAdMethod":"onCache"]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
     }
-    
+
+    // 仅在广告真实可见后再上报 onShow，避免 show() 调用成功但未实际展示导致的假阳性。
+    public func nativeExpressRewardedVideoAdDidVisible(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
+        LogUtil.logInstance.printLog(message: "激励广告可见")
+        emitShowAndEcpmIfNeeded(rewardedVideoAd)
+    }
+
     public func nativeExpressRewardedVideoAdDidClose(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
         LogUtil.logInstance.printLog(message: "激励广告关闭")
+        // 兜底：某些 SDK/机型路径下可能不回调 didVisible，但会回调 didClose。
+        emitShowAndEcpmIfNeeded(rewardedVideoAd)
         UIApplication.shared.setStatusBarHidden(false, with: UIStatusBarAnimation.none)
         let map : NSDictionary = ["adType":"rewardAd",
                                   "onAdMethod":"onClose"]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
         self.bURewardedVideoAd = nil
     }
-    
+
     public func nativeExpressRewardedVideoAd(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd, didFailWithError error: Error?) {
         LogUtil.logInstance.printLog(message: "激励广告加载失败")
         LogUtil.logInstance.printLog(message: error)
@@ -97,21 +117,21 @@ extension RewardedVideoAd: BUNativeExpressRewardedVideoAdDelegate {
                                   "error":error?.localizedDescription]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
     }
-    
+
     public func nativeExpressRewardedVideoAdDidClickSkip(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
         LogUtil.logInstance.printLog(message: "激励广告跳过")
         let map : NSDictionary = ["adType":"rewardAd",
                                   "onAdMethod":"onSkip"]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
     }
-    
+
     public func nativeExpressRewardedVideoAdViewRenderFail(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd, error: Error?) {
         let map : NSDictionary = ["adType":"rewardAd",
                                   "onAdMethod":"onFail",
                                   "error":error?.localizedDescription]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
     }
-    
+
     public func nativeExpressRewardedVideoAdServerRewardDidFail(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd, error: Error?) {
         LogUtil.logInstance.printLog(message: "异步请求的服务器验证失败回调")
         LogUtil.logInstance.printLog(message: error)
@@ -161,17 +181,19 @@ extension RewardedVideoAd: BUNativeExpressRewardedVideoAdDelegate {
                                   "extraInfo":String.init(format:"%.2f",rewardedVideoAd.rewardedVideoModel.rewardPropose)]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: arrivedMap)
     }
-    
+
     public func nativeExpressRewardedVideoAdDidPlayFinish(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd, didFailWithError error: Error?) {
         LogUtil.logInstance.printLog(message: "激励广告完成")
     }
-    
+
     public func nativeExpressRewardedVideoAdDidClick(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
+        // 兜底：点击发生时至少说明广告已实际展示。
+        emitShowAndEcpmIfNeeded(rewardedVideoAd)
         let map : NSDictionary = ["adType":"rewardAd",
                                   "onAdMethod":"onClick"]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
     }
-    
+
     public func nativeExpressRewardedVideoAdCallback(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd, with nativeExpressVideoType: BUNativeExpressRewardedVideoAdType) {
     }
 }
