@@ -133,7 +133,7 @@ extension SplashAdView : BUSplashAdDelegate{
     
     public func splashAdDidShow(_ splashAd: BUSplashAd) {
         LogUtil.logInstance.printLog(message: "开屏广告展示")
-        self.channel?.invokeMethod("onShow", arguments: "开屏广告加载完成")
+        self.channel?.invokeMethod("onShow", arguments: "开屏广告展示")
         self.queryECPM()
     }
     

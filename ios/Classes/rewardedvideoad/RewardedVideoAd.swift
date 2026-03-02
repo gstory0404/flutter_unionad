@@ -56,13 +56,15 @@ public class RewardedVideoAd : NSObject{
         self.bURewardedVideoAd!.show(fromRootViewController: MyUtils.getVC())
     }
 
-    private func emitShowAndEcpmIfNeeded(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd?) {
+    private func emitShowAndEcpmIfNeeded(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd?, updateStatusBar: Bool = false) {
         if hasSentShowEvent {
             return
         }
         hasSentShowEvent = true
 
-        UIApplication.shared.setStatusBarHidden(true, with: UIStatusBarAnimation.none)
+        if updateStatusBar {
+            UIApplication.shared.setStatusBarHidden(true, with: UIStatusBarAnimation.none)
+        }
 
         let showMap : NSDictionary = ["adType":"rewardAd",
                                       "onAdMethod":"onShow"]
@@ -95,7 +97,7 @@ extension RewardedVideoAd: BUNativeExpressRewardedVideoAdDelegate {
     // 仅在广告真实可见后再上报 onShow，避免 show() 调用成功但未实际展示导致的假阳性。
     public func nativeExpressRewardedVideoAdDidVisible(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
         LogUtil.logInstance.printLog(message: "激励广告可见")
-        emitShowAndEcpmIfNeeded(rewardedVideoAd)
+        emitShowAndEcpmIfNeeded(rewardedVideoAd, updateStatusBar: true)
     }
 
     public func nativeExpressRewardedVideoAdDidClose(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
