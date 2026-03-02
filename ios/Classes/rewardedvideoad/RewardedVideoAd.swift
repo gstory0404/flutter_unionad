@@ -17,6 +17,8 @@ public class RewardedVideoAd : NSObject{
 
     private var bURewardedVideoAd :BUNativeExpressRewardedVideoAd?
     private var hasSentShowEvent = false
+    private var hasSentReadyEvent = false
+    private var showAttemptCount = 0
 
     public func loadRewardedVideoAd(params : NSDictionary) {
         LogUtil.logInstance.printLog(message: params)
@@ -43,6 +45,8 @@ public class RewardedVideoAd : NSObject{
         self.bURewardedVideoAd = BUNativeExpressRewardedVideoAd.init(slot: adslot, rewardedVideoModel: self.rewardModel!)
         self.bURewardedVideoAd!.delegate = self
         self.hasSentShowEvent = false
+        self.hasSentReadyEvent = false
+        self.showAttemptCount = 0
         self.bURewardedVideoAd!.loadData()
     }
 
@@ -53,7 +57,16 @@ public class RewardedVideoAd : NSObject{
             SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
             return
         }
-        self.bURewardedVideoAd!.show(fromRootViewController: MyUtils.getVC())
+        if hasSentShowEvent {
+            return
+        }
+        if showAttemptCount >= 2 {
+            return
+        }
+        showAttemptCount += 1
+        DispatchQueue.main.async {
+            self.bURewardedVideoAd?.show(fromRootViewController: MyUtils.getVC())
+        }
     }
 
     private func emitShowAndEcpmIfNeeded(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd?, updateStatusBar: Bool = false) {
@@ -77,14 +90,22 @@ public class RewardedVideoAd : NSObject{
         LogUtil.logInstance.printLog(message: "ecpm : \(ecpmMap)")
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: ecpmMap)
     }
+
+    private func emitReadyIfNeeded() {
+        if hasSentReadyEvent {
+            return
+        }
+        hasSentReadyEvent = true
+        let map : NSDictionary = ["adType":"rewardAd",
+                                  "onAdMethod":"onReady"]
+        SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
+    }
 }
 
 extension RewardedVideoAd: BUNativeExpressRewardedVideoAdDelegate {
     public func nativeExpressRewardedVideoAdDidLoad(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
         LogUtil.logInstance.printLog(message: "激励广告加载成功")
-        let map : NSDictionary = ["adType":"rewardAd",
-                                  "onAdMethod":"onReady"]
-        SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
+        emitReadyIfNeeded()
     }
 
     public func nativeExpressRewardedVideoAdDidDownLoadVideo(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
@@ -92,6 +113,10 @@ extension RewardedVideoAd: BUNativeExpressRewardedVideoAdDelegate {
         let map : NSDictionary = ["adType":"rewardAd",
                                   "onAdMethod":"onCache"]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
+        // 兜底补发 onReady：避免 didLoad 事件早到丢失导致未触发 show。
+        if !hasSentShowEvent && showAttemptCount < 2 {
+            emitReadyIfNeeded()
+        }
     }
 
     // 仅在广告真实可见后再上报 onShow，避免 show() 调用成功但未实际展示导致的假阳性。
@@ -108,6 +133,8 @@ extension RewardedVideoAd: BUNativeExpressRewardedVideoAdDelegate {
         let map : NSDictionary = ["adType":"rewardAd",
                                   "onAdMethod":"onClose"]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
+        self.hasSentReadyEvent = false
+        self.showAttemptCount = 0
         self.bURewardedVideoAd = nil
     }
 
@@ -118,6 +145,9 @@ extension RewardedVideoAd: BUNativeExpressRewardedVideoAdDelegate {
                                   "onAdMethod":"onFail",
                                   "error":error?.localizedDescription]
         SwiftFlutterUnionadPlugin.event!.sendEvent(event: map)
+        self.hasSentReadyEvent = false
+        self.showAttemptCount = 0
+        self.bURewardedVideoAd = nil
     }
 
     public func nativeExpressRewardedVideoAdDidClickSkip(_ rewardedVideoAd: BUNativeExpressRewardedVideoAd) {
