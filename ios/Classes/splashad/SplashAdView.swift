@@ -116,8 +116,6 @@ extension SplashAdView : BUSplashAdDelegate{
             self.showSkipButton()
         }
         self.splashAd?.showSplashView(inRootViewController: MyUtils.getVC().navigationController ?? MyUtils.getVC())
-        self.channel?.invokeMethod("onShow", arguments: "开屏广告加载完成")
-        self.queryECPM()
     }
     
     //SDK渲染开屏广告渲染失败回调
@@ -135,6 +133,8 @@ extension SplashAdView : BUSplashAdDelegate{
     
     public func splashAdDidShow(_ splashAd: BUSplashAd) {
         LogUtil.logInstance.printLog(message: "开屏广告展示")
+        self.channel?.invokeMethod("onShow", arguments: "开屏广告加载完成")
+        self.queryECPM()
     }
     
     public func splashAdDidClose(_ splashAd: BUSplashAd, closeType: BUSplashAdCloseType) {
