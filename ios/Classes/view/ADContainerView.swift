@@ -16,7 +16,8 @@ class ADContainerView: UIView {
             // nearly invisble
             return nil
         }
-        let windowPoint = self.convert(point, to: UIApplication.shared.delegate?.window!!)
+        // Convert to window coordinates without relying on AppDelegate.window (UIScene compatible).
+        let windowPoint = self.convert(point, to: nil)
 
         let targetView = self.superview?.superview
         let targetOverlayView = self.findTargetOverlayView(windowPoint)
