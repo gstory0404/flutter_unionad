@@ -6,13 +6,36 @@
 //
 
 import Foundation
+import UIKit
 
 class MyUtils{
     static func getVC() -> UIViewController {
-        let vc = UIApplication.shared.delegate?.window??.rootViewController
-        if let vc = vc  {
+        let appDelegateRoot = UIApplication.shared.delegate?.window??.rootViewController
+        var keyWindowRoot: UIViewController? = nil
+        var legacyWindowRoot: UIViewController? = nil
+
+        if #available(iOS 13.0, *) {
+            let windowScenes = UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }
+            let windows = windowScenes.flatMap { $0.windows }
+            keyWindowRoot = windows.first(where: { $0.isKeyWindow })?.rootViewController
+            if keyWindowRoot == nil {
+                keyWindowRoot = windows.first(where: { !$0.isHidden && $0.windowLevel == .normal })?.rootViewController
+            }
+
+            // 兼容未启用 UIScene 或旧生命周期项目：回退到 legacy windows。
+            if keyWindowRoot == nil {
+                let legacyWindows = UIApplication.shared.windows
+                legacyWindowRoot = legacyWindows.first(where: { $0.isKeyWindow })?.rootViewController
+                if legacyWindowRoot == nil {
+                    legacyWindowRoot = legacyWindows.first(where: { !$0.isHidden && $0.windowLevel == .normal })?.rootViewController
+                }
+            }
+        }
+
+        if let vc = appDelegateRoot ?? keyWindowRoot ?? legacyWindowRoot {
             return findBestViewController(vc: vc)
         }
+
         return UIViewController.init()
     }
     
@@ -52,4 +75,3 @@ class MyUtils{
         return screenBounds
     }
 }
-
