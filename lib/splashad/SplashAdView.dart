@@ -138,8 +138,8 @@ class _SplashAdViewState extends State<FlutterUnionadSplashAdView> {
           creationParamsCodec: const StandardMessageCodec(),
         ),
       );
-    }else {
-    return Container();
+    } else {
+      return Container();
     }
   }
 
@@ -151,7 +151,7 @@ class _SplashAdViewState extends State<FlutterUnionadSplashAdView> {
 
   //监听原生view传值
   Future<dynamic> _platformCallHandler(MethodCall call) async {
-     //debugPrint("FlutterUnionadSplashAdView=> ${call.method} : ${call.arguments}");
+    //debugPrint("FlutterUnionadSplashAdView=> ${call.method} : ${call.arguments}");
     switch (call.method) {
       //显示广告
       case FlutterUnionadMethod.onShow:
