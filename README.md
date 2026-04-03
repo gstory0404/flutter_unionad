@@ -163,7 +163,9 @@ await FlutterUnionad.register(
         isProgrammaticRecommend: false,
         userPrivacyConfig: {
             //控制oaid获取频率，"0"表示关闭，“1"或者其他值表示打开。
-            "mcod":"0"
+            "mcod":"0",
+            //关闭后台监听应用安装、更新、卸载行为
+            "installUninstallListen": "0",
         }
     ),
     iosPrivacy: IOSPrivacy(
