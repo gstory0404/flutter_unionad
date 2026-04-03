@@ -1,3 +1,9 @@
+## 2.2.7
+* android sdk升级7.5.1.0
+* ios sdk升级7.5.0.4
+* 兼容 UIScene 生命周期，修复激励广告展示与回调时序问题，感谢[zeewell](https://github.com/zeewell)的[提交](https://github.com/gstory0404/flutter_unionad/pull/195)
+* 插件发布2.2.7
+
 ## 2.2.6
 * android sdk升级7.4.2.0
 * ios sdk升级7.5.0.2
