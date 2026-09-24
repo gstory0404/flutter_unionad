@@ -1,6 +1,6 @@
 name: unionad_android
 description: Android implementation of the flutter_unionad plugin.
-version: 2.2.9
+version: 1.0.0
 homepage: https://github.com/gstory0404/flutter_unionad
 
 environment:

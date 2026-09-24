@@ -1,6 +1,6 @@
 name: unionad_interface
 description: A common platform interface for the flutter_unionad plugin.
-version: 2.2.9
+version: 1.0.0
 homepage: https://github.com/gstory0404/flutter_unionad
 
 environment:
@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  plugin_platform_interface: ^2.1.0
+  plugin_platform_interface: ^2.1.8
 
 dev_dependencies:
   flutter_test:
