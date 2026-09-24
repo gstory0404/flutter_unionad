@@ -1,0 +1,25 @@
+name: unionad_ios
+description: iOS implementation of the flutter_unionad plugin.
+version: 2.2.9
+homepage: https://github.com/gstory0404/flutter_unionad
+
+environment:
+  sdk: ">=2.12.0 <4.0.0"
+  flutter: ">=1.20.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  unionad_interface:
+    path: ../unionad_interface
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  plugin:
+    implements: flutter_unionad
+    platforms:
+      ios:
+        pluginClass: FlutterUnionadPlugin

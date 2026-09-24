@@ -1,0 +1,12 @@
+{
+  "name": "unionad_ohos",
+  "version": "1.0.0",
+  "description": "OpenHarmony implementation of flutter_unionad.",
+  "main": "index.ets",
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@csj/openadsdk": "7.3.0",
+    "@ohos/flutter_ohos": "file:./har/flutter.har"
+  }
+}

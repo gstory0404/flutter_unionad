@@ -1,0 +1,34 @@
+name: flutter_unionad
+description: 字节跳动 穿山甲广告Flutter版（联邦插件）
+version: 2.2.9
+homepage: https://github.com/gstory0404/flutter_unionad
+
+environment:
+  sdk: ">=2.12.0 <4.0.0"
+  flutter: ">=1.20.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  unionad_interface:
+    path: ../unionad_interface
+  unionad_android:
+    path: ../unionad_android
+  unionad_ios:
+    path: ../unionad_ios
+  unionad_ohos:
+    path: ../unionad_ohos
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        default_package: unionad_android
+      ios:
+        default_package: unionad_ios
+      ohos:
+        default_package: unionad_ohos
