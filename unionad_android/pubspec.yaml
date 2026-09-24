@@ -10,8 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  unionad_interface:
-    path: ../unionad_interface
+#  unionad_interface:
+#    path: ../unionad_interface
+  unionad_interface: ^1.0.0
 
 dev_dependencies:
   flutter_test:

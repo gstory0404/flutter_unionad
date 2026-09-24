@@ -10,14 +10,18 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  unionad_interface:
-    path: ../unionad_interface
-  unionad_android:
-    path: ../unionad_android
-  unionad_ios:
-    path: ../unionad_ios
-  unionad_ohos:
-    path: ../unionad_ohos
+#  unionad_interface:
+#    path: ../unionad_interface
+#  unionad_android:
+#    path: ../unionad_android
+#  unionad_ios:
+#    path: ../unionad_ios
+#  unionad_ohos:
+#    path: ../unionad_ohos
+  unionad_interface: ^1.0.0
+  unionad_android: ^1.0.0
+  unionad_ios: ^1.0.0
+  unionad_ohos: ^1.0.0
 
 dev_dependencies:
   flutter_test:

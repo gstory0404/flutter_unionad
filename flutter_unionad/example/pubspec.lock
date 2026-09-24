@@ -194,30 +194,34 @@ packages:
   unionad_android:
     dependency: transitive
     description:
-      path: "../../unionad_android"
-      relative: true
-    source: path
+      name: unionad_android
+      sha256: "0b50417e7d25d79273caae1cd674784ddfd4080f35112ffd3c1cff2b39a38142"
+      url: "https://pub.dev"
+    source: hosted
     version: "1.0.0"
   unionad_interface:
     dependency: transitive
     description:
-      path: "../../unionad_interface"
-      relative: true
-    source: path
+      name: unionad_interface
+      sha256: "9689615cca86965f64785f7038d5edf7a0ec70fe021fafb5f1cb68c7b5ac6bb1"
+      url: "https://pub.dev"
+    source: hosted
     version: "1.0.0"
   unionad_ios:
     dependency: transitive
     description:
-      path: "../../unionad_ios"
-      relative: true
-    source: path
+      name: unionad_ios
+      sha256: "0b33987c585ce7dd88f8d720ceaa269cffb0e84921c0bbd49c9597146070c1a2"
+      url: "https://pub.dev"
+    source: hosted
     version: "1.0.0"
   unionad_ohos:
     dependency: transitive
     description:
-      path: "../../unionad_ohos"
-      relative: true
-    source: path
+      name: unionad_ohos
+      sha256: bc50072d4e80bcc7b0046adb455dadc8cdee77f7e31ca355461e4cc3bfe6f2d8
+      url: "https://pub.dev"
+    source: hosted
     version: "1.0.0"
   vector_math:
     dependency: transitive
