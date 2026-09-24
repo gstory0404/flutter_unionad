@@ -3,14 +3,14 @@ PODS:
   - Ads-CN-Beta/CSJMediation-Only (7.8.0.0):
     - Ads-CN-Beta/BUAdSDK
   - Flutter (1.0.0)
-  - flutter_unionad (0.0.1):
+  - unionad_ios (0.0.1):
     - Ads-CN-Beta/BUAdSDK (= 7.8.0.0)
     - Ads-CN-Beta/CSJMediation-Only (= 7.8.0.0)
     - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
-  - flutter_unionad (from `.symlinks/plugins/flutter_unionad/ios`)
+  - unionad_ios (from `.symlinks/plugins/unionad_ios/ios`)
 
 SPEC REPOS:
   trunk:
@@ -19,13 +19,13 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
-  flutter_unionad:
-    :path: ".symlinks/plugins/flutter_unionad/ios"
+  unionad_ios:
+    :path: ".symlinks/plugins/unionad_ios/ios"
 
 SPEC CHECKSUMS:
   Ads-CN-Beta: 46322f8851914dbcf611028cee861633c63f5983
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  flutter_unionad: 0d5fc5eee77fb6788110d9b86e73668163d8b4d4
+  unionad_ios: 409e00b2907cf538939ae302e58313a56e3f7419
 
 PODFILE CHECKSUM: cc1f88378b4bfcf93a6ce00d2c587857c6008d3b
 
