@@ -17,7 +17,7 @@ export default class SplashView extends PlatformView {
   constructor(context: common.Context, viewId: number, params: HashMap<string, Any>, messenger: BinaryMessenger, uIAbility: UIAbility) {
     super();
 
-    this.mCodeId = params.get("ohosId") as string
+    this.mCodeId = params.get("codeId") as string
     this.viewWidth = params.get("width") as number
     this.viewHeight = params.get("height") as number
     this.timeout = params.get("timeout") as number

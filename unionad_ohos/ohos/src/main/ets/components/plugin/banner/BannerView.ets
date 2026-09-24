@@ -14,7 +14,7 @@ export default class BannerView extends PlatformView {
   constructor(context: common.Context, viewId: number, params: HashMap<string, Any>, messenger: BinaryMessenger, uIAbility: UIAbility) {
     super();
 
-    this.mCodeId = params.get("ohosId") as string
+    this.mCodeId = params.get("codeId") as string
     this.acceptWidth = params.get("width") as number
     this.acceptHeight = params.get("height") as number
     this.channel = new MethodChannel(messenger, FlutterunionadViewConfig.view.bannerAdView + "_" + viewId)

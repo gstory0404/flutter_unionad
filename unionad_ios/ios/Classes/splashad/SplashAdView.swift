@@ -27,7 +27,7 @@ public class SplashAdView : NSObject,FlutterPlatformView{
         self.frame = frame
         self.container = UIView(frame: frame)
         let dict = params as! NSDictionary
-        self.mCodeId = dict.value(forKey: "iosCodeId") as? String
+        self.mCodeId = dict.value(forKey: "codeId") as? String
         self.hideSkip = dict.value(forKey: "hideSkip") as! Bool
         self.isShake = dict.value(forKey: "isShake") as! Bool
         self.viewWidth = Float(dict.value(forKey: "width") as! Double)

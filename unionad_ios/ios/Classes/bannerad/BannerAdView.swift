@@ -39,7 +39,7 @@ class MyBannerView : ADContainerView{
     var viewHeight :Float?
     
     init(frame: CGRect, dict:NSDictionary, methodChannel: FlutterMethodChannel) {
-        self.mCodeId = dict.value(forKey: "iosCodeId") as? String
+        self.mCodeId = dict.value(forKey: "codeId") as? String
         self.viewWidth = Float(dict.value(forKey: "width") as! Double)
         self.viewHeight = Float(dict.value(forKey: "height") as! Double)
         self.channel = methodChannel

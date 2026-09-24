@@ -42,7 +42,7 @@ internal class BannerAdView(
 
 
     init {
-        mCodeId = params["androidCodeId"] as String?
+        mCodeId = params["codeId"] as String?
         var width = params["width"] as Double
         var height = params["height"] as Double
         viewWidth = width.toFloat()

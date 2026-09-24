@@ -28,10 +28,8 @@ class _SplashPageState extends State<SplashPage> {
         Offstage(
           offstage: _offstage,
           child: FlutterUnionadSplashAdView(
-            //android 开屏广告广告id 必填 889033013 102729400
-            androidCodeId: SplashAdCode.android,
-            //ios 开屏广告广告id 必填
-            iosCodeId: SplashAdCode.ios,
+            //广告位id（按平台自行传入）
+            codeId: AdConfig.splashCodeId,
             //是否支持 DeepLink 选填
             supportDeepLink: true,
             // 期望view 宽度 dp 选填

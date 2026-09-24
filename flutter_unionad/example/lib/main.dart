@@ -142,11 +142,8 @@ class _IndexPageState extends State<IndexPage> {
   //注册
   void _initRegister() async {
     _init = await FlutterUnionad.register(
-      //穿山甲广告 Android appid 必填
-      androidAppId: AppIdCode.android,
-      //穿山甲广告 ios appid 必填
-      iosAppId: AppIdCode.ios,
-      ohosAppId: AppIdCode.ohos,
+      //穿山甲广告 appid（按平台自行传入）
+      appId: AdConfig.appId,
       //appname 必填
       appName: "unionad_test",
       //使用聚合功能一定要打开此开关，否则不会请求聚合广告，默认这个值为false
@@ -361,11 +358,8 @@ class _IndexPageState extends State<IndexPage> {
               child: new Text('激励视频'),
               onPressed: () {
                 FlutterUnionad.loadRewardVideoAd(
-                  //Android 激励视频广告id  必填
-                  androidCodeId: RewardVideoAdCode.android,
-                  //ios 激励视频广告id  必填
-                  iosCodeId: RewardVideoAdCode.ios,
-                  ohosCodeId: RewardVideoAdCode.ohos,
+                  //广告位id（按平台自行传入）
+                  codeId: AdConfig.rewardVideoCodeId,
                   //奖励名称 选填
                   rewardName: "200金币",
                   //奖励数量 选填
@@ -402,11 +396,8 @@ class _IndexPageState extends State<IndexPage> {
               child: new Text('新模板渲染插屏广告'),
               onPressed: () {
                 FlutterUnionad.loadFullScreenVideoAdInteraction(
-                  //android 全屏广告id 必填
-                  androidCodeId: FullScreenVideoAdCode.android,
-                  //ios 全屏广告id 必填
-                  iosCodeId: FullScreenVideoAdCode.ios,
-                  ohosCodeId: FullScreenVideoAdCode.ohos,
+                  //广告位id（按平台自行传入）
+                  codeId: AdConfig.fullScreenVideoCodeId,
                   //视屏方向 选填
                   orientation: FlutterUnionadOrientation.VERTICAL,
                 );

@@ -22,7 +22,7 @@ public class RewardedVideoAd : NSObject{
 
     public func loadRewardedVideoAd(params : NSDictionary) {
         LogUtil.logInstance.printLog(message: params)
-        let mCodeId = params.value(forKey: "iosCodeId") as? String
+        let mCodeId = params.value(forKey: "codeId") as? String
         let userID = params.value(forKey: "userID") as? String
         let rewardName = params.value(forKey: "rewardName") as? String
         let rewardAmount = params.value(forKey: "rewardAmount") as? Int

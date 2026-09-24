@@ -24,7 +24,7 @@ public class SwiftFlutterUnionadPlugin: NSObject, FlutterPlugin {
     case "register":
         let param = call.arguments as! NSDictionary
         let isDebug = param.value(forKey: "debug") as? Bool ?? false;
-        let appId = param.value(forKey: "iosAppId") as? String
+        let appId = param.value(forKey: "appId") as? String
         LogUtil.logInstance.isShow(debug: isDebug)
         TTAdManagerHolder.instace.initTTSDK(params: param) { isSuccess, error in
             if(isSuccess){

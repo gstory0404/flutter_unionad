@@ -4,20 +4,15 @@ import 'package:flutter_unionad/flutter_unionad.dart';
 import 'package:unionad_interface/unionad_interface.dart';
 
 class FlutterUnionadBannerView extends StatefulWidget {
-  final String androidCodeId;
-  final String iosCodeId;
-  final String? ohosCodeId;
+  /// 广告位 id（由调用方按当前平台传入对应 id）
+  final String codeId;
   final double width;
   final double height;
   final FlutterUnionadBannerCallBack? callBack;
 
   /// # banner广告
   ///
-  /// [androidCodeId] android banner广告id 必填
-  ///
-  /// [iosCodeId] ios banner广告id 必填
-  ///
-  /// [ohosCodeId] 鸿蒙 banner广告id 选填
+  /// [codeId] 广告位 id 必填
   ///
   /// [width] 期望view宽度 dp 必填
   ///
@@ -27,9 +22,7 @@ class FlutterUnionadBannerView extends StatefulWidget {
   ///
   FlutterUnionadBannerView(
       {Key? key,
-      required this.androidCodeId,
-      required this.iosCodeId,
-      this.ohosCodeId,
+      required this.codeId,
       required this.width,
       required this.height,
       this.callBack})
@@ -64,9 +57,7 @@ class _BannerAdViewState extends State<FlutterUnionadBannerView> {
       height: _height,
       child: UnionadPlatform.instance.buildBannerAdView(
         creationParams: {
-          "androidCodeId": widget.androidCodeId,
-          "iosCodeId": widget.iosCodeId,
-          "ohosCodeId": widget.ohosCodeId,
+          "codeId": widget.codeId,
           "width": widget.width,
           "height": widget.height,
         },

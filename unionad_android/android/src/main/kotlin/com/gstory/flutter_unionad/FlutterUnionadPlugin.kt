@@ -62,7 +62,7 @@ class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         //注册初始化
         if (call.method == "register") {
             var arguments = call.arguments as Map<String?, Any?>
-            val appId = arguments["androidAppId"] as String?
+            val appId = arguments["appId"] as String?
             if (appId == null || appId.trim { it <= ' ' }.isEmpty()) {
                 Log.e("初始化", "appId can't be null")
                 result.success(false)
@@ -107,7 +107,7 @@ class FlutterUnionadPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
             RewardVideoAd.showAd()
             //预加载插屏广告 全屏插屏二合一
         } else if (call.method == "loadFullScreenVideoAdInteraction") {
-            val mCodeId = call.argument<String>("androidCodeId")
+            val mCodeId = call.argument<String>("codeId")
             val orientation = call.argument<Int>("orientation")
             FullScreenVideoAdInteraction.init(
                 mActivity!!,

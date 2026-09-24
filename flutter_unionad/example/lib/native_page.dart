@@ -31,10 +31,8 @@ class _NativeExpressAdPageState extends State<NativeAdPage> {
           children: [
             //个性化模板信息流广告
             FlutterUnionadNativeAdView(
-              //android 信息流广告id 必填
-              androidCodeId: NativeAdCode.android,
-              //ios banner广告id 必填
-              iosCodeId: NativeAdCode.ios,
+              //广告位id（按平台自行传入）
+              codeId: AdConfig.nativeCodeId,
               //是否支持 DeepLink 选填
               supportDeepLink: true,
               // 期望view 宽度 dp 必填
@@ -62,10 +60,8 @@ class _NativeExpressAdPageState extends State<NativeAdPage> {
               ),
             ),
             FlutterUnionad.nativeAdView(
-              //android 信息流广告id 必填
-              androidCodeId: NativeAdCode.android,
-              //ios banner广告id 必填
-              iosCodeId: NativeAdCode.ios,
+              //广告位id（按平台自行传入）
+              codeId: AdConfig.nativeCodeId,
               expressViewWidth: 300,
               expressViewHeight: 200,
               callBack: FlutterUnionadNativeCallBack(

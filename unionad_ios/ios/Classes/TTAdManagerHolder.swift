@@ -12,7 +12,7 @@ public class TTAdManagerHolder : NSObject{
     public static let instace = TTAdManagerHolder()
         
     public func initTTSDK(params : NSDictionary,handelr:@escaping BUCompletionHandler){
-        let appId = params.value(forKey: "iosAppId") as? String
+        let appId = params.value(forKey: "appId") as? String
         let debug = params.value(forKey: "debug") as? Bool ?? false
         let useMediation = params.value(forKey: "useMediation") as? Bool ?? false
         let themeStatus = params.value(forKey: "themeStatus") as! NSNumber

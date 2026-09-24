@@ -1,9 +1,8 @@
 part of 'package:flutter_unionad/flutter_unionad.dart';
 
 class FlutterUnionadSplashAdView extends StatefulWidget {
-  String androidCodeId;
-  String iosCodeId;
-  String? ohosCodeId;
+  /// 广告位 id（由调用方按当前平台传入对应 id）
+  String codeId;
   bool? supportDeepLink;
   double? width;
   double? height;
@@ -15,9 +14,7 @@ class FlutterUnionadSplashAdView extends StatefulWidget {
   /// # 开屏广告
   FlutterUnionadSplashAdView({
     Key? key,
-    required this.androidCodeId,
-    required this.iosCodeId,
-    this.ohosCodeId,
+    required this.codeId,
     this.supportDeepLink,
     this.width,
     this.height,
@@ -59,9 +56,7 @@ class _SplashAdViewState extends State<FlutterUnionadSplashAdView> {
       height: height,
       child: UnionadPlatform.instance.buildSplashAdView(
         creationParams: {
-          "androidCodeId": widget.androidCodeId,
-          "iosCodeId": widget.iosCodeId,
-          "ohosCodeId": widget.ohosCodeId,
+          "codeId": widget.codeId,
           "supportDeepLink": widget.supportDeepLink,
           "width": width,
           "height": height,

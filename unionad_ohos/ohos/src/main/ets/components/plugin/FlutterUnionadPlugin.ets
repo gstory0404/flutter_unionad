@@ -56,14 +56,14 @@ export default class FlutterUnionadPlugin implements FlutterPlugin, MethodCallHa
 
   onMethodCall(call: MethodCall, result: MethodResult): void {
     if (call.method == "register") {
-      let ohosAppId: string = call.args.get("ohosAppId");
+      let appId: string = call.args.get("appId");
       let appName: string = call.args.get("appName");
       let debug: boolean = call.args.get("debug");
       let useMediation: boolean = call.args.get("useMediation");
       // 创建SDKConfig对象
       let adConfigBuilder = new SDKConfigBuilder()
       let config: SDKConfig = adConfigBuilder
-        .appId(ohosAppId)
+        .appId(appId)
         .appName(appName)
         .allowShowNotify(true)
         .debug(debug)
@@ -87,9 +87,9 @@ export default class FlutterUnionadPlugin implements FlutterPlugin, MethodCallHa
       //todo 没做
       result.success(0)
     } else if (call.method == "loadRewardVideoAd") {
-      let ohosCodeId: string = call.args.get("ohosCodeId");
+      let codeId: string = call.args.get("codeId");
       let adSlot = new AdSlotBuilder()
-        .setCodeId(ohosCodeId)
+        .setCodeId(codeId)
         .setAdLoadType(AdLoadType.LOAD)// .setMediaExtra(mediaExtra)
         .build()
       let mLoadListener: RewardAdLoadListener = {
@@ -172,12 +172,12 @@ export default class FlutterUnionadPlugin implements FlutterPlugin, MethodCallHa
       }
       result.success(true)
     } else if (call.method == "loadFullScreenVideoAdInteraction") {
-      let ohosCodeId: string = call.args.get("ohosCodeId");
+      let codeId: string = call.args.get("codeId");
       let orientation: number = call.args.get("orientation");
       FullScreenVideoAdInteraction.init(
         this.applicationContext!,
         this.uiAbility!.context.windowStage,
-        ohosCodeId,
+        codeId,
         orientation!!,
       )
       result.success(true)

@@ -25,7 +25,7 @@ public class NativeAdView : NSObject,FlutterPlatformView, BUCustomEventProtocol{
         self.frame = frame
         self.container = ADContainerView(frame: frame)
         let dict = params as! NSDictionary
-        self.mCodeId = dict.value(forKey: "iosCodeId") as? String
+        self.mCodeId = dict.value(forKey: "codeId") as? String
         self.viewWidth = Float(dict.value(forKey: "width") as! Double)
         self.viewHeight = Float(dict.value(forKey: "height") as! Double)
         self.isMuted = dict.value(forKey: "isMuted") as! Bool

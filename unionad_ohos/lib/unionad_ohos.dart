@@ -80,15 +80,7 @@ class UnionadOhos extends MethodChannelUnionad {
     return Map<String, dynamic>.from(params);
   }
 
-  /// 原生鸿蒙视图参数（原生读取 ohosId）
   Map<String, dynamic> _viewParams(Map<String, dynamic> params) {
-    final result = Map<String, dynamic>.from(params);
-    result.remove('androidCodeId');
-    result.remove('iosCodeId');
-    final ohosCodeId = result.remove('ohosCodeId') ?? result['ohosId'];
-    if (ohosCodeId != null) {
-      result['ohosId'] = ohosCodeId;
-    }
-    return result;
+    return Map<String, dynamic>.from(params);
   }
 }

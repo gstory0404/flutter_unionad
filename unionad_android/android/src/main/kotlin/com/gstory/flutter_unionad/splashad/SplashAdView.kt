@@ -46,7 +46,7 @@ internal class SplashAdView(
     private var channel: MethodChannel?
 
     init {
-        mCodeId = params["androidCodeId"] as String?
+        mCodeId = params["codeId"] as String?
         supportDeepLink = params["supportDeepLink"] as Boolean?
         isShake = params["isShake"] as Boolean?
         var width = params["width"] as Double

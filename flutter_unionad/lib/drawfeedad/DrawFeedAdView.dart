@@ -4,9 +4,8 @@ import 'package:flutter_unionad/flutter_unionad.dart';
 import 'package:unionad_interface/unionad_interface.dart';
 
 class FlutterUnionadDrawFeedAdView extends StatefulWidget {
-  final String androidCodeId;
-  final String iosCodeId;
-  final String? ohosCodeId;
+  /// 广告位 id（由调用方按当前平台传入对应 id）
+  final String codeId;
   final double width;
   final double height;
   final bool isMuted;
@@ -14,9 +13,7 @@ class FlutterUnionadDrawFeedAdView extends StatefulWidget {
 
   const FlutterUnionadDrawFeedAdView(
       {Key? key,
-      required this.androidCodeId,
-      required this.iosCodeId,
-      this.ohosCodeId,
+      required this.codeId,
       required this.width,
       required this.height,
       this.isMuted = true,
@@ -52,9 +49,7 @@ class _DrawFeedAdViewState extends State<FlutterUnionadDrawFeedAdView> {
       height: _height,
       child: UnionadPlatform.instance.buildDrawFeedAdView(
         creationParams: {
-          "androidCodeId": widget.androidCodeId,
-          "iosCodeId": widget.iosCodeId,
-          "ohosCodeId": widget.ohosCodeId,
+          "codeId": widget.codeId,
           "width": widget.width,
           "height": widget.height,
           "isMuted": widget.isMuted,

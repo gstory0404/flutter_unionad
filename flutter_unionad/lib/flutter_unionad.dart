@@ -27,9 +27,7 @@ class FlutterUnionad {
 
   /// # SDK注册初始化
   ///
-  ///[androidAppId] 穿山甲广告 Android appid 必填
-  ///
-  ///[androidAppId] 穿山甲广告 ios appid 必填
+  ///[appId] 穿山甲广告 appid 必填（由调用方按当前平台传入对应 id）
   ///
   ///[appname] app名称 选填
   ///
@@ -59,9 +57,7 @@ class FlutterUnionad {
   /// android导入/android/app/src/main/assets/下，文件必须为json文件，传入文件名
   /// ios导入/ios/下，文件必须为json文件，传入文件名
   static Future<bool> register({
-    required String iosAppId,
-    required String androidAppId,
-    String? ohosAppId,
+    required String appId,
     String? appName,
     bool? useMediation,
     bool? paid,
@@ -78,9 +74,7 @@ class FlutterUnionad {
     String? localConfig,
   }) async {
     return await _platform.register({
-      "iosAppId": iosAppId,
-      "androidAppId": androidAppId,
-      "ohosAppId": ohosAppId,
+      "appId": appId,
       "appName": appName ?? "",
       "paid": paid ?? false,
       "useMediation": useMediation ?? true,
@@ -143,9 +137,7 @@ class FlutterUnionad {
 
   /// # banner广告
   ///
-  /// [androidCodeId] andrrid banner广告id 必填
-  ///
-  /// [iosCodeId] ios banner广告id 必填
+  /// [codeId] banner广告位 id 必填
   ///
   /// [express] 是否使用个性化模版
   ///
@@ -166,8 +158,7 @@ class FlutterUnionad {
   /// @Deprecated("推荐使用[FlutterUnionadBannerView],后续版本可能会移除改api")
   static Widget bannerAdView(
       {bool? mIsExpress,
-      required String androidCodeId,
-      required String iosCodeId,
+      required String codeId,
       bool? supportDeepLink,
       int? expressAdNum,
       int? expressTime,
@@ -178,8 +169,7 @@ class FlutterUnionad {
       int? adLoadType,
       FlutterUnionadBannerCallBack? callBack}) {
     return FlutterUnionadBannerView(
-      androidCodeId: androidCodeId,
-      iosCodeId: iosCodeId,
+      codeId: codeId,
       width: expressViewWidth ?? 0,
       height: expressViewHeight ?? 0,
       callBack: callBack,
@@ -190,9 +180,7 @@ class FlutterUnionad {
   ///
   /// [mIsExpress] 是否使用个性化模版  设定widget宽高
   ///
-  /// [androidCodeId] android 开屏广告广告id 必填
-  ///
-  /// [iosCodeId] ios 开屏广告广告id 必填
+  /// [codeId] 开屏广告广告位 id 必填
   ///
   /// [supportDeepLink] 是否支持 DeepLink 选填
   ///
@@ -210,8 +198,7 @@ class FlutterUnionad {
   ///
   static Widget splashAdView(
       {bool? mIsExpress,
-      required String androidCodeId,
-      required String iosCodeId,
+      required String codeId,
       bool? supportDeepLink,
       double? expressViewWidth,
       double? expressViewHeight,
@@ -221,8 +208,7 @@ class FlutterUnionad {
       bool? hideSkip,
       FlutterUnionadSplashCallBack? callBack}) {
     return FlutterUnionadSplashAdView(
-      androidCodeId: androidCodeId,
-      iosCodeId: iosCodeId,
+      codeId: codeId,
       supportDeepLink: supportDeepLink ?? true,
       width: expressViewWidth ?? 0.0,
       height: expressViewHeight ?? 0.0,
@@ -236,9 +222,7 @@ class FlutterUnionad {
   ///
   /// [mIsExpress] 是否使用个性化模版  设定widget宽高
   ///
-  /// [androidCodeId] android 信息流广告id 必填
-  ///
-  /// [iosCodeId] ios 信息流广告id 必填
+  /// [codeId] 信息流广告位 id 必填
   ///
   /// [supportDeepLink] 是否支持 DeepLink 选填
   ///
@@ -252,8 +236,7 @@ class FlutterUnionad {
   ///
   static Widget nativeAdView(
       {bool? mIsExpress,
-      required String androidCodeId,
-      required String iosCodeId,
+      required String codeId,
       bool? supportDeepLink,
       required double expressViewWidth,
       required double expressViewHeight,
@@ -261,8 +244,7 @@ class FlutterUnionad {
       int? adLoadType,
       FlutterUnionadNativeCallBack? callBack}) {
     return FlutterUnionadNativeAdView(
-      androidCodeId: androidCodeId,
-      iosCodeId: iosCodeId,
+      codeId: codeId,
       supportDeepLink: supportDeepLink ?? true,
       width: expressViewWidth,
       height: expressViewHeight,
@@ -272,11 +254,7 @@ class FlutterUnionad {
 
   /// # 激励视频广告预加载 （模版渲染）
   ///
-  /// [androidCodeId] android 激励视频广告id 必填
-  ///
-  /// [iosCodeId] ios 激励视频广告id 必填
-  ///
-  /// [ohosCodeId] 鸿蒙 激励视频广告id 必填
+  /// [codeId] 激励视频广告位 id 必填
   ///
   /// [rewardName] 奖励名称 必填
   ///
@@ -291,9 +269,7 @@ class FlutterUnionad {
   /// [mutedIfCan] 是否静音
   ///
   static Future<bool> loadRewardVideoAd({
-    required String androidCodeId,
-    required String iosCodeId,
-    String? ohosCodeId,
+    required String codeId,
     required String rewardName,
     required int rewardAmount,
     required String userID,
@@ -302,9 +278,7 @@ class FlutterUnionad {
     bool? mutedIfCan,
   }) async {
     return await _platform.loadRewardVideoAd({
-      "androidCodeId": androidCodeId,
-      "iosCodeId": iosCodeId,
-      "ohosCodeId": ohosCodeId,
+      "codeId": codeId,
       "rewardName": rewardName,
       "rewardAmount": rewardAmount,
       "userID": userID,
@@ -323,9 +297,7 @@ class FlutterUnionad {
   ///
   /// [mIsExpress] 是否使用个性化模版
   ///
-  /// [androidCodeId] android draw视频广告id 必填
-  ///
-  /// [iosCodeId] ios draw视频广告 必填
+  /// [codeId] draw视频广告位 id 必填
   ///
   /// [supportDeepLink] 是否支持 DeepLink 选填
   ///
@@ -339,8 +311,7 @@ class FlutterUnionad {
   ///
   static Widget drawFeedAdView({
     bool? mIsExpress,
-    required String androidCodeId,
-    required String iosCodeId,
+    required String codeId,
     bool? supportDeepLink,
     required double expressViewWidth,
     required double expressViewHeight,
@@ -349,8 +320,7 @@ class FlutterUnionad {
     FlutterUnionadDrawFeedCallBack? callBack,
   }) {
     return FlutterUnionadDrawFeedAdView(
-      androidCodeId: androidCodeId,
-      iosCodeId: iosCodeId,
+      codeId: codeId,
       width: expressViewWidth,
       height: expressViewHeight,
       callBack: callBack,
@@ -360,15 +330,11 @@ class FlutterUnionad {
   /// # 预加载新模板渲染插屏
   ///分为全屏和插屏，全屏和插屏场景下开发者都可以选择投放的广告类型，分别为图片+视频、仅视频、仅图片。
   static Future<bool> loadFullScreenVideoAdInteraction({
-    required String androidCodeId,
-    required String iosCodeId,
-    String? ohosCodeId,
+    required String codeId,
     int? orientation,
   }) async {
     return await _platform.loadFullScreenVideoAdInteraction({
-      "androidCodeId": androidCodeId,
-      "iosCodeId": iosCodeId,
-      "ohosCodeId": ohosCodeId,
+      "codeId": codeId,
       "orientation": orientation ?? FlutterUnionadOrientation.VERTICAL,
     });
   }

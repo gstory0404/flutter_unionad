@@ -14,7 +14,7 @@ public class FullScreenVideoAdInteraction : NSObject{
     private var bUNativeExpressFullscreenVideoAd : BUNativeExpressFullscreenVideoAd?
     
     public func loadFullScreenVideoAdInteraction(params : NSDictionary){
-        let mCodeId = params.value(forKey: "iosCodeId") as? String
+        let mCodeId = params.value(forKey: "codeId") as? String
         self.bUNativeExpressFullscreenVideoAd = BUNativeExpressFullscreenVideoAd.init(slotID: mCodeId!)
         self.bUNativeExpressFullscreenVideoAd!.delegate = self
         self.bUNativeExpressFullscreenVideoAd!.loadData()

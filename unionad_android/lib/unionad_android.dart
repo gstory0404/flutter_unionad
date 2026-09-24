@@ -88,11 +88,7 @@ class UnionadAndroid extends MethodChannelUnionad {
     return Map<String, dynamic>.from(params);
   }
 
-  /// 原生 Android 视图只关心 android 相关字段
   Map<String, dynamic> _viewParams(Map<String, dynamic> params) {
-    final result = Map<String, dynamic>.from(params);
-    result.remove('iosCodeId');
-    result.remove('ohosCodeId');
-    return result;
+    return Map<String, dynamic>.from(params);
   }
 }

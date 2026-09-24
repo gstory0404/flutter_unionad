@@ -43,7 +43,7 @@ internal class DrawFeedAdView(
     private var channel: MethodChannel?
 
     init {
-        mCodeId = params["androidCodeId"] as String?
+        mCodeId = params["codeId"] as String?
         supportDeepLink = params["supportDeepLink"] as Boolean?
         var width = params["width"] as Double
         var height = params["height"] as Double

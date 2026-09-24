@@ -36,7 +36,7 @@ object TTAdManagerHolder {
         arguments: Map<String?, Any?>,
         callback: TTAdSdk.Callback
     ) {
-        val appId = arguments["androidAppId"] as String
+        val appId = arguments["appId"] as String
         val appName = arguments["appName"] as String
         val useMediation = arguments["useMediation"] as Boolean
         val paid = arguments["paid"] as Boolean

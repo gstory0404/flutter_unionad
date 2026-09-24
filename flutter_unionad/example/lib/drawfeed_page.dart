@@ -30,10 +30,8 @@ class _DrawFeedPageState extends State<DrawFeedPage> {
           (context, index) {
             if (index == 0) {
               return FlutterUnionadDrawFeedAdView(
-                // Android draw视屏广告id 必填
-                androidCodeId: DrawFeedAdCode.android,
-                //ios draw视屏广告id 必填
-                iosCodeId: DrawFeedAdCode.ios,
+                //广告位id（按平台自行传入）
+                codeId: AdConfig.drawFeedCodeId,
                 //是否支持 DeepLink 选填
                 width: MediaQuery.of(context).size.width,
                 // 期望view 宽度 dp 必填
@@ -70,10 +68,8 @@ class _DrawFeedPageState extends State<DrawFeedPage> {
             }
             return Center(
               child: FlutterUnionad.drawFeedAdView(
-                // Android draw视屏广告id 必填
-                androidCodeId: DrawFeedAdCode.android,
-                //ios draw视屏广告id 必填
-                iosCodeId: DrawFeedAdCode.ios,
+                //广告位id（按平台自行传入）
+                codeId: AdConfig.drawFeedCodeId,
                 supportDeepLink: true,
                 //是否支持 DeepLink 选填
                 expressViewWidth: 600.5,

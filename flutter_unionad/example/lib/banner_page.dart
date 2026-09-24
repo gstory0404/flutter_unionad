@@ -35,10 +35,8 @@ class _BannerPageState extends State<BannerPage> {
             Container(
               color: Colors.red,
               child: FlutterUnionadBannerView(
-                //andrrid banner广告id 必填
-                androidCodeId: BannerAdCode.android,
-                //ios banner广告id 必填
-                iosCodeId: BannerAdCode.ios,
+                //广告位id（按平台自行传入）
+                codeId: AdConfig.bannerCodeId,
                 // 期望view 宽度 dp 必填
                 width: 600.5,
                 //期望view高度 dp 必填
@@ -58,10 +56,8 @@ class _BannerPageState extends State<BannerPage> {
               ),
             ),
             FlutterUnionad.bannerAdView(
-              //andrrid banner广告id 必填
-              androidCodeId: BannerAdCode.android,
-              //ios banner广告id 必填
-              iosCodeId: BannerAdCode.ios,
+              //广告位id（按平台自行传入）
+              codeId: AdConfig.bannerCodeId,
               expressViewWidth: 600,
               expressViewHeight: 200,
               //广告事件回调 选填

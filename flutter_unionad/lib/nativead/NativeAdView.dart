@@ -4,9 +4,8 @@ import 'package:flutter_unionad/flutter_unionad.dart';
 import 'package:unionad_interface/unionad_interface.dart';
 
 class FlutterUnionadNativeAdView extends StatefulWidget {
-  String androidCodeId;
-  String iosCodeId;
-  String? ohosCodeId;
+  /// 广告位 id（由调用方按当前平台传入对应 id）
+  String codeId;
   bool? supportDeepLink;
   double width;
   double height;
@@ -16,9 +15,7 @@ class FlutterUnionadNativeAdView extends StatefulWidget {
   /// # 信息流广告
   FlutterUnionadNativeAdView(
       {Key? key,
-      required this.androidCodeId,
-      required this.iosCodeId,
-      this.ohosCodeId,
+      required this.codeId,
       required this.supportDeepLink,
       required this.width,
       required this.height,
@@ -59,9 +56,7 @@ class _NativeAdViewState extends State<FlutterUnionadNativeAdView> {
       height: viewHeight,
       child: UnionadPlatform.instance.buildNativeAdView(
         creationParams: {
-          "androidCodeId": widget.androidCodeId,
-          "iosCodeId": widget.iosCodeId,
-          "ohosCodeId": widget.ohosCodeId,
+          "codeId": widget.codeId,
           "supportDeepLink": widget.supportDeepLink,
           "width": widget.width,
           "height": widget.height,
