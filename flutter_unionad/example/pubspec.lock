@@ -73,7 +73,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "2.2.9"
+    version: "3.0.0"
   leak_tracker:
     dependency: transitive
     description:
@@ -197,28 +197,28 @@ packages:
       path: "../../unionad_android"
       relative: true
     source: path
-    version: "2.2.9"
+    version: "1.0.0"
   unionad_interface:
     dependency: transitive
     description:
       path: "../../unionad_interface"
       relative: true
     source: path
-    version: "2.2.9"
+    version: "1.0.0"
   unionad_ios:
     dependency: transitive
     description:
       path: "../../unionad_ios"
       relative: true
     source: path
-    version: "2.2.9"
+    version: "1.0.0"
   unionad_ohos:
     dependency: transitive
     description:
       path: "../../unionad_ohos"
       relative: true
     source: path
-    version: "2.2.9"
+    version: "1.0.0"
   vector_math:
     dependency: transitive
     description:
