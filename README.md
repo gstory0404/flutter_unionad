@@ -17,7 +17,7 @@
 
 ## 简介
 
-`flutter_unionad` 是一款集成了穿山甲 **Android / iOS / 鸿蒙** SDK 的 Flutter 插件，采用**联邦插件（Federated Plugin）**架构：
+`flutter_unionad` 是一款集成了穿山甲 **Android / iOS / 鸿蒙** SDK 的 Flutter 插件
 
 | 包名 | 说明 |
 |:----|:----|
@@ -70,17 +70,10 @@ flutter_unionad/                 # 仓库根目录
 
 #### 1、添加依赖
 
-**pub.dev（发布后）：**
 ```yaml
 dependencies:
   flutter_unionad: ^latest
 ```
-
-**本地 path（联邦插件开发）：**
-```yaml
-dependencies:
-  flutter_unionad:
-    path: ../flutter_unionad   # 指向主包目录
 ```
 
 引入：
@@ -96,9 +89,9 @@ import 'package:flutter_unionad/flutter_unionad.dart';
 <manifest ···
     xmlns:tools="http://schemas.android.com/tools"
     ···>
-<application
-android:usesCleartextTraffic="true"
-tools:replace="android:label">
+  <application
+        android:usesCleartextTraffic="true"
+        tools:replace="android:label">
 ```
 
 #### 3、iOS
@@ -107,11 +100,11 @@ tools:replace="android:label">
 
 ```xml
 <key>io.flutter.embedded_views_preview</key>
-<true/>
+    <true/>
 <key>NSAppTransportSecurity</key>
 <dict>
-<key>NSAllowsArbitraryLoads</key>
-<true/>
+    <key>NSAllowsArbitraryLoads</key>
+    <true/>
 </dict>
 ```
 
@@ -132,73 +125,73 @@ tools:replace="android:label">
 
 ```dart
 await FlutterUnionad.register(
-// 穿山甲 appId（按当前平台自行传入）
-appId: "5098580",
-// appname 必填
-appName: "unionad_test",
-// 使用聚合功能一定要打开此开关，否则不会请求聚合广告，默认这个值为 false
-// true 使用 GroMore 下的广告位
-// false 使用广告变现下的广告位
-useMediation: true,
-// 是否为计费用户 选填
-paid: false,
-// 用户画像的关键词列表 选填
-keywords: "",
-// 是否允许 sdk 展示通知栏提示 选填
-allowShowNotify: true,
-// 是否显示 debug 日志
-debug: true,
-// 是否支持多进程 选填
-supportMultiProcess: false,
-// 主题模式 默认 FlutterUnionAdTheme.DAY，修改后需重新调用初始化
-themeStatus: _themeStatus,
-// 允许直接下载的网络状态集合 选填
-directDownloadNetworkType: [
-FlutterUnionadNetCode.NETWORK_STATE_2G,
-FlutterUnionadNetCode.NETWORK_STATE_3G,
-FlutterUnionadNetCode.NETWORK_STATE_4G,
-FlutterUnionadNetCode.NETWORK_STATE_WIFI
-],
-androidPrivacy: AndroidPrivacy(
-isCanUseLocation: false,
-lat: 0.0,
-lon: 0.0,
-isCanUsePhoneState: false,
-imei: "",
-isCanUseWifiState: false,
-macAddress: "",
-isCanUseWriteExternal: false,
-oaid: "b69cd3cf68900323",
-alist: false,
-isCanUseAndroidId: false,
-androidId: "",
-isCanUsePermissionRecordAudio: false,
-isLimitPersonalAds: false,
-isProgrammaticRecommend: false,
-userPrivacyConfig: {
-"mcod": "0",
-"installUninstallListen": "0",
-}),
-iosPrivacy: IOSPrivacy(
-limitPersonalAds: false,
-limitProgrammaticAds: false,
-forbiddenCAID: false,
-),
-userInfo: UnionadUserInfo(
-userId: "unionad_123",
-age: 19,
-gender: 2,
-channel: "flutter",
-subChannel: "flutter_unionad",
-userValueGroup: "QQ",
-customInfos: {
-"QQ": "123",
-"WeChat": "456",
-}),
-// 配置拉取失败时导入本地配置 https://www.csjplatform.com/supportcenter/5885
-// android 导入 /android/app/src/main/assets/，文件必须为 json，传入文件名
-// ios 导入 /ios/，文件必须为 json，传入文件名
-localConfig: "site_config_5098580",
+    // 穿山甲 appId（按当前平台自行传入）
+    appId: "5098580",
+    // appname 必填
+    appName: "unionad_test",
+    // 使用聚合功能一定要打开此开关，否则不会请求聚合广告，默认这个值为 false
+    // true 使用 GroMore 下的广告位
+    // false 使用广告变现下的广告位
+    useMediation: true,
+    // 是否为计费用户 选填
+    paid: false,
+    // 用户画像的关键词列表 选填
+    keywords: "",
+    // 是否允许 sdk 展示通知栏提示 选填
+    allowShowNotify: true,
+    // 是否显示 debug 日志
+    debug: true,
+    // 是否支持多进程 选填
+    supportMultiProcess: false,
+    // 主题模式 默认 FlutterUnionAdTheme.DAY，修改后需重新调用初始化
+    themeStatus: _themeStatus,
+    // 允许直接下载的网络状态集合 选填
+    directDownloadNetworkType: [
+      FlutterUnionadNetCode.NETWORK_STATE_2G,
+      FlutterUnionadNetCode.NETWORK_STATE_3G,
+      FlutterUnionadNetCode.NETWORK_STATE_4G,
+      FlutterUnionadNetCode.NETWORK_STATE_WIFI
+    ],
+    androidPrivacy: AndroidPrivacy(
+        isCanUseLocation: false,
+        lat: 0.0,
+        lon: 0.0,
+        isCanUsePhoneState: false,
+        imei: "",
+        isCanUseWifiState: false,
+        macAddress: "",
+        isCanUseWriteExternal: false,
+        oaid: "b69cd3cf68900323",
+        alist: false,
+        isCanUseAndroidId: false,
+        androidId: "",
+        isCanUsePermissionRecordAudio: false,
+        isLimitPersonalAds: false,
+        isProgrammaticRecommend: false,
+        userPrivacyConfig: {
+          "mcod": "0",
+          "installUninstallListen": "0",
+        }),
+    iosPrivacy: IOSPrivacy(
+        limitPersonalAds: false,
+        limitProgrammaticAds: false,
+        forbiddenCAID: false,
+    ),
+    userInfo: UnionadUserInfo(
+        userId: "unionad_123",
+        age: 19,
+        gender: 2,
+        channel: "flutter",
+        subChannel: "flutter_unionad",
+        userValueGroup: "QQ",
+        customInfos: {
+          "QQ": "123",
+          "WeChat": "456",
+        }),
+    // 配置拉取失败时导入本地配置 https://www.csjplatform.com/supportcenter/5885
+    // android 导入 /android/app/src/main/assets/，文件必须为 json，传入文件名
+    // ios 导入 /ios/，文件必须为 json，传入文件名
+    localConfig: "site_config_5098580",
 );
 ```
 
@@ -231,20 +224,20 @@ await FlutterUnionad.getSDKVersion();
 
 ```dart
 FlutterUnionad.requestPermissionIfNecessary(
-callBack: FlutterUnionadPermissionCallBack(
-notDetermined: () {
-print("权限未确定");
-},
-restricted: () {
-print("权限限制");
-},
-denied: () {
-print("权限拒绝");
-},
-authorized: () {
-print("权限同意");
-},
-),
+  callBack: FlutterUnionadPermissionCallBack(
+    notDetermined: () {
+      print("权限未确定");
+    },
+    restricted: () {
+      print("权限限制");
+    },
+    denied: () {
+      print("权限拒绝");
+    },
+    authorized: () {
+      print("权限同意");
+    },
+  ),
 );
 ```
 
@@ -256,36 +249,36 @@ iOS 14 及以上获取 ATT 权限，根据返回结果处理业务逻辑。
 
 ```dart
 FlutterUnionadSplashAdView(
-// 广告位 id（按当前平台自行传入）
-codeId: "102729400",
-supportDeepLink: true,
-width: MediaQuery.of(context).size.width,
-height: MediaQuery.of(context).size.height - 100,
-hideSkip: false,
-timeout: 3000,
-callBack: FlutterUnionadSplashCallBack(
-onShow: () {
-print("开屏广告显示");
-},
-onClick: () {
-print("开屏广告点击");
-},
-onFail: (error) {
-print("开屏广告失败 $error");
-Navigator.pop(context);
-},
-onFinish: () {
-print("开屏广告倒计时结束");
-Navigator.pop(context);
-},
-onSkip: () {
-print("开屏广告跳过");
-Navigator.pop(context);
-},
-onTimeOut: () {
-print("开屏广告超时");
-},
-),
+  // 广告位 id（按当前平台自行传入）
+  codeId: "102729400",
+  supportDeepLink: true,
+  width: MediaQuery.of(context).size.width,
+  height: MediaQuery.of(context).size.height - 100,
+  hideSkip: false,
+  timeout: 3000,
+  callBack: FlutterUnionadSplashCallBack(
+    onShow: () {
+      print("开屏广告显示");
+    },
+    onClick: () {
+      print("开屏广告点击");
+    },
+    onFail: (error) {
+      print("开屏广告失败 $error");
+      Navigator.pop(context);
+    },
+    onFinish: () {
+      print("开屏广告倒计时结束");
+      Navigator.pop(context);
+    },
+    onSkip: () {
+      print("开屏广告跳过");
+      Navigator.pop(context);
+    },
+    onTimeOut: () {
+      print("开屏广告超时");
+    },
+  ),
 )
 ```
 
@@ -293,24 +286,24 @@ print("开屏广告超时");
 
 ```dart
 FlutterUnionadBannerView(
-// 广告位 id（按当前平台自行传入）
-codeId: "102735527",
-width: 600.5,
-height: 120.5,
-callBack: FlutterUnionadBannerCallBack(
-onShow: () {
-print("banner广告加载完成");
-},
-onDislike: (message) {
-print("banner不感兴趣 $message");
-},
-onFail: (error) {
-print("banner广告加载失败 $error");
-},
-onClick: () {
-print("banner广告点击");
-},
-),
+  // 广告位 id（按当前平台自行传入）
+  codeId: "102735527",
+  width: 600.5,
+  height: 120.5,
+  callBack: FlutterUnionadBannerCallBack(
+    onShow: () {
+      print("banner广告加载完成");
+    },
+    onDislike: (message) {
+      print("banner不感兴趣 $message");
+    },
+    onFail: (error) {
+      print("banner广告加载失败 $error");
+    },
+    onClick: () {
+      print("banner广告点击");
+    },
+  ),
 )
 ```
 
@@ -318,25 +311,25 @@ print("banner广告点击");
 
 ```dart
 FlutterUnionadNativeAdView(
-// 广告位 id（按当前平台自行传入）
-codeId: "102730271",
-supportDeepLink: true,
-width: 375.5,
-height: 0,
-callBack: FlutterUnionadNativeCallBack(
-onShow: () {
-print("信息流广告显示");
-},
-onFail: (error) {
-print("信息流广告失败 $error");
-},
-onDislike: (message) {
-print("信息流广告不感兴趣 $message");
-},
-onClick: () {
-print("信息流广告点击");
-},
-),
+  // 广告位 id（按当前平台自行传入）
+  codeId: "102730271",
+  supportDeepLink: true,
+  width: 375.5,
+  height: 0,
+  callBack: FlutterUnionadNativeCallBack(
+    onShow: () {
+      print("信息流广告显示");
+    },
+    onFail: (error) {
+      print("信息流广告失败 $error");
+    },
+    onDislike: (message) {
+      print("信息流广告不感兴趣 $message");
+    },
+    onClick: () {
+      print("信息流广告点击");
+    },
+  ),
 )
 ```
 
@@ -346,13 +339,13 @@ print("信息流广告点击");
 
 ```dart
 FlutterUnionad.loadRewardVideoAd(
-// 广告位 id（按当前平台自行传入）
-codeId: "102733764",
-rewardName: "200金币",
-rewardAmount: 200,
-userID: "123",
-orientation: FlutterUnionadOrientation.VERTICAL,
-mediaExtra: null,
+  // 广告位 id（按当前平台自行传入）
+  codeId: "102733764",
+  rewardName: "200金币",
+  rewardAmount: 200,
+  userID: "123",
+  orientation: FlutterUnionadOrientation.VERTICAL,
+  mediaExtra: null,
 );
 ```
 
@@ -366,42 +359,42 @@ await FlutterUnionad.showRewardVideoAd();
 
 ```dart
 FlutterUnionadStream.initAdStream(
-flutterUnionadRewardAdCallBack: FlutterUnionadRewardAdCallBack(
-onShow: () {
-print("激励广告显示");
-},
-onClick: () {
-print("激励广告点击");
-},
-onFail: (error) {
-print("激励广告失败 $error");
-},
-onClose: () {
-print("激励广告关闭");
-},
-onSkip: () {
-print("激励广告跳过");
-},
-onVerify: (rewardVerify, rewardAmount, rewardName) {
-print("激励广告奖励  $rewardVerify   $rewardAmount  $rewardName");
-},
-onReady: () async {
-print("激励广告预加载准备就绪");
-await FlutterUnionad.showRewardVideoAd();
-},
-onCache: () async {
-print("激励广告物料缓存成功。建议在这里进行广告展示，可保证播放流畅和展示流畅，用户体验更好。");
-},
-onUnReady: () {
-print("激励广告预加载未准备就绪");
-},
-onRewardArrived: (rewardVerify, rewardType, rewardAmount, rewardName,
-errorCode, error, propose) {
-print(
-"阶段激励广告奖励  验证结果=$rewardVerify 奖励类型=$rewardType 奖励=$rewardAmount "
-"奖励名称$rewardName 错误码=$errorCode 错误$error 建议奖励$propose");
-},
-),
+  flutterUnionadRewardAdCallBack: FlutterUnionadRewardAdCallBack(
+    onShow: () {
+      print("激励广告显示");
+    },
+    onClick: () {
+      print("激励广告点击");
+    },
+    onFail: (error) {
+      print("激励广告失败 $error");
+    },
+    onClose: () {
+      print("激励广告关闭");
+    },
+    onSkip: () {
+      print("激励广告跳过");
+    },
+    onVerify: (rewardVerify, rewardAmount, rewardName) {
+      print("激励广告奖励  $rewardVerify   $rewardAmount  $rewardName");
+    },
+    onReady: () async {
+      print("激励广告预加载准备就绪");
+      await FlutterUnionad.showRewardVideoAd();
+    },
+    onCache: () async {
+      print("激励广告物料缓存成功。建议在这里进行广告展示，可保证播放流畅和展示流畅，用户体验更好。");
+    },
+    onUnReady: () {
+      print("激励广告预加载未准备就绪");
+    },
+    onRewardArrived: (rewardVerify, rewardType, rewardAmount, rewardName,
+        errorCode, error, propose) {
+      print(
+          "阶段激励广告奖励  验证结果=$rewardVerify 奖励类型=$rewardType 奖励=$rewardAmount "
+          "奖励名称$rewardName 错误码=$errorCode 错误$error 建议奖励$propose");
+    },
+  ),
 );
 ```
 
@@ -409,33 +402,33 @@ print(
 
 ```dart
 FlutterUnionadDrawFeedAdView(
-// 广告位 id（按当前平台自行传入）
-codeId: "102734241",
-width: 600.5,
-height: 800.5,
-callBack: FlutterUnionadDrawFeedCallBack(
-onShow: () {
-print("draw广告显示");
-},
-onFail: (error) {
-print("draw广告加载失败 $error");
-},
-onClick: () {
-print("draw广告点击");
-},
-onDislike: (message) {
-print("draw点击不喜欢 $message");
-},
-onVideoPlay: () {
-print("draw视频播放");
-},
-onVideoPause: () {
-print("draw视频暂停");
-},
-onVideoStop: () {
-print("draw视频结束");
-},
-),
+  // 广告位 id（按当前平台自行传入）
+  codeId: "102734241",
+  width: 600.5,
+  height: 800.5,
+  callBack: FlutterUnionadDrawFeedCallBack(
+    onShow: () {
+      print("draw广告显示");
+    },
+    onFail: (error) {
+      print("draw广告加载失败 $error");
+    },
+    onClick: () {
+      print("draw广告点击");
+    },
+    onDislike: (message) {
+      print("draw点击不喜欢 $message");
+    },
+    onVideoPlay: () {
+      print("draw视频播放");
+    },
+    onVideoPause: () {
+      print("draw视频暂停");
+    },
+    onVideoStop: () {
+      print("draw视频结束");
+    },
+  ),
 )
 ```
 
@@ -445,9 +438,9 @@ print("draw视频结束");
 
 ```dart
 FlutterUnionad.loadFullScreenVideoAdInteraction(
-// 广告位 id（按当前平台自行传入）
-codeId: "102735530",
-orientation: FlutterUnionadOrientation.VERTICAL,
+  // 广告位 id（按当前平台自行传入）
+  codeId: "102735530",
+  orientation: FlutterUnionadOrientation.VERTICAL,
 );
 ```
 
@@ -461,33 +454,33 @@ await FlutterUnionad.showFullScreenVideoAdInteraction();
 
 ```dart
 FlutterUnionadStream.initAdStream(
-flutterUnionadNewInteractionCallBack: FlutterUnionadNewInteractionCallBack(
-onShow: () {
-print("新模板渲染插屏广告显示");
-},
-onSkip: () {
-print("新模板渲染插屏广告跳过");
-},
-onClick: () {
-print("新模板渲染插屏广告点击");
-},
-onFinish: () {
-print("新模板渲染插屏广告结束");
-},
-onFail: (error) {
-print("新模板渲染插屏广告错误 $error");
-},
-onClose: () {
-print("新模板渲染插屏广告关闭");
-},
-onReady: () async {
-print("新模板渲染插屏广告预加载准备就绪");
-await FlutterUnionad.showFullScreenVideoAdInteraction();
-},
-onUnReady: () {
-print("新模板渲染插屏广告预加载未准备就绪");
-},
-),
+  flutterUnionadNewInteractionCallBack: FlutterUnionadNewInteractionCallBack(
+    onShow: () {
+      print("新模板渲染插屏广告显示");
+    },
+    onSkip: () {
+      print("新模板渲染插屏广告跳过");
+    },
+    onClick: () {
+      print("新模板渲染插屏广告点击");
+    },
+    onFinish: () {
+      print("新模板渲染插屏广告结束");
+    },
+    onFail: (error) {
+      print("新模板渲染插屏广告错误 $error");
+    },
+    onClose: () {
+      print("新模板渲染插屏广告关闭");
+    },
+    onReady: () async {
+      print("新模板渲染插屏广告预加载准备就绪");
+      await FlutterUnionad.showFullScreenVideoAdInteraction();
+    },
+    onUnReady: () {
+      print("新模板渲染插屏广告预加载未准备就绪");
+    },
+  ),
 );
 ```
 
