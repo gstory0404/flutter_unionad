@@ -17,7 +17,7 @@
 
 ## 简介
 
-`flutter_unionad` 是一款集成了穿山甲 **Android / iOS / 鸿蒙** SDK 的 Flutter 插件，采用**联邦插件（Federated Plugin）**架构：
+`flutter_unionad` 是一款集成了穿山甲 **Android / iOS / 鸿蒙** SDK 的 Flutter 插件
 
 | 包名 | 说明 |
 |:----|:----|
@@ -70,17 +70,10 @@ flutter_unionad/                 # 仓库根目录
 
 #### 1、添加依赖
 
-**pub.dev（发布后）：**
 ```yaml
 dependencies:
   flutter_unionad: ^latest
 ```
-
-**本地 path（联邦插件开发）：**
-```yaml
-dependencies:
-  flutter_unionad:
-    path: ../flutter_unionad   # 指向主包目录
 ```
 
 引入：
