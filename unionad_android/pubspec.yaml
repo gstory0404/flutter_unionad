@@ -24,3 +24,4 @@ flutter:
       android:
         package: com.gstory.flutter_unionad
         pluginClass: FlutterUnionadPlugin
+        dartPluginClass: UnionadAndroid

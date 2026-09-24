@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_unionad/flutter_unionad.dart';
@@ -7,6 +6,7 @@ import 'package:unionad_interface/unionad_interface.dart';
 class FlutterUnionadDrawFeedAdView extends StatefulWidget {
   final String androidCodeId;
   final String iosCodeId;
+  final String? ohosCodeId;
   final double width;
   final double height;
   final bool isMuted;
@@ -16,6 +16,7 @@ class FlutterUnionadDrawFeedAdView extends StatefulWidget {
       {Key? key,
       required this.androidCodeId,
       required this.iosCodeId,
+      this.ohosCodeId,
       required this.width,
       required this.height,
       this.isMuted = true,
@@ -27,14 +28,9 @@ class FlutterUnionadDrawFeedAdView extends StatefulWidget {
 }
 
 class _DrawFeedAdViewState extends State<FlutterUnionadDrawFeedAdView> {
-  String _viewType = UnionadConstants.drawFeedViewType;
-
   MethodChannel? _channel;
 
-  //广告是否显示
   bool _isShowAd = true;
-
-  //宽高
   double _width = 0;
   double _height = 0;
 
@@ -51,54 +47,33 @@ class _DrawFeedAdViewState extends State<FlutterUnionadDrawFeedAdView> {
     if (!_isShowAd) {
       return Container();
     }
-    if (defaultTargetPlatform == TargetPlatform.android) {
-      return Container(
+    return Container(
+      width: _width,
+      height: _height,
+      child: UnionadPlatform.instance.buildDrawFeedAdView(
+        creationParams: {
+          "androidCodeId": widget.androidCodeId,
+          "iosCodeId": widget.iosCodeId,
+          "ohosCodeId": widget.ohosCodeId,
+          "width": widget.width,
+          "height": widget.height,
+          "isMuted": widget.isMuted,
+        },
         width: _width,
         height: _height,
-        child: AndroidView(
-          viewType: _viewType,
-          creationParams: {
-            "androidCodeId": widget.androidCodeId,
-            "width": widget.width,
-            "height": widget.height,
-            "isMuted": widget.isMuted,
-          },
-          onPlatformViewCreated: _registerChannel,
-          creationParamsCodec: const StandardMessageCodec(),
-        ),
-      );
-    } else if (defaultTargetPlatform == TargetPlatform.iOS) {
-      return Container(
-        width: _width,
-        height: _height,
-        child: UiKitView(
-          viewType: _viewType,
-          creationParams: {
-            "iosCodeId": widget.iosCodeId,
-            "width": widget.width,
-            "height": widget.height,
-            "isMuted": widget.isMuted,
-          },
-          onPlatformViewCreated: _registerChannel,
-          creationParamsCodec: const StandardMessageCodec(),
-        ),
-      );
-    } else {
-      return Container();
-    }
+        onPlatformViewCreated: _registerChannel,
+      ),
+    );
   }
 
-  //注册cannel
   void _registerChannel(int id) {
-    _channel = MethodChannel("${_viewType}_$id");
+    _channel =
+        MethodChannel("${UnionadConstants.drawFeedViewType}_$id");
     _channel?.setMethodCallHandler(_platformCallHandler);
   }
 
-  //监听原生view传值
   Future<dynamic> _platformCallHandler(MethodCall call) async {
-    // debugPrint("DrawFeed广告: ${call.method}  ${call.arguments}");
     switch (call.method) {
-      //显示广告
       case FlutterUnionadMethod.onShow:
         Map map = call.arguments;
         if (mounted) {
@@ -112,7 +87,6 @@ class _DrawFeedAdViewState extends State<FlutterUnionadDrawFeedAdView> {
         }
         widget.callBack?.onShow?.call();
         break;
-      //广告加载失败
       case FlutterUnionadMethod.onFail:
         widget.callBack?.onFail?.call(call.arguments);
         setState(() {
