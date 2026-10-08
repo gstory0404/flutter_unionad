@@ -2,7 +2,7 @@ import {
   AbilityAware, AbilityPluginBinding, Any, FlutterPlugin, FlutterPluginBinding, MethodCall, MethodCallHandler, MethodChannel, MethodResult,
 } from '@ohos/flutter_ohos';
 import {
-  AdLoadType, AdSlotBuilder, CSJAdSdk, CSJRewardAd, RewardAdInteractionListener, RewardAdLoadListener, SDKConfig, SDKConfigBuilder, MediationConfigBuilder
+  AdLoadType, AdSlotBuilder, CSJAdCreator, CSJAdSdk, CSJRewardAd, RewardAdInteractionListener, RewardAdLoadListener, SDKConfig, SDKConfigBuilder, MediationConfigBuilder
 } from '@csj/openadsdk';
 import { UIAbility } from '@kit.AbilityKit';
 import FlutterUnionadEventPlugin from './FlutterUnionadEventPlugin';
@@ -14,7 +14,9 @@ export default class FlutterUnionadPlugin implements FlutterPlugin, MethodCallHa
   private channel: MethodChannel | null = null;
   private applicationContext: Context | null = null;
   private uiAbility: UIAbility | null = null;
-  private adCreator = CSJAdSdk.getAdCreator();
+  // Official docs: call getAdCreator only after CSJAdSdk.start succeeds.
+  // Creating it at field init (before init/start) can keep mediation off → 40006.
+  private adCreator: CSJAdCreator | null = null;
   private rewardAd: CSJRewardAd | null = null;
   private flutterPluginBinding: FlutterPluginBinding | null = null;
 
@@ -78,9 +80,18 @@ export default class FlutterUnionadPlugin implements FlutterPlugin, MethodCallHa
       // 初始化SDK
       CSJAdSdk.init(this.uiAbility?.context, config) //context类型必须为UIAbility，否则可能存在展示异常场景
 
-      // 启动SDK
-      CSJAdSdk.start();
-      result.success(true)
+      // 启动SDK；官方要求等 start 成功（0 / 4200）后再 getAdCreator / 请求广告
+      CSJAdSdk.start().then((startResult) => {
+        const code = startResult?.code
+        const ok = code == 0 || code == 4200
+        if (ok) {
+          this.adCreator = CSJAdSdk.getAdCreator()
+        }
+        result.success(ok)
+      }).catch((e: Error) => {
+        console.error(`FlutterUnionadPlugin start failed: ${e}`)
+        result.success(false)
+      })
     } else if (call.method == "getSDKVersion") {
       result.success(CSJAdSdk.getSDKVersion())
     } else if (call.method == "getThemeStatus") {
@@ -88,6 +99,9 @@ export default class FlutterUnionadPlugin implements FlutterPlugin, MethodCallHa
       result.success(0)
     } else if (call.method == "loadRewardVideoAd") {
       let codeId: string = call.args.get("codeId");
+      if (this.adCreator == null) {
+        this.adCreator = CSJAdSdk.getAdCreator()
+      }
       let adSlot = new AdSlotBuilder()
         .setCodeId(codeId)
         .setAdLoadType(AdLoadType.LOAD)// .setMediaExtra(mediaExtra)
@@ -115,7 +129,7 @@ export default class FlutterUnionadPlugin implements FlutterPlugin, MethodCallHa
           FlutterUnionadEventPlugin.sendContent(map);
         }
       }
-      this.adCreator.loadRewardAd(adSlot, mLoadListener)
+      this.adCreator!.loadRewardAd(adSlot, mLoadListener)
       result.success(true)
     } else if (call.method == "showRewardVideoAd") {
       let adInteractionListener: RewardAdInteractionListener = {
