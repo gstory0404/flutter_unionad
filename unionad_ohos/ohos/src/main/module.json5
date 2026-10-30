@@ -1,6 +1,6 @@
 {
   "module": {
-    "name": "flutter_unionad",
+    "name": "unionad_ohos",
     "type": "har",
     "deviceTypes": [
       "default",
